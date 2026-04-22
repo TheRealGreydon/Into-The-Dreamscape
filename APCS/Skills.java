@@ -6,13 +6,9 @@
  */
 package APCS;
 
-public class DropDriver
+public interface Skills
 {
-    public static void main(String[] args)
-    {
-        DropGame d = new DropGame();
-        
-        d.setUpBoard();   
-        d.printGame();
-    }
+    public String getName();
+
+    public String getDes();
 }
