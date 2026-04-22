@@ -4,13 +4,13 @@
  */
 package APCS;
 
-public class DropGameGUIDriver
+public class GUIDriver
 {
 
     public static void main(String[] args)
     {
-        DropGame d = new DropGame();
-        DropGameGUI gui = new DropGameGUI(d);
+        Main d = new Main();
+        GUI gui = new GUI(d);
         gui.displayGame();
     }
 

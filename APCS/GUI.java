@@ -16,10 +16,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
-public class DropGameGUI extends JFrame implements ActionListener
+public class GUI extends JFrame implements ActionListener
 {
     /** The Drop Game engine. */
-    private DropGame game;
+    private Main game;
     /** The main panel containing the game components. */
     private JPanel panel;
     /** The game board displaying point values. */
@@ -47,7 +47,7 @@ public class DropGameGUI extends JFrame implements ActionListener
      * Initialize the GUI.
      * @param d the DropGame engine
      */
-    public DropGameGUI(DropGame d)
+    public GUI(Main d)
     {
         game=d;
         game.setUpBoard();

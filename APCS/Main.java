@@ -11,7 +11,7 @@ package APCS;
 import java.util.Scanner;
 
 
-public class DropGame
+public class Main
 {
     /** reads input from the keyboard*/
     Scanner in = new Scanner(System.in);

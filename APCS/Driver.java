@@ -6,11 +6,11 @@
  */
 package APCS;
 
-public class DropDriver
+public class Driver
 {
     public static void main(String[] args)
     {
-        DropGame d = new DropGame();
+        Main d = new Main();
         
         d.setUpBoard();   
         d.printGame();
