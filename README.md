@@ -16,4 +16,6 @@ UPDATES
 -Added Skills, Attacks, Physical Attacks, and Rock throw attack
 -V.3.1-
 -Added 3 more attacks
+-V.3.2-
+-Added game
 -Nicholas-
