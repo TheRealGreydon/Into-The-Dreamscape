@@ -26,13 +26,13 @@ public class Main
     int[][] board = new int[rows][cols];
   
     /** the column under which the player is positioned */
-    int playerCol;
+    String playName;
   
     /** the number of points earned by the player */
-    int playerPoints;
+    boolean gend;
   
     /** the number of turns remaining before the game ends */
-    int turnsLeft;
+    int out;
   
     
     /** Initialize the board with random values of 0, 100, 200, 300, 400
@@ -40,10 +40,9 @@ public class Main
      *  other values appear with equal probability.  The player should 
      *  start in column 2 and have 10 turns remaining.
      */
-    public void setUpBoard()
+    public void setUpGame()
     {
-        	
-      
+        	      
     }
     
     
@@ -132,7 +131,7 @@ public class Main
     /**
      * @return the playerCol
      */
-    public int getPlayerCol()
+    public String getPlayerCol()
     {
         return playerCol;
     }

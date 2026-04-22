@@ -5,5 +5,8 @@ UPDATES
 -------
 
 4/22/26
+-V.1-
 -Added GUI and main base layers
 -Made new backend branch for main code
+-V.2-
+-Added ability and player classes

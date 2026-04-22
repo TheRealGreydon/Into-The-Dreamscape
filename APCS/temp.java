@@ -6,10 +6,7 @@
  */
 package APCS;
 
-public class Driver
+public class temp
 {
-    public static void main(String[] args)
-    {
-        Main m = new Main();
-    }
+    
 }
