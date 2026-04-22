@@ -19,13 +19,31 @@ public class Player
     private int[] stats = {0,0,0,0,0,0};
     private int hp=9;
     private int lvl=1;
-    private ArrayList<Ability> abilitys;
+    private ArrayList<Skills> skills;
+    private int fav;
 
-    public Player(String name, int gend, int outfit)
+    public Player(String name, int gend, int outfit, int fav)
     {
         this.name = name;
         this.gend = gend;
         this.outfit = outfit;
+        this.fav = fav;
+        switch (fav) {
+            case 1:
+           
+            break;
+            case 2:
+           
+            break;
+            case 3:
+           
+            break;
+            case 4:
+           
+            break;
+            default:
+                throw new AssertionError();
+        }
     }
     
     public String getName()
@@ -93,28 +111,37 @@ public class Player
         hp=9+lvl+(getHp()*2);
     }
 
-    public void addAbil(Ability x)
+    public void addAbil(Skills x)
     {
-        abilitys.add(x);
+        skills.add(x);
     }
 
-    public void swapAbil(Ability x, int y)
+    public void swapAbil(Skills x, int y)
     {
-        abilitys.set(y, x);
+        skills.set(y, x);
     }
 
     public String getAbil(int x)
     {
-        return abilitys.get(x).getName();
+        return skills.get(x).getName();
     }
 
     public String listAbil()
     {
         String temp="";
-        for(int i=0; i<abilitys.size(); i++)
+        for(int i=0; i<skills.size(); i++)
         {
             temp+=getAbil(i)+"\n";
         }
         return temp;
+    }
+
+    public void lvlUp(int x)
+    {
+        lvl++;
+        statMod(x, 1);
+        statMod(2,1);
+        statMod(0, 1);
+        statMod(5, 1);
     }
 }
