@@ -14,3 +14,6 @@ UPDATES
 -Added ability types
 -V.3-
 -Added Skills, Attacks, Physical Attacks, and Rock throw attack
+-V.3.1-
+-Added 3 more attacks
+-Nicholas-

@@ -14,5 +14,5 @@ public interface Atk extends Skills
 
     public int status();
 
-    public boolean ranged();
+    public boolean spc();
 }

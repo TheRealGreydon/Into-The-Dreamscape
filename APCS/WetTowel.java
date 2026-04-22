@@ -6,21 +6,16 @@
  */
 package APCS;
 
-public class RockThrow  implements RangAtk
+public class WetTowel  implements Atk
 {
     public String getName()
     {
-        return "Rock Throw";
+        return "Wet Towel";
     }
 
     public String getDes()
     {
-        return "Throws a rock. Hard. 20% chance to bludgen.";
-    }
-
-    public double accuracy()
-    {
-        return .75;
+        return "Party Pooper.";
     }
 
     public int getDmg()
@@ -30,15 +25,11 @@ public class RockThrow  implements RangAtk
 
     public int getDmgType()
     {
-        return 3;
+        return 2;
     }
 
     public int status()
     {
-        if((int)((Math.random()*5))==4)
-        {
-            return 1;
-        }  
         return 0;
     }
 

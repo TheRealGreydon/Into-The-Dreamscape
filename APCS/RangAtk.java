@@ -6,7 +6,7 @@
  */
 package APCS;
 
-public interface  PhysAtk extends Atk
+public interface  RangAtk extends Atk
 {
     public double accuracy();
 }

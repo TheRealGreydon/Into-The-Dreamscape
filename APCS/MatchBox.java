@@ -6,44 +6,44 @@
  */
 package APCS;
 
-public class RockThrow  implements RangAtk
+public class MatchBox implements  RangAtk
 {
     public String getName()
     {
-        return "Rock Throw";
+        return "Match Box";
     }
 
     public String getDes()
     {
-        return "Throws a rock. Hard. 20% chance to bludgen.";
+        return "Who gives a kid matches?? 10% to burn.";
     }
 
     public double accuracy()
     {
-        return .75;
+        return .5;
     }
 
     public int getDmg()
     {
-        return 2;
+        return 3;
     }
 
     public int getDmgType()
     {
-        return 3;
+        return 1;
     }
 
     public int status()
     {
-        if((int)((Math.random()*5))==4)
+        if((int)((Math.random()*10))==9)
         {
-            return 1;
+            return 2;
         }  
         return 0;
     }
 
     public boolean spc()
     {
-        return false;
+        return true;
     }
 }

@@ -6,16 +6,16 @@
  */
 package APCS;
 
-public class RockThrow  implements RangAtk
+public class PartyPopper  implements RangAtk
 {
     public String getName()
     {
-        return "Rock Throw";
+        return "Party Popper";
     }
 
     public String getDes()
     {
-        return "Throws a rock. Hard. 20% chance to bludgen.";
+        return "Festive! 25% to scare opponent.";
     }
 
     public double accuracy()
@@ -25,25 +25,25 @@ public class RockThrow  implements RangAtk
 
     public int getDmg()
     {
-        return 2;
+        return 1;
     }
 
     public int getDmgType()
     {
-        return 3;
+        return 4;
     }
 
     public int status()
     {
-        if((int)((Math.random()*5))==4)
+        if((int)((Math.random()*4))==3)
         {
-            return 1;
+            return 3;
         }  
         return 0;
     }
 
     public boolean spc()
     {
-        return false;
+        return true;
     }
 }
