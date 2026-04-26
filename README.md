@@ -19,3 +19,5 @@ UPDATES
 -V.3.2-
 -Added game
 -Nicholas-
+
+Kronk
