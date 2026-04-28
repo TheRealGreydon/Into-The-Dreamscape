@@ -6,7 +6,7 @@
  */
 package APCS;
 
-public class RockThrow  implements RangAtk
+public class RockThrow implements RangAtk
 {
     public String getName()
     {

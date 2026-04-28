@@ -8,15 +8,6 @@ package APCS;
 
 public class game
 {
-    private enum gameState{
-        MAINMEN,
-        MENU,
-        INTRO,
-        LVL,
-        MBOSS,
-        BOSS
-    }
-    
     public game()
     {
         

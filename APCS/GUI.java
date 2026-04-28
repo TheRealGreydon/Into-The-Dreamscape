@@ -50,8 +50,6 @@ public class GUI extends JFrame implements ActionListener
     public GUI(Main d)
     {
         game=d;
-        game.setUpBoard();
-        game.printGame();
         initialize();
                 
     }
@@ -75,13 +73,6 @@ public class GUI extends JFrame implements ActionListener
         //Program will ende if frame is closed
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         
-        rows=game.getRows();
-        cols=game.getCols();
-        
-        double scaleFactorW=5.0/cols;
-        double scaleFactorL=3.0/rows;
-        buttonWidth=(int)(100*scaleFactorW);
-        buttonLength=(int)(100*scaleFactorL);
         this.setSize(700,700);
         
         panel = new JPanel();
@@ -99,30 +90,7 @@ public class GUI extends JFrame implements ActionListener
         title.setHorizontalAlignment(info.CENTER);
         title.setVerticalAlignment(info.CENTER);
         title.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
-        title.setText("DROP GAME"); 
-        
-        //create the 2-dimensional board array to display the board values
-        board=new JLabel[game.getRows()][game.getCols()];
-        for(int r=0;r<board.length;r++)
-        {
-            for(int c=0;c<board[0].length;c++)
-            {
-                board[r][c]=new JLabel();
-                panel.add(board[r][c]);
-                board[r][c].setBounds(buttonWidth*c+100, buttonLength*r+100, buttonWidth, buttonLength);
-                board[r][c].setFont(new Font(board[r][c].getFont().getName(), Font.PLAIN, (int)(30*Math.min(scaleFactorL, scaleFactorW))));
-                board[r][c].setOpaque(true);
-                board[r][c].setHorizontalAlignment(board[r][c].CENTER);
-                board[r][c].setVerticalAlignment(board[r][c].CENTER);
-                board[r][c].setBackground(Color.RED);
-                board[r][c].setBorder(BorderFactory.createLineBorder(Color.BLUE, (int)(5*Math.min(scaleFactorL, scaleFactorW))));
-                int val=game.getBoardValue(r, c);
-                if(val==0)
-                    board[r][c].setText("***");
-                else
-                    board[r][c].setText(""+val);  
-            }
-        }
+        title.setText("Into the Dreamscape"); 
         
         //create the 5 labels for showing the current player location
         player = new JLabel[cols];
@@ -214,7 +182,6 @@ public class GUI extends JFrame implements ActionListener
         if(j.equals(startOver))
         {
             //reset for new game
-            game.setUpBoard();
             buttons[0].setEnabled(true);
             buttons[1].setEnabled(true);
             buttons[2].setEnabled(true);

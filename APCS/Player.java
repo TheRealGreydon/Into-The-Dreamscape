@@ -46,6 +46,13 @@ public class Player
         }
     }
     
+    public String setName(String x)
+    {
+        String temp = name;
+        name = x;
+        return "Player " + temp + " is now " + name;
+    }
+
     public String getName()
     {
         return name;
@@ -140,8 +147,15 @@ public class Player
     {
         lvl++;
         statMod(x, 1);
-        statMod(2,1);
-        statMod(0, 1);
-        statMod(5, 1);
+        int temp=(int)(Math.random()*6);
+        statMod(temp, 1);
+    }
+
+    public String toString()
+    {
+        String temp="";
+        temp+="Player name: " + name + "\n";
+        temp+="Player Lvl: " + lvl + "\n";
+
     }
 }
