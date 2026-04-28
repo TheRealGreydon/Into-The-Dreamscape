@@ -4,16 +4,19 @@
  */
 package APCS;
 
-import java.awt.Color;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 
 public class GUI extends JFrame implements ActionListener
@@ -24,9 +27,9 @@ public class GUI extends JFrame implements ActionListener
     private JPanel mPanel;
     private JPanel sPanel;
     private JPanel cPanel;
+    private GridBagConstraints gbc;
 
     private JLabel mBack;
-
     /** Buttons for moving the player. */
     private JButton[] buttons;
     /** Displays the points and turns left. */
@@ -65,17 +68,35 @@ public class GUI extends JFrame implements ActionListener
     {
         //Program will ende if frame is closed
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        
-        this.setSize(700,700);
-        
+        panels();
+
+        this.pack();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.setTitle("Into the Dreamscape");
+        this.add(mPanel);
+        this.setVisible(true);
+        this.setResizable(true);
+    }
+
+    public void panels()
+    {
+        //Main
+        gbc = new GridBagConstraints();
+
         mPanel = new JPanel();
-        mPanel.setLayout(null);
-        mPanel.setBackground(Color.BLACK);
+        //mPanel.setLayout(null);
+        mPanel.setBackground(Color.black);
         
         title = new JLabel();
 
+        gbc.gridx = 0; // First column
+        gbc.gridy = 0; // First row
+        gbc.anchor = GridBagConstraints.WEST; // Align left
+        gbc.insets = new Insets(10, 10, 10, 10); // 10px padding on all sides
+
+
         //create the panel for the game title
-        mPanel.add(title);
+        mPanel.add(title, gbc);
         title.setBounds(20,20,600,80);
         title.setOpaque(true);
         title.setBackground(Color.WHITE);
@@ -117,37 +138,18 @@ public class GUI extends JFrame implements ActionListener
         //create the label to display score and turns left
         info = new JLabel();
 
+        mPanel.setLayout(new GridBagLayout());
         mPanel.add(info);
-        info.setBounds(150,500,400,50);
+        info.setHorizontalAlignment(SwingConstants.CENTER);
         info.setOpaque(true);
         info.setBackground(Color.WHITE);
         info.setHorizontalAlignment(info.CENTER);
         info.setVerticalAlignment(info.CENTER);
         info.setFont(new Font(info.getFont().getName(), Font.BOLD, 20));
         info.setText("Wario");
-        
-        this.setTitle("Into the Dreamscape");
-        this.add(mPanel);
-        this.setVisible(true);
-        this.setResizable(true);
-    }
 
-    public void start()
-    {
-        sPanel = new JPanel();
-        sPanel.setLayout(null);
-        sPanel.setBackground(Color.PINK);
-        
-        this.setVisible(false);
-        this.remove(mPanel);
-        this.add(sPanel);
-        this.setVisible(true);
-    }
-
-    public void credit()
-    {
+        //Credits
         cPanel = new JPanel();
-        cPanel.setLayout(null);
         cPanel.setBackground(Color.PINK);
 
         buttons[3]=new JButton();
@@ -158,18 +160,20 @@ public class GUI extends JFrame implements ActionListener
         buttons[3].setFont(new Font(buttons[3].getFont().getName(), Font.BOLD, 15));
         buttons[3].setText("Exit");
         buttons[3].addActionListener(this);
-        
-        this.setVisible(false);
-        this.remove(mPanel);
-        this.add(cPanel);
-        this.setVisible(true);
+
+        //Start
+        sPanel = new JPanel();
+        sPanel.setLayout(null);
+        sPanel.setBackground(Color.PINK);
     }
 
-    public void exit()
+    public void swapPanel(JPanel x, JPanel y)
     {
         this.setVisible(false);
-        this.getContentPane().removeAll();
-        this.add(mPanel);
+        this.remove(x);
+        this.add(y);
+        this.pack();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setVisible(true);
     }
 
@@ -185,11 +189,11 @@ public class GUI extends JFrame implements ActionListener
         
         if(j.equals(buttons[0]))
         {
-            start();    
+            swapPanel(mPanel, sPanel); 
         }
         else if(j.equals(buttons[1]))
         {
-            credit();
+            swapPanel(mPanel, cPanel);
         }
         else if(j.equals(buttons[2]))
         {
@@ -197,7 +201,7 @@ public class GUI extends JFrame implements ActionListener
         }
         else if(j.equals(buttons[3]))
         {
-            exit();
+            swapPanel(cPanel, mPanel);
         }
     }
 }
