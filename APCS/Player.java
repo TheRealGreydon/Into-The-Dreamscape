@@ -28,6 +28,7 @@ public class Player
         this.gend = gend;
         this.outfit = outfit;
         this.fav = fav;
+        this.skills = new ArrayList<Skills>();
         switch (fav) {
             case 1:
             addAbil(new MatchBox());
@@ -156,6 +157,6 @@ public class Player
         String temp="";
         temp+="Player name: " + name + "\n";
         temp+="Player Lvl: " + lvl + "\n";
-
+        return temp;
     }
 }

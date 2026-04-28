@@ -21,37 +21,30 @@ public class GUI extends JFrame implements ActionListener
     /** The Drop Game engine. */
     private Main game;
     /** The main panel containing the game components. */
-    private JPanel panel;
-    /** The game board displaying point values. */
-    private JLabel[][] board;
-    /** The display of the player column. */
-    private JLabel[] player;
+    private JPanel mPanel;
+    private JPanel sPanel;
+    private JPanel cPanel;
+
+    private JLabel mBack;
+
     /** Buttons for moving the player. */
     private JButton[] buttons;
     /** Displays the points and turns left. */
     private JLabel info;
     /** The title or "game over". */
     private JLabel title;
-    /** Button to start over. */
-    private JButton startOver;
-    
     
     private int buttonLength=100;
-    private int buttonWidth=100;
-    
-    private int rows;
-    private int cols;
-    
+    private int buttonWidth=100;    
     
     /**
      * Initialize the GUI.
      * @param d the DropGame engine
      */
-    public GUI(Main d)
+    public GUI(Main g)
     {
-        game=d;
-        initialize();
-                
+        game=g;
+        initialize();           
     }
     
     /**
@@ -75,16 +68,15 @@ public class GUI extends JFrame implements ActionListener
         
         this.setSize(700,700);
         
-        panel = new JPanel();
-        panel.setLayout(null);
-        
-        panel.setBackground(Color.WHITE);
+        mPanel = new JPanel();
+        mPanel.setLayout(null);
+        mPanel.setBackground(Color.BLACK);
         
         title = new JLabel();
 
         //create the panel for the game title
-        panel.add(title);
-        title.setBounds(200,20,300,80);
+        mPanel.add(title);
+        title.setBounds(20,20,600,80);
         title.setOpaque(true);
         title.setBackground(Color.WHITE);
         title.setHorizontalAlignment(info.CENTER);
@@ -92,81 +84,93 @@ public class GUI extends JFrame implements ActionListener
         title.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
         title.setText("Into the Dreamscape"); 
         
-        //create the 5 labels for showing the current player location
-        player = new JLabel[cols];
-        
-        for(int i=0;i<player.length;i++)
-        {
-            player[i]=new JLabel();
-            panel.add(player[i]);
-            player[i].setBounds(buttonWidth*i+100,rows*buttonLength+100,buttonWidth,50);
-            player[i].setOpaque(true);
-            player[i].setBackground(Color.WHITE);
-            player[i].setHorizontalAlignment(player[i].CENTER);
-            player[i].setVerticalAlignment(player[i].CENTER);
-            player[i].setFont(new Font(player[i].getFont().getName(), Font.PLAIN, 30));
-            
-        }
-    
-        player[cols/2].setText("^");
-        
         //create the 3 buttons for moving the player
-        buttons = new JButton[3];
+        buttons = new JButton[100];
 
         buttons[0]=new JButton();
-        panel.add(buttons[0]);
+        mPanel.add(buttons[0]);
         buttons[0].setBounds(125,450,150,50);
         buttons[0].setBackground(Color.RED);
         buttons[0].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
         buttons[0].setFont(new Font(buttons[0].getFont().getName(), Font.BOLD, 15));
-        buttons[0].setText("LEFT");
+        buttons[0].setText("Start");
         buttons[0].addActionListener(this);
         
         buttons[1]=new JButton();
-        panel.add(buttons[1]);
+        mPanel.add(buttons[1]);
         buttons[1].setBounds(275,450,150,50);
         buttons[1].setBackground(Color.RED);
         buttons[1].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
         buttons[1].setFont(new Font(buttons[1].getFont().getName(), Font.BOLD, 15));
-        buttons[1].setText("STAY");
+        buttons[1].setText("Credits");
         buttons[1].addActionListener(this);
         
         buttons[2]=new JButton();
-        panel.add(buttons[2]);
+        mPanel.add(buttons[2]);
         buttons[2].setBounds(425,450,150,50);
         buttons[2].setBackground(Color.RED);
         buttons[2].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
         buttons[2].setFont(new Font(buttons[2].getFont().getName(), Font.BOLD, 15));
-        buttons[2].setText("RIGHT");
+        buttons[2].setText("Exit");
         buttons[2].addActionListener(this);
 
         //create the label to display score and turns left
         info = new JLabel();
 
-        panel.add(info);
+        mPanel.add(info);
         info.setBounds(150,500,400,50);
         info.setOpaque(true);
         info.setBackground(Color.WHITE);
         info.setHorizontalAlignment(info.CENTER);
         info.setVerticalAlignment(info.CENTER);
         info.setFont(new Font(info.getFont().getName(), Font.BOLD, 20));
-        info.setText("POINTS: "+game.getPlayerPoints()+"       TURNS LEFT: "+ game.getTurnsLeft());
+        info.setText("Wario");
         
-        //create the button to restart the game
-        startOver=new JButton();
-        panel.add(startOver);
-        startOver.setBounds(275,575,150,50);
-        startOver.setBackground(Color.RED);
-        startOver.setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
-        startOver.setFont(new Font(buttons[2].getFont().getName(), Font.BOLD, 15));
-        startOver.setText("START OVER");
-        startOver.addActionListener(this);
-        
-        
-        this.add(panel);
+        this.setTitle("Into the Dreamscape");
+        this.add(mPanel);
         this.setVisible(true);
-        this.setResizable(false);
-  
+        this.setResizable(true);
+    }
+
+    public void start()
+    {
+        sPanel = new JPanel();
+        sPanel.setLayout(null);
+        sPanel.setBackground(Color.PINK);
+        
+        this.setVisible(false);
+        this.remove(mPanel);
+        this.add(sPanel);
+        this.setVisible(true);
+    }
+
+    public void credit()
+    {
+        cPanel = new JPanel();
+        cPanel.setLayout(null);
+        cPanel.setBackground(Color.PINK);
+
+        buttons[3]=new JButton();
+        cPanel.add(buttons[3]);
+        buttons[3].setBounds(125,450,150,50);
+        buttons[3].setBackground(Color.RED);
+        buttons[3].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
+        buttons[3].setFont(new Font(buttons[3].getFont().getName(), Font.BOLD, 15));
+        buttons[3].setText("Exit");
+        buttons[3].addActionListener(this);
+        
+        this.setVisible(false);
+        this.remove(mPanel);
+        this.add(cPanel);
+        this.setVisible(true);
+    }
+
+    public void exit()
+    {
+        this.setVisible(false);
+        this.getContentPane().removeAll();
+        this.add(mPanel);
+        this.setVisible(true);
     }
 
     /**
@@ -179,77 +183,21 @@ public class GUI extends JFrame implements ActionListener
         //the source of the button click
         JButton j = (JButton)(e.getSource());
         
-        if(j.equals(startOver))
+        if(j.equals(buttons[0]))
         {
-            //reset for new game
-            buttons[0].setEnabled(true);
-            buttons[1].setEnabled(true);
-            buttons[2].setEnabled(true);
-            title.setText("DROP GAME");
+            start();    
         }
-        else
+        else if(j.equals(buttons[1]))
         {
-            
-            
-            //call game engine method with appropriate number based
-            //on which button was clicked
-            if(j.equals(buttons[0]))
-            {
-                game.moveAndCatch(1);       
-            }
-            else if(j.equals(buttons[1]))
-            {
-                game.moveAndCatch(2);
-            }
-            else
-            {
-                game.moveAndCatch(3);
-            }
-            
-            
-            
-            //call game engine method to update board
-            game.updateBoard();
+            credit();
         }
-        
-        //clear all player locations
-        for(int i=0;i<player.length;i++)
+        else if(j.equals(buttons[2]))
         {
-            player[i].setText("");
+            this.dispose();
         }
-        //put player "^" in correct location
-        player[game.getPlayerCol()].setText("^"); 
-
-        //redraw board labels with new values
-        for(int r=0;r<board.length;r++)
+        else if(j.equals(buttons[3]))
         {
-            for(int c=0;c<board[0].length;c++)
-            {
-                int val=game.getBoardValue(r, c);
-                if(val==0)
-                    board[r][c].setText("***");
-                else
-                    board[r][c].setText(""+val);
-            }
+            exit();
         }
-        
-        //update the score and turns left
-        info.setText("POINTS: "+game.getPlayerPoints()+"       TURNS LEFT: "+ game.getTurnsLeft());
-        
-        //If out of turns, the game is over.  Disable all buttons
-        //and display message.
-        if(game.getTurnsLeft()==0)
-        {
-            buttons[0].setEnabled(false);
-            buttons[1].setEnabled(false);
-            buttons[2].setEnabled(false);
-            title.setText("GAME OVER");
-        }
-        
-        //Print to the console just for checking.
-        game.printGame();
-
     }
-
-
 }
