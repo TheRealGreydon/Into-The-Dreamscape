@@ -20,4 +20,8 @@ UPDATES
 -Added game
 -Nicholas-
 
-Kronk
+4/28/26
+-V.4-
+-Added a working GUI with a prelim menu
+-Credits, start, and exit button working as expected
+-Nicholas-
