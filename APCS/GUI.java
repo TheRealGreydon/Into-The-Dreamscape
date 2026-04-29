@@ -96,7 +96,7 @@ public class GUI extends JFrame implements ActionListener
 
 
         //create the panel for the game title
-        mPanel.add(title, gbc);
+        mPanel.add(title);
         title.setBounds(20,20,600,80);
         title.setOpaque(true);
         title.setBackground(Color.WHITE);
@@ -169,12 +169,12 @@ public class GUI extends JFrame implements ActionListener
 
     public void swapPanel(JPanel x, JPanel y)
     {
-        this.setVisible(false);
-        this.remove(x);
-        this.add(y);
         this.pack();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.remove(x);
+        this.add(y);
         this.setVisible(true);
+        this.setResizable(true);
     }
 
     /**
