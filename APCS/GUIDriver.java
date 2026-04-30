@@ -9,8 +9,8 @@ public class GUIDriver
 
     public static void main(String[] args)
     {
-        Main d = new Main();
-        GUI gui = new GUI(d);
+        Main m = new Main();
+        GUI gui = new GUI(m);
         gui.displayGame();
     }
 

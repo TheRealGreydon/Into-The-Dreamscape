@@ -1,7 +1,7 @@
 # APCS-Game-Project-2026
 This is the final for APCS, go Klusinator
 
-UPDATES
+Change Log
 -------
 
 4/22/26
@@ -20,4 +20,18 @@ UPDATES
 -Added game
 -Nicholas-
 
-Kronk
+4/28/26
+-V.4-
+-Added a working GUI with a prelim menu
+-Credits, start, and exit button working as expected
+-Nicholas-
+
+4/29/26
+-V.4.1-
+-Fixed minimizing issue
+-Nicholas-
+
+4/30/26
+-V.4.2-
+-I fucking hate jframe
+-Nicholas-
