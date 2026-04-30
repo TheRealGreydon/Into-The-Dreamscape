@@ -234,7 +234,7 @@ public class GUI extends JFrame implements ActionListener
         }
         
         //update the score and turns left
-        info.setText("POINTS: "+game.getPlayerPoints()+"       TURNS LEFT: "+ game.getTurnsLeft());
+        info.setText("POINTS:        TURNS LEFT: ");
         
         //If out of turns, the game is over.  Disable all buttons
         //and display message.
