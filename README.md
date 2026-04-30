@@ -29,3 +29,9 @@ Change Log
 4/29/26
 -V.4.1-
 -Fixed minimizing issue
+-Nicholas-
+
+4/30/26
+-V.4.2-
+-I fucking hate jframe
+-Nicholas-

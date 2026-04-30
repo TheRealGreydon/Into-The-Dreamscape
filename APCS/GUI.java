@@ -17,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 
 
 public class GUI extends JFrame implements ActionListener
@@ -27,7 +28,6 @@ public class GUI extends JFrame implements ActionListener
     private JPanel mPanel;
     private JPanel sPanel;
     private JPanel cPanel;
-    private GridBagConstraints gbc;
 
     private JLabel mBack;
     /** Buttons for moving the player. */
@@ -36,10 +36,7 @@ public class GUI extends JFrame implements ActionListener
     private JLabel info;
     /** The title or "game over". */
     private JLabel title;
-    
-    private int buttonLength=100;
-    private int buttonWidth=100;    
-    
+        
     /**
      * Initialize the GUI.
      * @param d the DropGame engine
@@ -66,7 +63,6 @@ public class GUI extends JFrame implements ActionListener
      */
     private void initialize()
     {
-        //Program will ende if frame is closed
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         panels();
 
@@ -80,37 +76,40 @@ public class GUI extends JFrame implements ActionListener
 
     public void panels()
     {
+        GridBagConstraints gbc = new GridBagConstraints();
         //Main
-        gbc = new GridBagConstraints();
-
         mPanel = new JPanel();
-        //mPanel.setLayout(null);
+        mPanel.setLayout(new GridBagLayout());
         mPanel.setBackground(Color.black);
         
         title = new JLabel();
-
-        gbc.gridx = 0; // First column
-        gbc.gridy = 0; // First row
-        gbc.anchor = GridBagConstraints.WEST; // Align left
-        gbc.insets = new Insets(10, 10, 10, 10); // 10px padding on all sides
-
-
-        //create the panel for the game title
-        mPanel.add(title);
-        title.setBounds(20,20,600,80);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.ipady = 0;       
+        gbc.weighty = 1.0;   
+        gbc.anchor = GridBagConstraints.PAGE_START; 
+        gbc.insets = new Insets(10,0,0,0); 
+        gbc.gridx = 1;       
+        gbc.gridwidth = 2;   
+        gbc.gridy = 2;       
+        title.setBounds(100,20,600,80);
         title.setOpaque(true);
         title.setBackground(Color.WHITE);
-        title.setHorizontalAlignment(info.CENTER);
-        title.setVerticalAlignment(info.CENTER);
         title.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
-        title.setText("Into the Dreamscape"); 
-        
-        //create the 3 buttons for moving the player
-        buttons = new JButton[100];
+        title.setText("Into the Dreamscape");
+        mPanel.add(title,gbc);
 
+        buttons = new JButton[100];
         buttons[0]=new JButton();
-        mPanel.add(buttons[0]);
-        buttons[0].setBounds(125,450,150,50);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.ipady = 0;       
+        gbc.weighty = 1.0;   
+        gbc.anchor = GridBagConstraints.CENTER; 
+        gbc.insets = new Insets(10,0,0,0); 
+        gbc.gridx = 1;       
+        gbc.gridwidth = 2;   
+        gbc.gridy = 2;       
+        mPanel.add(buttons[0],gbc);
+        buttons[0].setPreferredSize(new Dimension(100,100));
         buttons[0].setBackground(Color.RED);
         buttons[0].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
         buttons[0].setFont(new Font(buttons[0].getFont().getName(), Font.BOLD, 15));
@@ -118,8 +117,16 @@ public class GUI extends JFrame implements ActionListener
         buttons[0].addActionListener(this);
         
         buttons[1]=new JButton();
-        mPanel.add(buttons[1]);
-        buttons[1].setBounds(275,450,150,50);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.ipady = 0;       
+        gbc.weighty = 1.0;   
+        gbc.anchor = GridBagConstraints.CENTER; 
+        gbc.insets = new Insets(10,0,0,0); 
+        gbc.gridx = -1;       
+        gbc.gridwidth = 2;   
+        gbc.gridy = 2;       
+        mPanel.add(buttons[1],gbc);
+        buttons[1].setPreferredSize(new Dimension(100,100));
         buttons[1].setBackground(Color.RED);
         buttons[1].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
         buttons[1].setFont(new Font(buttons[1].getFont().getName(), Font.BOLD, 15));
@@ -127,39 +134,69 @@ public class GUI extends JFrame implements ActionListener
         buttons[1].addActionListener(this);
         
         buttons[2]=new JButton();
-        mPanel.add(buttons[2]);
-        buttons[2].setBounds(425,450,150,50);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.ipady = 0;       
+        gbc.weighty = 1.0;   
+        gbc.anchor = GridBagConstraints.PAGE_END; 
+        gbc.insets = new Insets(10,0,0,0); 
+        gbc.gridx = 1;       
+        gbc.gridwidth = 2;   
+        gbc.gridy = 2;       
+        mPanel.add(buttons[2],gbc);
+        buttons[2].setPreferredSize(new Dimension(100,100));
         buttons[2].setBackground(Color.RED);
         buttons[2].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
         buttons[2].setFont(new Font(buttons[2].getFont().getName(), Font.BOLD, 15));
         buttons[2].setText("Exit");
         buttons[2].addActionListener(this);
 
-        //create the label to display score and turns left
-        info = new JLabel();
-
-        mPanel.setLayout(new GridBagLayout());
-        mPanel.add(info);
-        info.setHorizontalAlignment(SwingConstants.CENTER);
-        info.setOpaque(true);
-        info.setBackground(Color.WHITE);
-        info.setHorizontalAlignment(info.CENTER);
-        info.setVerticalAlignment(info.CENTER);
-        info.setFont(new Font(info.getFont().getName(), Font.BOLD, 20));
-        info.setText("Wario");
-
         //Credits
         cPanel = new JPanel();
-        cPanel.setBackground(Color.PINK);
+        cPanel.setLayout(null);
+        cPanel.setBackground(Color.black);
 
         buttons[3]=new JButton();
-        cPanel.add(buttons[3]);
-        buttons[3].setBounds(125,450,150,50);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.ipady = 0;       
+        gbc.weighty = 1.0;   
+        gbc.anchor = GridBagConstraints.CENTER; 
+        gbc.insets = new Insets(10,0,0,0); 
+        gbc.gridx = 1;       
+        gbc.gridwidth = 2;   
+        gbc.gridy = 2;      
+        cPanel.add(buttons[3],gbc);
+        buttons[3].setPreferredSize(new Dimension(100,100));
         buttons[3].setBackground(Color.RED);
         buttons[3].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
         buttons[3].setFont(new Font(buttons[3].getFont().getName(), Font.BOLD, 15));
         buttons[3].setText("Exit");
         buttons[3].addActionListener(this);
+        JLabel credits = new JLabel();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.ipady = 0;       
+        gbc.weighty = 1.0;   
+        gbc.anchor = GridBagConstraints.PAGE_START; 
+        gbc.insets = new Insets(10,0,0,0); 
+        gbc.gridx = 1;       
+        gbc.gridwidth = 2;   
+        gbc.gridy = 2;    
+        cPanel.add(credits, gbc);
+        credits.setBounds(20,20,600,80);
+        credits.setOpaque(true);
+        credits.setBackground(Color.WHITE);
+        credits.setHorizontalAlignment(info.CENTER);
+        credits.setVerticalAlignment(info.CENTER);
+        credits.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
+        credits.setText("Into the Dreamscape"); 
+
+        JLabel creditsInfo = new JLabel();
+        cPanel.add(creditsInfo);
+        creditsInfo.setBounds(100,20,600,80);
+        creditsInfo.setOpaque(true);
+        creditsInfo.setBackground(Color.white);
+        creditsInfo.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
+        creditsInfo.setText("<html><font color='black'>Made by Nicholas Munier and Kai Wilbur\n for the Mr.Klus AP Comp Sci final</font></html>"); 
+
 
         //Start
         sPanel = new JPanel();
