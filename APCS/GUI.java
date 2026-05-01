@@ -91,14 +91,7 @@ public class GUI extends JFrame implements ActionListener
         buttons[0].addActionListener(this);
         
         buttons[1]=new JButton();
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.ipady = 0;       
-        gbc.weighty = 1.0;   
-        gbc.anchor = GridBagConstraints.CENTER; 
-        gbc.insets = new Insets(10,0,0,0); 
         gbc.gridx = -1;       
-        gbc.gridwidth = 2;   
-        gbc.gridy = 2;       
         mPanel.add(buttons[1],gbc);
         buttons[1].setPreferredSize(new Dimension(100,100));
         buttons[1].setBackground(Color.RED);
@@ -108,14 +101,8 @@ public class GUI extends JFrame implements ActionListener
         buttons[1].addActionListener(this);
         
         buttons[2]=new JButton();
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.ipady = 0;       
-        gbc.weighty = 1.0;   
         gbc.anchor = GridBagConstraints.PAGE_END; 
-        gbc.insets = new Insets(10,0,0,0); 
         gbc.gridx = 1;       
-        gbc.gridwidth = 2;   
-        gbc.gridy = 2;       
         mPanel.add(buttons[2],gbc);
         buttons[2].setPreferredSize(new Dimension(100,100));
         buttons[2].setBackground(Color.RED);
@@ -130,14 +117,6 @@ public class GUI extends JFrame implements ActionListener
         cPanel = p.credits();
 
         buttons[3]=new JButton();
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.ipady = 0;       
-        gbc.weighty = 1.0;   
-        gbc.anchor = GridBagConstraints.PAGE_END; 
-        gbc.insets = new Insets(10,0,0,0); 
-        gbc.gridx = 1;       
-        gbc.gridwidth = 2;   
-        gbc.gridy = 2;      
         cPanel.add(buttons[3],gbc);
         buttons[3].setPreferredSize(new Dimension(100,100));
         buttons[3].setBackground(Color.RED);
@@ -150,6 +129,7 @@ public class GUI extends JFrame implements ActionListener
     public void start()
     {
         sPanel = p.start();
+
     }
 
     public void swapPanel(JPanel x, JPanel y)
