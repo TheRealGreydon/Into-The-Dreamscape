@@ -5,13 +5,8 @@
 package APCS;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-
-import javax.imageio.ImageIO;
+import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.border.Border;
 
 
 public class GUI extends JFrame implements ActionListener
@@ -21,15 +16,12 @@ public class GUI extends JFrame implements ActionListener
     private BackgroundPanel b;
     /** The main panel containing the game components. */
     private JPanel mPanel;
-    private JPanel bPanel;
     private JPanel sPanel;
     private JPanel cPanel;
+    private GridBagConstraints gbc = new GridBagConstraints();
 
-    /** Buttons for moving the player. */
     private JButton[] buttons;
-    /** Displays the points and turns left. */
-    private JLabel info;
-    /** The title or "game over". */
+   
     private JLabel title;
         
     /**
@@ -65,25 +57,23 @@ public class GUI extends JFrame implements ActionListener
         this.pack();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setTitle("Into the Dreamscape");
-        //this.add(mPanel);
-        this.add(bPanel);
+        this.add(mPanel);
         this.setVisible(true);
         this.setResizable(true);
     }
 
     public void panels()
     {
-        //Background
-        bPanel = new JPanel();
-        bPanel.add(b);
+        menu();
+        credits();
+        start();
+    }
 
-        GridBagConstraints gbc = new GridBagConstraints();
-        //Main
-        mPanel = new JPanel();
+    public void menu()
+    {
+        mPanel = b;
         mPanel.setLayout(new GridBagLayout());
-        mPanel.setBackground(Color.black);
-
-        mPanel.add(bPanel);
+        mPanel.setOpaque(true);
 
         title = new JLabel();
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -152,8 +142,11 @@ public class GUI extends JFrame implements ActionListener
         buttons[2].setFont(new Font(buttons[2].getFont().getName(), Font.BOLD, 15));
         buttons[2].setText("Exit");
         buttons[2].addActionListener(this);
+        mPanel.setOpaque(false);
+    }
 
-        //Credits
+    public void credits()
+    {
         cPanel = new JPanel();
         cPanel.setLayout(null);
         cPanel.setBackground(Color.black);
@@ -195,11 +188,11 @@ public class GUI extends JFrame implements ActionListener
         creditsInfo.setBackground(Color.white);
         creditsInfo.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
         creditsInfo.setText("<html><font color='black'>Made by Nicholas Munier and Kai Wilbur\n for the Mr.Klus AP Comp Sci final</font></html>"); 
+    }
 
-
-        //Start
+    public void start()
+    {
         sPanel = new JPanel();
-        sPanel.setLayout(null);
         sPanel.setBackground(Color.PINK);
     }
 
@@ -220,11 +213,11 @@ public class GUI extends JFrame implements ActionListener
         
         if(j.equals(buttons[0]))
         {
-            swapPanel(mPanel, sPanel); 
+            swapPanel(mPanel,sPanel); 
         }
         else if(j.equals(buttons[1]))
         {
-            swapPanel(mPanel, cPanel);
+            swapPanel(mPanel,cPanel);
         }
         else if(j.equals(buttons[2]))
         {
@@ -232,7 +225,7 @@ public class GUI extends JFrame implements ActionListener
         }
         else if(j.equals(buttons[3]))
         {
-            swapPanel(cPanel, mPanel);
+            swapPanel(cPanel,mPanel);
         }
     }
 }

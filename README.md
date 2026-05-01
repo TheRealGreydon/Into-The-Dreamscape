@@ -39,4 +39,6 @@ Change Log
 5/1/26
 -V.5-
 -Added background image
+-Got the background image working
+-Code restructuring
 -Nicholas-

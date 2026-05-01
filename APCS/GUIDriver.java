@@ -17,13 +17,11 @@ public class GUIDriver
     public static void main(String[] args)
     {
         Main m = new Main();
-        ImageIcon icon;
         String path="APCS/CelesteBackTEMP.jpg";
-        icon = new ImageIcon(path);
 
-        Image image = icon.getImage();
+        Image image = new ImageIcon(path).getImage();
         
-        BackgroundPanel b = new BackgroundPanel(image, 2);
+        BackgroundPanel b = new BackgroundPanel(image, 1);
 
         GUI gui = new GUI(m,b);
         gui.displayGame();
