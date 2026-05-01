@@ -12,7 +12,7 @@ public class Driver
     {
         Main m = new Main();
 
-        String name="Default";
+        String name="Jordan";
         int gend=0;
         int outfit=0;
         int fav=0;
