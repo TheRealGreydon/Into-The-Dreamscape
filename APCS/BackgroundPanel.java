@@ -3,15 +3,7 @@ package APCS;
 import java.awt.*;
 import javax.swing.*;
 
-/*
- *  Support custom painting on a panel in the form of
- *
- *  a) images - that can be scaled, tiled or painted at original size
- *  b) non solid painting - that can be done by using a Paint object
- *
- *  Also, any component added directly to this panel will be made
- *  non-opaque so that the custom painting can show through.
- */
+//Oh thank the fucking lord I love github
 public class BackgroundPanel extends JPanel
 {
 	public static final int SCALED = 0;

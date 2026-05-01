@@ -41,4 +41,5 @@ Change Log
 -Added background image
 -Got the background image working
 -Code restructuring
+-So so much code restructuring
 -Nicholas-
