@@ -35,3 +35,8 @@ Change Log
 -V.4.2-
 -I fucking hate jframe
 -Nicholas-
+
+5/1/26
+-V.5-
+-Added background image
+-Nicholas-

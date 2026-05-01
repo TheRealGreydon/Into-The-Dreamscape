@@ -10,26 +10,21 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import javax.swing.border.Border;
 
 
 public class GUI extends JFrame implements ActionListener
 {
     /** The Drop Game engine. */
-    private Main game;
+    private Main g;
+    private BackgroundPanel b;
     /** The main panel containing the game components. */
     private JPanel mPanel;
+    private JPanel bPanel;
     private JPanel sPanel;
     private JPanel cPanel;
 
-    private JLabel mBack;
     /** Buttons for moving the player. */
     private JButton[] buttons;
     /** Displays the points and turns left. */
@@ -41,9 +36,10 @@ public class GUI extends JFrame implements ActionListener
      * Initialize the GUI.
      * @param d the DropGame engine
      */
-    public GUI(Main g)
+    public GUI(Main g, BackgroundPanel b)
     {
-        game=g;
+        this.g=g;
+        this.b=b;
         initialize();           
     }
     
@@ -69,19 +65,26 @@ public class GUI extends JFrame implements ActionListener
         this.pack();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setTitle("Into the Dreamscape");
-        this.add(mPanel);
+        //this.add(mPanel);
+        this.add(bPanel);
         this.setVisible(true);
         this.setResizable(true);
     }
 
     public void panels()
     {
+        //Background
+        bPanel = new JPanel();
+        bPanel.add(b);
+
         GridBagConstraints gbc = new GridBagConstraints();
         //Main
         mPanel = new JPanel();
         mPanel.setLayout(new GridBagLayout());
         mPanel.setBackground(Color.black);
-        
+
+        mPanel.add(bPanel);
+
         title = new JLabel();
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.ipady = 0;       
@@ -175,17 +178,13 @@ public class GUI extends JFrame implements ActionListener
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.ipady = 0;       
         gbc.weighty = 1.0;   
-        gbc.anchor = GridBagConstraints.PAGE_START; 
+        gbc.anchor = GridBagConstraints.CENTER; 
         gbc.insets = new Insets(10,0,0,0); 
         gbc.gridx = 1;       
         gbc.gridwidth = 2;   
         gbc.gridy = 2;    
         cPanel.add(credits, gbc);
-        credits.setBounds(20,20,600,80);
-        credits.setOpaque(true);
         credits.setBackground(Color.WHITE);
-        credits.setHorizontalAlignment(info.CENTER);
-        credits.setVerticalAlignment(info.CENTER);
         credits.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
         credits.setText("Into the Dreamscape"); 
 
@@ -213,12 +212,7 @@ public class GUI extends JFrame implements ActionListener
         this.setVisible(true);
         this.setResizable(true);
     }
-
-    /**
-     * Respond to a button click (on either the "Left" button,
-     * "Stay" button, or the "Right" button).
-     * @param e the button click action event
-     */
+    
     public void actionPerformed(ActionEvent e)
     {
         //the source of the button click

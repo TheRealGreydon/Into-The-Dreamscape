@@ -4,13 +4,28 @@
  */
 package APCS;
 
+import java.awt.*;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.print.DocFlavor.URL;
+import javax.swing.*;
+
 public class GUIDriver
 {
 
     public static void main(String[] args)
     {
         Main m = new Main();
-        GUI gui = new GUI(m);
+        ImageIcon icon;
+        String path="APCS/CelesteBackTEMP.jpg";
+        icon = new ImageIcon(path);
+
+        Image image = icon.getImage();
+        
+        BackgroundPanel b = new BackgroundPanel(image, 2);
+
+        GUI gui = new GUI(m,b);
         gui.displayGame();
     }
 
