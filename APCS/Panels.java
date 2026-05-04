@@ -6,12 +6,14 @@ import javax.swing.*;
 public class Panels
 {
     private BackgroundPanel b;
+    private BackgroundPanel d;
 
     private GridBagConstraints gbc = new GridBagConstraints();
 
-    public Panels(BackgroundPanel b)
+    public Panels(BackgroundPanel b, BackgroundPanel d)
     {
         this.b=b;
+        this.d=d;
     }
 
     public JPanel menu()
@@ -77,31 +79,5 @@ public class Panels
         creditsInfo.setText("Made by Nicholas Munier and Kai Wilbur\n for the Mr.Klus AP Comp Sci final"); 
 
         return cPanel;
-    }
-
-    public JPanel start()
-    {
-        JPanel sPanel = new JPanel();
-        sPanel = new JPanel();
-        sPanel.setLayout(new GridBagLayout());
-        sPanel.setBackground(Color.black);
-
-        JLabel title = new JLabel();
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.ipady = 0;       
-        gbc.weighty = 1.0;   
-        gbc.anchor = GridBagConstraints.PAGE_START; 
-        gbc.insets = new Insets(10,0,0,0); 
-        gbc.gridx = 1;       
-        gbc.gridwidth = 2;   
-        gbc.gridy = 2;       
-        title.setBounds(100,20,600,80);
-        title.setOpaque(true);
-        title.setBackground(Color.WHITE);
-        title.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
-        title.setText("What is your name?");
-        sPanel.add(title,gbc);
-
-        return sPanel;
     }
 }

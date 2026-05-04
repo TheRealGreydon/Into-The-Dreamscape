@@ -48,4 +48,6 @@ Change Log
 -V.5.1-
 -Minor changes to structure
 -Work on text box for name
+-V5.2-
+-Major changes to start menu
 -Nicholas-
