@@ -16,10 +16,8 @@ public class Panels
 
     public JPanel menu()
     {
-        JPanel mPanel = new JPanel();
-        mPanel = b;
+        JPanel mPanel = b;
         mPanel.setLayout(new GridBagLayout());
-        mPanel.setOpaque(true);
 
         JLabel title = new JLabel();
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -43,7 +41,6 @@ public class Panels
     public JPanel credits()
     {
         JPanel cPanel = new JPanel();
-        cPanel = new JPanel();
         cPanel.setLayout(new GridBagLayout());
         cPanel.setBackground(Color.black);
 
@@ -86,6 +83,7 @@ public class Panels
     {
         JPanel sPanel = new JPanel();
         sPanel = new JPanel();
+        sPanel.setLayout(new GridBagLayout());
         sPanel.setBackground(Color.black);
 
         JLabel title = new JLabel();

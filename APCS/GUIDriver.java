@@ -17,7 +17,7 @@ public class GUIDriver
     public static void main(String[] args)
     {
         Main m = new Main();
-        String path="APCS/CelesteBackTEMP.jpg";
+        String path="APCS/Assets/CelesteBackTEMP.jpg";
 
         Image image = new ImageIcon(path).getImage();
         

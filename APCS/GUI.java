@@ -13,8 +13,9 @@ public class GUI extends JFrame implements ActionListener
 {
     /** The Drop Game engine. */
     private Main g;
-    private BackgroundPanel b;
     private Panels p;
+    
+    private String name;
     /** The main panel containing the game components. */
     private JPanel mPanel;
     private JPanel sPanel;
@@ -30,7 +31,6 @@ public class GUI extends JFrame implements ActionListener
     public GUI(Main g, BackgroundPanel b)
     {
         this.g=g;
-        this.b=b;
         p = new Panels(b);
         initialize();           
     }
@@ -130,6 +130,10 @@ public class GUI extends JFrame implements ActionListener
     {
         sPanel = p.start();
 
+        JTextField nameBox = new JTextField();
+        gbc.anchor = GridBagConstraints.CENTER; 
+        sPanel.add(nameBox,gbc);
+        nameBox.addActionListener(this);
     }
 
     public void swapPanel(JPanel x, JPanel y)
