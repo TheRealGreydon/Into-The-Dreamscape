@@ -15,10 +15,10 @@ public class StartGUI extends JFrame implements ActionListener
     private Main g;
     JTextField nameBox;
     
-    private String name;
-    private int gend;
-    private int out;
-    private int fav;
+    private String name="";
+    private int gend=-1;
+    private int out=-1;
+    private int fav=-1;
     
     private int page=0;
     /** The main panel containing the game components. */
@@ -399,27 +399,45 @@ public class StartGUI extends JFrame implements ActionListener
         if(page==0)
         {
             name=nameBox.getText();
-            sPanel.removeAll();
-            gend();
-            sPanel.repaint();
+            if(name.length()>0)
+            {
+                sPanel.removeAll();
+                gend();
+                sPanel.repaint();
+                page++;
+            }
         }
         else if(page==1)
         {
-            sPanel.removeAll();
-            out();
-            sPanel.repaint();
+            if(gend!=-1)
+            {
+                sPanel.removeAll();
+                out();
+                sPanel.repaint();
+                page++;
+            }
         }
         else if(page==2)
         {
-            sPanel.removeAll();
-            fav();
-            sPanel.repaint();
+            if(out!=-1)
+            {
+                sPanel.removeAll();
+                fav();
+                sPanel.repaint();
+                page++;
+            }
+            
         }
         else if(page==3)
         {
-            sPanel.removeAll();
-            fin();
-            sPanel.repaint();
+            if(fav!=-1)
+            {
+                sPanel.removeAll();
+                fin();
+                sPanel.repaint();
+                page++;
+            }
+            
         }
     }
 
@@ -430,18 +448,21 @@ public class StartGUI extends JFrame implements ActionListener
             sPanel.removeAll();
             name();
             sPanel.repaint();
+            page--;
         }
         else if(page==2)
         {
             sPanel.removeAll();
             gend();
             sPanel.repaint();
+            page--;
         }
         else if(page==3)
         {
             sPanel.removeAll();
             out();
             sPanel.repaint();
+            page--;
         }
     }
     
@@ -453,24 +474,15 @@ public class StartGUI extends JFrame implements ActionListener
         if(j.equals(buttons[0]))
         {
             next();
-            page++;
         }
         else if(j.equals(buttons[1]))
         {
             back();
-            System.out.println(page);
-            page--;
         }
         else if(j.equals(buttons[2]))
         {
             if(page==1)
-            {
-                gend=1;
-            }
-            else
-            {
-                out=1;
-            }
+            {gend=1;}else{out=1;}
             buttons[2].setBackground(Color.BLUE);
             buttons[2].setBorder(BorderFactory.createLineBorder(Color.RED, 5));
             buttons[3].setBackground(Color.RED);
@@ -481,13 +493,7 @@ public class StartGUI extends JFrame implements ActionListener
         else if(j.equals(buttons[3]))
         {
             if(page==1)
-            {
-                gend=2;
-            }
-            else
-            {
-                out=2;
-            }
+            {gend=2;}else{out=2;}
             buttons[2].setBackground(Color.RED);
             buttons[2].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
             buttons[3].setBackground(Color.BLUE);
@@ -498,13 +504,7 @@ public class StartGUI extends JFrame implements ActionListener
         else if(j.equals(buttons[4]))
         {
             if(page==1)
-            {
-                gend=3;
-            }
-            else
-            {
-                out=3;
-            }
+            {gend=3;}else{out=3;}
             buttons[2].setBackground(Color.RED);
             buttons[2].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
             buttons[3].setBackground(Color.RED);

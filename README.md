@@ -58,4 +58,6 @@ Change Log
 -Radio buttons
 -Working next/back buttons
 -Default backgrounds and asset updates
+-V.5.4-
+-Made so without input, menu wont progress
 -Nicholas-
