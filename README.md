@@ -51,3 +51,11 @@ Change Log
 -V5.2-
 -Major changes to start menu
 -Nicholas-
+
+5/5/26
+-V.5.3-
+-More character selection updates
+-Radio buttons
+-Working next/back buttons
+-Default backgrounds and asset updates
+-Nicholas

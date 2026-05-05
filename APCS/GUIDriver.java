@@ -18,12 +18,12 @@ public class GUIDriver
     {
         Main m = new Main();
         String pathMB="APCS/Assets/Background Img/CelesteBackTEMP.jpg";
-        String pathSB="APCS/Assets/Background Img/defaultBack.jpg";        
+        String pathSB="APCS/Assets/Default Img/defaultBack.jpg";        
         
-        BackgroundPanel b = new BackgroundPanel(new ImageIcon(pathMB).getImage(), 1);
-        BackgroundPanel d = new BackgroundPanel(new ImageIcon(pathSB).getImage(), 1);
+        BackgroundPanel a = new BackgroundPanel(new ImageIcon(pathMB).getImage(), 1);
+        BackgroundPanel b = new BackgroundPanel(new ImageIcon(pathSB).getImage(), 1);
 
-        GUI gui = new GUI(m,b,d);
+        GUI gui = new GUI(m,a,b);
         gui.displayGame();
     }
 
