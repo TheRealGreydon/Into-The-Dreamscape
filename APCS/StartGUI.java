@@ -1,7 +1,3 @@
-/*Name:	Mr. Klus
- *Date: 05/01/2019
- *Description: A graphical user interface for the drop game.
- */
 package APCS;
 
 import java.awt.*;
@@ -9,7 +5,6 @@ import java.awt.event.*;
 import java.awt.image.*;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
