@@ -51,23 +51,21 @@ public class StartGUI extends JFrame implements ActionListener
         gbc.ipady = 0;       
         gbc.weighty = 1.0;   
         gbc.anchor = GridBagConstraints.CENTER; 
-        //gbc.insets = new Insets(10,0,0,0); 
-        gbc.gridx = 2;       
+        gbc.gridx = 3;       
         gbc.gridwidth = 1;   
-        gbc.gridy = 1;
+        gbc.gridy = 1;    
         nameBox.setFont(new Font("SansSerif", Font.PLAIN, 48));
         sPanel.add(nameBox,gbc);
 
         JLabel title = new JLabel();
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.fill = GridBagConstraints.NONE;
         gbc.ipady = 0;       
         gbc.weighty = 1.0;   
-        gbc.anchor = GridBagConstraints.PAGE_START; 
-        //gbc.insets = new Insets(10,0,0,0); 
-        gbc.gridx = 2;       
+        gbc.anchor = GridBagConstraints.CENTER; 
+        gbc.gridx = 3;       
         gbc.gridwidth = 1;   
-        gbc.gridy = -1;       
-        title.setBounds(100,20,600,80);
+        gbc.gridy = 0;   
+        //title.setBounds(100,20,600,80);
         title.setOpaque(true);
         title.setBackground(Color.WHITE);
         title.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
@@ -75,8 +73,9 @@ public class StartGUI extends JFrame implements ActionListener
         sPanel.add(title,gbc);
 
         buttons[0]=new JButton();
-        gbc.gridx=10;
+        gbc.gridx=12;
         gbc.gridy = 1;       
+        gbc.gridwidth =1;
         gbc.anchor = GridBagConstraints.LINE_END; 
         sPanel.add(buttons[0],gbc);
         buttons[0].setPreferredSize(new Dimension(100,100));
@@ -222,7 +221,6 @@ public class StartGUI extends JFrame implements ActionListener
         buttons[0].setFont(new Font(buttons[0].getFont().getName(), Font.BOLD, 15));
         buttons[0].setText("NEXT");
 
-        buttons[1]=new JButton();
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx=0;
         gbc.gridy = 1;       
@@ -233,7 +231,6 @@ public class StartGUI extends JFrame implements ActionListener
         buttons[1].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
         buttons[1].setFont(new Font(buttons[1].getFont().getName(), Font.BOLD, 15));
         buttons[1].setText("BACK");
-        buttons[1].addActionListener(this);
 
         buttons[2]=new JButton();
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -310,18 +307,20 @@ public class StartGUI extends JFrame implements ActionListener
         gbc.ipady = 0;       
         gbc.weighty = 1.0;   
         gbc.anchor = GridBagConstraints.PAGE_START; 
-        gbc.gridx = 2;       
+        gbc.gridx = 3;       
         gbc.gridwidth = 1;   
         gbc.gridy = -1;       
-        title.setBounds(100,20,600,80);
+        //title.setBounds(100,20,600,80);
         title.setOpaque(true);
         title.setBackground(Color.WHITE);
         title.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
         title.setText("Whats your favorite color?");
         sPanel.add(title,gbc);
 
-        gbc.gridx=10;
+        gbc.gridx = 14;
         gbc.gridy = 1;       
+        gbc.gridwidth = 0;
+        gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.LINE_END; 
         sPanel.add(buttons[0],gbc);
         buttons[0].setPreferredSize(new Dimension(100,100));
@@ -330,10 +329,10 @@ public class StartGUI extends JFrame implements ActionListener
         buttons[0].setFont(new Font(buttons[0].getFont().getName(), Font.BOLD, 15));
         buttons[0].setText("NEXT");
 
-        buttons[1]=new JButton();
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridx=0;
-        gbc.gridy = 1;       
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.gridx = 0;
+        gbc.gridy = 1;     
+        gbc.gridwidth = 0;  
         gbc.anchor = GridBagConstraints.LINE_START; 
         sPanel.add(buttons[1],gbc);
         buttons[1].setPreferredSize(new Dimension(100,100));
@@ -341,51 +340,54 @@ public class StartGUI extends JFrame implements ActionListener
         buttons[1].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
         buttons[1].setFont(new Font(buttons[1].getFont().getName(), Font.BOLD, 15));
         buttons[1].setText("BACK");
-        buttons[1].addActionListener(this);
 
-        buttons[5]=new JButton();
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridx=0;
+        buttons[5] = new JButton();
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.weightx = 0;
+        gbc.weighty = 0;
+        gbc.gridx= 2;
         gbc.gridy = 1;       
-        gbc.anchor = GridBagConstraints.LINE_START; 
+        gbc.gridwidth = 1;
+        gbc.ipadx = 0;
+        gbc.ipady = 0;
+        gbc.anchor = GridBagConstraints.CENTER; 
         sPanel.add(buttons[5],gbc);
-        buttons[5].setPreferredSize(new Dimension(100,100));
+        buttons[5].setPreferredSize(new Dimension(200,200));
         buttons[5].setBackground(Color.RED);
-        buttons[5].setText("");
-        buttons[5].setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
+        buttons[5].setBorder(BorderFactory.createLineBorder(Color.BLACK, 20));
         buttons[5].addActionListener(this);
 
         buttons[6]=new JButton();
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridx=0;
+        //gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx=3;
         gbc.gridy = 1;       
-        gbc.anchor = GridBagConstraints.LINE_START; 
+        gbc.anchor = GridBagConstraints.CENTER; 
         sPanel.add(buttons[6],gbc);
-        buttons[6].setPreferredSize(new Dimension(100,100));
+        buttons[6].setPreferredSize(new Dimension(200,200));
         buttons[6].setBackground(Color.BLUE);
-        buttons[6].setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
+        buttons[6].setBorder(BorderFactory.createLineBorder(Color.BLACK, 20));
         buttons[6].addActionListener(this);
 
         buttons[7]=new JButton();
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridx=0;
-        gbc.gridy = 1;       
-        gbc.anchor = GridBagConstraints.LINE_START; 
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.gridx=2;
+        gbc.gridy = 2;       
+        gbc.anchor = GridBagConstraints.CENTER; 
         sPanel.add(buttons[7],gbc);
-        buttons[7].setPreferredSize(new Dimension(100,100));
+        buttons[7].setPreferredSize(new Dimension(200,200));
         buttons[7].setBackground(Color.GREEN);
-        buttons[7].setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
+        buttons[7].setBorder(BorderFactory.createLineBorder(Color.BLACK, 20));
         buttons[7].addActionListener(this);
 
         buttons[8]=new JButton();
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridx=0;
-        gbc.gridy = 1;       
-        gbc.anchor = GridBagConstraints.LINE_START; 
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.gridx=3;
+        gbc.gridy = 2;       
+        gbc.anchor = GridBagConstraints.CENTER; 
         sPanel.add(buttons[8],gbc);
-        buttons[8].setPreferredSize(new Dimension(100,100));
+        buttons[8].setPreferredSize(new Dimension(200,200));
         buttons[8].setBackground(Color.WHITE);
-        buttons[8].setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
+        buttons[8].setBorder(BorderFactory.createLineBorder(Color.BLACK, 20));
         buttons[8].addActionListener(this);
     }
 
