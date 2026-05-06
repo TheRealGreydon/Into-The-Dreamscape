@@ -3,27 +3,24 @@ package APCS;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-
+//Character creation screen and starts the game
 public class StartGUI extends JFrame implements ActionListener
 {
-    /** The Drop Game engine. */
-    private Main g;
     JTextField nameBox;
     
-    private String name="";
-    private int gend=-1;
-    private int out=-1;
-    private int fav=-1;
+    private String name = "";
+    private int gend = -1;
+    private int out = -1;
+    private int fav = -1;
 
     private GUI gui = new GUI();
     
-    private int page=0;
-    /** The main panel containing the game components. */
+    private int page = 0;
+
     private JPanel sPanel;
 
     String path="APCS/Assets/Default Img/defaultBack.jpg";        
@@ -46,26 +43,7 @@ public class StartGUI extends JFrame implements ActionListener
         return sPanel;
     }
 
-    public String nameRet()
-    {
-        return name;
-    }
-
-    public int gendRet()
-    {
-        return gend;
-    }
-
-    public int outRet()
-    {
-        return out;
-    }
-    
-    public int favRet()
-    {
-        return fav;
-    }
-
+    //Name page
     private void name()
     {
         nameBox = new JTextField(9);
@@ -81,11 +59,6 @@ public class StartGUI extends JFrame implements ActionListener
 
         JLabel title = new JLabel();
         gbc.fill = GridBagConstraints.NONE;
-        gbc.ipady = 0;       
-        gbc.weighty = 1.0;   
-        gbc.anchor = GridBagConstraints.CENTER; 
-        gbc.gridx = 3;       
-        gbc.gridwidth = 1;   
         gbc.gridy = 0;   
         title.setBorder(BorderFactory.createLineBorder(Color.black, 5));
         title.setOpaque(true);
@@ -97,7 +70,6 @@ public class StartGUI extends JFrame implements ActionListener
         buttons[0]=new JButton();
         gbc.gridx=12;
         gbc.gridy = 1;       
-        gbc.gridwidth =1;
         gbc.anchor = GridBagConstraints.LINE_END; 
         sPanel.add(buttons[0],gbc);
         buttons[0].setPreferredSize(new Dimension(100,100));
@@ -109,6 +81,7 @@ public class StartGUI extends JFrame implements ActionListener
         buttons[0].addActionListener(this);
     }
 
+    //Gender selection page
     private void gend()
     {
         JLabel title = new JLabel();
@@ -138,9 +111,7 @@ public class StartGUI extends JFrame implements ActionListener
         buttons[0].setText("NEXT");
 
         buttons[1]=new JButton();
-        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx=0;
-        gbc.gridy = 1;       
         gbc.anchor = GridBagConstraints.LINE_START; 
         sPanel.add(buttons[1],gbc);
         buttons[1].setPreferredSize(new Dimension(100,100));
@@ -152,11 +123,7 @@ public class StartGUI extends JFrame implements ActionListener
         buttons[1].addActionListener(this);
 
         buttons[2]=new JButton();
-        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 1;
-        gbc.gridy = 1;       
-        gbc.weighty = 0;
-        gbc.weightx = 0;
         gbc.anchor = GridBagConstraints.CENTER; 
         sPanel.add(buttons[2],gbc);
         buttons[2].setPreferredSize(new Dimension(200,100));
@@ -169,8 +136,6 @@ public class StartGUI extends JFrame implements ActionListener
 
         buttons[3]=new JButton();
         gbc.gridx = 2;
-        gbc.gridy = 1;       
-        gbc.anchor = GridBagConstraints.CENTER; 
         sPanel.add(buttons[3],gbc);
         buttons[3].setPreferredSize(new Dimension(100,100));
         buttons[3].setBackground(new Color(179, 9, 9));
@@ -182,8 +147,6 @@ public class StartGUI extends JFrame implements ActionListener
 
         buttons[4]=new JButton();
         gbc.gridx = 3;
-        gbc.gridy = 1;       
-        gbc.anchor = GridBagConstraints.CENTER; 
         sPanel.add(buttons[4],gbc);
         buttons[4].setPreferredSize(new Dimension(200,100));
         buttons[4].setBackground(new Color(179, 9, 9));
@@ -193,12 +156,7 @@ public class StartGUI extends JFrame implements ActionListener
         buttons[4].setText("Non-Binary");
         buttons[4].addActionListener(this);
 
-        BufferedImage out1=null;
-        BufferedImage out2=null;
-        BufferedImage out3=null;
-        Image out1S;
-        Image out2S;
-        Image out3S;
+        BufferedImage out1=null;BufferedImage out2=null;BufferedImage out3=null;Image out1S;Image out2S;Image out3S;
 
         try {out1 = ImageIO.read(new File("APCS/Assets/Character Img/Char1.jpg"));} catch (IOException e) {e.printStackTrace();}
         out1S = out1.getScaledInstance(650, 650, Image.SCALE_SMOOTH);
@@ -207,7 +165,6 @@ public class StartGUI extends JFrame implements ActionListener
         gbc.fill = GridBagConstraints.NONE;
         gbc.ipady = 0;       
         gbc.weighty = .5;   
-        gbc.anchor = GridBagConstraints.CENTER; 
         gbc.gridx = 1;       
         gbc.gridwidth = 1;   
         gbc.gridheight=1;
@@ -229,6 +186,7 @@ public class StartGUI extends JFrame implements ActionListener
         sPanel.add(out3lab, gbc);
     }
 
+    //Outfit selection page
     private void out()
     {
         JLabel title = new JLabel();
@@ -257,7 +215,6 @@ public class StartGUI extends JFrame implements ActionListener
         buttons[0].setFont(new Font(buttons[0].getFont().getName(), Font.BOLD, 15));
         buttons[0].setText("NEXT");
 
-        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx=0;
         gbc.gridy = 1;       
         gbc.anchor = GridBagConstraints.LINE_START; 
@@ -268,7 +225,6 @@ public class StartGUI extends JFrame implements ActionListener
         buttons[1].setFont(new Font(buttons[1].getFont().getName(), Font.BOLD, 15));
         buttons[1].setText("BACK");
 
-        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx=1;
         gbc.gridy = 1;       
         gbc.anchor = GridBagConstraints.CENTER; 
@@ -280,10 +236,7 @@ public class StartGUI extends JFrame implements ActionListener
         buttons[2].setText("1");
         buttons[2].addActionListener(this);
 
-        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx=2;
-        gbc.gridy = 1;       
-        gbc.anchor = GridBagConstraints.CENTER; 
         sPanel.add(buttons[3],gbc);
         buttons[3].setPreferredSize(new Dimension(100,100));
         buttons[3].setBackground(new Color(179, 9, 9));
@@ -293,8 +246,6 @@ public class StartGUI extends JFrame implements ActionListener
         buttons[3].addActionListener(this);
 
         gbc.gridx=3;
-        gbc.gridy = 1;       
-        gbc.anchor = GridBagConstraints.CENTER; 
         sPanel.add(buttons[4],gbc);
         buttons[4].setPreferredSize(new Dimension(200,100));
         buttons[4].setBackground(new Color(179, 9, 9));
@@ -303,12 +254,7 @@ public class StartGUI extends JFrame implements ActionListener
         buttons[4].setText("3");
         buttons[4].addActionListener(this);
 
-        BufferedImage out1=null;
-        BufferedImage out2=null;
-        BufferedImage out3=null;
-        Image out1S;
-        Image out2S;
-        Image out3S;
+        BufferedImage out1=null;BufferedImage out2=null;BufferedImage out3=null;Image out1S;Image out2S;Image out3S;
 
         try {out1 = ImageIO.read(new File("APCS/Assets/Character Img/Char1.jpg"));} catch (IOException e) {e.printStackTrace();}
         out1S = out1.getScaledInstance(650, 650, Image.SCALE_SMOOTH);
@@ -339,6 +285,7 @@ public class StartGUI extends JFrame implements ActionListener
         sPanel.add(out3lab, gbc);
     }
 
+    //Favorite color page
     private void fav()
     {
         JLabel title = new JLabel();
@@ -368,10 +315,7 @@ public class StartGUI extends JFrame implements ActionListener
         buttons[1].setFont(new Font(buttons[1].getFont().getName(), Font.BOLD, 15));
         buttons[1].setText("BACK");
 
-        gbc.fill = GridBagConstraints.NONE;
         gbc.gridx = -10;
-        gbc.gridy = 1;     
-        gbc.gridwidth = 0;  
         gbc.anchor = GridBagConstraints.LINE_START; 
         sPanel.add(buttons[0],gbc);
         buttons[0].setPreferredSize(new Dimension(100,100));
@@ -381,7 +325,6 @@ public class StartGUI extends JFrame implements ActionListener
         buttons[0].setText("NEXT");
 
         buttons[5] = new JButton();
-        gbc.fill = GridBagConstraints.NONE;
         gbc.weightx = 0;
         gbc.weighty = 0;
         gbc.gridx= 2;
@@ -397,10 +340,7 @@ public class StartGUI extends JFrame implements ActionListener
         buttons[5].addActionListener(this);
 
         buttons[6]=new JButton();
-        //gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx=3;
-        gbc.gridy = 0;       
-        gbc.anchor = GridBagConstraints.CENTER; 
         sPanel.add(buttons[6],gbc);
         buttons[6].setPreferredSize(new Dimension(200,200));
         buttons[6].setBackground(new Color(43,18,204));
@@ -408,10 +348,8 @@ public class StartGUI extends JFrame implements ActionListener
         buttons[6].addActionListener(this);
 
         buttons[7]=new JButton();
-        gbc.fill = GridBagConstraints.NONE;
         gbc.gridx=2;
         gbc.gridy = 1;       
-        gbc.anchor = GridBagConstraints.CENTER; 
         sPanel.add(buttons[7],gbc);
         buttons[7].setPreferredSize(new Dimension(200,200));
         buttons[7].setBackground(new Color(5,97,51));
@@ -419,10 +357,7 @@ public class StartGUI extends JFrame implements ActionListener
         buttons[7].addActionListener(this);
 
         buttons[8]=new JButton();
-        gbc.fill = GridBagConstraints.NONE;
         gbc.gridx=3;
-        gbc.gridy = 1;       
-        gbc.anchor = GridBagConstraints.CENTER; 
         sPanel.add(buttons[8],gbc);
         buttons[8].setPreferredSize(new Dimension(200,200));
         buttons[8].setBackground(Color.WHITE);
@@ -440,7 +375,6 @@ public class StartGUI extends JFrame implements ActionListener
         gbc.gridx = 0;       
         gbc.gridwidth = 0;   
         gbc.gridy = 0;       
-        //title.setBounds(100,20,600,80);
         title.setOpaque(true);
         title.setBackground(Color.WHITE);
         title.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
@@ -448,21 +382,15 @@ public class StartGUI extends JFrame implements ActionListener
         title.setText("Finalize your character?");
         sPanel.add(title,gbc);
 
-
-        String g;
-        String o;
-        String f;
+        String g; String o; String f;
         if(gend==1){g="Male";}else if(gend==2){g="Female";}else{g="Non-Binary";}
         if(out==1){o="1";}else if(out==2){o="2";}else{o="3";}
         if(fav==1){f="red";}else if(fav==2){f="blue";}else if(fav==3){f="green";}else{f="white";}
         JTextPane charlist = new JTextPane();
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.ipady = 0;       
-        gbc.weighty = 1.0;   
         gbc.anchor = GridBagConstraints.CENTER; 
         gbc.gridx = 1;       
         gbc.gridwidth = 1;   
-        gbc.gridy = 0;       
         charlist.setBackground(Color.white);
         charlist.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
         charlist.setForeground(Color.BLACK);
@@ -470,17 +398,13 @@ public class StartGUI extends JFrame implements ActionListener
         charlist.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
         sPanel.add(charlist);
 
-        if(gend==1){g="M";}else if(gend==2){g="F";}else{g="N";}
-        if(out==1){o="1";}else if (out==2){o="2";}else{o="3";}
+        if(gend==1){g="M";}else if(gend==2){g="F";}else{g="N";} if(out==1){o="1";}else if (out==2){o="2";}else{o="3";}
 
         BufferedImage cha = null;
         try {cha = ImageIO.read(new File("APCS/Assets/Character Img/Char" + o + ".jpg"));} catch (IOException e) {e.printStackTrace();}
         JLabel chaimg = new JLabel(new ImageIcon(cha));
         chaimg.setPreferredSize(new Dimension(400,600));
-        gbc.ipady = 0;       
-        gbc.anchor = GridBagConstraints.CENTER; 
         gbc.gridx = 0;       
-        gbc.gridy = 0;     
         sPanel.add(chaimg);
 
         //For some reason, if I remove this one button, everything else disapears
@@ -488,7 +412,6 @@ public class StartGUI extends JFrame implements ActionListener
         gbc.fill = GridBagConstraints.NONE;
         gbc.gridx = 10;
         gbc.gridy = 2;     
-        gbc.gridwidth = 1;  
         gbc.anchor = GridBagConstraints.LINE_END; 
         sPanel.add(buttons[0],gbc);
         buttons[0].setPreferredSize(new Dimension(200,100));
@@ -497,11 +420,7 @@ public class StartGUI extends JFrame implements ActionListener
         buttons[0].setFont(new Font(buttons[0].getFont().getName(), Font.BOLD, 15));
         buttons[0].setText("START");
 
-        gbc.fill = GridBagConstraints.NONE;
         gbc.gridx = 0;
-        gbc.gridy = 2;     
-        gbc.gridwidth = 1;  
-        gbc.anchor = GridBagConstraints.LINE_END; 
         sPanel.add(buttons[1],gbc);
         buttons[1].setPreferredSize(new Dimension(200,100));
         buttons[1].setBackground(new Color(179, 9, 9));
@@ -510,104 +429,42 @@ public class StartGUI extends JFrame implements ActionListener
         buttons[1].setText("BACK");
     }
 
+    //Handles when the next button is called
     private void next()
     {
-        if(page==0)
-        {
-            name=nameBox.getText();
-            if(name.length()>0)
-            {
-                sPanel.removeAll();
-                gend();
-                sPanel.repaint();
-                page++;
-            }
-        }
-        else if(page==1)
-        {
-            if(gend!=-1)
-            {
-                sPanel.removeAll();
-                out();
-                sPanel.repaint();
-                page++;
-            }
-        }
-        else if(page==2)
-        {
-            if(out!=-1)
-            {
-                sPanel.removeAll();
-                fav();
-                sPanel.repaint();
-                page++;
-            }
-            
-        }
-        else if(page==3)
-        {
-            if(fav!=-1)
-            {
-                sPanel.removeAll();
-                fin();
-                sPanel.repaint();
-                page++;
-            }
-            
-        }
-        else if(page==4)
-        {
-            Window.getWindows()[0].dispose();
-            gui.cha(name, gend, out, fav);
-            gui.game();
-        }
+        if(page==0) {name=nameBox.getText();if(name.length()>0){sPanel.removeAll();gend();sPanel.repaint();page++;}}
+
+        else if(page==1) {if(gend!=-1){sPanel.removeAll();out();sPanel.repaint();page++;}}
+
+        else if(page==2) {if(out!=-1){sPanel.removeAll();fav();sPanel.repaint();page++;}}
+
+        else if(page==3) {if(fav!=-1){sPanel.removeAll();fin();sPanel.repaint();page++;}}
+
+        else if(page==4) {Window.getWindows()[0].dispose();gui.cha(name, gend, out, fav);gui.game();}
     }
 
+    //Handles when the back button is called
     private void back()
     {
-        if(page==1)
-        {
-            sPanel.removeAll();
-            name();
-            sPanel.repaint();
-            page--;
-        }
-        else if(page==2)
-        {
-            sPanel.removeAll();
-            gend();
-            sPanel.repaint();
-            page--;
-        }
-        else if(page==3)
-        {
-            sPanel.removeAll();
-            out();
-            sPanel.repaint();
-            page--;
-        }
-        else if(page==4)
-        {
-            sPanel.removeAll();
-            fav();
-            sPanel.repaint();
-            page--;
-        }
+        if(page==1) {sPanel.removeAll();name();sPanel.repaint();page--;}
+
+        else if(page==2) {sPanel.removeAll();gend();sPanel.repaint();page--;}
+
+        else if(page==3) {sPanel.removeAll();out();sPanel.repaint();page--;}
+
+        else if(page==4) {sPanel.removeAll();fav();sPanel.repaint();page--;}
     }
     
+    //Handles the buttons
     public void actionPerformed(ActionEvent e)
     {
-        //the source of the button click
+        //The source of the button click
         JButton j = (JButton)(e.getSource());
 
-        if(j.equals(buttons[0]))
-        {
-            next();
-        }
-        else if(j.equals(buttons[1]))
-        {
-            back();
-        }
+        if(j.equals(buttons[0])) {next();}
+
+        else if(j.equals(buttons[1])) {back();}
+
         else if(j.equals(buttons[2]))
         {
             if(page==1){gend=1;}else{out=1;}

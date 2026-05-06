@@ -10,6 +10,7 @@ public class Panels
 
     private GridBagConstraints gbc = new GridBagConstraints();
 
+    //Menu panel
     public JPanel menu()
     {
         JPanel mPanel = b;
@@ -34,6 +35,7 @@ public class Panels
         return mPanel;
     }
 
+    //Credits panel
     public JPanel credits()
     {
         JPanel cPanel = new JPanel();
@@ -57,14 +59,7 @@ public class Panels
         cPanel.add(title,gbc);
 
         JTextArea creditsInfo = new JTextArea();
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.ipady = 0;       
-        gbc.weighty = 1.0;   
         gbc.anchor = GridBagConstraints.CENTER; 
-        gbc.insets = new Insets(10,0,0,0); 
-        gbc.gridx = 1;       
-        gbc.gridwidth = 2;   
-        gbc.gridy = 2;    
         cPanel.add(creditsInfo, gbc);
         creditsInfo.setBounds(100,20,600,80);
         creditsInfo.setOpaque(true);
@@ -73,5 +68,14 @@ public class Panels
         creditsInfo.setText("Made by Nicholas Munier and Kai Wilbur\n for the Mr.Klus AP Comp Sci final"); 
 
         return cPanel;
+    }
+
+    public JPanel pause()
+    {
+        JPanel pPanel = new JPanel();
+        pPanel.setOpaque(false);
+        pPanel.setBackground(new Color(255,0,0,200));
+
+        return pPanel;
     }
 }

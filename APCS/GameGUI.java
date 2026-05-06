@@ -1,16 +1,19 @@
 package APCS;
 
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
 
 
-public class GameGUI extends JFrame implements ActionListener
+public class GameGUI extends JFrame
 {
     private JPanel gPanel;
+
     private Player character;
+
     String path="APCS/Assets/Default Img/defaultLevelMenuA.jpg";        
     private BackgroundPanel b = new BackgroundPanel(new ImageIcon(path).getImage(), 1);
+
+    private int levSel = 0;
 
     public GameGUI(Player character)
     {
@@ -23,11 +26,5 @@ public class GameGUI extends JFrame implements ActionListener
     public JPanel gamePan()
     {
         return gPanel;
-    }
-
-    public void actionPerformed(ActionEvent e)
-    {
-        //the source of the button click
-        JButton j = (JButton)(e.getSource());
     }
 }

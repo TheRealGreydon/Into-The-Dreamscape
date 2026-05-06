@@ -1,7 +1,3 @@
-/*Name:	Mr. Klus
- *Date: 05/01/2019
- *Description: A graphical user interface for the drop game.
- */
 package APCS;
 
 import java.awt.*;
@@ -11,61 +7,41 @@ import javax.swing.*;
 
 public class GUI extends JFrame implements ActionListener
 {
-    /** The Drop Game engine. */
-    private Main g;
     private Panels p;
     private StartGUI sGUI;
     private GameGUI gGUI;
 
     private Player character;
     
-    private JPanel mPanel=new JPanel();
-    private JPanel sPanel=new JPanel();
-    private JPanel cPanel=new JPanel();
-    private JPanel gPanel=new JPanel();
+    private JPanel mPanel = new JPanel();
+    private JPanel sPanel = new JPanel();
+    private JPanel cPanel = new JPanel();
+    private JPanel gPanel = new JPanel();
+    private JPanel pPanel = new JPanel();
+
+    private boolean paused = false;
 
     private GridBagConstraints gbc = new GridBagConstraints();
 
     private JButton[]buttons = new JButton[100];
            
-    /**
-     * Initialize the GUI.
-     * @param d the DropGame engine
-     */
     public GUI(String x)
-    {
-        if(this.getContentPane().equals(mPanel)==false)
-        {
-            p = new Panels();
-            sGUI = new StartGUI();
-            initialize();  
-        }         
-    }
+    {p = new Panels();sGUI = new StartGUI();initialize();}
 
     public GUI()
-    {
-        gGUI = new GameGUI(character);
-    }
+    {gGUI = new GameGUI(character);}
     
-    /**
-     * Run the game.
-     */
-    public void displayGame() {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                setVisible(true);
-            }
-        });
-    }
+    //Runs the game
+    public void displayGame() 
+    {java.awt.EventQueue.invokeLater(new Runnable() {public void run() {setVisible(true);}});}
 
-    /**
-     * Initialize the display.
-     */
+    //Main initalize
     private void initialize()
     {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         panels();
 
+        pPanel=p.pause();
         this.pack();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setTitle("Into the Dreamscape");
@@ -75,6 +51,7 @@ public class GUI extends JFrame implements ActionListener
         this.setResizable(true);
     }
 
+    //Inintalizes when game is called
     private void initialize2()
     {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -93,6 +70,7 @@ public class GUI extends JFrame implements ActionListener
         start();
     }
 
+    //Adds to menu
     public void menu()
     {
         mPanel = p.menu();
@@ -136,6 +114,7 @@ public class GUI extends JFrame implements ActionListener
         buttons[2].addActionListener(this);
     }
 
+    //Adds button to credits
     public void credits()
     {
         cPanel = p.credits();
@@ -150,23 +129,52 @@ public class GUI extends JFrame implements ActionListener
         buttons[3].addActionListener(this);
     }
 
+    //Runs start panel
     private void start()
     {
         sPanel=sGUI.start();
     }
 
+    //Sets the character
     public void cha(String name, int gend, int out, int fav)
     {
         character = new Player(name, gend, out, fav);
     }
 
+    //Runs the main game
     public void game()
     {
         initialize2();
         gPanel=gGUI.gamePan();
         swapPanel(sPanel, gPanel);
+
+        gPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ESCAPE"), "Pause");
+        //gPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("LEFT"), "Left");
+
+        gPanel.getActionMap().put("Pause", new AbstractAction() {public void actionPerformed(ActionEvent e) {pause();}});
+        //gPanel.getActionMap().put("Left", new AbstractAction() {public void actionPerformed(ActionEvent e) {System.out.println("left key pressed via Key Bindings");}});
     }
 
+    public void pause()
+    {
+        if(paused)
+        {
+            System.out.println("UnPause");
+            this.remove(pPanel);
+            this.repaint();
+            paused=false;
+        }
+        else
+        {
+            System.out.println("Pause");
+            this.setLayout(new BorderLayout());
+            this.add(pPanel, BorderLayout.NORTH);
+            this.repaint();
+            paused=true;
+        }
+    }    
+
+    //Handles swaping the panels
     private void swapPanel(JPanel x, JPanel y)
     {
         this.pack();
@@ -174,29 +182,19 @@ public class GUI extends JFrame implements ActionListener
         this.remove(x);
         this.add(y);
         this.repaint();
-        this.setVisible(true);
-        this.setResizable(true);
     }
     
+    //Buttons
     public void actionPerformed(ActionEvent e)
     {
         JButton j = (JButton)(e.getSource());
         
-        if(j.equals(buttons[0]))
-        {
-            swapPanel(mPanel,sPanel); 
-        }
-        else if(j.equals(buttons[1]))
-        {
-            swapPanel(mPanel,cPanel);
-        }
-        else if(j.equals(buttons[2]))
-        {
-            this.dispose();
-        }
-        else if(j.equals(buttons[3]))
-        {
-            swapPanel(cPanel,mPanel);
-        }
+        if(j.equals(buttons[0])) {swapPanel(mPanel,sPanel);}
+
+        else if(j.equals(buttons[1])) {swapPanel(mPanel,cPanel);}
+
+        else if(j.equals(buttons[2])) {this.dispose();}
+
+        else if(j.equals(buttons[3])) {swapPanel(cPanel,mPanel);}
     }
 }
