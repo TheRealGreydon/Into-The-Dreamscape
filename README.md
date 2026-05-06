@@ -39,4 +39,40 @@ Change Log
 5/1/26
 -V.5-
 -Added background image
+-Got the background image working
+-Code restructuring
+-So so much code restructuring
+-Nicholas-
+
+5/4/26
+-V.5.1-
+-Minor changes to structure
+-Work on text box for name
+-V5.2-
+-Major changes to start menu
+-Nicholas-
+
+5/5/26
+-V.5.3-
+-More character selection updates
+-Radio buttons
+-Working next/back buttons
+-Default backgrounds and asset updates
+-V.5.4-
+-Made so without input, menu wont progress
+-COLOR
+-V.5.5-
+-FOR THE LOVE OF GOD I HATE GRIDBAG
+-Kai you owe me you bitch ass motherfucker
+-V.6-
+-The god forsaken character menu is done
+-I hate my self
+-V.6.1-
+-Work on main game finaly begins
+-Nicholas-
+
+5/6/26
+-V.6.2-
+-Neatened and cleaned code to actualy be semi sane
+-Work on getting game up and going
 -Nicholas-
