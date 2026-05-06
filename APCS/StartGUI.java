@@ -92,19 +92,19 @@ public class StartGUI extends JFrame implements ActionListener
         JLabel title = new JLabel();
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.ipady = 0;       
-        gbc.weighty = 1.0;   
+        gbc.weighty = 0;   
         gbc.anchor = GridBagConstraints.PAGE_START; 
         gbc.gridx = 2;       
         gbc.gridwidth = 1;   
         gbc.gridy = -1;       
-        title.setBounds(100,20,600,80);
         title.setOpaque(true);
         title.setBackground(Color.WHITE);
         title.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
-        title.setText("What is your gender?");
+        title.setText("What gender are you?");
         sPanel.add(title,gbc);
 
         gbc.gridx=10;
+        gbc.weighty = 1;
         gbc.gridy = 1;       
         gbc.anchor = GridBagConstraints.LINE_END; 
         sPanel.add(buttons[0],gbc);
@@ -130,8 +130,10 @@ public class StartGUI extends JFrame implements ActionListener
 
         buttons[2]=new JButton();
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridx=1;
+        gbc.gridx = 1;
         gbc.gridy = 1;       
+        gbc.weighty = 0;
+        gbc.weightx = 0;
         gbc.anchor = GridBagConstraints.CENTER; 
         sPanel.add(buttons[2],gbc);
         buttons[2].setPreferredSize(new Dimension(200,100));
@@ -143,8 +145,7 @@ public class StartGUI extends JFrame implements ActionListener
         buttons[2].addActionListener(this);
 
         buttons[3]=new JButton();
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridx=2;
+        gbc.gridx = 2;
         gbc.gridy = 1;       
         gbc.anchor = GridBagConstraints.CENTER; 
         sPanel.add(buttons[3],gbc);
@@ -157,7 +158,7 @@ public class StartGUI extends JFrame implements ActionListener
         buttons[3].addActionListener(this);
 
         buttons[4]=new JButton();
-        gbc.gridx=3;
+        gbc.gridx = 3;
         gbc.gridy = 1;       
         gbc.anchor = GridBagConstraints.CENTER; 
         sPanel.add(buttons[4],gbc);
@@ -213,7 +214,7 @@ public class StartGUI extends JFrame implements ActionListener
         title.setOpaque(true);
         title.setBackground(Color.WHITE);
         title.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
-        title.setText("Pick an outfit.");
+        title.setText("What outfit would you like?");
         sPanel.add(title,gbc);
 
         gbc.gridx=10;
@@ -324,24 +325,24 @@ public class StartGUI extends JFrame implements ActionListener
         gbc.gridwidth = 0;
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.LINE_END; 
-        sPanel.add(buttons[0],gbc);
-        buttons[0].setPreferredSize(new Dimension(100,100));
-        buttons[0].setBackground(new Color(179, 9, 9));
-        buttons[0].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
-        buttons[0].setFont(new Font(buttons[0].getFont().getName(), Font.BOLD, 15));
-        buttons[0].setText("FINISH");
-
-        gbc.fill = GridBagConstraints.NONE;
-        gbc.gridx = -10;
-        gbc.gridy = 1;     
-        gbc.gridwidth = 0;  
-        gbc.anchor = GridBagConstraints.LINE_START; 
         sPanel.add(buttons[1],gbc);
         buttons[1].setPreferredSize(new Dimension(100,100));
         buttons[1].setBackground(new Color(179, 9, 9));
         buttons[1].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
         buttons[1].setFont(new Font(buttons[1].getFont().getName(), Font.BOLD, 15));
         buttons[1].setText("BACK");
+
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.gridx = -10;
+        gbc.gridy = 1;     
+        gbc.gridwidth = 0;  
+        gbc.anchor = GridBagConstraints.LINE_START; 
+        sPanel.add(buttons[0],gbc);
+        buttons[0].setPreferredSize(new Dimension(100,100));
+        buttons[0].setBackground(new Color(179, 9, 9));
+        buttons[0].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
+        buttons[0].setFont(new Font(buttons[0].getFont().getName(), Font.BOLD, 15));
+        buttons[0].setText("NEXT");
 
         buttons[5] = new JButton();
         gbc.fill = GridBagConstraints.NONE;
@@ -395,7 +396,70 @@ public class StartGUI extends JFrame implements ActionListener
 
     public void fin()
     {
+        JLabel title = new JLabel();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.ipady = 0;       
+        gbc.weighty = 1.0;   
+        gbc.anchor = GridBagConstraints.PAGE_START; 
+        gbc.gridx = 0;       
+        gbc.gridwidth = 0;   
+        gbc.gridy = 0;       
+        title.setBounds(100,20,600,80);
+        title.setOpaque(true);
+        title.setBackground(Color.WHITE);
+        title.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
+        title.setText("Finalize your character?");
+        sPanel.add(title,gbc);
 
+
+        String g;
+        String o;
+        String f;
+        if(gend==1){g="Male";}else if(gend==2){g="Female";}else{g="Non-Binary";}
+        if(out==1){o="1";}else if(out==2){o="2";}else{o="3";}
+        if(fav==1){f="red";}else if(fav==2){f="blue";}else if(fav==3){f="green";}else{f="white";}
+        JTextPane charlist = new JTextPane();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.ipady = 0;       
+        gbc.weighty = 1.0;   
+        gbc.anchor = GridBagConstraints.CENTER; 
+        gbc.gridx = 1;       
+        gbc.gridwidth = 1;   
+        gbc.gridy = 1;       
+        charlist.setBackground(Color.white);
+        charlist.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
+        charlist.setForeground(Color.BLACK);
+        charlist.setText("Name: " + name + "\nGender: " + g + "\nOutfit number: " + o + "\nFavorite color: " + f);
+        charlist.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
+        sPanel.add(charlist);
+
+        if(gend==1){g="M";}else if(gend==2){g="F";}else{g="N";}
+        if(out==1){o="1";}else if (out==2){o="2";}else{o="3";}
+
+        BufferedImage cha=null;
+        try {cha = ImageIO.read(new File("APCS\\Assets\\Character Img\\Char" + g + o + ".jpg"));} catch (IOException e) {e.printStackTrace();}
+        JLabel chaimg = new JLabel(new ImageIcon(cha));
+        chaimg.setPreferredSize(new Dimension(400,400));
+        gbc.ipady = 0;       
+        //gbc.weighty = .5;   
+        gbc.anchor = GridBagConstraints.CENTER; 
+        gbc.gridx = 0;       
+        gbc.gridy = 1;     
+        sPanel.add(chaimg);
+
+        //For some reason, if I remove this one button, everything else disapears
+        //Hell if I know why, I give up
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.gridx = 1;
+        gbc.gridy = 1;     
+        gbc.gridwidth = 0;  
+        gbc.anchor = GridBagConstraints.LINE_END; 
+        sPanel.add(buttons[0],gbc);
+        buttons[0].setPreferredSize(new Dimension(200,100));
+        buttons[0].setBackground(new Color(179, 9, 9));
+        buttons[0].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
+        buttons[0].setFont(new Font(buttons[0].getFont().getName(), Font.BOLD, 15));
+        buttons[0].setText("NEXT");
     }
 
     public void next()

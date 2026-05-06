@@ -61,4 +61,7 @@ Change Log
 -V.5.4-
 -Made so without input, menu wont progress
 -COLOR
+-V.5.5-
+-FOR THE LOVE OF GOD I HATE GRIDBAG
+-Kai you owe me you bitch ass motherfucker
 -Nicholas-
