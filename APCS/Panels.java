@@ -58,7 +58,7 @@ public class Panels
         title.setText("Into the Dreamscape");
         cPanel.add(title,gbc);
 
-        JTextArea creditsInfo = new JTextArea();
+        JLabel creditsInfo = new JLabel();
         gbc.anchor = GridBagConstraints.CENTER; 
         cPanel.add(creditsInfo, gbc);
         creditsInfo.setBounds(100,20,600,80);
@@ -68,14 +68,5 @@ public class Panels
         creditsInfo.setText("Made by Nicholas Munier and Kai Wilbur\n for the Mr.Klus AP Comp Sci final"); 
 
         return cPanel;
-    }
-
-    public JPanel pause()
-    {
-        JPanel pPanel = new JPanel();
-        pPanel.setOpaque(false);
-        pPanel.setBackground(new Color(255,0,0,200));
-
-        return pPanel;
     }
 }

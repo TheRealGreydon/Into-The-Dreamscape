@@ -17,23 +17,20 @@ public class GUI extends JFrame implements ActionListener
     private JPanel sPanel = new JPanel();
     private JPanel cPanel = new JPanel();
     private JPanel gPanel = new JPanel();
-    private JPanel pPanel = new JPanel();
 
     private boolean paused = false;
 
     private GridBagConstraints gbc = new GridBagConstraints();
 
     private JButton[]buttons = new JButton[100];
+    private JButton pau = new JButton();
            
-    public GUI(String x)
-    {p = new Panels();sGUI = new StartGUI();initialize();}
+    public GUI(String x) {p = new Panels();sGUI = new StartGUI();initialize();}
 
-    public GUI()
-    {gGUI = new GameGUI(character);}
+    public GUI() {gGUI = new GameGUI(character);}
     
     //Runs the game
-    public void displayGame() 
-    {java.awt.EventQueue.invokeLater(new Runnable() {public void run() {setVisible(true);}});}
+    public void displayGame() {java.awt.EventQueue.invokeLater(new Runnable() {public void run() {setVisible(true);}});}
 
     //Main initalize
     private void initialize()
@@ -41,7 +38,6 @@ public class GUI extends JFrame implements ActionListener
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         panels();
 
-        pPanel=p.pause();
         this.pack();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setTitle("Into the Dreamscape");
@@ -63,12 +59,7 @@ public class GUI extends JFrame implements ActionListener
         this.setResizable(true);
     }
 
-    public void panels()
-    {
-        menu();
-        credits();
-        start();
-    }
+    public void panels() {menu();credits();start();}
 
     //Adds to menu
     public void menu()
@@ -130,16 +121,10 @@ public class GUI extends JFrame implements ActionListener
     }
 
     //Runs start panel
-    private void start()
-    {
-        sPanel=sGUI.start();
-    }
+    private void start() {sPanel=sGUI.start();}
 
     //Sets the character
-    public void cha(String name, int gend, int out, int fav)
-    {
-        character = new Player(name, gend, out, fav);
-    }
+    public void cha(String name, int gend, int out, int fav) {character = new Player(name, gend, out, fav);}
 
     //Runs the main game
     public void game()
@@ -147,7 +132,16 @@ public class GUI extends JFrame implements ActionListener
         initialize2();
         gPanel=gGUI.gamePan();
         swapPanel(sPanel, gPanel);
+        pau.setBackground(new Color(0,0,0,200));
+        pau.setEnabled(false);pau.setVisible(false);pau.setForeground(Color.white);
+        pau.setFont(new Font(pau.getFont().getName(), Font.BOLD, 40));
+        pau.setText("Pause"); 
+        gPanel.add(pau);
+        keyActions();
+    }
 
+    private void keyActions()
+    {
         gPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ESCAPE"), "Pause");
         //gPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("LEFT"), "Left");
 
@@ -155,23 +149,12 @@ public class GUI extends JFrame implements ActionListener
         //gPanel.getActionMap().put("Left", new AbstractAction() {public void actionPerformed(ActionEvent e) {System.out.println("left key pressed via Key Bindings");}});
     }
 
-    public void pause()
+    //Displays the pause screen
+    private void pause()
     {
-        if(paused)
-        {
-            System.out.println("UnPause");
-            this.remove(pPanel);
-            this.repaint();
-            paused=false;
-        }
-        else
-        {
-            System.out.println("Pause");
-            this.setLayout(new BorderLayout());
-            this.add(pPanel, BorderLayout.NORTH);
-            this.repaint();
-            paused=true;
-        }
+        if(paused) {pau.setVisible(false);paused=false;}
+
+        else {pau.setVisible(true);paused=true;}
     }    
 
     //Handles swaping the panels
