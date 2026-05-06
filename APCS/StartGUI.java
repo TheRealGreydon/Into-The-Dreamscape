@@ -397,14 +397,14 @@ public class StartGUI extends JFrame implements ActionListener
     public void fin()
     {
         JLabel title = new JLabel();
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.fill = GridBagConstraints.NONE;
         gbc.ipady = 0;       
         gbc.weighty = 1.0;   
         gbc.anchor = GridBagConstraints.PAGE_START; 
         gbc.gridx = 0;       
         gbc.gridwidth = 0;   
         gbc.gridy = 0;       
-        title.setBounds(100,20,600,80);
+        //title.setBounds(100,20,600,80);
         title.setOpaque(true);
         title.setBackground(Color.WHITE);
         title.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
@@ -425,7 +425,7 @@ public class StartGUI extends JFrame implements ActionListener
         gbc.anchor = GridBagConstraints.CENTER; 
         gbc.gridx = 1;       
         gbc.gridwidth = 1;   
-        gbc.gridy = 1;       
+        gbc.gridy = 0;       
         charlist.setBackground(Color.white);
         charlist.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
         charlist.setForeground(Color.BLACK);
@@ -444,22 +444,34 @@ public class StartGUI extends JFrame implements ActionListener
         //gbc.weighty = .5;   
         gbc.anchor = GridBagConstraints.CENTER; 
         gbc.gridx = 0;       
-        gbc.gridy = 1;     
+        gbc.gridy = 0;     
         sPanel.add(chaimg);
 
         //For some reason, if I remove this one button, everything else disapears
         //Hell if I know why, I give up
         gbc.fill = GridBagConstraints.NONE;
-        gbc.gridx = 1;
-        gbc.gridy = 1;     
-        gbc.gridwidth = 0;  
+        gbc.gridx = 10;
+        gbc.gridy = 2;     
+        gbc.gridwidth = 1;  
         gbc.anchor = GridBagConstraints.LINE_END; 
         sPanel.add(buttons[0],gbc);
         buttons[0].setPreferredSize(new Dimension(200,100));
         buttons[0].setBackground(new Color(179, 9, 9));
         buttons[0].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
         buttons[0].setFont(new Font(buttons[0].getFont().getName(), Font.BOLD, 15));
-        buttons[0].setText("NEXT");
+        buttons[0].setText("DONE");
+
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.gridx = 0;
+        gbc.gridy = 2;     
+        gbc.gridwidth = 1;  
+        gbc.anchor = GridBagConstraints.LINE_END; 
+        sPanel.add(buttons[1],gbc);
+        buttons[1].setPreferredSize(new Dimension(200,100));
+        buttons[1].setBackground(new Color(179, 9, 9));
+        buttons[1].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
+        buttons[1].setFont(new Font(buttons[1].getFont().getName(), Font.BOLD, 15));
+        buttons[1].setText("BACK");
     }
 
     public void next()
@@ -529,6 +541,13 @@ public class StartGUI extends JFrame implements ActionListener
         {
             sPanel.removeAll();
             out();
+            sPanel.repaint();
+            page--;
+        }
+        else if(page==4)
+        {
+            sPanel.removeAll();
+            fav();
             sPanel.repaint();
             page--;
         }
