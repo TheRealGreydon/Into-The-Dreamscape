@@ -16,14 +16,7 @@ public class GUIDriver
 
     public static void main(String[] args)
     {
-        Main m = new Main();
-        String pathMB="APCS/Assets/Background Img/CelesteBackTEMP.jpg";
-        String pathSB="APCS/Assets/Default Img/defaultBack.jpg";        
-        
-        BackgroundPanel a = new BackgroundPanel(new ImageIcon(pathMB).getImage(), 1);
-        BackgroundPanel b = new BackgroundPanel(new ImageIcon(pathSB).getImage(), 1);
-
-        GUI gui = new GUI(m,a,b);
+        GUI gui = new GUI("x");
         gui.displayGame();
     }
 

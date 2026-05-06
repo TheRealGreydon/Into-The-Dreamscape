@@ -9,14 +9,19 @@ public class GameGUI extends JFrame implements ActionListener
 {
     private JPanel gPanel;
     private Player character;
-    private BackgroundPanel b;
+    String path="APCS/Assets/Default Img/defaultBack.jpg";        
+    private BackgroundPanel b = new BackgroundPanel(new ImageIcon(path).getImage(), 1);
 
-    public GameGUI(BackgroundPanel b)
+    public GameGUI()
     {
-        this.b=b;
         gPanel = new JPanel();
         gPanel = b;
         gPanel.setLayout(new GridBagLayout());
+    }
+
+    public JPanel gamePan()
+    {
+        return gPanel;
     }
 
     public void actionPerformed(ActionEvent e)

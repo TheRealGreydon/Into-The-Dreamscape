@@ -19,10 +19,10 @@ public class GUI extends JFrame implements ActionListener
 
     private Player character;
     
-    private JPanel mPanel;
-    private JPanel sPanel;
-    private JPanel cPanel;
-    private JPanel gPanel;
+    private JPanel mPanel=new JPanel();
+    private JPanel sPanel=new JPanel();
+    private JPanel cPanel=new JPanel();
+    private JPanel gPanel=new JPanel();
 
     private GridBagConstraints gbc = new GridBagConstraints();
 
@@ -32,13 +32,20 @@ public class GUI extends JFrame implements ActionListener
      * Initialize the GUI.
      * @param d the DropGame engine
      */
-    public GUI(Main g, BackgroundPanel a, BackgroundPanel b)
+    public GUI(String x)
     {
-        this.g=g;
-        p = new Panels(a);
-        sGUI = new StartGUI(b);
-        gGUI = new GameGUI(d);
-        initialize();           
+        if(this.getContentPane().equals(mPanel)==false)
+        {
+            p = new Panels();
+            sGUI = new StartGUI();
+            gGUI = new GameGUI();
+            initialize();  
+        }         
+    }
+
+    public GUI()
+    {
+        gGUI = new GameGUI();
     }
     
     /**
@@ -133,22 +140,24 @@ public class GUI extends JFrame implements ActionListener
         buttons[3].addActionListener(this);
     }
 
-    public void start()
+    private void start()
     {
         sPanel=sGUI.start();
     }
 
     public void game()
     {
-        gPanel=p.game();
+        gPanel=gGUI.gamePan();
+        swapPanel(sPanel, gPanel);
     }
 
-    public void swapPanel(JPanel x, JPanel y)
+    private void swapPanel(JPanel x, JPanel y)
     {
         this.pack();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.remove(x);
         this.add(y);
+        this.repaint();
         this.setVisible(true);
         this.setResizable(true);
     }

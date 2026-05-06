@@ -5,15 +5,10 @@ import javax.swing.*;
 
 public class Panels
 {
-    private BackgroundPanel b;
-    private BackgroundPanel d;
+    private String path="APCS/Assets/Background Img/CelesteBackTEMP.jpg";
+    private BackgroundPanel b = new BackgroundPanel(new ImageIcon(path).getImage(), 1);
 
     private GridBagConstraints gbc = new GridBagConstraints();
-
-    public Panels(BackgroundPanel b)
-    {
-        this.b=b;
-    }
 
     public JPanel menu()
     {

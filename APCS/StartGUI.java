@@ -19,20 +19,22 @@ public class StartGUI extends JFrame implements ActionListener
     private int gend=-1;
     private int out=-1;
     private int fav=-1;
+
+    private GUI gui = new GUI();
     
     private int page=0;
     /** The main panel containing the game components. */
     private JPanel sPanel;
 
-    private BackgroundPanel b;
+    String path="APCS/Assets/Default Img/defaultBack.jpg";        
+    private BackgroundPanel b = new BackgroundPanel(new ImageIcon(path).getImage(), 1);
 
     private GridBagConstraints gbc = new GridBagConstraints();
 
     private JButton[]buttons = new JButton[100];
     
-    public StartGUI(BackgroundPanel b)
+    public StartGUI()
     {
-        this.b=b;
         sPanel = new JPanel();
         sPanel = b;
         sPanel.setLayout(new GridBagLayout());
@@ -456,12 +458,11 @@ public class StartGUI extends JFrame implements ActionListener
         if(gend==1){g="M";}else if(gend==2){g="F";}else{g="N";}
         if(out==1){o="1";}else if (out==2){o="2";}else{o="3";}
 
-        BufferedImage cha=null;
-        try {cha = ImageIO.read(new File("APCS\\Assets\\Character Img\\Char" + g + o + ".jpg"));} catch (IOException e) {e.printStackTrace();}
+        BufferedImage cha = null;
+        try {cha = ImageIO.read(new File("APCS/Assets/Character Img/Char" + o + ".jpg"));} catch (IOException e) {e.printStackTrace();}
         JLabel chaimg = new JLabel(new ImageIcon(cha));
         chaimg.setPreferredSize(new Dimension(400,400));
         gbc.ipady = 0;       
-        //gbc.weighty = .5;   
         gbc.anchor = GridBagConstraints.CENTER; 
         gbc.gridx = 0;       
         gbc.gridy = 0;     
@@ -539,6 +540,11 @@ public class StartGUI extends JFrame implements ActionListener
             }
             
         }
+        else if(page==4)
+        {
+            gui.game();
+            System.out.println("wario");
+        }
     }
 
     private void back()
@@ -580,7 +586,9 @@ public class StartGUI extends JFrame implements ActionListener
 
         if(j.equals(buttons[0]))
         {
+            System.out.println("waluigi");
             next();
+            System.out.println("waluigi");
         }
         else if(j.equals(buttons[1]))
         {

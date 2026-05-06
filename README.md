@@ -70,3 +70,9 @@ Change Log
 -V.6.1-
 -Work on main game finaly begins
 -Nicholas-
+
+5/6/26
+-V.6.2-
+-Neatened and cleaned code to actualy be semi sane
+-Work on getting game up and going
+-Nicholas-
