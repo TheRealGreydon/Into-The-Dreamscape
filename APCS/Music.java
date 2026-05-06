@@ -64,21 +64,21 @@ public class Music extends Thread
 
                     if(line != null) 
                     {
-                            line.open(decodedFormat);
-                            byte[] data = new byte[4096];
-                            // Start
-                            line.start();
-                            int nBytesRead;
+                        line.open(decodedFormat);
+                        byte[] data = new byte[4096];
+                        // Start
+                        line.start();
+                        int nBytesRead;
 
-                            while ((nBytesRead = din.read(data, 0, data.length)) != -1) 
-                            {	
-                                    line.write(data, 0, nBytesRead);
-                            }
-                            // Stop
-                            line.drain();
-                            line.stop();
-                            line.close();
-                            din.close();
+                        while ((nBytesRead = din.read(data, 0, data.length)) != -1) 
+                        {	
+                                line.write(data, 0, nBytesRead);
+                        }
+                        // Stop
+                        line.drain();
+                        line.stop();
+                        line.close();
+                        din.close();
                     }
             }
             catch(Exception e) 
