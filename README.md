@@ -60,4 +60,5 @@ Change Log
 -Default backgrounds and asset updates
 -V.5.4-
 -Made so without input, menu wont progress
+-COLOR
 -Nicholas-

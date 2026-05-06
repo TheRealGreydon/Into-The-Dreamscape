@@ -79,8 +79,9 @@ public class StartGUI extends JFrame implements ActionListener
         gbc.anchor = GridBagConstraints.LINE_END; 
         sPanel.add(buttons[0],gbc);
         buttons[0].setPreferredSize(new Dimension(100,100));
-        buttons[0].setBackground(Color.RED);
-        buttons[0].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
+        buttons[0].setBackground(new Color(179, 9, 9));
+        buttons[0].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
+        buttons[0].setForeground(Color.black);
         buttons[0].setFont(new Font(buttons[0].getFont().getName(), Font.BOLD, 15));
         buttons[0].setText("NEXT");
         buttons[0].addActionListener(this);
@@ -108,8 +109,8 @@ public class StartGUI extends JFrame implements ActionListener
         gbc.anchor = GridBagConstraints.LINE_END; 
         sPanel.add(buttons[0],gbc);
         buttons[0].setPreferredSize(new Dimension(100,100));
-        buttons[0].setBackground(Color.RED);
-        buttons[0].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
+        buttons[0].setBackground(new Color(179, 9, 9));
+        buttons[0].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
         buttons[0].setFont(new Font(buttons[0].getFont().getName(), Font.BOLD, 15));
         buttons[0].setText("NEXT");
 
@@ -120,10 +121,11 @@ public class StartGUI extends JFrame implements ActionListener
         gbc.anchor = GridBagConstraints.LINE_START; 
         sPanel.add(buttons[1],gbc);
         buttons[1].setPreferredSize(new Dimension(100,100));
-        buttons[1].setBackground(Color.RED);
-        buttons[1].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
+        buttons[1].setBackground(new Color(179, 9, 9));
+        buttons[1].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
         buttons[1].setFont(new Font(buttons[1].getFont().getName(), Font.BOLD, 15));
         buttons[1].setText("BACK");
+        buttons[1].setForeground(Color.black);
         buttons[1].addActionListener(this);
 
         buttons[2]=new JButton();
@@ -133,9 +135,10 @@ public class StartGUI extends JFrame implements ActionListener
         gbc.anchor = GridBagConstraints.CENTER; 
         sPanel.add(buttons[2],gbc);
         buttons[2].setPreferredSize(new Dimension(200,100));
-        buttons[2].setBackground(Color.RED);
-        buttons[2].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
+        buttons[2].setBackground(new Color(179, 9, 9));
+        buttons[2].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
         buttons[2].setFont(new Font(buttons[2].getFont().getName(), Font.BOLD, 15));
+        buttons[2].setForeground(Color.black);
         buttons[2].setText("Male");
         buttons[2].addActionListener(this);
 
@@ -146,9 +149,10 @@ public class StartGUI extends JFrame implements ActionListener
         gbc.anchor = GridBagConstraints.CENTER; 
         sPanel.add(buttons[3],gbc);
         buttons[3].setPreferredSize(new Dimension(100,100));
-        buttons[3].setBackground(Color.RED);
-        buttons[3].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
+        buttons[3].setBackground(new Color(179, 9, 9));
+        buttons[3].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
         buttons[3].setFont(new Font(buttons[3].getFont().getName(), Font.BOLD, 15));
+        buttons[3].setForeground(Color.black);
         buttons[3].setText("Female");
         buttons[3].addActionListener(this);
 
@@ -158,9 +162,10 @@ public class StartGUI extends JFrame implements ActionListener
         gbc.anchor = GridBagConstraints.CENTER; 
         sPanel.add(buttons[4],gbc);
         buttons[4].setPreferredSize(new Dimension(200,100));
-        buttons[4].setBackground(Color.RED);
-        buttons[4].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
+        buttons[4].setBackground(new Color(179, 9, 9));
+        buttons[4].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
         buttons[4].setFont(new Font(buttons[4].getFont().getName(), Font.BOLD, 15));
+        buttons[4].setForeground(Color.black);
         buttons[4].setText("Non-Binary");
         buttons[4].addActionListener(this);
 
@@ -216,8 +221,8 @@ public class StartGUI extends JFrame implements ActionListener
         gbc.anchor = GridBagConstraints.LINE_END; 
         sPanel.add(buttons[0],gbc);
         buttons[0].setPreferredSize(new Dimension(100,100));
-        buttons[0].setBackground(Color.RED);
-        buttons[0].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
+        buttons[0].setBackground(new Color(179, 9, 9));
+        buttons[0].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
         buttons[0].setFont(new Font(buttons[0].getFont().getName(), Font.BOLD, 15));
         buttons[0].setText("NEXT");
 
@@ -227,45 +232,42 @@ public class StartGUI extends JFrame implements ActionListener
         gbc.anchor = GridBagConstraints.LINE_START; 
         sPanel.add(buttons[1],gbc);
         buttons[1].setPreferredSize(new Dimension(100,100));
-        buttons[1].setBackground(Color.RED);
-        buttons[1].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
+        buttons[1].setBackground(new Color(179, 9, 9));
+        buttons[1].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
         buttons[1].setFont(new Font(buttons[1].getFont().getName(), Font.BOLD, 15));
         buttons[1].setText("BACK");
 
-        buttons[2]=new JButton();
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx=1;
         gbc.gridy = 1;       
         gbc.anchor = GridBagConstraints.CENTER; 
         sPanel.add(buttons[2],gbc);
         buttons[2].setPreferredSize(new Dimension(200,100));
-        buttons[2].setBackground(Color.RED);
-        buttons[2].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
+        buttons[2].setBackground(new Color(179, 9, 9));
+        buttons[2].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
         buttons[2].setFont(new Font(buttons[2].getFont().getName(), Font.BOLD, 15));
         buttons[2].setText("1");
         buttons[2].addActionListener(this);
 
-        buttons[3]=new JButton();
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx=2;
         gbc.gridy = 1;       
         gbc.anchor = GridBagConstraints.CENTER; 
         sPanel.add(buttons[3],gbc);
         buttons[3].setPreferredSize(new Dimension(100,100));
-        buttons[3].setBackground(Color.RED);
-        buttons[3].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
+        buttons[3].setBackground(new Color(179, 9, 9));
+        buttons[3].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
         buttons[3].setFont(new Font(buttons[3].getFont().getName(), Font.BOLD, 15));
         buttons[3].setText("2");
         buttons[3].addActionListener(this);
 
-        buttons[4]=new JButton();
         gbc.gridx=3;
         gbc.gridy = 1;       
         gbc.anchor = GridBagConstraints.CENTER; 
         sPanel.add(buttons[4],gbc);
         buttons[4].setPreferredSize(new Dimension(200,100));
-        buttons[4].setBackground(Color.RED);
-        buttons[4].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
+        buttons[4].setBackground(new Color(179, 9, 9));
+        buttons[4].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
         buttons[4].setFont(new Font(buttons[4].getFont().getName(), Font.BOLD, 15));
         buttons[4].setText("3");
         buttons[4].addActionListener(this);
@@ -317,27 +319,27 @@ public class StartGUI extends JFrame implements ActionListener
         title.setText("Whats your favorite color?");
         sPanel.add(title,gbc);
 
-        gbc.gridx = 14;
+        gbc.gridx = 20;
         gbc.gridy = 1;       
         gbc.gridwidth = 0;
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.LINE_END; 
         sPanel.add(buttons[0],gbc);
         buttons[0].setPreferredSize(new Dimension(100,100));
-        buttons[0].setBackground(Color.RED);
-        buttons[0].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
+        buttons[0].setBackground(new Color(179, 9, 9));
+        buttons[0].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
         buttons[0].setFont(new Font(buttons[0].getFont().getName(), Font.BOLD, 15));
-        buttons[0].setText("NEXT");
+        buttons[0].setText("FINISH");
 
         gbc.fill = GridBagConstraints.NONE;
-        gbc.gridx = 0;
+        gbc.gridx = -10;
         gbc.gridy = 1;     
         gbc.gridwidth = 0;  
         gbc.anchor = GridBagConstraints.LINE_START; 
         sPanel.add(buttons[1],gbc);
         buttons[1].setPreferredSize(new Dimension(100,100));
-        buttons[1].setBackground(Color.RED);
-        buttons[1].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
+        buttons[1].setBackground(new Color(179, 9, 9));
+        buttons[1].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
         buttons[1].setFont(new Font(buttons[1].getFont().getName(), Font.BOLD, 15));
         buttons[1].setText("BACK");
 
@@ -346,43 +348,43 @@ public class StartGUI extends JFrame implements ActionListener
         gbc.weightx = 0;
         gbc.weighty = 0;
         gbc.gridx= 2;
-        gbc.gridy = 1;       
+        gbc.gridy = 0;       
         gbc.gridwidth = 1;
         gbc.ipadx = 0;
         gbc.ipady = 0;
         gbc.anchor = GridBagConstraints.CENTER; 
         sPanel.add(buttons[5],gbc);
         buttons[5].setPreferredSize(new Dimension(200,200));
-        buttons[5].setBackground(Color.RED);
+        buttons[5].setBackground(new Color(179, 9, 9));
         buttons[5].setBorder(BorderFactory.createLineBorder(Color.BLACK, 20));
         buttons[5].addActionListener(this);
 
         buttons[6]=new JButton();
         //gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx=3;
-        gbc.gridy = 1;       
+        gbc.gridy = 0;       
         gbc.anchor = GridBagConstraints.CENTER; 
         sPanel.add(buttons[6],gbc);
         buttons[6].setPreferredSize(new Dimension(200,200));
-        buttons[6].setBackground(Color.BLUE);
+        buttons[6].setBackground(new Color(43,18,204));
         buttons[6].setBorder(BorderFactory.createLineBorder(Color.BLACK, 20));
         buttons[6].addActionListener(this);
 
         buttons[7]=new JButton();
         gbc.fill = GridBagConstraints.NONE;
         gbc.gridx=2;
-        gbc.gridy = 2;       
+        gbc.gridy = 1;       
         gbc.anchor = GridBagConstraints.CENTER; 
         sPanel.add(buttons[7],gbc);
         buttons[7].setPreferredSize(new Dimension(200,200));
-        buttons[7].setBackground(Color.GREEN);
+        buttons[7].setBackground(new Color(5,97,51));
         buttons[7].setBorder(BorderFactory.createLineBorder(Color.BLACK, 20));
         buttons[7].addActionListener(this);
 
         buttons[8]=new JButton();
         gbc.fill = GridBagConstraints.NONE;
         gbc.gridx=3;
-        gbc.gridy = 2;       
+        gbc.gridy = 1;       
         gbc.anchor = GridBagConstraints.CENTER; 
         sPanel.add(buttons[8],gbc);
         buttons[8].setPreferredSize(new Dimension(200,200));
@@ -483,36 +485,65 @@ public class StartGUI extends JFrame implements ActionListener
         }
         else if(j.equals(buttons[2]))
         {
-            if(page==1)
-            {gend=1;}else{out=1;}
-            buttons[2].setBackground(Color.BLUE);
-            buttons[2].setBorder(BorderFactory.createLineBorder(Color.RED, 5));
-            buttons[3].setBackground(Color.RED);
-            buttons[3].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
-            buttons[4].setBackground(Color.RED);
-            buttons[4].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
+            if(page==1){gend=1;}else{out=1;}
+            buttons[2].setBackground(new Color(43,18,204));
+            buttons[2].setBorder(BorderFactory.createLineBorder(new Color(179, 9, 9), 5));
+            buttons[3].setBackground(new Color(179, 9, 9));
+            buttons[3].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
+            buttons[4].setBackground(new Color(179, 9, 9));
+            buttons[4].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
         }
         else if(j.equals(buttons[3]))
         {
-            if(page==1)
-            {gend=2;}else{out=2;}
-            buttons[2].setBackground(Color.RED);
-            buttons[2].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
-            buttons[3].setBackground(Color.BLUE);
-            buttons[3].setBorder(BorderFactory.createLineBorder(Color.RED, 5));
-            buttons[4].setBackground(Color.RED);
-            buttons[4].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
+            if(page==1){gend=2;}else{out=2;}
+            buttons[2].setBackground(new Color(179, 9, 9));
+            buttons[2].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
+            buttons[3].setBackground(new Color(43,18,204));
+            buttons[3].setBorder(BorderFactory.createLineBorder(new Color(179, 9, 9), 5));
+            buttons[4].setBackground(new Color(179, 9, 9));
+            buttons[4].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
         }
         else if(j.equals(buttons[4]))
         {
-            if(page==1)
-            {gend=3;}else{out=3;}
-            buttons[2].setBackground(Color.RED);
-            buttons[2].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
-            buttons[3].setBackground(Color.RED);
-            buttons[3].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
-            buttons[4].setBackground(Color.BLUE);
-            buttons[4].setBorder(BorderFactory.createLineBorder(Color.RED, 5));
+            if(page==1){gend=3;}else{out=3;}
+            buttons[2].setBackground(new Color(179, 9, 9));
+            buttons[2].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
+            buttons[3].setBackground(new Color(179, 9, 9));
+            buttons[3].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
+            buttons[4].setBackground(new Color(43,18,204));
+            buttons[4].setBorder(BorderFactory.createLineBorder(new Color(179, 9, 9), 5));
+        }
+        else if(j.equals(buttons[5]))
+        {
+            fav=1;
+            buttons[5].setBorder(BorderFactory.createLineBorder(Color.WHITE,20));
+            buttons[6].setBorder(BorderFactory.createLineBorder(Color.BLACK,20));
+            buttons[7].setBorder(BorderFactory.createLineBorder(Color.black,20));
+            buttons[8].setBorder(BorderFactory.createLineBorder(Color.black,20));
+        }
+        else if(j.equals(buttons[6]))
+        {
+            fav=2;
+            buttons[5].setBorder(BorderFactory.createLineBorder(Color.black,20));
+            buttons[6].setBorder(BorderFactory.createLineBorder(Color.white,20));
+            buttons[7].setBorder(BorderFactory.createLineBorder(Color.black,20));
+            buttons[8].setBorder(BorderFactory.createLineBorder(Color.black,20));
+        }
+        else if(j.equals(buttons[7]))
+        {
+            fav=3;
+            buttons[5].setBorder(BorderFactory.createLineBorder(Color.black,20));
+            buttons[6].setBorder(BorderFactory.createLineBorder(Color.BLACK,20));
+            buttons[7].setBorder(BorderFactory.createLineBorder(Color.white,20));
+            buttons[8].setBorder(BorderFactory.createLineBorder(Color.black,20));
+        }
+        else if(j.equals(buttons[8]))
+        {
+            fav=4;
+            buttons[5].setBorder(BorderFactory.createLineBorder(Color.black,20));
+            buttons[6].setBorder(BorderFactory.createLineBorder(Color.BLACK,20));
+            buttons[7].setBorder(BorderFactory.createLineBorder(Color.black,20));
+            buttons[8].setBorder(BorderFactory.createLineBorder(Color.white,20));
         }
     }
 }
