@@ -67,4 +67,6 @@ Change Log
 -V.6-
 -The god forsaken character menu is done
 -I hate my self
+-V.6.1-
+-Work on main game finaly begins
 -Nicholas-

@@ -44,6 +44,26 @@ public class StartGUI extends JFrame implements ActionListener
         return sPanel;
     }
 
+    public String nameRet()
+    {
+        return name;
+    }
+
+    public int gendRet()
+    {
+        return gend;
+    }
+
+    public int outRet()
+    {
+        return out;
+    }
+    
+    public int favRet()
+    {
+        return fav;
+    }
+
     private void name()
     {
         nameBox = new JTextField(9);
@@ -87,7 +107,7 @@ public class StartGUI extends JFrame implements ActionListener
         buttons[0].addActionListener(this);
     }
 
-    public void gend()
+    private void gend()
     {
         JLabel title = new JLabel();
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -200,7 +220,7 @@ public class StartGUI extends JFrame implements ActionListener
         sPanel.add(out3lab, gbc);
     }
 
-    public void out()
+    private void out()
     {
         JLabel title = new JLabel();
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -303,7 +323,7 @@ public class StartGUI extends JFrame implements ActionListener
         sPanel.add(out3lab, gbc);
     }
 
-    public void fav()
+    private void fav()
     {
         JLabel title = new JLabel();
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -394,7 +414,7 @@ public class StartGUI extends JFrame implements ActionListener
         buttons[8].addActionListener(this);
     }
 
-    public void fin()
+    private void fin()
     {
         JLabel title = new JLabel();
         gbc.fill = GridBagConstraints.NONE;
@@ -459,7 +479,7 @@ public class StartGUI extends JFrame implements ActionListener
         buttons[0].setBackground(new Color(179, 9, 9));
         buttons[0].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
         buttons[0].setFont(new Font(buttons[0].getFont().getName(), Font.BOLD, 15));
-        buttons[0].setText("DONE");
+        buttons[0].setText("START");
 
         gbc.fill = GridBagConstraints.NONE;
         gbc.gridx = 0;
@@ -474,7 +494,7 @@ public class StartGUI extends JFrame implements ActionListener
         buttons[1].setText("BACK");
     }
 
-    public void next()
+    private void next()
     {
         if(page==0)
         {
@@ -521,7 +541,7 @@ public class StartGUI extends JFrame implements ActionListener
         }
     }
 
-    public void back()
+    private void back()
     {
         if(page==1)
         {

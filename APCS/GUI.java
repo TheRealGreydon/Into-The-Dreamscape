@@ -15,11 +15,15 @@ public class GUI extends JFrame implements ActionListener
     private Main g;
     private Panels p;
     private StartGUI sGUI;
+    private GameGUI gGUI;
+
+    private Player character;
     
-    /** The main panel containing the game components. */
     private JPanel mPanel;
     private JPanel sPanel;
     private JPanel cPanel;
+    private JPanel gPanel;
+
     private GridBagConstraints gbc = new GridBagConstraints();
 
     private JButton[]buttons = new JButton[100];
@@ -28,11 +32,12 @@ public class GUI extends JFrame implements ActionListener
      * Initialize the GUI.
      * @param d the DropGame engine
      */
-    public GUI(Main g, BackgroundPanel b, BackgroundPanel d)
+    public GUI(Main g, BackgroundPanel a, BackgroundPanel b)
     {
         this.g=g;
-        p = new Panels(b,d);
-        sGUI = new StartGUI(d);
+        p = new Panels(a);
+        sGUI = new StartGUI(b);
+        gGUI = new GameGUI(d);
         initialize();           
     }
     
@@ -58,8 +63,8 @@ public class GUI extends JFrame implements ActionListener
         this.pack();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setTitle("Into the Dreamscape");
-        //this.add(mPanel);
-        this.add(sPanel);
+        this.add(mPanel);
+        //this.add(sPanel);
         this.setVisible(true);
         this.setResizable(true);
     }
@@ -133,6 +138,11 @@ public class GUI extends JFrame implements ActionListener
         sPanel=sGUI.start();
     }
 
+    public void game()
+    {
+        gPanel=p.game();
+    }
+
     public void swapPanel(JPanel x, JPanel y)
     {
         this.pack();
@@ -145,7 +155,6 @@ public class GUI extends JFrame implements ActionListener
     
     public void actionPerformed(ActionEvent e)
     {
-        //the source of the button click
         JButton j = (JButton)(e.getSource());
         
         if(j.equals(buttons[0]))

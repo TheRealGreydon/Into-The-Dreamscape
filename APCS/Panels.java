@@ -10,10 +10,9 @@ public class Panels
 
     private GridBagConstraints gbc = new GridBagConstraints();
 
-    public Panels(BackgroundPanel b, BackgroundPanel d)
+    public Panels(BackgroundPanel b)
     {
         this.b=b;
-        this.d=d;
     }
 
     public JPanel menu()
