@@ -9,7 +9,7 @@ public class GameGUI extends JFrame implements ActionListener
 {
     private JPanel gPanel;
     private Player character;
-    String path="APCS/Assets/Default Img/defaultBack.jpg";        
+    String path="APCS/Assets/Default Img/defaultLevelMenuA.jpg";        
     private BackgroundPanel b = new BackgroundPanel(new ImageIcon(path).getImage(), 1);
 
     public GameGUI()
