@@ -87,7 +87,7 @@ public class StartGUI extends JFrame implements ActionListener
         gbc.gridx = 3;       
         gbc.gridwidth = 1;   
         gbc.gridy = 0;   
-        //title.setBounds(100,20,600,80);
+        title.setBorder(BorderFactory.createLineBorder(Color.black, 5));
         title.setOpaque(true);
         title.setBackground(Color.WHITE);
         title.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
@@ -123,6 +123,7 @@ public class StartGUI extends JFrame implements ActionListener
         title.setBackground(Color.WHITE);
         title.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
         title.setText("What gender are you?");
+        title.setBorder(BorderFactory.createLineBorder(Color.black, 5));
         sPanel.add(title,gbc);
 
         gbc.gridx=10;
@@ -195,10 +196,14 @@ public class StartGUI extends JFrame implements ActionListener
         BufferedImage out1=null;
         BufferedImage out2=null;
         BufferedImage out3=null;
+        Image out1S;
+        Image out2S;
+        Image out3S;
 
-        try {out1 = ImageIO.read(new File("APCS/Assets/Default Img/DefaultOutImg.jpg"));} catch (IOException e) {e.printStackTrace();}
-        JLabel out1lab = new JLabel(new ImageIcon(out1));
-        out1lab.setPreferredSize(new Dimension(300,300));
+        try {out1 = ImageIO.read(new File("APCS/Assets/Character Img/Char1.jpg"));} catch (IOException e) {e.printStackTrace();}
+        out1S = out1.getScaledInstance(650, 650, Image.SCALE_SMOOTH);
+        JLabel out1lab = new JLabel(new ImageIcon(out1S));
+        out1lab.setPreferredSize(new Dimension(300,450));
         gbc.fill = GridBagConstraints.NONE;
         gbc.ipady = 0;       
         gbc.weighty = .5;   
@@ -209,15 +214,17 @@ public class StartGUI extends JFrame implements ActionListener
         gbc.gridy = 0;     
         sPanel.add(out1lab, gbc);
 
-        try {out2 = ImageIO.read(new File("APCS/Assets/Default Img/DefaultOutImg.jpg"));} catch (IOException e) {e.printStackTrace();}
-        JLabel out2lab = new JLabel(new ImageIcon(out2));
-        out2lab.setPreferredSize(new Dimension(300,300));
+        try {out2 = ImageIO.read(new File("APCS/Assets/Character Img/Char2.jpg"));} catch (IOException e) {e.printStackTrace();}
+        out2S = out2.getScaledInstance(650, 650, Image.SCALE_SMOOTH);
+        JLabel out2lab = new JLabel(new ImageIcon(out2S));
+        out2lab.setPreferredSize(new Dimension(300,450));
         gbc.gridx = 2;       
         sPanel.add(out2lab, gbc);
 
-        try {out3 = ImageIO.read(new File("APCS/Assets/Default Img/DefaultOutImg.jpg"));} catch (IOException e) {e.printStackTrace();}
-        JLabel out3lab = new JLabel(new ImageIcon(out3));
-        out3lab.setPreferredSize(new Dimension(300,300));
+        try {out3 = ImageIO.read(new File("APCS/Assets/Character Img/Char3.jpg"));} catch (IOException e) {e.printStackTrace();}
+        out3S = out3.getScaledInstance(650, 650, Image.SCALE_SMOOTH);
+        JLabel out3lab = new JLabel(new ImageIcon(out3S));
+        out3lab.setPreferredSize(new Dimension(300,450));
         gbc.gridx = 3;       
         sPanel.add(out3lab, gbc);
     }
@@ -235,6 +242,7 @@ public class StartGUI extends JFrame implements ActionListener
         title.setBounds(100,20,600,80);
         title.setOpaque(true);
         title.setBackground(Color.WHITE);
+        title.setBorder(BorderFactory.createLineBorder(Color.black, 5));
         title.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
         title.setText("What outfit would you like?");
         sPanel.add(title,gbc);
@@ -298,10 +306,14 @@ public class StartGUI extends JFrame implements ActionListener
         BufferedImage out1=null;
         BufferedImage out2=null;
         BufferedImage out3=null;
+        Image out1S;
+        Image out2S;
+        Image out3S;
 
-        try {out1 = ImageIO.read(new File("APCS/Assets/Default Img/DefaultOutImg.jpg"));} catch (IOException e) {e.printStackTrace();}
-        JLabel out1lab = new JLabel(new ImageIcon(out1));
-        out1lab.setPreferredSize(new Dimension(300,300));
+        try {out1 = ImageIO.read(new File("APCS/Assets/Character Img/Char1.jpg"));} catch (IOException e) {e.printStackTrace();}
+        out1S = out1.getScaledInstance(650, 650, Image.SCALE_SMOOTH);
+        JLabel out1lab = new JLabel(new ImageIcon(out1S));
+        out1lab.setPreferredSize(new Dimension(300,450));
         gbc.fill = GridBagConstraints.NONE;
         gbc.ipady = 0;       
         gbc.weighty = .5;   
@@ -312,15 +324,17 @@ public class StartGUI extends JFrame implements ActionListener
         gbc.gridy = 0;     
         sPanel.add(out1lab, gbc);
 
-        try {out2 = ImageIO.read(new File("APCS/Assets/Default Img/DefaultOutImg.jpg"));} catch (IOException e) {e.printStackTrace();}
-        JLabel out2lab = new JLabel(new ImageIcon(out2));
-        out2lab.setPreferredSize(new Dimension(300,300));
+        try {out2 = ImageIO.read(new File("APCS/Assets/Character Img/Char2.jpg"));} catch (IOException e) {e.printStackTrace();}
+        out2S = out2.getScaledInstance(650, 650, Image.SCALE_SMOOTH);
+        JLabel out2lab = new JLabel(new ImageIcon(out2S));
+        out2lab.setPreferredSize(new Dimension(300,450));
         gbc.gridx = 2;       
         sPanel.add(out2lab, gbc);
 
-        try {out3 = ImageIO.read(new File("APCS/Assets/Default Img/DefaultOutImg.jpg"));} catch (IOException e) {e.printStackTrace();}
-        JLabel out3lab = new JLabel(new ImageIcon(out3));
-        out3lab.setPreferredSize(new Dimension(300,300));
+        try {out3 = ImageIO.read(new File("APCS/Assets/Character Img/Char3.jpg"));} catch (IOException e) {e.printStackTrace();}
+        out3S = out3.getScaledInstance(650, 650, Image.SCALE_SMOOTH);
+        JLabel out3lab = new JLabel(new ImageIcon(out3S));
+        out3lab.setPreferredSize(new Dimension(300,450));
         gbc.gridx = 3;       
         sPanel.add(out3lab, gbc);
     }
@@ -335,7 +349,7 @@ public class StartGUI extends JFrame implements ActionListener
         gbc.gridx = 3;       
         gbc.gridwidth = 1;   
         gbc.gridy = -1;       
-        //title.setBounds(100,20,600,80);
+        title.setBorder(BorderFactory.createLineBorder(Color.black, 5));
         title.setOpaque(true);
         title.setBackground(Color.WHITE);
         title.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
@@ -430,6 +444,7 @@ public class StartGUI extends JFrame implements ActionListener
         title.setOpaque(true);
         title.setBackground(Color.WHITE);
         title.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
+        title.setBorder(BorderFactory.createLineBorder(Color.black, 5));
         title.setText("Finalize your character?");
         sPanel.add(title,gbc);
 
@@ -461,7 +476,7 @@ public class StartGUI extends JFrame implements ActionListener
         BufferedImage cha = null;
         try {cha = ImageIO.read(new File("APCS/Assets/Character Img/Char" + o + ".jpg"));} catch (IOException e) {e.printStackTrace();}
         JLabel chaimg = new JLabel(new ImageIcon(cha));
-        chaimg.setPreferredSize(new Dimension(400,400));
+        chaimg.setPreferredSize(new Dimension(400,600));
         gbc.ipady = 0;       
         gbc.anchor = GridBagConstraints.CENTER; 
         gbc.gridx = 0;       
@@ -542,8 +557,9 @@ public class StartGUI extends JFrame implements ActionListener
         }
         else if(page==4)
         {
+            Window.getWindows()[0].dispose();
+            gui.cha(name, gend, out, fav);
             gui.game();
-            System.out.println("wario");
         }
     }
 
@@ -586,9 +602,7 @@ public class StartGUI extends JFrame implements ActionListener
 
         if(j.equals(buttons[0]))
         {
-            System.out.println("waluigi");
             next();
-            System.out.println("waluigi");
         }
         else if(j.equals(buttons[1]))
         {

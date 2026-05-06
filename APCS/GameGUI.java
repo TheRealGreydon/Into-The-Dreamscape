@@ -12,8 +12,9 @@ public class GameGUI extends JFrame implements ActionListener
     String path="APCS/Assets/Default Img/defaultLevelMenuA.jpg";        
     private BackgroundPanel b = new BackgroundPanel(new ImageIcon(path).getImage(), 1);
 
-    public GameGUI()
+    public GameGUI(Player character)
     {
+        this.character = character;
         gPanel = new JPanel();
         gPanel = b;
         gPanel.setLayout(new GridBagLayout());

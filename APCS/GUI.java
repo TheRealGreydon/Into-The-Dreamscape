@@ -38,14 +38,13 @@ public class GUI extends JFrame implements ActionListener
         {
             p = new Panels();
             sGUI = new StartGUI();
-            gGUI = new GameGUI();
             initialize();  
         }         
     }
 
     public GUI()
     {
-        gGUI = new GameGUI();
+        gGUI = new GameGUI(character);
     }
     
     /**
@@ -70,8 +69,19 @@ public class GUI extends JFrame implements ActionListener
         this.pack();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setTitle("Into the Dreamscape");
-        this.add(mPanel);
-        //this.add(sPanel);
+        //this.add(mPanel);
+        this.add(sPanel);
+        this.setVisible(true);
+        this.setResizable(true);
+    }
+
+    private void initialize2()
+    {
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        this.pack();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.setTitle("Into the Dreamscape");
         this.setVisible(true);
         this.setResizable(true);
     }
@@ -145,8 +155,14 @@ public class GUI extends JFrame implements ActionListener
         sPanel=sGUI.start();
     }
 
+    public void cha(String name, int gend, int out, int fav)
+    {
+        character = new Player(name, gend, out, fav);
+    }
+
     public void game()
     {
+        initialize2();
         gPanel=gGUI.gamePan();
         swapPanel(sPanel, gPanel);
     }

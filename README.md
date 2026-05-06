@@ -75,4 +75,5 @@ Change Log
 -V.6.2-
 -Neatened and cleaned code to actualy be semi sane
 -Work on getting game up and going
+-Game frame now opens when started
 -Nicholas-
