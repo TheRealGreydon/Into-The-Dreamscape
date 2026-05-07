@@ -79,4 +79,6 @@ Change Log
 -V.6.3-
 -Added a pause layer
 -Keybinds started
+-V.7-
+-Level select working, backgrounds STILL needed KAI
 -Nicholas-

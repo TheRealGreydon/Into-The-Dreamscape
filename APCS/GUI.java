@@ -19,6 +19,8 @@ public class GUI extends JFrame implements ActionListener
     private JPanel gPanel = new JPanel();
 
     private boolean paused = false;
+    private int levNum = 0;
+    private int levSel = 0;
 
     private GridBagConstraints gbc = new GridBagConstraints();
 
@@ -41,8 +43,8 @@ public class GUI extends JFrame implements ActionListener
         this.pack();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setTitle("Into the Dreamscape");
-        //this.add(mPanel);
-        this.add(sPanel);
+        this.add(mPanel);
+        //this.add(sPanel);
         this.setVisible(true);
         this.setResizable(true);
     }
@@ -134,38 +136,39 @@ public class GUI extends JFrame implements ActionListener
         swapPanel(sPanel, gPanel);
         pau.setBackground(new Color(0,0,0,200));
         pau.setEnabled(false);pau.setVisible(false);pau.setForeground(Color.white);
-        pau.setFont(new Font(pau.getFont().getName(), Font.BOLD, 40));
-        pau.setText("Pause"); 
+        pau.setFont(new Font(pau.getFont().getName(), Font.BOLD, 40));pau.setText("Pause"); 
         gPanel.add(pau);
         keyActions();
     }
 
+    //Keybinds
     private void keyActions()
     {
         gPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ESCAPE"), "Pause");
-        //gPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("LEFT"), "Left");
+        gPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("LEFT"), "Back");
+        gPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("RIGHT"), "Next");
+        gPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ENTER"), "Select");
 
+        gPanel.getActionMap().put("Back", new AbstractAction() {public void actionPerformed(ActionEvent e) {back();}});
         gPanel.getActionMap().put("Pause", new AbstractAction() {public void actionPerformed(ActionEvent e) {pause();}});
-        //gPanel.getActionMap().put("Left", new AbstractAction() {public void actionPerformed(ActionEvent e) {System.out.println("left key pressed via Key Bindings");}});
+        gPanel.getActionMap().put("Select", new AbstractAction() {public void actionPerformed(ActionEvent e) {select();}});
+        gPanel.getActionMap().put("Next", new AbstractAction() {public void actionPerformed(ActionEvent e) {next();}});
     }
 
     //Displays the pause screen
-    private void pause()
-    {
-        if(paused) {pau.setVisible(false);paused=false;}
+    private void pause() {if(paused) {pau.setVisible(false);paused=false;}else {pau.setVisible(true);paused=true;}}    
 
-        else {pau.setVisible(true);paused=true;}
-    }    
+    private void next() {if(levSel+1<5 && paused==false){levSel++;gGUI.imgSwap(levSel);}}
+
+    private void back() {if(levSel-1>-1 && paused==false){levSel--;gGUI.imgSwap(levSel);}}
+
+    private void select()
+    {
+        levNum=levSel;
+    }
 
     //Handles swaping the panels
-    private void swapPanel(JPanel x, JPanel y)
-    {
-        this.pack();
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.remove(x);
-        this.add(y);
-        this.repaint();
-    }
+    private void swapPanel(JPanel x, JPanel y) {this.pack();this.setExtendedState(JFrame.MAXIMIZED_BOTH);this.remove(x);this.add(y);this.repaint();}
     
     //Buttons
     public void actionPerformed(ActionEvent e)
