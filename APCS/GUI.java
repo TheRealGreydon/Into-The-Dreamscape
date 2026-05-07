@@ -171,8 +171,7 @@ public class GUI extends JFrame implements ActionListener
 
     //Displays the pause screen
     private void pause() 
-    {
-           
+    {  
         if(paused) 
         {
             settings.setVisible(false);
@@ -180,7 +179,6 @@ public class GUI extends JFrame implements ActionListener
             pau.setVisible(false);
             exit.setEnabled(false);
             exit.setVisible(false);
-            paused=false;
         }
         else 
         {
@@ -196,14 +194,18 @@ public class GUI extends JFrame implements ActionListener
             exit.setVisible(true);
             exit.setEnabled(true);
             pau.setVisible(true);
-            paused=true;
         }
+        paused=!paused;
     }    
 
     private void settings()
     {
-        pau.setForeground(Color.white);
-        pau.setFont(new Font(pau.getFont().getName(), Font.BOLD, 40));pau.setText("Settings");pau.setBackground(new Color(0,0,0,200));
+        gPanel.remove(this.pau);
+        JButton set = new JButton();
+        set.setEnabled(false);set.ise;pau.setForeground(Color.white);
+        set.setFont(new Font(pau.getFont().getName(), Font.BOLD, 40));pau.setText("Paused"); 
+        gPanel.add(set);
+        gPanel.repaint();
     }
 
     private void next() {if(levSel+1<5 && paused==false){levSel++;gGUI.imgSwap(levSel);}}

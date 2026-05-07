@@ -19,7 +19,7 @@ public class StartGUI extends JFrame implements ActionListener
 
     private GUI gui = new GUI();
     
-    private int page = 0;
+    private int page = 4;//0;
 
     private JPanel sPanel;
 
