@@ -21,6 +21,7 @@ public class GUI extends JFrame implements ActionListener
     private boolean paused = false;
     private int levNum = 0;
     private int levSel = 0;
+    private int vol = 50;
 
     private GridBagConstraints gbc = new GridBagConstraints();
 
@@ -136,23 +137,22 @@ public class GUI extends JFrame implements ActionListener
         initialize2();
         gPanel=gGUI.gamePan();
         swapPanel(sPanel, gPanel);
-        pau.setBackground(new Color(0,0,0,200));
+        pauButtons();
+        keyActions();
+    }
+
+    private void pauButtons()
+    {
         pau.setEnabled(false);pau.setVisible(false);pau.setForeground(Color.white);
         pau.setFont(new Font(pau.getFont().getName(), Font.BOLD, 40));pau.setText("Paused"); 
-        pau.setSize(new Dimension(100,100));
-        exit.setBackground(new Color(0,0,0));
-        exit.setSize(new Dimension(200,100));
-        exit.setLocation((this.getWidth()/2)-100, (this.getHeight()/2)+50);
+        exit.setBackground(new Color(0,0,0));settings.setBackground(new Color(0,0,0));pau.setBackground(new Color(0,0,0,200));
+        exit.setSize(new Dimension(200,100));settings.setSize(new Dimension(200,100));
         exit.setEnabled(false);exit.setVisible(false);exit.setForeground(Color.white);
         exit.setFont(new Font(exit.getFont().getName(), Font.BOLD, 40));exit.setText("Exit"); 
-        settings.setBackground(new Color(0,0,0));
-        settings.setSize(new Dimension(200,100));
-        settings.setLocation((this.getWidth()/2)-100, (this.getHeight()/2)+150);
         settings.setEnabled(false);settings.setVisible(false);settings.setForeground(Color.white);
         settings.setFont(new Font(settings.getFont().getName(), Font.BOLD, 40));settings.setText("Settings"); 
-        pau.addActionListener(this); settings.addActionListener(this);exit.addActionListener(this);
-        gPanel.add(settings);gPanel.add(exit);gPanel.add(pau);
-        keyActions();
+        settings.addActionListener(this);exit.addActionListener(this);
+        this.setLocationRelativeTo(null);
     }
 
     //Keybinds
@@ -172,6 +172,7 @@ public class GUI extends JFrame implements ActionListener
     //Displays the pause screen
     private void pause() 
     {
+           
         if(paused) 
         {
             settings.setVisible(false);
@@ -183,6 +184,13 @@ public class GUI extends JFrame implements ActionListener
         }
         else 
         {
+            pau.setForeground(Color.white);
+            pau.setFont(new Font(pau.getFont().getName(), Font.BOLD, 40));pau.setText("Paused");pau.setBackground(new Color(0,0,0,200));
+            gPanel.add(settings);
+            gPanel.add(exit);
+            gPanel.add(pau);
+            exit.setLocation((gPanel.getWidth()/2)-100, (gPanel.getHeight()/2)+150);
+            settings.setLocation((gPanel.getWidth()/2-100), (gPanel.getHeight()/2+50));
             settings.setVisible(true);
             settings.setEnabled(true);
             exit.setVisible(true);
@@ -191,6 +199,12 @@ public class GUI extends JFrame implements ActionListener
             paused=true;
         }
     }    
+
+    private void settings()
+    {
+        pau.setForeground(Color.white);
+        pau.setFont(new Font(pau.getFont().getName(), Font.BOLD, 40));pau.setText("Settings");pau.setBackground(new Color(0,0,0,200));
+    }
 
     private void next() {if(levSel+1<5 && paused==false){levSel++;gGUI.imgSwap(levSel);}}
 
@@ -219,6 +233,6 @@ public class GUI extends JFrame implements ActionListener
 
         else if(j.equals(exit)) {System.out.println("Exit");}
 
-        else if(j.equals(settings)) {System.out.println("Settings");}
+        else if(j.equals(settings)) {settings();}
     }
 }
