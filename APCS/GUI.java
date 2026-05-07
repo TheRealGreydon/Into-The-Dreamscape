@@ -27,6 +27,7 @@ public class GUI extends JFrame implements ActionListener
 
     private JButton[]buttons = new JButton[100];
     private JButton pau = new JButton();
+    private JButton set = new JButton();
     private JButton exit = new JButton();
     private JButton settings = new JButton();
            
@@ -174,16 +175,19 @@ public class GUI extends JFrame implements ActionListener
     {  
         if(paused) 
         {
-            settings.setVisible(false);
-            settings.setEnabled(false);
-            pau.setVisible(false);
-            exit.setEnabled(false);
-            exit.setVisible(false);
+            this.settings.setVisible(false);
+            this.settings.setEnabled(false);
+            this.pau.setVisible(false);
+            this.exit.setEnabled(false);
+            this.exit.setVisible(false);
+            this.set.setVisible(false);
+            paused=false;
         }
         else 
         {
-            pau.setForeground(Color.white);
-            pau.setFont(new Font(pau.getFont().getName(), Font.BOLD, 40));pau.setText("Paused");pau.setBackground(new Color(0,0,0,200));
+            this.pau.setForeground(Color.white);
+            this.pau.setFont(new Font(pau.getFont().getName(), Font.BOLD, 40));this.pau.setText("Paused");this.pau.setBackground(new Color(0,0,0,200));
+            this.exit.setText("Exit");
             gPanel.add(settings);
             gPanel.add(exit);
             gPanel.add(pau);
@@ -194,17 +198,28 @@ public class GUI extends JFrame implements ActionListener
             exit.setVisible(true);
             exit.setEnabled(true);
             pau.setVisible(true);
+            paused=true;
         }
-        paused=!paused;
     }    
 
     private void settings()
     {
-        gPanel.remove(this.pau);
-        JButton set = new JButton();
-        set.setEnabled(false);set.ise;pau.setForeground(Color.white);
-        set.setFont(new Font(pau.getFont().getName(), Font.BOLD, 40));pau.setText("Paused"); 
+        this.pau.setVisible(false);
+        set.setEnabled(false);set.setForeground(Color.white);set.setVisible(true);set.setBackground(Color.BLACK);
+        set.setFont(new Font(set.getFont().getName(), Font.BOLD, 40));set.setText("Settings"); 
         gPanel.add(set);
+        exit.setText("Back");
+    }
+
+    private void exit()
+    {
+        gPanel.removeAll();
+        gPanel.repaint();
+        paused=false;
+        gPanel.removeAll();
+        pause();
+        pau.setBackground(new Color(0,0,0,0));
+        this.set.setVisible(false);
         gPanel.repaint();
     }
 
@@ -233,7 +248,7 @@ public class GUI extends JFrame implements ActionListener
 
         else if(j.equals(buttons[3])) {swapPanel(cPanel,mPanel);}
 
-        else if(j.equals(exit)) {System.out.println("Exit");}
+        else if(j.equals(exit)) {exit();}
 
         else if(j.equals(settings)) {settings();}
     }
