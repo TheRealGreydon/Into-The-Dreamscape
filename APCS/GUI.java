@@ -47,8 +47,8 @@ public class GUI extends JFrame implements ActionListener
         this.pack();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setTitle("Into the Dreamscape");
-        //this.add(mPanel);
-        this.add(sPanel);
+        this.add(mPanel);
+        //this.add(sPanel);
         this.setVisible(true);
         this.setResizable(true);
     }
@@ -144,45 +144,27 @@ public class GUI extends JFrame implements ActionListener
 
     private void pauButtons()
     {
-        pau.setEnabled(false);pau.setVisible(false);pau.setForeground(Color.white);
-        pau.setFont(new Font(pau.getFont().getName(), Font.BOLD, 40));pau.setText("Paused"); 
+        pau.setEnabled(false);pau.setVisible(false);pau.setForeground(Color.white);pau.setFont(new Font(pau.getFont().getName(), Font.BOLD, 40));pau.setText("Paused"); 
         exit.setBackground(new Color(0,0,0));settings.setBackground(new Color(0,0,0));pau.setBackground(new Color(0,0,0,200));
-        exit.setSize(new Dimension(200,100));settings.setSize(new Dimension(200,100));
-        exit.setEnabled(false);exit.setVisible(false);exit.setForeground(Color.white);
-        exit.setFont(new Font(exit.getFont().getName(), Font.BOLD, 40));exit.setText("Exit"); 
-        settings.setEnabled(false);settings.setVisible(false);settings.setForeground(Color.white);
-        settings.setFont(new Font(settings.getFont().getName(), Font.BOLD, 40));settings.setText("Settings"); 
-        settings.addActionListener(this);exit.addActionListener(this);
-        this.setLocationRelativeTo(null);
+        exit.setSize(new Dimension(200,100));settings.setSize(new Dimension(200,100));exit.setEnabled(false);exit.setVisible(false);exit.setForeground(Color.white);
+        exit.setFont(new Font(exit.getFont().getName(), Font.BOLD, 40));exit.setText("Exit");settings.setEnabled(false);settings.setVisible(false);settings.setForeground(Color.white);
+        settings.setFont(new Font(settings.getFont().getName(), Font.BOLD, 40));settings.setText("Settings");settings.addActionListener(this);exit.addActionListener(this);this.setLocationRelativeTo(null);
     }
 
     //Keybinds
     private void keyActions()
     {
-        gPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ESCAPE"), "Pause");
-        gPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("LEFT"), "Back");
-        gPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("RIGHT"), "Next");
-        gPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ENTER"), "Select");
+        gPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ESCAPE"), "Pause");gPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("LEFT"), "Back");
+        gPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("RIGHT"), "Next");gPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ENTER"), "Select");
 
-        gPanel.getActionMap().put("Back", new AbstractAction() {public void actionPerformed(ActionEvent e) {back();}});
-        gPanel.getActionMap().put("Pause", new AbstractAction() {public void actionPerformed(ActionEvent e) {pause();}});
-        gPanel.getActionMap().put("Select", new AbstractAction() {public void actionPerformed(ActionEvent e) {select();}});
-        gPanel.getActionMap().put("Next", new AbstractAction() {public void actionPerformed(ActionEvent e) {next();}});
+        gPanel.getActionMap().put("Back", new AbstractAction() {public void actionPerformed(ActionEvent e) {back();}});gPanel.getActionMap().put("Pause", new AbstractAction() {public void actionPerformed(ActionEvent e) {pause();}});
+        gPanel.getActionMap().put("Select", new AbstractAction() {public void actionPerformed(ActionEvent e) {select();}});gPanel.getActionMap().put("Next", new AbstractAction() {public void actionPerformed(ActionEvent e) {next();}});
     }
 
     //Displays the pause screen
     private void pause() 
     {  
-        if(paused) 
-        {
-            this.settings.setVisible(false);
-            this.settings.setEnabled(false);
-            this.pau.setVisible(false);
-            this.exit.setEnabled(false);
-            this.exit.setVisible(false);
-            this.set.setVisible(false);
-            paused=false;
-        }
+        if(paused) {this.settings.setVisible(false);this.settings.setEnabled(false);this.pau.setVisible(false);this.exit.setEnabled(false);this.exit.setVisible(false);this.set.setVisible(false);paused=false;}
         else 
         {
             this.pau.setForeground(Color.white);
@@ -227,10 +209,7 @@ public class GUI extends JFrame implements ActionListener
 
     private void back() {if(levSel-1>-1 && paused==false){levSel--;gGUI.imgSwap(levSel);}}
 
-    private void select()
-    {
-        if(paused==false){levNum=levSel;}
-    }
+    private void select() {if(paused==false){levNum=levSel;}}
 
     //Handles swaping the panels
     private void swapPanel(JPanel x, JPanel y) {this.pack();this.setExtendedState(JFrame.MAXIMIZED_BOTH);this.remove(x);this.add(y);this.repaint();}
