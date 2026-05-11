@@ -10,6 +10,7 @@ public class GUI extends JFrame implements ActionListener
     private Panels p;
     private StartGUI sGUI;
     private GameGUI gGUI;
+    private LevelGUI lGUI;
 
     private Player character;
     
@@ -17,8 +18,10 @@ public class GUI extends JFrame implements ActionListener
     private JPanel sPanel = new JPanel();
     private JPanel cPanel = new JPanel();
     private JPanel gPanel = new JPanel();
+    private JPanel lPanel = new JPanel();
 
     private boolean paused = false;
+    private boolean selected = false;
     private int levNum = 0;
     private int levSel = 0;
     private int vol = 50;
@@ -30,8 +33,12 @@ public class GUI extends JFrame implements ActionListener
     private JButton set = new JButton();
     private JButton exit = new JButton();
     private JButton settings = new JButton();
+    private JButton vole = new JButton();
            
     public GUI(String x) {p = new Panels();sGUI = new StartGUI();initialize();}
+
+    public GUI(int x) {lGUI = new LevelGUI(character, levNum);}
+
 
     public GUI() {gGUI = new GameGUI(character, levNum);}
     
@@ -47,8 +54,8 @@ public class GUI extends JFrame implements ActionListener
         this.pack();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setTitle("Into the Dreamscape");
-        this.add(mPanel);
-        //this.add(sPanel);
+        //this.add(mPanel);
+        this.add(sPanel);
         this.setVisible(true);
         this.setResizable(true);
     }
@@ -142,8 +149,18 @@ public class GUI extends JFrame implements ActionListener
         keyActions();
     }
 
+    public void level()
+    {
+        initialize2();
+        gPanel=lGUI.gamePan();
+        swapPanel(gPanel, lPanel);
+        pauButtons();
+        keyActions();
+    }
+
     private void pauButtons()
     {
+        set.setVisible(false);
         pau.setEnabled(false);pau.setVisible(false);pau.setForeground(Color.white);pau.setFont(new Font(pau.getFont().getName(), Font.BOLD, 40));pau.setText("Paused"); 
         exit.setBackground(new Color(0,0,0));settings.setBackground(new Color(0,0,0));pau.setBackground(new Color(0,0,0,200));
         exit.setSize(new Dimension(200,100));settings.setSize(new Dimension(200,100));exit.setEnabled(false);exit.setVisible(false);exit.setForeground(Color.white);
@@ -164,12 +181,13 @@ public class GUI extends JFrame implements ActionListener
     //Displays the pause screen
     private void pause() 
     {  
-        if(paused) {this.settings.setVisible(false);this.settings.setEnabled(false);this.pau.setVisible(false);this.exit.setEnabled(false);this.exit.setVisible(false);this.set.setVisible(false);paused=false;}
+        if(paused) {this.settings.setVisible(false);this.settings.setEnabled(false);this.pau.setVisible(false);this.exit.setEnabled(false);this.exit.setVisible(false);this.set.setVisible(false);this.vole.setVisible(false);this.vole.setEnabled(false);paused=false;}
         else 
         {
             this.pau.setForeground(Color.white);
             this.pau.setFont(new Font(pau.getFont().getName(), Font.BOLD, 40));this.pau.setText("Paused");this.pau.setBackground(new Color(0,0,0,200));
             this.exit.setText("Exit");
+            this.settings.setText("Settings");
             gPanel.add(settings);
             gPanel.add(exit);
             gPanel.add(pau);
@@ -186,30 +204,21 @@ public class GUI extends JFrame implements ActionListener
 
     private void settings()
     {
-        this.pau.setVisible(false);
-        set.setEnabled(false);set.setForeground(Color.white);set.setVisible(true);set.setBackground(Color.BLACK);
+        this.pau.setVisible(false);set.setEnabled(false);set.setForeground(Color.white);set.setVisible(true);set.setBackground(Color.BLACK);
         set.setFont(new Font(set.getFont().getName(), Font.BOLD, 40));set.setText("Settings"); 
-        gPanel.add(set);
-        exit.setText("Back");
+        exit.setText("Back");settings.setText("Volume");settings.setEnabled(false);
+        vole.setFont(new Font(vole.getFont().getName(), Font.BOLD, 40));vole.addActionListener(this);vole.setSize(new Dimension(125,100));vole.setBackground(Color.black);
+        vole.setForeground(Color.white);vole.setLocation((gPanel.getWidth()/2-50)+150, (gPanel.getHeight()/2+50));vole.setVisible(true);vole.setEnabled(true);vole.setText(String.valueOf(vol));
+        gPanel.add(vole);gPanel.add(set);
     }
 
-    private void exit()
-    {
-        gPanel.removeAll();
-        gPanel.repaint();
-        paused=false;
-        gPanel.removeAll();
-        pause();
-        pau.setBackground(new Color(0,0,0,0));
-        this.set.setVisible(false);
-        gPanel.repaint();
-    }
+    private void exit() {if(set.isVisible()) {pause();} else {this.dispose();}}
 
-    private void next() {if(levSel+1<5 && paused==false){levSel++;gGUI.imgSwap(levSel);}}
+    private void next() {if(levSel+1<5 && paused==false && selected==false){levSel++;gGUI.imgSwap(levSel);} else if(paused==false && selected==true && levSel+1<3){levSel++;gGUI.imgSwap(String.valueOf(levNum) + String.valueOf(levSel));}}
 
-    private void back() {if(levSel-1>-1 && paused==false){levSel--;gGUI.imgSwap(levSel);}}
+    private void back() {if(levSel-1>-1 && paused==false && selected==false){levSel--;gGUI.imgSwap(levSel);} else if(paused==false && selected==true && levSel-1>-1){levSel--;gGUI.imgSwap(String.valueOf(levNum) + String.valueOf(levSel));}}
 
-    private void select() {if(paused==false){levNum=levSel;}}
+    private void select() {if(paused==false && selected==false){levNum=levSel;gGUI.select(levNum);levSel=0;selected=true;} else if(paused==false && selected==true){gGUI.level();}}
 
     //Handles swaping the panels
     private void swapPanel(JPanel x, JPanel y) {this.pack();this.setExtendedState(JFrame.MAXIMIZED_BOTH);this.remove(x);this.add(y);this.repaint();}
@@ -230,5 +239,15 @@ public class GUI extends JFrame implements ActionListener
         else if(j.equals(exit)) {exit();}
 
         else if(j.equals(settings)) {settings();}
+        
+        else if(j.equals(vole)) {if(vol+25>100) {vol=0;}else{vol+=25;}vole.setText(String.valueOf(vol));}
+    }
+
+    private void close()
+    {
+        while(Window.getWindows().length>1)
+        {
+            Window.getWindows()[0].dispose();
+        }
     }
 }

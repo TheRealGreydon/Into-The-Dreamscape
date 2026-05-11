@@ -82,3 +82,9 @@ Change Log
 -V.7-
 -Level select working, backgrounds STILL needed KAI
 -Nicholas-
+
+5/11/26
+-V.7.1-
+-Working secondary menu
+-Closing refined
+-Nicholas-

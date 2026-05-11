@@ -317,7 +317,7 @@ public class StartGUI extends JFrame implements ActionListener
 
         else if(page==3) {if(fav!=-1){sPanel.removeAll();fin();sPanel.repaint();page++;}}
 
-        else if(page==4) {Window.getWindows()[0].dispose();gui.cha(name, gend, out, fav);gui.game();}
+        else if(page==4) {close();gui.cha(name, gend, out, fav);gui.game();}
     }
 
     //Handles when the back button is called
@@ -405,4 +405,6 @@ public class StartGUI extends JFrame implements ActionListener
             buttons[8].setBorder(BorderFactory.createLineBorder(Color.white,20));
         }
     }
+
+    private void close() {Window[] windows = Window.getWindows(); for (Window window : windows) {if (window != null) {window.dispose();}}}
 }
