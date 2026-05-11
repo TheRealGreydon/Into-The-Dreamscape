@@ -5,11 +5,10 @@ import javax.swing.*;
 
 public class GameGUI extends JFrame
 {
-    private Player character;
     private int x;
-    private GUI gui = new GUI(1);
-
-    public GameGUI(Player character, int x) {this.character = character;this.x=x;}
+    private Player character;
+    public GameGUI(Player character, int x) {this.character = character; this.x = x;}
+    private GUI gui = new GUI(character);
 
     private BackgroundPanel a = new BackgroundPanel(new ImageIcon("APCS/Assets/Background Img/Game Level Menu/defaultLevelMenu" + x + ".jpg").getImage(), 1);
 
@@ -20,6 +19,13 @@ public class GameGUI extends JFrame
     public JPanel gamePan() {JPanel gPanel = a;return gPanel;}
 
     public void select(int x) {String temp=String.valueOf(x) + "0";imgSwap(temp);}
+
+    public void start(Player x)
+    {
+        setChar(x);
+    }
+
+    public void setChar(Player z) {character = z;}
 
     public void level(){close();gui.level();}
 

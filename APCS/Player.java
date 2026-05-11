@@ -1,11 +1,3 @@
-/**
- *Name:	Mr. Klus
- *Date: 05/01/2019
- *Description:  Contains methods to create and play a drop game.
- *              Players move left/right using the keyboard to catch
- *              points and earn additional turns.  The game is over
- *              when the player has no more turns.        
- */
 package APCS;
 
 import java.util.ArrayList;
@@ -21,7 +13,7 @@ public class Player
     private int lvl = 1;
     private ArrayList<Skills> skills;
     private int fav;
-    private int curLev = 0;
+    private int curLev = 1;
 
     public Player(String name, int gend, int outfit, int fav)
     {
@@ -48,12 +40,13 @@ public class Player
         }
     }
     
-    public String setName(String x)
-    {
-        String temp = name;
-        name = x;
-        return "Player " + temp + " is now " + name;
-    }
+    public void setName(String x) {name = x;}
+
+    public void setFav(int x) {fav = x;}
+
+    public void setOut(int x) {outfit = x;}
+
+    public void setGend(int x) {gend = x;}
 
     public String getName()
     {
@@ -130,6 +123,8 @@ public class Player
     public String getAbil(int x) {return skills.get(x).getName();}
 
     public int getCurLev() {return curLev;}
+
+    public void setCurLev(int x) {curLev = x;}
 
     public String listAbil()
     {

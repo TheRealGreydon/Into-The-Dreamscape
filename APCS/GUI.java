@@ -4,21 +4,19 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-
 public class GUI extends JFrame implements ActionListener
 {
+    public Player character = new Player("Default", 1, 1, 1);
+    
     private Panels p;
     private StartGUI sGUI;
     private GameGUI gGUI;
     private LevelGUI lGUI;
-
-    private Player character;
     
     private JPanel mPanel = new JPanel();
     private JPanel sPanel = new JPanel();
     private JPanel cPanel = new JPanel();
     private JPanel gPanel = new JPanel();
-    private JPanel lPanel = new JPanel();
 
     private boolean paused = false;
     private boolean selected = false;
@@ -36,11 +34,8 @@ public class GUI extends JFrame implements ActionListener
     private JButton vole = new JButton();
            
     public GUI(String x) {p = new Panels();sGUI = new StartGUI();initialize();}
-
-    public GUI(int x) {lGUI = new LevelGUI(character, levNum);}
-
-
-    public GUI() {gGUI = new GameGUI(character, levNum);}
+    public GUI(Player x) {lGUI = new LevelGUI(x, levNum);} 
+    public GUI() {gGUI = new GameGUI(character, character.getCurLev());}
     
     //Runs the game
     public void displayGame() {java.awt.EventQueue.invokeLater(new Runnable() {public void run() {setVisible(true);}});}
@@ -137,24 +132,12 @@ public class GUI extends JFrame implements ActionListener
     private void start() {sPanel=sGUI.start();}
 
     //Sets the character
-    public void cha(String name, int gend, int out, int fav) {character = new Player(name, gend, out, fav);}
+    public void cha(String name, int gend, int out, int fav) {character.setName(name);character.setGend(gend);character.setOut(out);character.setFav(fav);}
 
     //Runs the main game
-    public void game()
-    {
-        initialize2();
-        gPanel=gGUI.gamePan();
-        swapPanel(sPanel, gPanel);
-        pauButtons();
-        keyActions();
-    }
+    public void game() {initialize2();gPanel=gGUI.gamePan();swapPanel(sPanel, gPanel);keyActions();}
 
-    public void level()
-    {
-        initialize2();
-        lPanel=lGUI.lPanel;
-        swapPanel(gPanel, lPanel);
-    }
+    public void level() {lGUI.setChar(character);initialize2();swapPanel(gPanel, lGUI.lPanel);}
 
     private void pauButtons()
     {
@@ -169,6 +152,7 @@ public class GUI extends JFrame implements ActionListener
     //Keybinds
     private void keyActions()
     {
+        pauButtons();
         gPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ESCAPE"), "Pause");gPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("LEFT"), "Back");
         gPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("RIGHT"), "Next");gPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ENTER"), "Select");
 
@@ -216,7 +200,7 @@ public class GUI extends JFrame implements ActionListener
 
     private void back() {if(levSel-1>-1 && paused==false && selected==false){levSel--;gGUI.imgSwap(levSel);} else if(paused==false && selected==true && levSel-1>-1){levSel--;gGUI.imgSwap(String.valueOf(levNum) + String.valueOf(levSel));}}
 
-    private void select() {if(paused==false && selected==false){levNum=levSel;gGUI.select(levNum);levSel=0;selected=true;} else if(paused==false && selected==true){gGUI.level();}}
+    private void select() {if(paused==false && selected==false){levNum=levSel;gGUI.select(levNum);levSel=0;selected=true;} else if(paused==false && selected==true){levNum=levSel; character.setCurLev(levNum);gGUI.start(character);}}
 
     //Handles swaping the panels
     private void swapPanel(JPanel x, JPanel y) {this.pack();this.setExtendedState(JFrame.MAXIMIZED_BOTH);this.remove(x);this.add(y);this.repaint();}
@@ -241,11 +225,5 @@ public class GUI extends JFrame implements ActionListener
         else if(j.equals(vole)) {if(vol+25>100) {vol=0;}else{vol+=25;}vole.setText(String.valueOf(vol));}
     }
 
-    private void close()
-    {
-        while(Window.getWindows().length>1)
-        {
-            Window.getWindows()[0].dispose();
-        }
-    }
+    private void close() {while(Window.getWindows().length>1) {Window.getWindows()[0].dispose();}}
 }
