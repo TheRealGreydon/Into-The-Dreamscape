@@ -87,4 +87,6 @@ Change Log
 -V.7.1-
 -Working secondary menu
 -Closing refined
+-V.7.2-
+-Actual level work started for battle
 -Nicholas-

@@ -152,10 +152,8 @@ public class GUI extends JFrame implements ActionListener
     public void level()
     {
         initialize2();
-        gPanel=lGUI.gamePan();
+        lPanel=lGUI.lPanel;
         swapPanel(gPanel, lPanel);
-        pauButtons();
-        keyActions();
     }
 
     private void pauButtons()

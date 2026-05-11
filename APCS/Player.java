@@ -17,10 +17,11 @@ public class Player
     private int gend;
     private int outfit;
     private int[] stats = {0,0,0,0,0,0};
-    private int hp=9;
-    private int lvl=1;
+    private int hp = 9;
+    private int lvl = 1;
     private ArrayList<Skills> skills;
     private int fav;
+    private int curLev = 0;
 
     public Player(String name, int gend, int outfit, int fav)
     {
@@ -124,15 +125,11 @@ public class Player
         skills.add(x);
     }
 
-    public void swapAbil(Skills x, int y)
-    {
-        skills.set(y, x);
-    }
+    public void swapAbil(Skills x, int y) {skills.set(y, x);}
 
-    public String getAbil(int x)
-    {
-        return skills.get(x).getName();
-    }
+    public String getAbil(int x) {return skills.get(x).getName();}
+
+    public int getCurLev() {return curLev;}
 
     public String listAbil()
     {
