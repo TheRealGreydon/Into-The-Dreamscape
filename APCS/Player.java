@@ -13,7 +13,8 @@ public class Player
     private int lvl = 1;
     private ArrayList<Skills> skills;
     private int fav;
-    private int curLev = 1;
+    private int curLev;
+    private int curStage;
     private int vol = 50;
 
     public Player(String name, int gend, int outfit, int fav)
@@ -42,6 +43,10 @@ public class Player
     }
     
     public void setName(String x) {name = x;}
+
+    public void setStage(int x) {curStage = x;}
+
+    public int getStage() {return curStage;}
 
     public void setFav(int x) {fav = x;}
 

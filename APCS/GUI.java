@@ -34,7 +34,7 @@ public class GUI extends JFrame implements ActionListener
     private JButton vole = new JButton();
            
     public GUI(String x) {p = new Panels();sGUI = new StartGUI();initialize();}
-    public GUI() {gGUI = new GameGUI(character, character.getCurLev());}
+    public GUI() {gGUI = new GameGUI(character);}
     
     //Runs the game
     public void displayGame() {java.awt.EventQueue.invokeLater(new Runnable() {public void run() {setVisible(true);}});}
@@ -133,7 +133,7 @@ public class GUI extends JFrame implements ActionListener
     //Sets the character
     public void cha(String name, int gend, int out, int fav) {character.setName(name);character.setGend(gend);character.setOut(out);character.setFav(fav);}
 
-    public void cha(Player x) {character = x;}
+    public void cha(Player x) {character = x;vol = character.getVol();gGUI = new GameGUI(character);}
 
     //Runs the main game
     public void game() {initialize2();gPanel=gGUI.gamePan();swapPanel(sPanel, gPanel);keyActions();}
@@ -201,7 +201,7 @@ public class GUI extends JFrame implements ActionListener
 
     private void back() {if(levSel-1>-1 && paused==false && selected==false){levSel--;gGUI.imgSwap(levSel);} else if(paused==false && selected==true && levSel-1>-1){levSel--;gGUI.imgSwap(String.valueOf(levNum) + String.valueOf(levSel));}}
 
-    private void select() {if(paused==false && selected==false){levNum=levSel;gGUI.select(levNum);levSel=0;selected=true;character.setCurLev(levNum);} else if(paused==false && selected==true){levNum=levSel; gGUI.start(character);}}
+    private void select() {if(paused==false && selected==false){levNum=levSel;gGUI.select(levNum);levSel=0;selected=true;character.setCurLev(levNum);} else if(paused==false && selected==true){levNum=levSel; character.setStage(levNum);gGUI.start(character);}}
 
     //Handles swaping the panels
     private void swapPanel(JPanel x, JPanel y) {this.pack();this.setExtendedState(JFrame.MAXIMIZED_BOTH);this.remove(x);this.add(y);this.repaint();}

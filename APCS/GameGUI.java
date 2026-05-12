@@ -8,7 +8,7 @@ public class GameGUI extends JFrame implements ActionListener
 {
     private int x;
     private Player character;
-    public GameGUI(Player character, int x) {this.character = character; this.x = x;}
+    public GameGUI(Player character) {this.character = character; x = character.getCurLev();}
     private LevelGUI lGUI = new LevelGUI();
     private JPanel lPanel;
     private JButton pau = new JButton();
@@ -35,7 +35,7 @@ public class GameGUI extends JFrame implements ActionListener
 
     private void battleButtons()
     {
-        lPanel.setLayout(new GridBagLayout());
+        //lPanel.setLayout(new GridBagLayout());
         gbc.fill = GridBagConstraints.HORIZONTAL;gbc.ipady = 0;gbc.weighty = 1.0;   
         gbc.anchor = GridBagConstraints.CENTER;gbc.gridx = 1;gbc.gridwidth = 2;gbc.gridy = 2;  
         keyActions();   
@@ -43,7 +43,7 @@ public class GameGUI extends JFrame implements ActionListener
 
     private void pauButtons()
     {
-        lPanel.setLayout(null);
+        //lPanel.setLayout(null);
         set.setVisible(false);
         pau.setEnabled(false);pau.setVisible(false);pau.setForeground(Color.white);pau.setFont(new Font(pau.getFont().getName(), Font.BOLD, 40));pau.setText("Paused"); 
         exit.setBackground(new Color(0,0,0));settings.setBackground(new Color(0,0,0));pau.setBackground(new Color(0,0,0,200));
@@ -94,7 +94,6 @@ public class GameGUI extends JFrame implements ActionListener
         lPanel.add(vole);lPanel.add(set);
     }
 
-    private void exit() {if(set.isVisible()) {pause();} else {levExit();}}
 
     public void setChar(Player z) {character = z;lGUI.setChar(character);}
 
@@ -117,4 +116,5 @@ public class GameGUI extends JFrame implements ActionListener
     public void imgSwap(String x) {a.setImage(new ImageIcon("APCS/Assets/Background Img/Game Level Menu/Lvl Sel/defaultLevelSel" + x + ".jpg").getImage());}
     public JPanel gamePan() {JPanel gPanel = a;return gPanel;}
     public void select(int x) {String temp=String.valueOf(x) + "0";imgSwap(temp);}
+    private void exit() {if(set.isVisible()) {pause();} else {levExit();}}
 }
