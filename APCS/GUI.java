@@ -34,7 +34,6 @@ public class GUI extends JFrame implements ActionListener
     private JButton vole = new JButton();
            
     public GUI(String x) {p = new Panels();sGUI = new StartGUI();initialize();}
-    public GUI(Player x) {lGUI = new LevelGUI(x, levNum);} 
     public GUI() {gGUI = new GameGUI(character, character.getCurLev());}
     
     //Runs the game
@@ -200,7 +199,7 @@ public class GUI extends JFrame implements ActionListener
 
     private void back() {if(levSel-1>-1 && paused==false && selected==false){levSel--;gGUI.imgSwap(levSel);} else if(paused==false && selected==true && levSel-1>-1){levSel--;gGUI.imgSwap(String.valueOf(levNum) + String.valueOf(levSel));}}
 
-    private void select() {if(paused==false && selected==false){levNum=levSel;gGUI.select(levNum);levSel=0;selected=true;} else if(paused==false && selected==true){levNum=levSel; character.setCurLev(levNum);gGUI.start(character);}}
+    private void select() {if(paused==false && selected==false){levNum=levSel;gGUI.select(levNum);levSel=0;selected=true;character.setCurLev(levNum);} else if(paused==false && selected==true){levNum=levSel; gGUI.start(character);}}
 
     //Handles swaping the panels
     private void swapPanel(JPanel x, JPanel y) {this.pack();this.setExtendedState(JFrame.MAXIMIZED_BOTH);this.remove(x);this.add(y);this.repaint();}

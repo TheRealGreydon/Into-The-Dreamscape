@@ -90,3 +90,8 @@ Change Log
 -V.7.2-
 -Actual level work started for battle
 -Nicholas-
+
+5/12/26
+-V.7.3-
+-Opening the level
+-Nicholas-
