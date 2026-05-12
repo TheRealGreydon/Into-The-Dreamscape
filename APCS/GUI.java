@@ -133,6 +133,8 @@ public class GUI extends JFrame implements ActionListener
     //Sets the character
     public void cha(String name, int gend, int out, int fav) {character.setName(name);character.setGend(gend);character.setOut(out);character.setFav(fav);}
 
+    public void cha(Player x) {character = x;}
+
     //Runs the main game
     public void game() {initialize2();gPanel=gGUI.gamePan();swapPanel(sPanel, gPanel);keyActions();}
 
@@ -221,7 +223,7 @@ public class GUI extends JFrame implements ActionListener
 
         else if(j.equals(settings)) {settings();}
         
-        else if(j.equals(vole)) {if(vol+25>100) {vol=0;}else{vol+=25;}vole.setText(String.valueOf(vol));}
+        else if(j.equals(vole)) {if(vol+25>100) {vol=0;}else{vol+=25;}character.setVol(vol);vole.setText(String.valueOf(vol));}
     }
 
     private void close() {while(Window.getWindows().length>1) {Window.getWindows()[0].dispose();}}

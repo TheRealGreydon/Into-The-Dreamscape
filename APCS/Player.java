@@ -14,6 +14,7 @@ public class Player
     private ArrayList<Skills> skills;
     private int fav;
     private int curLev = 1;
+    private int vol = 50;
 
     public Player(String name, int gend, int outfit, int fav)
     {
@@ -48,75 +49,37 @@ public class Player
 
     public void setGend(int x) {gend = x;}
 
-    public String getName()
-    {
-        return name;
-    }    
+    public String getName() {return name;}    
 
-    public int getGend()
-    {
-        return gend;
-    }
+    public void setVol(int x) {vol = x;}
 
-    public int getOutfit()
-    {
-        return outfit;
-    }
+    public int getVol() {return vol;}
 
-    public int getStr()
-    {
-        return stats[0];
-    }
+    public int getGend() {return gend;}
 
-    public int getCha()
-    {
-        return stats[1];
-    }
+    public int getOutfit() {return outfit;}
 
-    public int getHp()
-    {
-        return stats[2];
-    }
+    public int getStr() {return stats[0];}
 
-    public int getInt()
-    {
-        return stats[3];
-    }
+    public int getCha() {return stats[1];}
 
-    public int getSpe()
-    {
-        return stats[4];
-    }
+    public int getHp() {return stats[2];}
 
-    public int getSpd()
-    {
-        return stats[5];
-    }
+    public int getInt() {return stats[3];}
 
-    public void statMod(int x, int y)
-    {
-        stats[x]+= y;
-    }
+    public int getSpe() {return stats[4];}
 
-    public void doHp(int x)
-    {
-        hp+=x;
-    }
+    public int getSpd() {return stats[5];}
 
-    public int getHealth()
-    {
-        return hp;
-    }
+    public void statMod(int x, int y) {stats[x]+= y;}
 
-    public void resetHp()
-    {
-        hp=9+lvl+(getHp()*2);
-    }
+    public void doHp(int x) {hp+=x;}
 
-    public void addAbil(Skills x)
-    {
-        skills.add(x);
-    }
+    public int getHealth() {return hp;}
+
+    public void resetHp() {hp=9+lvl+(getHp()*2);}
+
+    public void addAbil(Skills x) {skills.add(x);}
 
     public void swapAbil(Skills x, int y) {skills.set(y, x);}
 

@@ -317,7 +317,7 @@ public class StartGUI extends JFrame implements ActionListener
 
         else if(page==3) {if(fav!=-1){sPanel.removeAll();fin();sPanel.repaint();page++;}}
 
-        else if(page==4) {name=nameBox.getText();close();gui.cha(name, gend, out, fav);gui.game();}
+        else if(page==4) {close();gui.cha(name, gend, out, fav);gui.game();}
     }
 
     //Handles when the back button is called
