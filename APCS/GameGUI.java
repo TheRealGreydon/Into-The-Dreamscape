@@ -28,12 +28,27 @@ public class GameGUI extends JFrame implements ActionListener
         setChar(x);
         if(character.getStage()==2)
         {
+            System.out.println("a" + character.getCurLev());
             character.setStage(0);
+            if(character.getCurLev()==4)
+            {
+                System.out.println("b" + character.getCurLev());
+                character.setCurLev(0);
+                System.out.println("c" + character.getCurLev());
+            }
+            else
+            {
+                System.out.println("d" + character.getCurLev());
+                character.setCurLev(character.getCurLev()+1);
+                System.out.println("e" + character.getCurLev());
+            }
+            System.out.println("f" + character.getCurLev());
         }
         else
         {
             character.setStage(character.getStage()+1);
         }
+
         lPanel = lGUI.lPanel;
         close();
         displayGame();
@@ -120,8 +135,7 @@ public class GameGUI extends JFrame implements ActionListener
     private void initialize() {setDefaultCloseOperation(EXIT_ON_CLOSE);this.pack();this.setExtendedState(JFrame.MAXIMIZED_BOTH);this.setTitle("Into the Dreamscape");this.setVisible(true);this.setResizable(true);this.add(lPanel);}
     private void close() {Window[] windows = Window.getWindows(); for (Window window : windows) {if (window != null) {window.dispose();}}}
     private void levExit() {GUI gui = new GUI();close();gui.cha(character);gui.game();}
-    public void imgSwap(int x) {a.setImage(new ImageIcon("APCS/Assets/Background Img/Game Level Menu/defaultLevelMenu" + x + ".jpg").getImage());}
-    public void imgSwap(String x) {a.setImage(new ImageIcon("APCS/Assets/Background Img/Game Level Menu/Lvl Sel/defaultLevelSel" + x + ".jpg").getImage());}
+    private void imgSwap(String x) {a.setImage(new ImageIcon("APCS/Assets/Background Img/Game Level Menu/Lvl Sel/defaultLevelSel" + x + ".jpg").getImage());}
     public JPanel gamePan() {JPanel gPanel = a;return gPanel;}
     public void select(int x) {
         String temp=String.valueOf(x) + String.valueOf(character.getStage());imgSwap(temp);}

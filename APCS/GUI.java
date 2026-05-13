@@ -21,7 +21,6 @@ public class GUI extends JFrame implements ActionListener
     private boolean paused = false;
     private boolean selected = false;
     private int levNum = 0;
-    private int levSel = 0;
     private int vol = 50;
 
     private GridBagConstraints gbc = new GridBagConstraints();
@@ -154,11 +153,11 @@ public class GUI extends JFrame implements ActionListener
     private void keyActions()
     {
         pauButtons();
-        gPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ESCAPE"), "Pause");gPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("LEFT"), "Back");
-        gPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("RIGHT"), "Next");gPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ENTER"), "Select");
+        gPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ESCAPE"), "Pause");
+        gPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ENTER"), "Select");
 
-        gPanel.getActionMap().put("Back", new AbstractAction() {public void actionPerformed(ActionEvent e) {back();}});gPanel.getActionMap().put("Pause", new AbstractAction() {public void actionPerformed(ActionEvent e) {pause();}});
-        gPanel.getActionMap().put("Select", new AbstractAction() {public void actionPerformed(ActionEvent e) {select();}});gPanel.getActionMap().put("Next", new AbstractAction() {public void actionPerformed(ActionEvent e) {next();}});
+        gPanel.getActionMap().put("Pause", new AbstractAction() {public void actionPerformed(ActionEvent e) {pause();}});
+        gPanel.getActionMap().put("Select", new AbstractAction() {public void actionPerformed(ActionEvent e) {select();}});
     }
 
     //Displays the pause screen
@@ -195,18 +194,11 @@ public class GUI extends JFrame implements ActionListener
         gPanel.add(vole);gPanel.add(set);
     }
 
-    private void exit() {if(set.isVisible()) {pause();} else {this.dispose();}}
-
-    private void next() {if(levSel+1<5 && paused==false && selected==false){levSel++;gGUI.imgSwap(levSel);}}
-
-    private void back() {if(levSel-1>-1 && paused==false && selected==false){levSel--;gGUI.imgSwap(levSel);}}
-
-    private void select() {if(paused==false && selected==false){levNum=levSel;gGUI.select(levNum);levSel=0;selected=true;character.setCurLev(levNum);} else if(paused==false && selected==true)
-        {System.out.println("a" + character.getStage());gGUI.start(character);
-        System.out.println("b" + character.getStage());}}
-
-    //Handles swaping the panels
-    private void swapPanel(JPanel x, JPanel y) {this.pack();this.setExtendedState(JFrame.MAXIMIZED_BOTH);this.remove(x);this.add(y);this.repaint();}
+    private void select() 
+    {
+        if(paused==false && selected==false){gGUI.select(levNum);selected=true;} 
+        else if(paused==false && selected==true){gGUI.start(character);}
+    }
     
     //Buttons
     public void actionPerformed(ActionEvent e)
@@ -229,4 +221,7 @@ public class GUI extends JFrame implements ActionListener
     }
 
     private void close() {while(Window.getWindows().length>1) {Window.getWindows()[0].dispose();}}
+    //Handles swaping the panels
+    private void swapPanel(JPanel x, JPanel y) {this.pack();this.setExtendedState(JFrame.MAXIMIZED_BOTH);this.remove(x);this.add(y);this.repaint();}
+    private void exit() {if(set.isVisible()) {pause();} else {this.dispose();}}
 }
