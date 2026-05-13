@@ -197,11 +197,13 @@ public class GUI extends JFrame implements ActionListener
 
     private void exit() {if(set.isVisible()) {pause();} else {this.dispose();}}
 
-    private void next() {if(levSel+1<5 && paused==false && selected==false){levSel++;gGUI.imgSwap(levSel);} else if(paused==false && selected==true && levSel+1<3){levSel++;gGUI.imgSwap(String.valueOf(levNum) + String.valueOf(levSel));}}
+    private void next() {if(levSel+1<5 && paused==false && selected==false){levSel++;gGUI.imgSwap(levSel);}}
 
-    private void back() {if(levSel-1>-1 && paused==false && selected==false){levSel--;gGUI.imgSwap(levSel);} else if(paused==false && selected==true && levSel-1>-1){levSel--;gGUI.imgSwap(String.valueOf(levNum) + String.valueOf(levSel));}}
+    private void back() {if(levSel-1>-1 && paused==false && selected==false){levSel--;gGUI.imgSwap(levSel);}}
 
-    private void select() {if(paused==false && selected==false){levNum=levSel;gGUI.select(levNum);levSel=0;selected=true;character.setCurLev(levNum);} else if(paused==false && selected==true){levNum=levSel; character.setStage(levNum);gGUI.start(character);}}
+    private void select() {if(paused==false && selected==false){levNum=levSel;gGUI.select(levNum);levSel=0;selected=true;character.setCurLev(levNum);} else if(paused==false && selected==true)
+        {System.out.println("a" + character.getStage());gGUI.start(character);
+        System.out.println("b" + character.getStage());}}
 
     //Handles swaping the panels
     private void swapPanel(JPanel x, JPanel y) {this.pack();this.setExtendedState(JFrame.MAXIMIZED_BOTH);this.remove(x);this.add(y);this.repaint();}

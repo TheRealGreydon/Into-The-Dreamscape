@@ -26,6 +26,14 @@ public class GameGUI extends JFrame implements ActionListener
     public void start(Player x)
     {
         setChar(x);
+        if(character.getStage()==2)
+        {
+            character.setStage(0);
+        }
+        else
+        {
+            character.setStage(character.getStage()+1);
+        }
         lPanel = lGUI.lPanel;
         close();
         displayGame();
@@ -115,6 +123,7 @@ public class GameGUI extends JFrame implements ActionListener
     public void imgSwap(int x) {a.setImage(new ImageIcon("APCS/Assets/Background Img/Game Level Menu/defaultLevelMenu" + x + ".jpg").getImage());}
     public void imgSwap(String x) {a.setImage(new ImageIcon("APCS/Assets/Background Img/Game Level Menu/Lvl Sel/defaultLevelSel" + x + ".jpg").getImage());}
     public JPanel gamePan() {JPanel gPanel = a;return gPanel;}
-    public void select(int x) {String temp=String.valueOf(x) + "0";imgSwap(temp);}
+    public void select(int x) {
+        String temp=String.valueOf(x) + String.valueOf(character.getStage());imgSwap(temp);}
     private void exit() {if(set.isVisible()) {pause();} else {levExit();}}
 }

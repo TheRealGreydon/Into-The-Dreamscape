@@ -97,3 +97,8 @@ Change Log
 -V.7.4-
 -I dont know how or why this works as well as it does, but dont punch a gift horse in the mouth while its drinking
 -Nicholas-
+
+5/13/26
+-V.7.4-
+-Work on opening the right stage, finalizing stage select instead of the debug we had
+-Nicholas-

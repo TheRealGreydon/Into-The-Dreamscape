@@ -14,7 +14,7 @@ public class Player
     private ArrayList<Skills> skills;
     private int fav;
     private int curLev;
-    private int curStage;
+    private int curStage = 0;
     private int vol = 50;
 
     public Player(String name, int gend, int outfit, int fav)
