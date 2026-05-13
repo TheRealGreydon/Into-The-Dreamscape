@@ -1,6 +1,13 @@
 package APCS;
 
-import java.util.ArrayList;
+import java.awt.*;
+import java.awt.image.*;
+import java.io.*;
+import java.util.*;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 
 public class Player
@@ -16,6 +23,7 @@ public class Player
     private int curLev;
     private int curStage = 0;
     private int vol = 50;
+    private Image sprite;
 
     public Player(String name, int gend, int outfit, int fav)
     {
@@ -40,6 +48,7 @@ public class Player
             default:
                 throw new AssertionError();
         }
+        spriteInit();
     }
     
     public void setName(String x) {name = x;}
@@ -94,6 +103,10 @@ public class Player
 
     public void setCurLev(int x) {curLev = x;}
 
+    public void setSprite(Image x) {sprite = x;}
+
+    public Image getSprite() {return sprite;}
+
     public String listAbil()
     {
         String temp="";
@@ -119,4 +132,6 @@ public class Player
         temp+="Player Lvl: " + lvl + "\n";
         return temp;
     }
+
+    private void spriteInit() {try {sprite = ImageIO.read(new File("APCS/Assets/Character Img/Char" + outfit + ".jpg")).getScaledInstance(650, 650, Image.SCALE_SMOOTH);;} catch (IOException e) {e.printStackTrace();}}
 }

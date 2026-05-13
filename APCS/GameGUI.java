@@ -8,7 +8,9 @@ public class GameGUI extends JFrame implements ActionListener
 {
     private int x;
     private Player character;
-    public GameGUI(Player character) {this.character = character; x = character.getCurLev();}
+    public GameGUI(Player character) {this.character = character; x = character.getCurLev();
+        a = new BackgroundPanel(new ImageIcon("APCS/Assets/Background Img/Game Level Menu/defaultLevelMenu" + x + ".jpg").getImage(), 1);
+    }
     private LevelGUI lGUI = new LevelGUI();
     private JPanel lPanel;
     private JButton pau = new JButton();
@@ -16,57 +18,55 @@ public class GameGUI extends JFrame implements ActionListener
     private JButton exit = new JButton();
     private JButton settings = new JButton();
     private JButton vole = new JButton();
-    private GridBagConstraints gbc = new GridBagConstraints();
     private int vol;
+    private JLabel charSprite = null;
 
     private boolean paused = false;
 
-    private BackgroundPanel a = new BackgroundPanel(new ImageIcon("APCS/Assets/Background Img/Game Level Menu/defaultLevelMenu" + x + ".jpg").getImage(), 1);
+    private BackgroundPanel a;
 
     public void start(Player x)
     {
-        setChar(x);
-        if(character.getStage()==2)
+        lGUI.setChar(character);
+        if(character.getStage()==2) 
         {
-            System.out.println("a" + character.getCurLev());
             character.setStage(0);
-            if(character.getCurLev()==4)
-            {
-                System.out.println("b" + character.getCurLev());
-                character.setCurLev(0);
-                System.out.println("c" + character.getCurLev());
-            }
-            else
-            {
-                System.out.println("d" + character.getCurLev());
-                character.setCurLev(character.getCurLev()+1);
-                System.out.println("e" + character.getCurLev());
-            }
-            System.out.println("f" + character.getCurLev());
-        }
-        else
-        {
-            character.setStage(character.getStage()+1);
-        }
 
-        lPanel = lGUI.lPanel;
-        close();
-        displayGame();
-        battleButtons();
-        vol = character.getVol();
+            if(character.getCurLev()==4) {character.setCurLev(0);}
+
+            else {character.setCurLev(character.getCurLev()+1);}
+        }
+        else {character.setStage(character.getStage()+1);}
+
+        lPanel = lGUI.lPanel;close();displayGame();battleItm();vol = character.getVol();
+    }
+
+    private void battleItm()
+    {
+        battleImg();
+        //battleLbl();
+        //battleButtons();
+        keyActions();
+    }
+
+    private void battleImg()
+    {
+        charSprite = new JLabel(new ImageIcon(character.getSprite()));charSprite.setPreferredSize(new Dimension(300,450));charSprite.setLocation(1000+lPanel.WIDTH, lPanel.HEIGHT);
+lPanel.add(charSprite);
+    }
+
+    private void battleLbl()
+    {
+
     }
 
     private void battleButtons()
     {
-        //lPanel.setLayout(new GridBagLayout());
-        gbc.fill = GridBagConstraints.HORIZONTAL;gbc.ipady = 0;gbc.weighty = 1.0;   
-        gbc.anchor = GridBagConstraints.CENTER;gbc.gridx = 1;gbc.gridwidth = 2;gbc.gridy = 2;  
-        keyActions();   
+
     }
 
     private void pauButtons()
     {
-        //lPanel.setLayout(null);
         set.setVisible(false);
         pau.setEnabled(false);pau.setVisible(false);pau.setForeground(Color.white);pau.setFont(new Font(pau.getFont().getName(), Font.BOLD, 40));pau.setText("Paused"); 
         exit.setBackground(new Color(0,0,0));settings.setBackground(new Color(0,0,0));pau.setBackground(new Color(0,0,0,200));
@@ -84,7 +84,7 @@ public class GameGUI extends JFrame implements ActionListener
     }
 
     //Displays the pause screen
-    private void pause() 
+    private void pause()
     {  
         if(paused) {this.settings.setVisible(false);this.settings.setEnabled(false);this.pau.setVisible(false);this.exit.setEnabled(false);this.exit.setVisible(false);this.set.setVisible(false);this.vole.setVisible(false);this.vole.setEnabled(false);paused=false;}
         else 
@@ -117,9 +117,6 @@ public class GameGUI extends JFrame implements ActionListener
         lPanel.add(vole);lPanel.add(set);
     }
 
-
-    public void setChar(Player z) {character = z;lGUI.setChar(character);}
-
     public void actionPerformed(ActionEvent e)
     {
         JButton j = (JButton)(e.getSource());
@@ -137,7 +134,6 @@ public class GameGUI extends JFrame implements ActionListener
     private void levExit() {GUI gui = new GUI();close();gui.cha(character);gui.game();}
     private void imgSwap(String x) {a.setImage(new ImageIcon("APCS/Assets/Background Img/Game Level Menu/Lvl Sel/defaultLevelSel" + x + ".jpg").getImage());}
     public JPanel gamePan() {JPanel gPanel = a;return gPanel;}
-    public void select(int x) {
-        String temp=String.valueOf(x) + String.valueOf(character.getStage());imgSwap(temp);}
+    public void select(int x) {String temp=String.valueOf(x) + String.valueOf(character.getStage());imgSwap(temp);}
     private void exit() {if(set.isVisible()) {pause();} else {levExit();}}
 }

@@ -101,4 +101,6 @@ Change Log
 5/13/26
 -V.7.4-
 -Work on opening the right stage, finalizing stage select instead of the debug we had
+-V.7.5-
+-Level selection and opening works as intended
 -Nicholas-

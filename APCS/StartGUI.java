@@ -309,7 +309,7 @@ public class StartGUI extends JFrame implements ActionListener
     //Handles when the next button is called
     private void next()
     {
-        if(page==0) {name=nameBox.getText()+" ";if(name.length()>0){sPanel.removeAll();gend();sPanel.repaint();page++;}}
+        if(page==0) {name=nameBox.getText();if(name.length()>0){sPanel.removeAll();gend();sPanel.repaint();page++;}}
 
         else if(page==1) {if(gend!=-1){sPanel.removeAll();out();sPanel.repaint();page++;}}
 

@@ -131,7 +131,6 @@ public class GUI extends JFrame implements ActionListener
 
     //Sets the character
     public void cha(String name, int gend, int out, int fav) {character.setName(name);character.setGend(gend);character.setOut(out);character.setFav(fav);}
-
     public void cha(Player x) {character = x;vol = character.getVol();gGUI = new GameGUI(character);}
 
     //Runs the main game
@@ -196,7 +195,8 @@ public class GUI extends JFrame implements ActionListener
 
     private void select() 
     {
-        if(paused==false && selected==false){gGUI.select(levNum);selected=true;} 
+        if(paused==false && selected==false){gGUI.select(character.getCurLev());selected=true;}
+
         else if(paused==false && selected==true){gGUI.start(character);}
     }
     
