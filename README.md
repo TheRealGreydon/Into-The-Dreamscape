@@ -110,4 +110,6 @@ Change Log
 -Added character sprite to the game lvl
 -Paused now doesnt get covered by sprite
 -Kai is a lazy bum ass
+-V.8.1-
+-Battle buttons added
 -Nicholas-
