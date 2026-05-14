@@ -66,17 +66,17 @@ public class GameGUI extends JFrame implements ActionListener
         charSprite = new JLabel(new ImageIcon(character.getSprite()));charSprite.setPreferredSize(new Dimension(300,450));
         charSprite.setOpaque(false);lPanel.add(charSprite);
         charSprite.setBounds(100,200,300,450);
-        try {enm1 = new JLabel(new ImageIcon(ImageIO.read(new File("APCS/Assets/Enemies/Char" + ((int)(Math.random()*3 + 1)) + ".jpg")).getScaledInstance(420, 420, Image.SCALE_SMOOTH)));} 
+        try {enm1 = new JLabel(new ImageIcon(ImageIO.read(new File("APCS/Assets/Enemies/Char" + ((int)(Math.random()*3 + 1)) + ".png")).getScaledInstance(420, 420, Image.SCALE_SMOOTH)));} 
         catch (IOException e) {e.printStackTrace();}
-        enm1.setOpaque(false);lPanel.add(enm1);
+        enm1.setOpaque(false);//lPanel.add(enm1);
         enm1.setBounds(1600,0,200,300);
-        try {enm2 = new JLabel(new ImageIcon(ImageIO.read(new File("APCS/Assets/Enemies/Char" + ((int)(Math.random()*3 + 1)) + ".jpg")).getScaledInstance(420, 420, Image.SCALE_SMOOTH)));} 
+        try {enm2 = new JLabel(new ImageIcon(ImageIO.read(new File("APCS/Assets/Enemies/Char" + ((int)(Math.random()*3 + 1)) + ".png")).getScaledInstance(420, 420, Image.SCALE_SMOOTH)));} 
         catch (IOException e) {e.printStackTrace();}
-        enm2.setOpaque(false);lPanel.add(enm2);
+        enm2.setOpaque(false);//lPanel.add(enm2);
         enm2.setBounds(1600,300,200,300);
-        try {enm3 = new JLabel(new ImageIcon(ImageIO.read(new File("APCS/Assets/Enemies/Char" + ((int)(Math.random()*3 + 1)) + ".jpg")).getScaledInstance(420, 420, Image.SCALE_SMOOTH)));} 
+        try {enm3 = new JLabel(new ImageIcon(ImageIO.read(new File("APCS/Assets/Enemies/Char" + ((int)(Math.random()*3 + 1)) + ".png")).getScaledInstance(420, 420, Image.SCALE_SMOOTH)));} 
         catch (IOException e) {e.printStackTrace();}
-        enm3.setOpaque(false);lPanel.add(enm3);
+        enm3.setOpaque(false);//lPanel.add(enm3);
         enm3.setBounds(1600,600,200,300);
     }
 
@@ -84,10 +84,18 @@ public class GameGUI extends JFrame implements ActionListener
     {
         for(int i=0; i<3; i++)
         {
-            bbE[i] = new JButton();
-            bbE[i].setVisible(false);bbE[i].setBackground(new Color(0,0,0,0));
+            int z = ((int)(Math.random()*3 + 1));
+            try {bbE[i] = new JButton(new ImageIcon(ImageIO.read(new File("APCS/Assets/Enemies/Char" + z + ".png")).getScaledInstance(420, 420, Image.SCALE_SMOOTH)));} 
+            catch (IOException e) {e.printStackTrace();}
+            bbE[i].setText("APCS/Assets/Enemies/Char" + z);
+            //bbE[i].setVisible(true);//bbE[i].setBackground(new Color(0,0,0,0));
             bbE[i].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
-            bbE[i].setSize(new Dimension(200,300));bbE[i].setFocusable(false);bbE[i].setLocation(1600, (i*300));   
+            bbE[i].setSize(new Dimension(200,300));
+            bbE[i].setLocation(1600, (i*300));   
+            bbE[i].setContentAreaFilled(false);
+            bbE[i].setBorderPainted(false);
+            bbE[i].setFocusPainted(false);
+            bbE[i].setOpaque(false);
             bbE[i].addActionListener(this);
             lPanel.add(bbE[i]);
         }
@@ -95,7 +103,6 @@ public class GameGUI extends JFrame implements ActionListener
 
     private void actBattleButtons()
     {
-        enmBattleButtons();
         for(int i=0; i<3; i++)
         {
             bb[i] = new JButton();
@@ -222,7 +229,13 @@ public class GameGUI extends JFrame implements ActionListener
 
     private void buttonSel(int x)
     {
-
+        for(int i=0; i<3; i++)
+        {
+            try {bbE[i].setIcon((new ImageIcon(ImageIO.read(new File(bbE[i].getText() + ".png")).getScaledInstance(420, 420, Image.SCALE_SMOOTH))));} 
+            catch (IOException e) {e.printStackTrace();}
+        }
+        try {bbE[x].setIcon((new ImageIcon(ImageIO.read(new File(bbE[x].getText() + "Sel.png")).getScaledInstance(420, 420, Image.SCALE_SMOOTH))));} 
+        catch (IOException e) {e.printStackTrace();}
     }
 
     public void actionPerformed(ActionEvent e)
@@ -243,27 +256,11 @@ public class GameGUI extends JFrame implements ActionListener
 
         else if(j.equals(bbExit)) {bbExit.setVisible(false);bbExit.setEnabled(false);buttonShow();lPanel.repaint();}
 
-        else if(j.equals(bbE[0]) || j.equals(bbE[1]) || j.equals(bbE[2])) 
-        {
-            System.out.print("Clicked ");
-            if(j.equals(bbE[0])) 
-            {
-                bbE[0].setVisible(true);
-                System.out.print("1\n");
-            }
+        else if(j.equals(bbE[0])) {buttonSel(0);}
 
-            else if(j.equals(bbE[1]))
-            {
-                bbE[1].setVisible(true);
-                System.out.print("2\n");
-            }
+        else if(j.equals(bbE[1])) {buttonSel(1);}
 
-            else if(j.equals(bbE[2]))
-            {
-                bbE[2].setVisible(true);
-                System.out.print("3\n");
-            }
-        }
+        else if(j.equals(bbE[2])) {buttonSel(2);}
     }
 
     private void battleButtons() {enmBattleButtons();actBattleButtons();}
