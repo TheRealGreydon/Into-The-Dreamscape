@@ -27,9 +27,9 @@ public class GameGUI extends JFrame implements ActionListener
     private JLabel enm1 = null;
     private JLabel enm2 = null;
     private JLabel enm3 = null;
-    private JButton bb1;
-    private JButton bb2;
-    private JButton bb3;
+    private JButton [] bb = new JButton[3];
+    private JButton [] bbE = new JButton[3];
+    private JButton bbExit;
 
     private boolean paused = false;
 
@@ -48,15 +48,15 @@ public class GameGUI extends JFrame implements ActionListener
         }
         else {character.setStage(character.getStage()+1);}
 
-        lPanel = lGUI.lPanel;close();this.setLocationRelativeTo(null);displayGame();battleItm();vol = character.getVol();
+        lPanel = lGUI.lPanel;close();this.setLocationRelativeTo(null);displayGame();battleInit();vol = character.getVol();
     }
 
-    private void battleItm()
+    private void battleInit()
     {
         this.pack();
         lPanel.setLayout(null);
         battleImg();
-        //battleLbl();
+        battleLbl();
         battleButtons();
         keyActions();
     }
@@ -80,48 +80,43 @@ public class GameGUI extends JFrame implements ActionListener
         enm3.setBounds(1600,600,200,300);
     }
 
-    private void battleLbl()
+    private void enmBattleButtons()
     {
-
+        for(int i=0; i<3; i++)
+        {
+            bbE[i] = new JButton();
+            bbE[i].setVisible(false);bbE[i].setBackground(new Color(0,0,0,0));
+            bbE[i].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
+            bbE[i].setSize(new Dimension(200,300));bbE[i].setFocusable(false);bbE[i].setLocation(1600, (i*300));   
+            bbE[i].addActionListener(this);
+            lPanel.add(bbE[i]);
+        }
     }
 
-    private void battleButtons()
+    private void actBattleButtons()
     {
-        bb1 = new JButton();
-        bb1.setBackground(new Color(179, 9, 9));
-        bb1.setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
-        bb1.setForeground(Color.black);
-        bb1.setFont(new Font(bb1.getFont().getName(), Font.BOLD, 40));
-        bb1.setText("Test Text");bb1.addActionListener(this);
-        bb1.setSize(new Dimension(400,200));
-        bb1.setLocation(100,800);
-        lPanel.add(bb1);
-        bb2 = new JButton();
-        bb2.setBackground(new Color(179, 9, 9));
-        bb2.setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
-        bb2.setForeground(Color.black);
-        bb2.setFont(new Font(bb2.getFont().getName(), Font.BOLD, 40));
-        bb2.setText("Test Text");bb2.addActionListener(this);
-        bb2.setSize(new Dimension(400,200));
-        bb2.setLocation(600,800);
-        lPanel.add(bb2);
-        bb3 = new JButton();
-        bb3.setBackground(new Color(179, 9, 9));
-        bb3.setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
-        bb3.setForeground(Color.black);
-        bb3.setFont(new Font(bb3.getFont().getName(), Font.BOLD, 40));
-        bb3.setText("Test Text");bb3.addActionListener(this);
-        bb3.setSize(new Dimension(400,200));
-        bb3.setLocation(1100,800);
-        lPanel.add(bb3);
-        bb1.setFocusable(false);
-        bb2.setFocusable(false);
-        bb3.setFocusable(false);
-        pauButtons();
+        enmBattleButtons();
+        for(int i=0; i<3; i++)
+        {
+            bb[i] = new JButton();
+            bb[i].setBackground(new Color(179, 9, 9));
+            bb[i].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));bb[i].setForeground(Color.black);
+            bb[i].setFont(new Font(bb[i].getFont().getName(), Font.BOLD, 40));bb[i].addActionListener(this);
+            bb[i].setSize(new Dimension(400,200));bb[i].setFocusable(false);bb[i].setLocation((i*500 + 100), 800);
+        }
+        bb[0].setText("Attack");bb[1].setText("Skills");bb[2].setText("Items");
+        bbExit = new JButton();
+        bbExit.setBackground(new Color(179, 9, 9));
+        bbExit.setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));bbExit.setForeground(Color.black);
+        bbExit.setFont(new Font(bbExit.getFont().getName(), Font.BOLD, 40));
+        bbExit.setText("Back");bbExit.addActionListener(this);bbExit.setSize(new Dimension(400,200));
+        bbExit.setLocation(1200,800);bbExit.setVisible(false);bbExit.setEnabled(false);
+        bbExit.setFocusable(false);lPanel.add(bbExit);
+        buttonShow();pauButtons();
     }
 
     private void pauButtons()
-    {
+    {   
         set.setVisible(false);
         set.setSize(new Dimension(5000,5000));
         pau.setSize(new Dimension(5000,5000));
@@ -132,6 +127,11 @@ public class GameGUI extends JFrame implements ActionListener
         settings.setFont(new Font(settings.getFont().getName(), Font.BOLD, 40));settings.setText("Settings");settings.addActionListener(this);exit.addActionListener(this);this.setLocationRelativeTo(null);
         settings.setFocusable(false);
         exit.setFocusable(false);
+    }
+
+    private void battleLbl()
+    {
+
     }
 
     //Keybinds
@@ -147,14 +147,11 @@ public class GameGUI extends JFrame implements ActionListener
         if(paused) 
         {
             paused=false;
-            settings.setVisible(false);
-            settings.setEnabled(false);
+            settings.setVisible(false);settings.setEnabled(false);
             pau.setVisible(false);
-            exit.setEnabled(false);
-            exit.setVisible(false);
+            exit.setEnabled(false);exit.setVisible(false);
             set.setVisible(false);
-            vole.setVisible(false);
-            vole.setEnabled(false);
+            vole.setVisible(false);vole.setEnabled(false);
             battlePause();
         }
         else 
@@ -163,18 +160,12 @@ public class GameGUI extends JFrame implements ActionListener
             pau.setForeground(Color.white);
             pau.setFont(new Font(pau.getFont().getName(), Font.BOLD, 40));pau.setText("Paused");pau.setBackground(new Color(0,0,0,200));
             pau.setLocation(lPanel.getWidth()/2-2500, lPanel.getHeight()/2-2500);
-            exit.setText("Exit");
             settings.setText("Settings");
-            lPanel.add(settings);
-            lPanel.add(exit);
-            lPanel.add(pau);
+            lPanel.add(settings);lPanel.add(exit);lPanel.add(pau);
             battlePause();
             exit.setLocation((lPanel.getWidth()/2)-100, (lPanel.getHeight()/2)+150);
-            settings.setLocation((lPanel.getWidth()/2-100), (lPanel.getHeight()/2+50));
-            settings.setVisible(true);
-            settings.setEnabled(true);
-            exit.setVisible(true);
-            exit.setEnabled(true);
+            settings.setLocation((lPanel.getWidth()/2-100), (lPanel.getHeight()/2+50));settings.setVisible(true);settings.setEnabled(true);
+            exit.setVisible(true);exit.setEnabled(true);exit.setText("Exit");
             pau.setVisible(true);
         }
     }    
@@ -197,12 +188,10 @@ public class GameGUI extends JFrame implements ActionListener
         lPanel.add(enm1);
         lPanel.add(enm2);
         lPanel.add(enm3);
-        lPanel.add(bb1);
-        lPanel.add(bb2);
-        lPanel.add(bb3);
-        if(paused) {bb1.setEnabled(false);bb2.setEnabled(false);bb3.setEnabled(false);}
+        buttonShow();
+        if(paused) {bb[0].setEnabled(false);bb[1].setEnabled(false);bb[2].setEnabled(false);}
 
-        else {bb1.setEnabled(true);bb2.setEnabled(true);bb3.setEnabled(true);}
+        else {bb[0].setEnabled(true);bb[1].setEnabled(true);bb[2].setEnabled(true);}
     }
 
     private void battleHide()
@@ -211,9 +200,29 @@ public class GameGUI extends JFrame implements ActionListener
         lPanel.remove(enm1);
         lPanel.remove(enm2);
         lPanel.remove(enm3);
-        lPanel.remove(bb1);
-        lPanel.remove(bb2);
-        lPanel.remove(bb3);
+        buttonHide();
+    }
+
+    private void buttonHide()
+    {
+        for(int i=0; i<3; i++) {lPanel.remove(bb[i]);}
+    }
+
+    private void buttonShow()
+    {
+        for(int i=0; i<3; i++) {lPanel.add(bb[i]);}
+    }
+
+    private void atk()
+    {
+        buttonHide();
+        bbExit.setVisible(true);bbExit.setEnabled(true);
+        lPanel.repaint();
+    }
+
+    private void buttonSel(int x)
+    {
+
     }
 
     public void actionPerformed(ActionEvent e)
@@ -226,22 +235,38 @@ public class GameGUI extends JFrame implements ActionListener
         
         else if(j.equals(vole)) {if(vol+25>100) {vol=0;}else{vol+=25;}character.setVol(vol);vole.setText(String.valueOf(vol));}
 
-        else if(j.equals(bb1)) 
-        {
-            
-        }
+        else if(j.equals(bb[0])) {atk();}
         
-        else if(j.equals(bb2)) 
-        {
-            
-        }
+        else if(j.equals(bb[1])) {atk();}
         
-        else if(j.equals(bb3)) 
+        else if(j.equals(bb[2])) {atk();}
+
+        else if(j.equals(bbExit)) {bbExit.setVisible(false);bbExit.setEnabled(false);buttonShow();lPanel.repaint();}
+
+        else if(j.equals(bbE[0]) || j.equals(bbE[1]) || j.equals(bbE[2])) 
         {
-            
+            System.out.print("Clicked ");
+            if(j.equals(bbE[0])) 
+            {
+                bbE[0].setVisible(true);
+                System.out.print("1\n");
+            }
+
+            else if(j.equals(bbE[1]))
+            {
+                bbE[1].setVisible(true);
+                System.out.print("2\n");
+            }
+
+            else if(j.equals(bbE[2]))
+            {
+                bbE[2].setVisible(true);
+                System.out.print("3\n");
+            }
         }
     }
 
+    private void battleButtons() {enmBattleButtons();actBattleButtons();}
     private void displayGame() {initialize();java.awt.EventQueue.invokeLater(new Runnable() {public void run() {setVisible(true);}});}
     private void initialize() {setDefaultCloseOperation(EXIT_ON_CLOSE);this.pack();this.setExtendedState(JFrame.MAXIMIZED_BOTH);this.setTitle("Into the Dreamscape");this.setVisible(true);this.setResizable(true);this.pack();this.add(lPanel);}
     private void close() {Window[] windows = Window.getWindows(); for (Window window : windows) {if (window != null) {window.dispose();}}}
