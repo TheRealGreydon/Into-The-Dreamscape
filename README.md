@@ -104,3 +104,10 @@ Change Log
 -V.7.5-
 -Level selection and opening works as intended
 -Nicholas-
+
+5/14/26
+-V.8-
+-Added character sprite to the game lvl
+-Paused now doesnt get covered by sprite
+-Kai is a lazy bum ass
+-Nicholas-

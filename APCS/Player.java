@@ -32,22 +32,22 @@ public class Player
         this.outfit = outfit;
         this.fav = fav;
         this.skills = new ArrayList<Skills>();
-        switch (fav) {
-            case 1:
-            addAbil(new MatchBox());
-            break;
-            case 2:
-            addAbil(new WetTowel());
-            break;
-            case 3:
-            addAbil(new RockThrow());
-            break;
-            case 4:
-            addAbil(new PartyPopper());
-            break;
-            default:
-                throw new AssertionError();
-        }
+        //switch (fav) {
+        //    case 1:
+        //    addAbil(new MatchBox());
+        //    break;
+        //    case 2:
+        //    addAbil(new WetTowel());
+        //    break;
+        //    case 3:
+        //    addAbil(new RockThrow());
+        //    break;
+        //    case 4:
+        //    addAbil(new PartyPopper());
+        //    break;
+        //    default:
+        //        throw new AssertionError();
+        //}
         spriteInit();
     }
     

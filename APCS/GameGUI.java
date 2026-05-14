@@ -52,7 +52,7 @@ public class GameGUI extends JFrame implements ActionListener
     private void battleImg()
     {
         charSprite = new JLabel(new ImageIcon(character.getSprite()));charSprite.setPreferredSize(new Dimension(300,450));charSprite.setLocation(1000+lPanel.WIDTH, lPanel.HEIGHT);
-lPanel.add(charSprite);
+        lPanel.add(charSprite);
     }
 
     private void battleLbl()
@@ -68,6 +68,7 @@ lPanel.add(charSprite);
     private void pauButtons()
     {
         set.setVisible(false);
+        pau.setSize(new Dimension(5000,5000));
         pau.setEnabled(false);pau.setVisible(false);pau.setForeground(Color.white);pau.setFont(new Font(pau.getFont().getName(), Font.BOLD, 40));pau.setText("Paused"); 
         exit.setBackground(new Color(0,0,0));settings.setBackground(new Color(0,0,0));pau.setBackground(new Color(0,0,0,200));
         exit.setSize(new Dimension(200,100));settings.setSize(new Dimension(200,100));exit.setEnabled(false);exit.setVisible(false);exit.setForeground(Color.white);
@@ -86,16 +87,31 @@ lPanel.add(charSprite);
     //Displays the pause screen
     private void pause()
     {  
-        if(paused) {this.settings.setVisible(false);this.settings.setEnabled(false);this.pau.setVisible(false);this.exit.setEnabled(false);this.exit.setVisible(false);this.set.setVisible(false);this.vole.setVisible(false);this.vole.setEnabled(false);paused=false;}
+        if(paused) 
+        {
+            settings.setVisible(false);
+            settings.setEnabled(false);
+            pau.setVisible(false);
+            exit.setEnabled(false);
+            exit.setVisible(false);
+            set.setVisible(false);
+            vole.setVisible(false);
+            vole.setEnabled(false);
+            lPanel.add(charSprite);
+            paused=false;
+        }
         else 
         {
-            this.pau.setForeground(Color.white);
-            this.pau.setFont(new Font(pau.getFont().getName(), Font.BOLD, 40));this.pau.setText("Paused");this.pau.setBackground(new Color(0,0,0,200));
-            this.exit.setText("Exit");
-            this.settings.setText("Settings");
+            pau.setForeground(Color.white);
+            pau.setFont(new Font(pau.getFont().getName(), Font.BOLD, 40));pau.setText("Paused");pau.setBackground(new Color(0,0,0,200));
+            pau.setLocation(lPanel.getWidth()/2-2500, lPanel.getHeight()/2-2500);
+            exit.setText("Exit");
+            settings.setText("Settings");
+            lPanel.remove(charSprite);
             lPanel.add(settings);
             lPanel.add(exit);
             lPanel.add(pau);
+            lPanel.add(charSprite);
             exit.setLocation((lPanel.getWidth()/2)-100, (lPanel.getHeight()/2)+150);
             settings.setLocation((lPanel.getWidth()/2-100), (lPanel.getHeight()/2+50));
             settings.setVisible(true);
@@ -109,7 +125,8 @@ lPanel.add(charSprite);
 
     private void settings()
     {
-        this.pau.setVisible(false);set.setEnabled(false);set.setForeground(Color.white);set.setVisible(true);set.setBackground(Color.BLACK);
+        lPanel.remove(charSprite);
+        pau.setVisible(false);set.setEnabled(false);set.setForeground(Color.white);set.setVisible(true);set.setBackground(Color.BLACK);
         set.setFont(new Font(set.getFont().getName(), Font.BOLD, 40));set.setText("Settings"); 
         exit.setText("Back");settings.setText("Volume");settings.setEnabled(false);
         vole.setFont(new Font(vole.getFont().getName(), Font.BOLD, 40));vole.addActionListener(this);vole.setSize(new Dimension(125,100));vole.setBackground(Color.black);
