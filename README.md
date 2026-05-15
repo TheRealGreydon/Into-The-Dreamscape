@@ -119,4 +119,5 @@ Change Log
 -Enm buttons now toggles
 -Restructures and organization
 -Beginings of permanent enm sprites
+-One of the permanent battle backgrounds added
 -Nicholas-
