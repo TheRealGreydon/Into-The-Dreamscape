@@ -76,9 +76,9 @@ public class GameGUI extends JFrame implements ActionListener
         {
             int j = i;
             int z = ((int)(Math.random()*3 + 1));
-            try {bbE[i] = new JToggleButton(new ImageIcon(ImageIO.read(new File("APCS/Assets/Enemies/Char" + z + ".png")).getScaledInstance(420, 420, Image.SCALE_SMOOTH)));} 
+            try {bbE[i] = new JToggleButton(new ImageIcon(ImageIO.read(new File("APCS/Assets/Enemies/HemoNeedle-1.png")).getScaledInstance(420, 420, Image.SCALE_SMOOTH)));} 
             catch (IOException e) {e.printStackTrace();}
-            bbE[i].setText("APCS/Assets/Enemies/Char" + z);
+            bbE[i].setText("APCS/Assets/Enemies/HemoNeedle-1");
             bbE[i].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
             bbE[i].setSize(new Dimension(200,300));
             bbE[i].setLocation(1600, (i*300));   

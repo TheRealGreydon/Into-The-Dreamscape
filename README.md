@@ -118,4 +118,5 @@ Change Log
 -V.8.2-
 -Enm buttons now toggles
 -Restructures and organization
+-Beginings of permanent enm sprites
 -Nicholas-
