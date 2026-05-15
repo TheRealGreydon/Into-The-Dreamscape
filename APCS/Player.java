@@ -1,14 +1,10 @@
 package APCS;
 
 import java.awt.*;
-import java.awt.image.*;
 import java.io.*;
 import java.util.*;
-
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-
+import APCS.Skills.*;
 
 public class Player
 {

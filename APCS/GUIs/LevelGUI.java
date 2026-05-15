@@ -1,7 +1,9 @@
-package APCS;
+package APCS.GUIs;
 
 import java.awt.*;
 import javax.swing.*;
+import APCS.*;
+import APCS.Assets.*;
 
 public class LevelGUI extends JFrame
 {

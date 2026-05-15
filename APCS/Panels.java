@@ -2,6 +2,7 @@ package APCS;
 
 import java.awt.*;
 import javax.swing.*;
+import APCS.Assets.*;
 
 public class Panels
 {

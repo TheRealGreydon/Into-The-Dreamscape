@@ -1,4 +1,4 @@
-package APCS;
+package APCS.Skills;
 
 public interface Skills
 {

@@ -1,8 +1,11 @@
-package APCS;
+package APCS.GUIs;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import APCS.*;
+import APCS.Assets.*;
+import APCS.GUIs.*;
 
 public class GUI extends JFrame implements ActionListener
 {

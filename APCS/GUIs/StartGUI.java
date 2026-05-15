@@ -1,4 +1,4 @@
-package APCS;
+package APCS.GUIs;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -6,6 +6,7 @@ import java.awt.image.*;
 import java.io.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import APCS.Assets.*;
 
 //Character creation screen and starts the game
 public class StartGUI extends JFrame implements ActionListener

@@ -1,12 +1,14 @@
-package APCS;
+package APCS.GUIs;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
+import java.io.*;
+import javax.imageio.*;
 import javax.swing.*;
+import APCS.*;
+import APCS.Assets.*;
+import APCS.GUIs.*;
+import APCS.Player;
 
 public class GameGUI extends JFrame implements ActionListener
 {
@@ -28,7 +30,7 @@ public class GameGUI extends JFrame implements ActionListener
     private JLabel enm2 = null;
     private JLabel enm3 = null;
     private JButton [] bb = new JButton[3];
-    private JButton [] bbE = new JButton[3];
+    private JToggleButton [] bbE = new JToggleButton[3];
     private JButton bbExit;
 
     private boolean paused = false;
@@ -66,29 +68,17 @@ public class GameGUI extends JFrame implements ActionListener
         charSprite = new JLabel(new ImageIcon(character.getSprite()));charSprite.setPreferredSize(new Dimension(300,450));
         charSprite.setOpaque(false);lPanel.add(charSprite);
         charSprite.setBounds(100,200,300,450);
-        try {enm1 = new JLabel(new ImageIcon(ImageIO.read(new File("APCS/Assets/Enemies/Char" + ((int)(Math.random()*3 + 1)) + ".png")).getScaledInstance(420, 420, Image.SCALE_SMOOTH)));} 
-        catch (IOException e) {e.printStackTrace();}
-        enm1.setOpaque(false);//lPanel.add(enm1);
-        enm1.setBounds(1600,0,200,300);
-        try {enm2 = new JLabel(new ImageIcon(ImageIO.read(new File("APCS/Assets/Enemies/Char" + ((int)(Math.random()*3 + 1)) + ".png")).getScaledInstance(420, 420, Image.SCALE_SMOOTH)));} 
-        catch (IOException e) {e.printStackTrace();}
-        enm2.setOpaque(false);//lPanel.add(enm2);
-        enm2.setBounds(1600,300,200,300);
-        try {enm3 = new JLabel(new ImageIcon(ImageIO.read(new File("APCS/Assets/Enemies/Char" + ((int)(Math.random()*3 + 1)) + ".png")).getScaledInstance(420, 420, Image.SCALE_SMOOTH)));} 
-        catch (IOException e) {e.printStackTrace();}
-        enm3.setOpaque(false);//lPanel.add(enm3);
-        enm3.setBounds(1600,600,200,300);
     }
 
     private void enmBattleButtons()
     {
         for(int i=0; i<3; i++)
         {
+            int j = i;
             int z = ((int)(Math.random()*3 + 1));
-            try {bbE[i] = new JButton(new ImageIcon(ImageIO.read(new File("APCS/Assets/Enemies/Char" + z + ".png")).getScaledInstance(420, 420, Image.SCALE_SMOOTH)));} 
+            try {bbE[i] = new JToggleButton(new ImageIcon(ImageIO.read(new File("APCS/Assets/Enemies/Char" + z + ".png")).getScaledInstance(420, 420, Image.SCALE_SMOOTH)));} 
             catch (IOException e) {e.printStackTrace();}
             bbE[i].setText("APCS/Assets/Enemies/Char" + z);
-            //bbE[i].setVisible(true);//bbE[i].setBackground(new Color(0,0,0,0));
             bbE[i].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
             bbE[i].setSize(new Dimension(200,300));
             bbE[i].setLocation(1600, (i*300));   
@@ -96,7 +86,8 @@ public class GameGUI extends JFrame implements ActionListener
             bbE[i].setBorderPainted(false);
             bbE[i].setFocusPainted(false);
             bbE[i].setOpaque(false);
-            bbE[i].addActionListener(this);
+            bbE[i].addItemListener(new ItemListener()
+            {public void itemStateChanged(ItemEvent event) {if (event.getStateChange() == ItemEvent.SELECTED) {buttonSel(j);} else {buttonSel(-1);}}});
             lPanel.add(bbE[i]);
         }
     }
@@ -234,8 +225,11 @@ public class GameGUI extends JFrame implements ActionListener
             try {bbE[i].setIcon((new ImageIcon(ImageIO.read(new File(bbE[i].getText() + ".png")).getScaledInstance(420, 420, Image.SCALE_SMOOTH))));} 
             catch (IOException e) {e.printStackTrace();}
         }
-        try {bbE[x].setIcon((new ImageIcon(ImageIO.read(new File(bbE[x].getText() + "Sel.png")).getScaledInstance(420, 420, Image.SCALE_SMOOTH))));} 
-        catch (IOException e) {e.printStackTrace();}
+        if(x!=-1)
+        {
+            try {bbE[x].setIcon((new ImageIcon(ImageIO.read(new File(bbE[x].getText() + "Sel.png")).getScaledInstance(420, 420, Image.SCALE_SMOOTH))));} 
+            catch (IOException e) {e.printStackTrace();}
+        }
     }
 
     public void actionPerformed(ActionEvent e)
@@ -256,7 +250,7 @@ public class GameGUI extends JFrame implements ActionListener
 
         else if(j.equals(bbExit)) {bbExit.setVisible(false);bbExit.setEnabled(false);buttonShow();lPanel.repaint();}
 
-        else if(j.equals(bbE[0])) {buttonSel(0);}
+        else if(j.isSelected()) {buttonSel(0);}
 
         else if(j.equals(bbE[1])) {buttonSel(1);}
 

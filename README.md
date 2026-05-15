@@ -113,3 +113,9 @@ Change Log
 -V.8.1-
 -Battle buttons added
 -Nicholas-
+
+5/15/26
+-V.8.2-
+-Enm buttons now toggles
+-Restructures and organization
+-Nicholas-
