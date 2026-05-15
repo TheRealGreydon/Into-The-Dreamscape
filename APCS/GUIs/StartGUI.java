@@ -5,8 +5,8 @@ import java.awt.event.*;
 import java.awt.image.*;
 import java.io.*;
 import javax.imageio.ImageIO;
+import APCS.Assets.AssetClasses.*;
 import javax.swing.*;
-import APCS.Assets.*;
 
 //Character creation screen and starts the game
 public class StartGUI extends JFrame implements ActionListener
@@ -21,7 +21,7 @@ public class StartGUI extends JFrame implements ActionListener
 
     private JPanel sPanel;
 
-    String path="APCS/Assets/Default Img/defaultBack.jpg";        
+    String path="APCS/Assets/Img/Default Img/defaultBack.jpg";        
     private BackgroundPanel b = new BackgroundPanel(new ImageIcon(path).getImage(), 1);
 
     private GridBagConstraints gbc = new GridBagConstraints();
