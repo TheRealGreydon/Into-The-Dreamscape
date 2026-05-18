@@ -7,6 +7,7 @@ import java.util.Timer;
 import javax.swing.*;
 import APCS.Assets.AssetClasses.*;
 import APCS.Enms.*;
+import APCS.Skills.Atk;
 import APCS.Player;
 
 public class GameGUI extends JFrame implements ActionListener
@@ -125,14 +126,15 @@ public class GameGUI extends JFrame implements ActionListener
         {
             
             a = ("Enm " + bbE[z].Enm.getName() + " took " + character.atks[y].getDmg() + " and now has " + bbE[z].Enm.getHp());
-            timedText(attack(bbE[z], character.atks[y]),100,20);
+            timedText(attack(bbE[z].Enm, character.atks[y]),100,20);
             if(!bbE[z].Enm.isAlive()) {lPanel.remove(bbE[z].enmButton);}
         }
     }
 
     private String attack(enm x, Atk y)
     {
-        x.doHp(character);
+        x.doHp(y.getDmg());
+        return x.getName() + " took " + y.getDmg() + " from " + y.getName();
     }
 
     private void timedText(String a, int x, int y)
