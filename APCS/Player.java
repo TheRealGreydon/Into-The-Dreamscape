@@ -20,6 +20,7 @@ public class Player
     private int curStage = 0;
     private int vol = 50;
     private Image sprite;
+    private Image bSprite;
 
     public Player(String name, int gend, int outfit, int fav)
     {
@@ -102,6 +103,10 @@ public class Player
     public void setSprite(Image x) {sprite = x;}
 
     public Image getSprite() {return sprite;}
+    
+    public void setBSprite(Image x) {bSprite = x;}
+
+    public Image getBSprite() {return bSprite;}
 
     public String listAbil()
     {
@@ -129,5 +134,12 @@ public class Player
         return temp;
     }
 
-    private void spriteInit() {try {sprite = ImageIO.read(new File("APCS/Assets/Img/Character Img/Char" + outfit + ".jpg")).getScaledInstance(650, 650, Image.SCALE_SMOOTH);;} catch (IOException e) {e.printStackTrace();}}
+    private void spriteInit() 
+    {
+        try {sprite = ImageIO.read(new File("APCS/Assets/Img/Character Img/Char" + outfit + ".png")).getScaledInstance(650, 650, Image.SCALE_SMOOTH);}
+        catch (IOException e) {e.printStackTrace();}
+        
+        try {bSprite = ImageIO.read(new File("APCS/Assets/Img/Character Img/HeroCombat-" + outfit + ".png")).getScaledInstance(650, 650, Image.SCALE_SMOOTH);}
+        catch (IOException e) {e.printStackTrace();}
+    }
 }

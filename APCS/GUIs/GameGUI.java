@@ -10,11 +10,15 @@ import APCS.Player;
 
 public class GameGUI extends JFrame implements ActionListener
 {
-    private int x;
     private Player character;
-    public GameGUI(Player character) {this.character = character; x = character.getCurLev();
-        a = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/Game Level Menu/defaultLevelMenu" + x + ".jpg").getImage(), 1);
+
+    public GameGUI(Player character) 
+    {
+        this.character = character;
+        a = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/Game Level Menu/defaultLevelMenu" + character.getCurLev() + ".jpg").getImage(), 1);
+    
     }
+
     private JPanel lPanel;
     private JButton pau = new JButton();
     private JButton set = new JButton();
@@ -62,9 +66,9 @@ public class GameGUI extends JFrame implements ActionListener
 
     private void battleImg()
     {
-        charSprite = new JLabel(new ImageIcon(character.getSprite()));charSprite.setPreferredSize(new Dimension(300,450));
+        charSprite = new JLabel(new ImageIcon(character.getBSprite()));charSprite.setPreferredSize(new Dimension(300,650));
         charSprite.setOpaque(false);lPanel.add(charSprite);
-        charSprite.setBounds(100,200,300,450);
+        charSprite.setBounds(100,200,300,550);
     }
 
     private void enmBattleButtons()
@@ -73,11 +77,11 @@ public class GameGUI extends JFrame implements ActionListener
         {
             int j = i;
             int z = ((int)(Math.random()*3 + 1));
-            try {bbE[i] = new JToggleButton(new ImageIcon(ImageIO.read(new File("APCS/Assets/Img/Enemies/HemoNeedle-1.png")).getScaledInstance(420, 420, Image.SCALE_SMOOTH)));} 
+            try {bbE[i] = new JToggleButton(new ImageIcon(ImageIO.read(new File("APCS/Assets/Img/Enemies/HemoNeedle-1.png")).getScaledInstance(350,350, Image.SCALE_SMOOTH)));} 
             catch (IOException e) {e.printStackTrace();}
             bbE[i].setText("APCS/Assets/Img/Enemies/HemoNeedle-1");
             bbE[i].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
-            bbE[i].setSize(new Dimension(200,300));
+            bbE[i].setSize(new Dimension(350,350));
             bbE[i].setLocation(1600, (i*300));   
             bbE[i].setContentAreaFilled(false);
             bbE[i].setBorderPainted(false);
@@ -341,9 +345,9 @@ public class GameGUI extends JFrame implements ActionListener
 
     private void enmSel(int x)
     {
-        for(int i=0; i<3; i++) {try {bbE[i].setIcon((new ImageIcon(ImageIO.read(new File(bbE[i].getText() + ".png")).getScaledInstance(420, 420, Image.SCALE_SMOOTH))));}catch (IOException e) {e.printStackTrace();}}
+        for(int i=0; i<3; i++) {try {bbE[i].setIcon((new ImageIcon(ImageIO.read(new File(bbE[i].getText() + ".png")).getScaledInstance(350,350, Image.SCALE_SMOOTH))));}catch (IOException e) {e.printStackTrace();}}
         
-        if(x!=-1) {try {bbE[x].setIcon((new ImageIcon(ImageIO.read(new File(bbE[x].getText() + "Sel.png")).getScaledInstance(420, 420, Image.SCALE_SMOOTH))));}catch (IOException e) {e.printStackTrace();}}
+        if(x!=-1) {try {bbE[x].setIcon((new ImageIcon(ImageIO.read(new File(bbE[x].getText() + "Sel.png")).getScaledInstance(350, 350, Image.SCALE_SMOOTH))));}catch (IOException e) {e.printStackTrace();}}
     }
 
     public void actionPerformed(ActionEvent e)
