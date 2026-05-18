@@ -134,4 +134,10 @@ Change Log
 -Battle sprites now used for battle level
 -Fixed enm sprite sizing
 -Enm are now a new class, with disEnm being the button runner and enm being the enm its self
+-Battle semiworking
+-Working on resizing so it works on all resolutions
+-God I hate my self
+-V.9.1-
+-Finished resizing
+-Why is Jframe evil?
 -Nicholas-

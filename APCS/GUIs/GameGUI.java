@@ -56,6 +56,7 @@ public class GameGUI extends JFrame implements ActionListener
     {
         this.pack();
         lPanel.setLayout(null);
+        this.setSize(1500, 800);
         battleImg();
         battleButtons();
         keyActions();
@@ -65,7 +66,7 @@ public class GameGUI extends JFrame implements ActionListener
     {
         charSprite = new JLabel(new ImageIcon(character.getBSprite()));charSprite.setPreferredSize(new Dimension(300,650));
         charSprite.setOpaque(false);lPanel.add(charSprite);
-        charSprite.setBounds(100,200,300,550);
+        charSprite.setBounds(100,0,300,550);
     }
 
     private void enmBattleButtons()
@@ -73,7 +74,7 @@ public class GameGUI extends JFrame implements ActionListener
         for(int i=0; i<3; i++)
         {
             bbE[i] = new disEnm(new enm("HemoNeedle-1",1,1));
-            bbE[i].enmButton.setLocation(1600, (i*300));   
+            bbE[i].enmButton.setLocation(1200, (i*250));   
             bbE[i].enmButton.addActionListener(this);
             bbE[i].enmButton.setDisabledIcon(bbE[i].enmButton.getIcon());
             lPanel.add(bbE[i].enmButton);
@@ -88,14 +89,14 @@ public class GameGUI extends JFrame implements ActionListener
             bb[i].setBackground(new Color(179, 9, 9));
             bb[i].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));bb[i].setForeground(Color.black);
             bb[i].setFont(new Font(bb[i].getFont().getName(), Font.BOLD, 40));bb[i].addActionListener(this);
-            bb[i].setSize(new Dimension(400,200));bb[i].setFocusable(false);bb[i].setLocation((i*500 + 100), 800);
+            bb[i].setSize(new Dimension(300,150));bb[i].setFocusable(false);bb[i].setLocation((i*400), 615);
         }
         bb[0].setText("Attack");bb[1].setText("Skills");bb[2].setText("Items");
         bbExit = new JButton();bbExit.setBackground(new Color(179, 9, 9));
         bbExit.setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));bbExit.setForeground(Color.black);
         bbExit.setFont(new Font(bbExit.getFont().getName(), Font.BOLD, 20));
-        bbExit.setText("Back");bbExit.addActionListener(this);bbExit.setSize(new Dimension(200,100));
-        bbExit.setLocation(100,700);bbExit.setFocusable(false);
+        bbExit.setText("Back");bbExit.addActionListener(this);bbExit.setSize(new Dimension(150,75));
+        bbExit.setLocation(0,540);bbExit.setFocusable(false);
         buttonShow();pauButtons();atkBattleButtons();sklBattleButtons();
     }
 
@@ -107,9 +108,9 @@ public class GameGUI extends JFrame implements ActionListener
             bbA[i].setBackground(new Color(179, 9, 9));
             bbA[i].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));bbA[i].setForeground(Color.black);
             bbA[i].setFont(new Font(bbA[i].getFont().getName(), Font.BOLD, 40));
-            bbA[i].setSize(new Dimension(400,200));bbA[i].setFocusable(false);
+            bbA[i].setSize(new Dimension(300,150));bbA[i].setFocusable(false);
             
-            if(i%2==0) {bbA[i].setLocation(100, 800);} else {bbA[i].setLocation(600, 800);}
+            if(i%2==0) {bbA[i].setLocation(0, 615);} else {bbA[i].setLocation(400, 615);}
 
             if(character.atks[i] != null) {bbA[i].addActionListener(this);bbA[i].setText(character.atks[i].getName());}
             
@@ -119,22 +120,13 @@ public class GameGUI extends JFrame implements ActionListener
 
     private void atkSel(int y)
     {
-        String a;
         int z = -1;
         for(int i=0; i<3;i++) {if(bbE[i].selected) {z = i;}}
         if(z != -1)
         {
-            
-            a = ("Enm " + bbE[z].Enm.getName() + " took " + character.atks[y].getDmg() + " and now has " + bbE[z].Enm.getHp());
             timedText(attack(bbE[z].Enm, character.atks[y]),100,20);
             if(!bbE[z].Enm.isAlive()) {lPanel.remove(bbE[z].enmButton);}
         }
-    }
-
-    private String attack(enm x, Atk y)
-    {
-        x.doHp(y.getDmg());
-        return x.getName() + " took " + y.getDmg() + " from " + y.getName();
     }
 
     private void timedText(String a, int x, int y)
@@ -163,11 +155,6 @@ public class GameGUI extends JFrame implements ActionListener
         timer.scheduleAtFixedRate(task, 0, 50);
     }
 
-    private void enmSel(int x) 
-    {
-        for(int i=0;i<3;i++) {bbE[i].select(false);} bbE[x].select(true);lPanel.repaint();
-    }
-
     private void itmBattleButtons()
     {
         for(int i=0; i<4; i++)
@@ -175,10 +162,12 @@ public class GameGUI extends JFrame implements ActionListener
             bbI[i] = new JButton();
             bbI[i].setBackground(new Color(179, 9, 9));
             bbI[i].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));bbI[i].setForeground(Color.black);
-            bbI[i].setFont(new Font(bbI[i].getFont().getName(), Font.BOLD, 40));bbI[i].addActionListener(this);
-            bbI[i].setSize(new Dimension(400,200));bbI[i].setFocusable(false);
-            if(i%2==0) {bbI[i].setLocation(100, 800);} else {bbI[i].setLocation(600, 800);}
-            bbI[i].setText("BI" + i);
+            bbI[i].setFont(new Font(bbI[i].getFont().getName(), Font.BOLD, 40));
+            bbI[i].setSize(new Dimension(300,150));bbI[i].setFocusable(false);
+            
+            if(i%2==0) {bbI[i].setLocation(0, 615);} else {bbI[i].setLocation(400, 615);}
+            
+            bbI[i].setText("X");
         }
     }
 
@@ -189,10 +178,12 @@ public class GameGUI extends JFrame implements ActionListener
             bbS[i] = new JButton();
             bbS[i].setBackground(new Color(179, 9, 9));
             bbS[i].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));bbS[i].setForeground(Color.black);
-            bbS[i].setFont(new Font(bbS[i].getFont().getName(), Font.BOLD, 40));bbS[i].addActionListener(this);
-            bbS[i].setSize(new Dimension(400,200));bbS[i].setFocusable(false);
-            if(i%2==0) {bbS[i].setLocation(100, 800);} else {bbS[i].setLocation(600, 800);}
-            bbS[i].setText("BS" + i);
+            bbS[i].setFont(new Font(bbS[i].getFont().getName(), Font.BOLD, 40));
+            bbS[i].setSize(new Dimension(300,150));bbS[i].setFocusable(false);
+            
+            if(i%2==0) {bbS[i].setLocation(0, 615);} else {bbS[i].setLocation(400, 615);}
+            
+            bbS[i].setText("X");
         }
     }
 
@@ -202,8 +193,8 @@ public class GameGUI extends JFrame implements ActionListener
         actNext.setBackground(new Color(179, 9, 9));
         actNext.setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));actNext.setForeground(Color.black);
         actNext.setFont(new Font(actNext.getFont().getName(), Font.BOLD, 40));
-        actNext.setText("Next");actNext.addActionListener(this);actNext.setSize(new Dimension(400,200));
-        actNext.setLocation(1100,800);actNext.setFocusable(false);
+        actNext.setText("Next");actNext.addActionListener(this);actNext.setSize(new Dimension(300,150));
+        actNext.setLocation(800,615);actNext.setFocusable(false);
         enmBattleButtons();actBattleButtons();itmBattleButtons();
     }
 
@@ -212,7 +203,7 @@ public class GameGUI extends JFrame implements ActionListener
         set.setVisible(false);
         set.setSize(new Dimension(5000,5000));
         pau.setSize(new Dimension(5000,5000));
-        pau.setEnabled(false);pau.setVisible(false);pau.setForeground(Color.white);pau.setFont(new Font(pau.getFont().getName(), Font.BOLD, 40));pau.setText("Paused"); 
+        pau.setEnabled(false);pau.setVisible(false);pau.setForeground(Color.white);pau.setFont(new Font(pau.getFont().getName(), Font.BOLD, 30));pau.setText("Paused"); 
         exit.setBackground(new Color(0,0,0));settings.setBackground(new Color(0,0,0));pau.setBackground(new Color(0,0,0,200));
         exit.setSize(new Dimension(200,100));settings.setSize(new Dimension(200,100));exit.setEnabled(false);exit.setVisible(false);exit.setForeground(Color.white);
         exit.setFont(new Font(exit.getFont().getName(), Font.BOLD, 40));exit.setText("Exit");settings.setEnabled(false);settings.setVisible(false);settings.setForeground(Color.white);
@@ -239,12 +230,12 @@ public class GameGUI extends JFrame implements ActionListener
             paused=true;
             pau.setForeground(Color.white);
             pau.setFont(new Font(pau.getFont().getName(), Font.BOLD, 40));pau.setText("Paused");pau.setBackground(new Color(0,0,0,200));
-            pau.setLocation(lPanel.getWidth()/2-2500, lPanel.getHeight()/2-2500);
+            pau.setLocation(lPanel.getWidth()/2-2500, lPanel.getHeight()/2-2650);
             settings.setText("Settings");
             lPanel.add(settings);lPanel.add(exit);lPanel.add(pau);
             battlePause();
-            exit.setLocation((lPanel.getWidth()/2)-100, (lPanel.getHeight()/2)+150);
-            settings.setLocation((lPanel.getWidth()/2-100), (lPanel.getHeight()/2+50));settings.setVisible(true);settings.setEnabled(true);
+            exit.setLocation((lPanel.getWidth()/2)-100, (lPanel.getHeight()/2));
+            settings.setLocation((lPanel.getWidth()/2-100), (lPanel.getHeight()/2-100));settings.setVisible(true);settings.setEnabled(true);
             exit.setVisible(true);exit.setEnabled(true);exit.setText("Exit");
             pau.setVisible(true);
         }
@@ -257,8 +248,8 @@ public class GameGUI extends JFrame implements ActionListener
         set.setFont(new Font(set.getFont().getName(), Font.BOLD, 40));set.setText("Settings"); 
         exit.setText("Back");settings.setText("Volume");settings.setEnabled(false);
         vole.setFont(new Font(vole.getFont().getName(), Font.BOLD, 40));vole.addActionListener(this);vole.setSize(new Dimension(125,100));vole.setBackground(Color.black);
-        vole.setForeground(Color.white);vole.setLocation((lPanel.getWidth()/2-50)+150, (lPanel.getHeight()/2+50));vole.setVisible(true);vole.setEnabled(true);vole.setText(String.valueOf(vol));
-        lPanel.add(vole);set.setLocation(lPanel.getWidth()/2-2500, lPanel.getHeight()/2-2500);lPanel.add(set);
+        vole.setForeground(Color.white);vole.setLocation((lPanel.getWidth()/2-50)+150, (lPanel.getHeight()/2-100));vole.setVisible(true);vole.setEnabled(true);vole.setText(String.valueOf(vol));
+        lPanel.add(vole);set.setLocation(lPanel.getWidth()/2-2500, lPanel.getHeight()/2-2650);lPanel.add(set);
         vole.setFocusable(false);
     }
 
@@ -403,8 +394,9 @@ public class GameGUI extends JFrame implements ActionListener
         else if(j.equals(bbA[0])) {atkSel(0);}
     }
 
+    private String attack(enm x, Atk y) {x.doHp(y.getDmg());return x.getName() + " took " + y.getDmg() + " from " + y.getName();}
     private void displayGame() {initialize();java.awt.EventQueue.invokeLater(new Runnable() {public void run() {setVisible(true);}});}
-    private void initialize() {setDefaultCloseOperation(EXIT_ON_CLOSE);this.pack();this.setExtendedState(JFrame.MAXIMIZED_BOTH);this.setTitle("Into the Dreamscape");this.setVisible(true);this.setResizable(true);this.pack();this.add(lPanel);}
+    private void initialize() {setDefaultCloseOperation(EXIT_ON_CLOSE);this.pack();this.setTitle("Into the Dreamscape");this.setVisible(true);this.setResizable(true);this.pack();this.add(lPanel);}
     private void close() {Window[] windows = Window.getWindows(); for (Window window : windows) {if (window != null) {window.dispose();}}}
     private void levExit() {GUI gui = new GUI();close();gui.cha(character);gui.game();}
     private void imgSwap(String x) {a.setImage(new ImageIcon("APCS/Assets/Img/Background Img/Game Level Menu/Lvl Sel/defaultLevelSel" + x + ".jpg").getImage());}
@@ -418,4 +410,5 @@ public class GameGUI extends JFrame implements ActionListener
     private void buttonHide() {for(int i=0; i<3; i++) {lPanel.remove(bb[i]);}}
     private void buttonShow() {for(int i=0; i<3; i++) {bb[i].setVisible(true);lPanel.add(bb[i]);}}
     private void keyActions() {lPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ESCAPE"), "Pause");lPanel.getActionMap().put("Pause", new AbstractAction() {public void actionPerformed(ActionEvent e) {pause();}});}
+    private void enmSel(int x) {for(int i=0;i<3;i++) {bbE[i].select(false);} bbE[x].select(true);lPanel.repaint();}
 }
