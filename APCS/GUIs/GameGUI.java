@@ -25,8 +25,9 @@ public class GameGUI extends JFrame implements ActionListener
     private int vol;
     private JLabel charSprite;
     private JButton [] bb = new JButton[3];
-    private JButton [] bbA = new JButton[5];    
-    private JButton [] bbS = new JButton[5];    
+    private JButton [] bbA = new JButton[4];    
+    private JButton [] bbS = new JButton[4];    
+    private JButton [] bbI = new JButton[4];    
     private JToggleButton [] bbE = new JToggleButton[3];
     private JButton bbExit;
     private JButton next;
@@ -124,6 +125,20 @@ public class GameGUI extends JFrame implements ActionListener
         }
     }
 
+    private void itmBattleButtons()
+    {
+        for(int i=0; i<4; i++)
+        {
+            bbI[i] = new JButton();
+            bbI[i].setBackground(new Color(179, 9, 9));
+            bbI[i].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));bbI[i].setForeground(Color.black);
+            bbI[i].setFont(new Font(bbI[i].getFont().getName(), Font.BOLD, 40));bbI[i].addActionListener(this);
+            bbI[i].setSize(new Dimension(400,200));bbI[i].setFocusable(false);
+            if(i%2==0) {bbI[i].setLocation(100, 800);} else {bbI[i].setLocation(600, 800);}
+            bbI[i].setText("BI" + i);
+        }
+    }
+
     private void sklBattleButtons()
     {
         for(int i=0; i<4; i++)
@@ -146,7 +161,7 @@ public class GameGUI extends JFrame implements ActionListener
         next.setFont(new Font(next.getFont().getName(), Font.BOLD, 40));
         next.setText("Next");next.addActionListener(this);next.setSize(new Dimension(400,200));
         next.setLocation(1100,800);next.setFocusable(false);
-        enmBattleButtons();actBattleButtons();
+        enmBattleButtons();actBattleButtons();itmBattleButtons();
     }
 
     private void pauButtons()
@@ -222,8 +237,27 @@ public class GameGUI extends JFrame implements ActionListener
         lPanel.add(bbE[0]);
         lPanel.add(bbE[1]);
         lPanel.add(bbE[2]);
-        if(has(bbExit)) {lPanel.add(bbExit);}
-        buttonShow();
+        lPanel.add(next);
+        if(has(bbA[0]) || has(bbA[2]))
+        {
+            if(has(bbA[0])) {lPanel.add(bbA[0]);lPanel.add(bbA[1]);}
+
+            else {lPanel.add(bbA[2]);lPanel.add(bbA[3]);}
+        }
+        else if(has(bbS[0]) || has(bbS[2]))
+        {
+            if(has(bbS[0])) {lPanel.add(bbS[0]);lPanel.add(bbS[1]);}
+
+            else {lPanel.add(bbS[2]);lPanel.add(bbS[3]);}
+        }
+        else if(has(bbI[0]) || has(bbI[2]))
+        {
+            if(has(bbI[0])) {lPanel.add(bbI[0]);lPanel.add(bbI[1]);}
+
+            else {lPanel.add(bbI[2]);lPanel.add(bbI[3]);}
+        }
+
+        if(has(bbExit)) {lPanel.add(bbExit);} if(has(bb[0])) {buttonShow();}
     }
 
     private void battleHide()
@@ -232,7 +266,27 @@ public class GameGUI extends JFrame implements ActionListener
         lPanel.remove(bbE[0]);
         lPanel.remove(bbE[1]);
         lPanel.remove(bbE[2]);
-        buttonHide();
+        lPanel.remove(next);
+        if(has(bbA[0]) || has(bbA[2]))
+        {
+            if(has(bbA[0])) {lPanel.remove(bbA[0]);lPanel.remove(bbA[1]);}
+
+            else {lPanel.remove(bbA[2]);lPanel.remove(bbA[3]);}
+        }
+        else if(has(bbS[0]) || has(bbS[2]))
+        {
+            if(has(bbS[0])) {lPanel.remove(bbS[0]);lPanel.remove(bbS[1]);}
+
+            else {lPanel.remove(bbS[2]);lPanel.remove(bbS[3]);}
+        }
+        else if(has(bbI[0]) || has(bbI[2]))
+        {
+            if(has(bbI[0])) {lPanel.remove(bbI[0]);lPanel.remove(bbI[1]);}
+
+            else {lPanel.remove(bbI[2]);lPanel.remove(bbI[3]);}
+        }
+
+        if(has(bbExit)) {lPanel.remove(bbExit);} if(has(bb[0])) {buttonHide();}
     }
 
     private void buttonHide() {for(int i=0; i<3; i++) {lPanel.remove(bb[i]);}}
@@ -251,6 +305,12 @@ public class GameGUI extends JFrame implements ActionListener
         lPanel.repaint();
     }
 
+    private void itm()
+    {
+        buttonHide();lPanel.add(bbExit);lPanel.add(bbI[0]);lPanel.add(bbI[1]);lPanel.add(next);
+        lPanel.repaint();
+    }
+
     private void next()
     {
         if(has(bbA[0]) || has(bbA[2]))
@@ -265,6 +325,13 @@ public class GameGUI extends JFrame implements ActionListener
             if(has(bbS[0])) {lPanel.remove(bbS[0]);lPanel.remove(bbS[1]);lPanel.add(bbS[2]);lPanel.add(bbS[3]);lPanel.repaint();}
 
             else {lPanel.add(bbS[0]);lPanel.add(bbS[1]);lPanel.remove(bbS[2]);lPanel.remove(bbS[3]);lPanel.repaint();}
+        }
+
+        else if(has(bbI[0]) || has(bbI[2]))
+        {
+            if(has(bbI[0])) {lPanel.remove(bbI[0]);lPanel.remove(bbI[1]);lPanel.add(bbI[2]);lPanel.add(bbI[3]);lPanel.repaint();}
+
+            else {lPanel.add(bbI[0]);lPanel.add(bbI[1]);lPanel.remove(bbI[2]);lPanel.remove(bbI[3]);lPanel.repaint();}
         }
     }
 
@@ -283,8 +350,15 @@ public class GameGUI extends JFrame implements ActionListener
 
             else {lPanel.remove(bbS[2]);lPanel.remove(bbS[3]);}
         }
+        
+        else if(has(bbI[0]) || has(bbI[2]))
+        {
+            if(has(bbI[0])) {lPanel.remove(bbI[0]);lPanel.remove(bbI[1]);}
 
-        lPanel.remove(next);buttonShow();lPanel.repaint();
+            else {lPanel.remove(bbI[2]);lPanel.remove(bbI[3]);}
+        }
+
+        lPanel.remove(next);lPanel.remove(bbExit);buttonShow();lPanel.repaint();
     }
 
     private void enmSel(int x)
@@ -308,7 +382,7 @@ public class GameGUI extends JFrame implements ActionListener
         
         else if(j.equals(bb[1])) {skl();}
         
-        else if(j.equals(bb[2])) {System.out.println("cunt");}
+        else if(j.equals(bb[2])) {itm();}
 
         else if(j.equals(bbExit)) {actBack();}
 

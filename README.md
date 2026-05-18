@@ -121,3 +121,10 @@ Change Log
 -Beginings of permanent enm sprites
 -One of the permanent battle backgrounds added
 -Nicholas-
+
+5/18/26
+-V.8.3-
+-Pause working with new buttons
+-Item and skill buttons working
+-Setting menu work needed
+-Nicholas-
