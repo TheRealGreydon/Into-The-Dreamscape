@@ -2,10 +2,9 @@ package APCS.GUIs;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
-import javax.imageio.*;
 import javax.swing.*;
 import APCS.Assets.AssetClasses.*;
+import APCS.Enms.*;
 import APCS.Player;
 
 public class GameGUI extends JFrame implements ActionListener
@@ -31,7 +30,7 @@ public class GameGUI extends JFrame implements ActionListener
     private JButton [] bbA = new JButton[4];    
     private JButton [] bbS = new JButton[4];    
     private JButton [] bbI = new JButton[4];    
-    private JToggleButton [] bbE = new JToggleButton[3];
+    private disEnm [] bbE = new disEnm[3];
     private JButton bbExit;
     private JButton next;
 
@@ -41,12 +40,7 @@ public class GameGUI extends JFrame implements ActionListener
 
     public void start(Player x)
     {
-        if(character.getStage()==2) 
-        {
-            character.setStage(0);
-
-            if(character.getCurLev()==4) {character.setCurLev(0);}  else {character.setCurLev(character.getCurLev()+1);}
-        }
+        if(character.getStage()==2) {character.setStage(0);if(character.getCurLev()==4) {character.setCurLev(0);}  else {character.setCurLev(character.getCurLev()+1);}}
 
         else {character.setStage(character.getStage()+1);}
 
@@ -59,7 +53,6 @@ public class GameGUI extends JFrame implements ActionListener
         this.pack();
         lPanel.setLayout(null);
         battleImg();
-        battleLbl();
         battleButtons();
         keyActions();
     }
@@ -75,22 +68,10 @@ public class GameGUI extends JFrame implements ActionListener
     {
         for(int i=0; i<3; i++)
         {
-            int j = i;
-            int z = ((int)(Math.random()*3 + 1));
-            try {bbE[i] = new JToggleButton(new ImageIcon(ImageIO.read(new File("APCS/Assets/Img/Enemies/HemoNeedle-1.png")).getScaledInstance(350,350, Image.SCALE_SMOOTH)));} 
-            catch (IOException e) {e.printStackTrace();}
-            bbE[i].setText("APCS/Assets/Img/Enemies/HemoNeedle-1");
-            bbE[i].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
-            bbE[i].setSize(new Dimension(350,350));
-            bbE[i].setLocation(1600, (i*300));   
-            bbE[i].setContentAreaFilled(false);
-            bbE[i].setBorderPainted(false);
-            bbE[i].setFocusPainted(false);
-            bbE[i].setOpaque(false);
-            bbE[i].setFocusable(false);
-            bbE[i].addItemListener(new ItemListener()
-            {public void itemStateChanged(ItemEvent event) {if (event.getStateChange() == ItemEvent.SELECTED) {enmSel(j);} else {enmSel(-1);}}});
-            lPanel.add(bbE[i]);
+            bbE[i] = new disEnm(new enm("HemoNeedle-1",1,1));
+            bbE[i].enmButton.setLocation(1600, (i*300));   
+            bbE[i].enmButton.addActionListener(this);
+            lPanel.add(bbE[i].enmButton);
         }
     }
 
@@ -180,11 +161,6 @@ public class GameGUI extends JFrame implements ActionListener
         exit.setFocusable(false);
     }
 
-    private void battleLbl()
-    {
-
-    }
-
     //Keybinds
     private void keyActions()
     {
@@ -236,9 +212,9 @@ public class GameGUI extends JFrame implements ActionListener
     private void battlePause()
     {
         lPanel.add(charSprite);
-        lPanel.add(bbE[0]);
-        lPanel.add(bbE[1]);
-        lPanel.add(bbE[2]);
+        lPanel.add(bbE[0].enmButton);
+        lPanel.add(bbE[1].enmButton);
+        lPanel.add(bbE[2].enmButton);
         if(has(next)) {next.setVisible(true);lPanel.add(next);}
 
         if(has(bbA[0]) || has(bbA[2]))
@@ -266,9 +242,9 @@ public class GameGUI extends JFrame implements ActionListener
     private void battleHide()
     {
         lPanel.remove(charSprite);
-        lPanel.remove(bbE[0]);
-        lPanel.remove(bbE[1]);
-        lPanel.remove(bbE[2]);
+        lPanel.remove(bbE[0].enmButton);
+        lPanel.remove(bbE[1].enmButton);
+        lPanel.remove(bbE[2].enmButton);
         if(has(next)) {next.setVisible(false);}
 
         if(has(bbA[0]) || has(bbA[2]))
@@ -343,13 +319,6 @@ public class GameGUI extends JFrame implements ActionListener
         lPanel.remove(next);lPanel.remove(bbExit);buttonShow();lPanel.repaint();
     }
 
-    private void enmSel(int x)
-    {
-        for(int i=0; i<3; i++) {try {bbE[i].setIcon((new ImageIcon(ImageIO.read(new File(bbE[i].getText() + ".png")).getScaledInstance(350,350, Image.SCALE_SMOOTH))));}catch (IOException e) {e.printStackTrace();}}
-        
-        if(x!=-1) {try {bbE[x].setIcon((new ImageIcon(ImageIO.read(new File(bbE[x].getText() + "Sel.png")).getScaledInstance(350, 350, Image.SCALE_SMOOTH))));}catch (IOException e) {e.printStackTrace();}}
-    }
-
     public void actionPerformed(ActionEvent e)
     {
         JButton j = (JButton)(e.getSource());
@@ -365,6 +334,12 @@ public class GameGUI extends JFrame implements ActionListener
         else if(j.equals(bb[1])) {skl();}
         
         else if(j.equals(bb[2])) {itm();}
+
+        else if(j.equals(bbE[0].enmButton)) {enmSel(0);}
+        
+        else if(j.equals(bbE[1].enmButton)) {enmSel(1);}
+        
+        else if(j.equals(bbE[2].enmButton)) {enmSel(2);}
 
         else if(j.equals(bbExit)) {actBack();}
 
@@ -384,5 +359,6 @@ public class GameGUI extends JFrame implements ActionListener
     private void skl() {buttonHide();lPanel.add(bbExit);lPanel.add(bbS[0]);lPanel.add(bbS[1]);lPanel.add(next);lPanel.repaint();}
     private void itm() {buttonHide();lPanel.add(bbExit);lPanel.add(bbI[0]);lPanel.add(bbI[1]);lPanel.add(next);lPanel.repaint();}
     private void buttonHide() {for(int i=0; i<3; i++) {lPanel.remove(bb[i]);}}
+    private void enmSel(int x) {for(int i=0;i<3;i++) {bbE[i].select(false);} bbE[x].select(true);lPanel.repaint();}
     private void buttonShow() {for(int i=0; i<3; i++) {bb[i].setVisible(true);lPanel.add(bb[i]);}}
 }

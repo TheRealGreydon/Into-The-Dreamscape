@@ -217,8 +217,6 @@ public class GUI extends JFrame implements ActionListener
         
         else if(j.equals(vole)) {if(vol+25>100) {vol=0;}else{vol+=25;}character.setVol(vol);vole.setText(String.valueOf(vol));}
     }
-
-    private void close() {while(Window.getWindows().length>1) {Window.getWindows()[0].dispose();}}
     //Handles swaping the panels
     private void swapPanel(JPanel x, JPanel y) {this.pack();this.setExtendedState(JFrame.MAXIMIZED_BOTH);this.remove(x);this.add(y);this.repaint();}
     private void exit() {if(set.isVisible()) {pause();} else {this.dispose();}}

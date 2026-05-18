@@ -133,4 +133,5 @@ Change Log
 -Setting page working
 -Battle sprites now used for battle level
 -Fixed enm sprite sizing
+-Enm are now a new class, with disEnm being the button runner and enm being the enm its self
 -Nicholas-
