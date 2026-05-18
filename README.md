@@ -127,4 +127,8 @@ Change Log
 -Pause working with new buttons
 -Item and skill buttons working
 -Setting menu work needed
+-V.8.4-
+-Random backgrounds added in
+-Reworked to remove LevelGUI
+-Setting page working
 -Nicholas-

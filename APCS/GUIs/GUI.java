@@ -13,7 +13,6 @@ public class GUI extends JFrame implements ActionListener
     private Panels p;
     private StartGUI sGUI;
     private GameGUI gGUI;
-    private LevelGUI lGUI;
     
     private JPanel mPanel = new JPanel();
     private JPanel sPanel = new JPanel();
@@ -136,8 +135,6 @@ public class GUI extends JFrame implements ActionListener
 
     //Runs the main game
     public void game() {initialize2();gPanel=gGUI.gamePan();swapPanel(sPanel, gPanel);keyActions();}
-
-    public void level() {lGUI.setChar(character);initialize2();swapPanel(gPanel, lGUI.lPanel);}
 
     private void pauButtons()
     {

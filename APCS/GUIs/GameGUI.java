@@ -15,7 +15,6 @@ public class GameGUI extends JFrame implements ActionListener
     public GameGUI(Player character) {this.character = character; x = character.getCurLev();
         a = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/Game Level Menu/defaultLevelMenu" + x + ".jpg").getImage(), 1);
     }
-    private LevelGUI lGUI = new LevelGUI();
     private JPanel lPanel;
     private JButton pau = new JButton();
     private JButton set = new JButton();
@@ -38,18 +37,17 @@ public class GameGUI extends JFrame implements ActionListener
 
     public void start(Player x)
     {
-        lGUI.setChar(character);
         if(character.getStage()==2) 
         {
             character.setStage(0);
 
-            if(character.getCurLev()==4) {character.setCurLev(0);}
-
-            else {character.setCurLev(character.getCurLev()+1);}
+            if(character.getCurLev()==4) {character.setCurLev(0);}  else {character.setCurLev(character.getCurLev()+1);}
         }
+
         else {character.setStage(character.getStage()+1);}
 
-        lPanel = lGUI.lPanel;close();this.setLocationRelativeTo(null);displayGame();battleInit();vol = character.getVol();
+        lPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/Battle Level/BB" + ((int)(Math.random()*4 + 1)) +".png").getImage(), 0);
+        close();this.setLocationRelativeTo(null);displayGame();battleInit();vol = character.getVol();
     }
 
     private void battleInit()
@@ -237,27 +235,28 @@ public class GameGUI extends JFrame implements ActionListener
         lPanel.add(bbE[0]);
         lPanel.add(bbE[1]);
         lPanel.add(bbE[2]);
-        lPanel.add(next);
+        if(has(next)) {next.setVisible(true);lPanel.add(next);}
+
         if(has(bbA[0]) || has(bbA[2]))
         {
-            if(has(bbA[0])) {lPanel.add(bbA[0]);lPanel.add(bbA[1]);}
+            if(has(bbA[0])) {lPanel.add(bbA[0]);lPanel.add(bbA[1]);bbA[0].setVisible(true);bbA[1].setVisible(true);}
 
-            else {lPanel.add(bbA[2]);lPanel.add(bbA[3]);}
+            else {lPanel.add(bbA[2]);lPanel.add(bbA[3]);bbA[2].setVisible(true);bbA[3].setVisible(true);}
         }
         else if(has(bbS[0]) || has(bbS[2]))
         {
-            if(has(bbS[0])) {lPanel.add(bbS[0]);lPanel.add(bbS[1]);}
+            if(has(bbS[0])) {lPanel.add(bbS[0]);lPanel.add(bbS[1]);bbS[0].setVisible(true);bbS[1].setVisible(true);}
 
-            else {lPanel.add(bbS[2]);lPanel.add(bbS[3]);}
+            else {lPanel.add(bbS[2]);lPanel.add(bbS[3]);bbS[2].setVisible(true);bbS[3].setVisible(true);}
         }
         else if(has(bbI[0]) || has(bbI[2]))
         {
-            if(has(bbI[0])) {lPanel.add(bbI[0]);lPanel.add(bbI[1]);}
+            if(has(bbI[0])) {lPanel.add(bbI[0]);lPanel.add(bbI[1]);bbI[0].setVisible(true);bbI[1].setVisible(true);}
 
-            else {lPanel.add(bbI[2]);lPanel.add(bbI[3]);}
+            else {lPanel.add(bbI[2]);lPanel.add(bbI[3]);bbI[2].setVisible(true);bbI[3].setVisible(true);}
         }
 
-        if(has(bbExit)) {lPanel.add(bbExit);} if(has(bb[0])) {buttonShow();}
+        if(has(bbExit)) {lPanel.add(bbExit);bbExit.setVisible(true);} if(has(bb[0])) {buttonShow();}
     }
 
     private void battleHide()
@@ -266,51 +265,30 @@ public class GameGUI extends JFrame implements ActionListener
         lPanel.remove(bbE[0]);
         lPanel.remove(bbE[1]);
         lPanel.remove(bbE[2]);
-        lPanel.remove(next);
+        if(has(next)) {next.setVisible(false);}
+
         if(has(bbA[0]) || has(bbA[2]))
         {
-            if(has(bbA[0])) {lPanel.remove(bbA[0]);lPanel.remove(bbA[1]);}
+            if(has(bbA[0])) {bbA[0].setVisible(false);bbA[1].setVisible(false);}
 
-            else {lPanel.remove(bbA[2]);lPanel.remove(bbA[3]);}
+            else {bbA[2].setVisible(false);bbA[3].setVisible(false);}
         }
         else if(has(bbS[0]) || has(bbS[2]))
         {
-            if(has(bbS[0])) {lPanel.remove(bbS[0]);lPanel.remove(bbS[1]);}
+            if(has(bbS[0])) {bbS[0].setVisible(false);bbS[1].setVisible(false);}
 
-            else {lPanel.remove(bbS[2]);lPanel.remove(bbS[3]);}
+            else {bbS[2].setVisible(false);bbS[3].setVisible(false);}
         }
         else if(has(bbI[0]) || has(bbI[2]))
         {
-            if(has(bbI[0])) {lPanel.remove(bbI[0]);lPanel.remove(bbI[1]);}
+            if(has(bbI[0])) {bbI[0].setVisible(false);bbI[1].setVisible(false);}
 
-            else {lPanel.remove(bbI[2]);lPanel.remove(bbI[3]);}
+            else {bbI[2].setVisible(false);bbI[3].setVisible(false);}
         }
 
-        if(has(bbExit)) {lPanel.remove(bbExit);} if(has(bb[0])) {buttonHide();}
-    }
-
-    private void buttonHide() {for(int i=0; i<3; i++) {lPanel.remove(bb[i]);}}
-
-    private void buttonShow() {for(int i=0; i<3; i++) {lPanel.add(bb[i]);}}
-
-    private void atk()
-    {
-        buttonHide();lPanel.add(bbExit);lPanel.add(bbA[0]);lPanel.add(bbA[1]);lPanel.add(next);
-        lPanel.repaint();
+        if(has(bbExit)) {bbExit.setVisible(false);} if(has(bb[0])) {for(int i=0; i<3; i++) {bb[i].setVisible(false);}}
     }
     
-    private void skl()
-    {
-        buttonHide();lPanel.add(bbExit);lPanel.add(bbS[0]);lPanel.add(bbS[1]);lPanel.add(next);
-        lPanel.repaint();
-    }
-
-    private void itm()
-    {
-        buttonHide();lPanel.add(bbExit);lPanel.add(bbI[0]);lPanel.add(bbI[1]);lPanel.add(next);
-        lPanel.repaint();
-    }
-
     private void next()
     {
         if(has(bbA[0]) || has(bbA[2]))
@@ -398,4 +376,9 @@ public class GameGUI extends JFrame implements ActionListener
     private boolean has(Component x) {for (Component c : lPanel.getComponents()) {if (c == x) {return true;}} return false;}
     public void select(int x) {String temp=String.valueOf(x) + String.valueOf(character.getStage());imgSwap(temp);}
     private void exit() {if(set.isVisible()) {pause();} else {levExit();}}
+    private void atk() {buttonHide();lPanel.add(bbExit);lPanel.add(bbA[0]);lPanel.add(bbA[1]);lPanel.add(next);lPanel.repaint();}  
+    private void skl() {buttonHide();lPanel.add(bbExit);lPanel.add(bbS[0]);lPanel.add(bbS[1]);lPanel.add(next);lPanel.repaint();}
+    private void itm() {buttonHide();lPanel.add(bbExit);lPanel.add(bbI[0]);lPanel.add(bbI[1]);lPanel.add(next);lPanel.repaint();}
+    private void buttonHide() {for(int i=0; i<3; i++) {lPanel.remove(bb[i]);}}
+    private void buttonShow() {for(int i=0; i<3; i++) {bb[i].setVisible(true);lPanel.add(bb[i]);}}
 }
