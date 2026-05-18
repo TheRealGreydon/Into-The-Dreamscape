@@ -1,4 +1,4 @@
-package APCS;
+package APCS.Assets.AssetClasses;
 
 import java.io.File;
 import java.io.IOException;

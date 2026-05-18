@@ -129,5 +129,5 @@ public class Player
         return temp;
     }
 
-    private void spriteInit() {try {sprite = ImageIO.read(new File("APCS/Assets/Character Img/Char" + outfit + ".jpg")).getScaledInstance(650, 650, Image.SCALE_SMOOTH);;} catch (IOException e) {e.printStackTrace();}}
+    private void spriteInit() {try {sprite = ImageIO.read(new File("APCS/Assets/Img/Character Img/Char" + outfit + ".jpg")).getScaledInstance(650, 650, Image.SCALE_SMOOTH);;} catch (IOException e) {e.printStackTrace();}}
 }

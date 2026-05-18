@@ -1,4 +1,4 @@
-package APCS.Assets;
+package APCS.Assets.AssetClasses;
 
 import java.awt.*;
 import javax.swing.*;

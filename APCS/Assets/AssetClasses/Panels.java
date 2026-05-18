@@ -1,12 +1,11 @@
-package APCS;
+package APCS.Assets.AssetClasses;
 
 import java.awt.*;
 import javax.swing.*;
-import APCS.Assets.*;
 
 public class Panels
 {
-    private String path="APCS/Assets/Background Img/CelesteBackTEMP.jpg";
+    private String path="APCS/Assets/Img/Background Img/CelesteBackTEMP.jpg";
     private BackgroundPanel b = new BackgroundPanel(new ImageIcon(path).getImage(), 1);
 
     private GridBagConstraints gbc = new GridBagConstraints();

@@ -5,9 +5,7 @@ import java.awt.event.*;
 import java.io.*;
 import javax.imageio.*;
 import javax.swing.*;
-import APCS.*;
-import APCS.Assets.*;
-import APCS.GUIs.*;
+import APCS.Assets.AssetClasses.*;
 import APCS.Player;
 
 public class GameGUI extends JFrame implements ActionListener
@@ -15,7 +13,7 @@ public class GameGUI extends JFrame implements ActionListener
     private int x;
     private Player character;
     public GameGUI(Player character) {this.character = character; x = character.getCurLev();
-        a = new BackgroundPanel(new ImageIcon("APCS/Assets/Background Img/Game Level Menu/defaultLevelMenu" + x + ".jpg").getImage(), 1);
+        a = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/Game Level Menu/defaultLevelMenu" + x + ".jpg").getImage(), 1);
     }
     private LevelGUI lGUI = new LevelGUI();
     private JPanel lPanel;
@@ -76,9 +74,9 @@ public class GameGUI extends JFrame implements ActionListener
         {
             int j = i;
             int z = ((int)(Math.random()*3 + 1));
-            try {bbE[i] = new JToggleButton(new ImageIcon(ImageIO.read(new File("APCS/Assets/Enemies/Char" + z + ".png")).getScaledInstance(420, 420, Image.SCALE_SMOOTH)));} 
+            try {bbE[i] = new JToggleButton(new ImageIcon(ImageIO.read(new File("APCS/Assets/Img/Enemies/HemoNeedle-1.png")).getScaledInstance(420, 420, Image.SCALE_SMOOTH)));} 
             catch (IOException e) {e.printStackTrace();}
-            bbE[i].setText("APCS/Assets/Enemies/Char" + z);
+            bbE[i].setText("APCS/Assets/Img/Enemies/HemoNeedle-1");
             bbE[i].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
             bbE[i].setSize(new Dimension(200,300));
             bbE[i].setLocation(1600, (i*300));   
@@ -262,7 +260,7 @@ public class GameGUI extends JFrame implements ActionListener
     private void initialize() {setDefaultCloseOperation(EXIT_ON_CLOSE);this.pack();this.setExtendedState(JFrame.MAXIMIZED_BOTH);this.setTitle("Into the Dreamscape");this.setVisible(true);this.setResizable(true);this.pack();this.add(lPanel);}
     private void close() {Window[] windows = Window.getWindows(); for (Window window : windows) {if (window != null) {window.dispose();}}}
     private void levExit() {GUI gui = new GUI();close();gui.cha(character);gui.game();}
-    private void imgSwap(String x) {a.setImage(new ImageIcon("APCS/Assets/Background Img/Game Level Menu/Lvl Sel/defaultLevelSel" + x + ".jpg").getImage());}
+    private void imgSwap(String x) {a.setImage(new ImageIcon("APCS/Assets/Img/Background Img/Game Level Menu/Lvl Sel/defaultLevelSel" + x + ".jpg").getImage());}
     public JPanel gamePan() {JPanel gPanel = a;return gPanel;}
     public void select(int x) {String temp=String.valueOf(x) + String.valueOf(character.getStage());imgSwap(temp);}
     private void exit() {if(set.isVisible()) {pause();} else {levExit();}}

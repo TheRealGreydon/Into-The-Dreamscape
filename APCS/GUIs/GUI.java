@@ -4,8 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import APCS.*;
-import APCS.Assets.*;
-import APCS.GUIs.*;
+import APCS.Assets.AssetClasses.*;
 
 public class GUI extends JFrame implements ActionListener
 {
@@ -23,7 +22,6 @@ public class GUI extends JFrame implements ActionListener
 
     private boolean paused = false;
     private boolean selected = false;
-    private int levNum = 0;
     private int vol = 50;
 
     private GridBagConstraints gbc = new GridBagConstraints();

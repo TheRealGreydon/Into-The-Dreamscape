@@ -118,4 +118,6 @@ Change Log
 -V.8.2-
 -Enm buttons now toggles
 -Restructures and organization
+-Beginings of permanent enm sprites
+-One of the permanent battle backgrounds added
 -Nicholas-
