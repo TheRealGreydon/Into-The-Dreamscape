@@ -4,8 +4,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import java.util.Timer;
-import java.util.concurrent.TimeUnit;
-
 import javax.swing.*;
 import APCS.Assets.AssetClasses.*;
 import APCS.Enms.*;
@@ -125,11 +123,16 @@ public class GameGUI extends JFrame implements ActionListener
         for(int i=0; i<3;i++) {if(bbE[i].selected) {z = i;}}
         if(z != -1)
         {
-            bbE[z].Enm.doHp(character.atks[y].getDmg());
+            
             a = ("Enm " + bbE[z].Enm.getName() + " took " + character.atks[y].getDmg() + " and now has " + bbE[z].Enm.getHp());
-            timedText(a,100,20);
-            if(!bbE[z].Enm.isAlive()) {bbE[z].enmButton.removeActionListener(this);bbE[z].select(false);bbE[z].dead();}
+            timedText(attack(bbE[z], character.atks[y]),100,20);
+            if(!bbE[z].Enm.isAlive()) {lPanel.remove(bbE[z].enmButton);}
         }
+    }
+
+    private String attack(enm x, Atk y)
+    {
+        x.doHp(character);
     }
 
     private void timedText(String a, int x, int y)
@@ -412,6 +415,5 @@ public class GameGUI extends JFrame implements ActionListener
     private void itm() {buttonHide();lPanel.add(bbExit);lPanel.add(bbI[0]);lPanel.add(bbI[1]);lPanel.add(actNext);lPanel.repaint();}
     private void buttonHide() {for(int i=0; i<3; i++) {lPanel.remove(bb[i]);}}
     private void buttonShow() {for(int i=0; i<3; i++) {bb[i].setVisible(true);lPanel.add(bb[i]);}}
-    private void wait(int seconds) {long x = System.currentTimeMillis(); while(x+(seconds*100) >System.currentTimeMillis()){}}
     private void keyActions() {lPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ESCAPE"), "Pause");lPanel.getActionMap().put("Pause", new AbstractAction() {public void actionPerformed(ActionEvent e) {pause();}});}
 }
