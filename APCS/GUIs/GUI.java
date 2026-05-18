@@ -5,6 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import APCS.*;
 import APCS.Assets.AssetClasses.*;
+import APCS.Skills.bAtk;
 
 public class GUI extends JFrame implements ActionListener
 {
@@ -130,7 +131,7 @@ public class GUI extends JFrame implements ActionListener
     private void start() {sPanel=sGUI.start();}
 
     //Sets the character
-    public void cha(String name, int gend, int out, int fav) {character.setName(name);character.setGend(gend);character.setOut(out);character.setFav(fav);}
+    public void cha(String name, int gend, int out, int fav) {character.setName(name);character.setGend(gend);character.setOut(out);character.setFav(fav);character.atks[0] = new bAtk();}
     public void cha(Player x) {character = x;vol = character.getVol();gGUI = new GameGUI(character);}
 
     //Runs the main game

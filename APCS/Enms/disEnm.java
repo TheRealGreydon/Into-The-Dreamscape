@@ -10,6 +10,7 @@ public class disEnm
     public enm Enm;
     private Image sprite;
     public JButton enmButton;
+    public boolean selected;
     
     public disEnm(enm Enm) {this.Enm = Enm;spriteInit();buttonInit();}
     
@@ -42,6 +43,15 @@ public class disEnm
             try {sprite = ImageIO.read(new File("APCS/Assets/Img/Enemies/" + Enm.getName() + ".png")).getScaledInstance(250, 250, Image.SCALE_SMOOTH);}
             catch (IOException e) {e.printStackTrace();}
         }
+        selected = x;
+        enmButton.setIcon(new ImageIcon(sprite));
+    }
+
+    public void dead() 
+    {
+        try {sprite = ImageIO.read(new File("APCS/Assets/Img/Enemies/" + Enm.getName() + ".png")).getScaledInstance(250, 250, Image.SCALE_SMOOTH);}
+        catch (IOException e) {e.printStackTrace();}
+
         enmButton.setIcon(new ImageIcon(sprite));
     }
 

@@ -21,8 +21,7 @@ public class StartGUI extends JFrame implements ActionListener
 
     private JPanel sPanel;
 
-    String path="APCS/Assets/Img/Default Img/defaultBack.jpg";        
-    private BackgroundPanel b = new BackgroundPanel(new ImageIcon(path).getImage(), 1);
+    private BackgroundPanel b = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Default Img/defaultBack.jpg").getImage(), 1);
 
     private GridBagConstraints gbc = new GridBagConstraints();
 

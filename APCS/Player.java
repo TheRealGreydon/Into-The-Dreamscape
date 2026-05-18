@@ -2,7 +2,6 @@ package APCS;
 
 import java.awt.*;
 import java.io.*;
-import java.util.*;
 import javax.imageio.ImageIO;
 import APCS.Skills.*;
 
@@ -14,7 +13,8 @@ public class Player
     private int[] stats = {0,0,0,0,0,0};
     private int hp = 9;
     private int lvl = 1;
-    private ArrayList<Skills> skills;
+    public Skills[] skills = new Skills [4];
+    public Atk[] atks = new Atk [4];
     private int fav;
     private int curLev;
     private int curStage = 0;
@@ -28,7 +28,7 @@ public class Player
         this.gend = gend;
         this.outfit = outfit;
         this.fav = fav;
-        this.skills = new ArrayList<Skills>();
+        //this.skills = new ArrayList<Skills>();
         //switch (fav) {
         //    case 1:
         //    addAbil(new MatchBox());
@@ -90,12 +90,6 @@ public class Player
 
     public void resetHp() {hp=9+lvl+(getHp()*2);}
 
-    public void addAbil(Skills x) {skills.add(x);}
-
-    public void swapAbil(Skills x, int y) {skills.set(y, x);}
-
-    public String getAbil(int x) {return skills.get(x).getName();}
-
     public int getCurLev() {return curLev;}
 
     public void setCurLev(int x) {curLev = x;}
@@ -107,16 +101,6 @@ public class Player
     public void setBSprite(Image x) {bSprite = x;}
 
     public Image getBSprite() {return bSprite;}
-
-    public String listAbil()
-    {
-        String temp="";
-        for(int i=0; i<skills.size(); i++)
-        {
-            temp+=getAbil(i)+"\n";
-        }
-        return temp;
-    }
 
     public void lvlUp(int x)
     {
