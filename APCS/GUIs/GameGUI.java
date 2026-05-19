@@ -43,13 +43,10 @@ public class GameGUI extends JFrame implements ActionListener
     private int enm = 3;
     private int alv;
 
-    private BackgroundPanel a;
-
     public void start()
     {
-        a = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/Battle Level/BB" + ((int)(Math.random()*4 + 1)) +".png").getImage(), 0);
-        lPanel = a;
-        close();this.setLocationRelativeTo(null);displayGame();battleInit();vol = character.getVol();
+        lPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/Battle Level/BB" + ((int)(Math.random()*4 + 1)) +".png").getImage(), 0);
+        close();this.setLocationRelativeTo(null);displayGame();character.atks[0] = new bAtk();battleInit();vol = character.getVol();
     }
 
     private void battleInit()
@@ -63,6 +60,50 @@ public class GameGUI extends JFrame implements ActionListener
         battleButtons();
         lPanel.revalidate(); lPanel.repaint();
         keyActions();
+    }
+
+    private void playTurn(int type, int num)
+    {
+        if(type == 0) {atkSel(num);}
+        else if(type == 1)
+        {
+
+        }
+        else if(type ==2)
+        {
+
+        }
+        turn = false;
+    }
+
+    private int x;private int y;
+    private void enmTurn()
+    {
+        for(int i=0; i<3; i++)
+        {
+            x = 0;
+            y = i;
+            if(bbE[i].Enm.isAlive())
+            {
+                Timer timer = new Timer();
+                TimerTask task = new TimerTask()
+                {public void run() 
+                    {
+                        for (Component c : lPanel.getComponents()) {if (c instanceof JButton && !c.equals(exit) && !c.equals(settings) && !c.equals(vole)) {c.setEnabled(false);}}
+                        
+                        if(!paused)
+                        {
+                            if(x==0) {timedText(new BattleAssets().attack(character, bbE[y].Enm.atks[0]),350,120);}
+                            
+                            else if(x==40) {timer.cancel();}x++;
+                        }
+                    }
+                };
+                timer.scheduleAtFixedRate(task, 0, 50);
+
+                timedText(new BattleAssets().attack(character, bbE[i].Enm.atks[0]),350,120);
+            }
+        }
     }
 
     private void actBattleButtons()
@@ -126,12 +167,6 @@ public class GameGUI extends JFrame implements ActionListener
             }
         };
         timer.scheduleAtFixedRate(task, 0, 50);
-    }
-
-    private void battleButtons()
-    {
-        enmBattleButtons();
-        actBattleButtons();
     }
 
     private void pauButtons()
@@ -330,6 +365,7 @@ public class GameGUI extends JFrame implements ActionListener
         else if(j.equals(bbA[0])) {atkSel(0);}
     }
 
+    private void battleButtons() {enmBattleButtons();actBattleButtons();}
     private void displayGame() {initialize();java.awt.EventQueue.invokeLater(new Runnable() {public void run() {setVisible(true);}});}
     private void initialize() {setDefaultCloseOperation(EXIT_ON_CLOSE);this.pack();this.setTitle("Into the Dreamscape");this.setVisible(true);this.setResizable(true);this.pack();}
     private void close() {Window[] windows = Window.getWindows(); for (Window window : windows) {if (window != null) {window.dispose();}}}

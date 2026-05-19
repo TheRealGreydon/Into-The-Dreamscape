@@ -5,7 +5,6 @@ import java.awt.event.*;
 import javax.swing.*;
 import APCS.*;
 import APCS.Assets.AssetClasses.*;
-import APCS.Skills.bAtk;
 
 public class MainGUI extends JFrame implements ActionListener
 {

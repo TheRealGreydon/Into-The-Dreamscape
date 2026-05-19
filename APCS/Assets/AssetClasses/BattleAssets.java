@@ -1,6 +1,8 @@
 package APCS.Assets.AssetClasses;
 
 import java.awt.*;
+import java.util.TimerTask;
+
 import javax.swing.*;
 import APCS.*;
 import APCS.Enms.*;
@@ -8,6 +10,9 @@ import APCS.Skills.*;
 
 public class BattleAssets
 {
+    private int count;
+    private JLabel tText = new JLabel();
+    
     public JLabel battleImg(Player character)
     {
         JLabel charSprite = new JLabel(new ImageIcon(character.getBSprite()));charSprite.setPreferredSize(new Dimension(300,650));
