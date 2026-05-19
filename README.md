@@ -150,4 +150,7 @@ Change Log
 -New loading screen for the level
 -So much clean up
 -Full body re-done
+-Reworked menu and credits
+-Menu and credits now match sizing
+-Looks much cleaner
 -Nicholas-

@@ -9,20 +9,15 @@ import APCS.Skills.bAtk;
 
 public class MainGUI extends JFrame implements ActionListener
 {
-    public Player character = new Player("Default", 1, 1, 1);
-    
-    private Panels p;
-    private StartGUI sGUI;
-    
+    private Player character = new Player("Default", 1, 1, 1);
+        
     private JPanel mPanel = new JPanel();
-    private JPanel sPanel = new JPanel();
+    private JPanel sPanel = new StartGUI().start();
     private JPanel cPanel = new JPanel();
-
-    private GridBagConstraints gbc = new GridBagConstraints();
 
     private JButton[]buttons = new JButton[4];
            
-    public MainGUI() {p = new Panels();sGUI = new StartGUI();initialize();}
+    public MainGUI() {initialize();}
     
     //Runs the game
     public void displayGame() {java.awt.EventQueue.invokeLater(new Runnable() {public void run() {setVisible(true);}});}
@@ -31,94 +26,84 @@ public class MainGUI extends JFrame implements ActionListener
     private void initialize()
     {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        panels();
-
         this.pack();
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        this.setTitle("Into the Dreamscape");
-        //this.add(mPanel);
-        this.add(sPanel);
+        menu();credits();
+        this.add(mPanel);
+        this.setSize(1500, 800);
         this.setVisible(true);
-        this.setResizable(true);
+        mPanel.revalidate();mPanel.repaint();
+        panSet(mPanel,sPanel);  //TEMP
     }
 
-    public void panels() {menu();credits();start();}
-
     //Adds to menu
-    public void menu()
+    private void menu()
     {
-        mPanel = p.menu();
+        mPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/CelesteBackTEMP.jpg").getImage(), 0);
+        mPanel.setLayout(null);
 
-        buttons[0]=new JButton();
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.ipady = 0;       
-        gbc.weighty = 1.0;   
-        gbc.anchor = GridBagConstraints.CENTER; 
-        gbc.insets = new Insets(10,0,0,0); 
-        gbc.gridx = 1;       
-        gbc.gridwidth = 2;   
-        gbc.gridy = 2;       
-        mPanel.add(buttons[0],gbc);
-        buttons[0].setPreferredSize(new Dimension(100,100));
-        buttons[0].setBackground(Color.RED);
-        buttons[0].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
-        buttons[0].setFont(new Font(buttons[0].getFont().getName(), Font.BOLD, 15));
-        buttons[0].setText("Start");
-        buttons[0].addActionListener(this);
-        
-        buttons[1]=new JButton();
-        gbc.gridx = -1;       
-        mPanel.add(buttons[1],gbc);
-        buttons[1].setPreferredSize(new Dimension(100,100));
-        buttons[1].setBackground(Color.RED);
-        buttons[1].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
-        buttons[1].setFont(new Font(buttons[1].getFont().getName(), Font.BOLD, 15));
-        buttons[1].setText("Credits");
-        buttons[1].addActionListener(this);
-        
-        buttons[2]=new JButton();
-        gbc.anchor = GridBagConstraints.PAGE_END; 
-        gbc.gridx = 1;       
-        mPanel.add(buttons[2],gbc);
-        buttons[2].setPreferredSize(new Dimension(100,100));
-        buttons[2].setBackground(Color.RED);
-        buttons[2].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
-        buttons[2].setFont(new Font(buttons[2].getFont().getName(), Font.BOLD, 15));
-        buttons[2].setText("Exit");
-        buttons[2].addActionListener(this);
+        for(int i=0; i<3; i++)
+        {
+            buttons[i]=new JButton();
+            buttons[i].setBackground(Color.RED);
+            buttons[i].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
+            buttons[i].setFont(new Font(buttons[i].getFont().getName(), Font.BOLD, 40));
+            buttons[i].addActionListener(this);
+            mPanel.add(buttons[i]);
+        }
+
+        JLabel title = new JLabel();
+        title.setOpaque(true);
+        title.setBackground(Color.WHITE);
+        title.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
+        title.setText("Into the Dreamscape");
+        title.setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
+        title.setLocation(500, 50);
+        title.setSize(title.getPreferredSize());
+        mPanel.add(title);
+
+        buttons[0].setText("Start");buttons[0].setBounds(500, 325, 300, 150);
+        buttons[1].setText("Credits");buttons[1].setBounds(800,325, 200, 150);
+        buttons[2].setText("Exit");buttons[2].setBounds(500,600, 300, 150);
     }
 
     //Adds button to credits
     public void credits()
     {
-        cPanel = p.credits();
+        cPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/CelesteBackTEMP.jpg").getImage(), 0);
+        cPanel.setLayout(null);
 
         buttons[3]=new JButton();
-        cPanel.add(buttons[3],gbc);
-        buttons[3].setPreferredSize(new Dimension(100,100));
         buttons[3].setBackground(Color.RED);
         buttons[3].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
-        buttons[3].setFont(new Font(buttons[3].getFont().getName(), Font.BOLD, 15));
-        buttons[3].setText("Exit");
+        buttons[3].setFont(new Font(buttons[3].getFont().getName(), Font.BOLD, 40));
         buttons[3].addActionListener(this);
-    }
+        buttons[3].setText("Exit");buttons[3].setBounds(500,600, 300, 150);        
+        cPanel.add(buttons[3]);
 
-    //Runs start panel
-    private void start() {sPanel=sGUI.start();}
+        JLabel title = new JLabel();
+        title.setOpaque(true);
+        title.setBackground(Color.WHITE);
+        title.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
+        title.setText("Credits");
+        title.setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
+        title.setLocation(575, 50);
+        title.setSize(title.getPreferredSize());
+        cPanel.add(title);
+    }
 
     //Buttons
     public void actionPerformed(ActionEvent e)
     {
         JButton j = (JButton)(e.getSource());
         
-        if(j.equals(buttons[0])) {swapPanel(mPanel,sPanel);}
+        if(j.equals(buttons[0])) {panSet(mPanel,sPanel);}
 
-        else if(j.equals(buttons[1])) {swapPanel(mPanel,cPanel);}
+        else if(j.equals(buttons[1])) {panSet(mPanel, cPanel);}
 
         else if(j.equals(buttons[2])) {this.dispose();}
 
-        else if(j.equals(buttons[3])) {swapPanel(cPanel,mPanel);}
+        else if(j.equals(buttons[3])) {panSet(cPanel, mPanel);}
     }
-    //Handles swaping the panels
-    private void swapPanel(JPanel x, JPanel y) {this.pack();this.setExtendedState(JFrame.MAXIMIZED_BOTH);this.remove(x);this.add(y);this.repaint();}
+
+    private void panSet(JPanel x, JPanel y) {this.remove(x);this.add(y);y.revalidate();y.repaint();}
 }
