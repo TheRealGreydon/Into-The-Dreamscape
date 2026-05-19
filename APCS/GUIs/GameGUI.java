@@ -8,6 +8,7 @@ import javax.swing.*;
 import APCS.Assets.AssetClasses.*;
 import APCS.Enms.*;
 import APCS.Skills.Atk;
+import APCS.Skills.bEAtk;
 import APCS.Battle;
 import APCS.Player;
 
@@ -40,8 +41,9 @@ public class GameGUI extends JFrame implements ActionListener
     private boolean paused = false;
     private JLabel tText = new JLabel();
     private int count = 0;
-    private int turn = 0;
+    private boolean turn = false;
     private int enm = 3;
+    private int alv;
 
     private BackgroundPanel a;
 
@@ -68,12 +70,29 @@ public class GameGUI extends JFrame implements ActionListener
 
     private void doBattle()
     {
-        if(turn != 0)
+        if(!turn)
         {
-            for (Component c : lPanel.getComponents()) {if (c instanceof JButton && !c.equals(exit) && !c.equals(settings) && !c.equals(vole)) {c.setEnabled(false);}}
+            enmTurn();
+            turn = true;
+            for (Component c : lPanel.getComponents()) {if (c instanceof JButton) {c.setEnabled(true);}}
+        }
+        else
+        {
+            
         }
     }
 
+    private void enmTurn()
+    {
+        alv = 0;for(int i=0; i<3; i++) {if(bbE[i].Enm.isAlive()) {alv++;}}
+        
+        Timer timer = new Timer();TimerTask task = new TimerTask()
+        {public void run() 
+            {for (Component c : lPanel.getComponents()) {if (c instanceof JButton && !c.equals(exit) && !c.equals(settings) && !c.equals(vole)) {c.setEnabled(false);}}
+                
+            if(!paused) {if(alv>0) {timedText(new Battle().attack(character, new bEAtk()), 350, 120);alv--;}else {timer.cancel();}}}};
+        timer.scheduleAtFixedRate(task, 0, 2000);
+    }
 
     private void enmBattleButtons()
     {

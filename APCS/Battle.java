@@ -2,9 +2,8 @@ package APCS;
 
 import java.awt.*;
 import javax.swing.*;
-
-import APCS.Enms.enm;
-import APCS.Skills.Atk;
+import APCS.Enms.*;
+import APCS.Skills.*;
 
 public class Battle 
 {
@@ -23,4 +22,6 @@ public class Battle
     }
 
     public String attack(enm x, Atk y) {x.doHp(y.getDmg());return x.getName() + " took " + y.getDmg() + " from " + y.getName();}
+
+    public String attack(Player x, Atk y) {x.doHp(y.getDmg());return x.getName() + " took " + y.getDmg() + " from " + y.getName();}
 }

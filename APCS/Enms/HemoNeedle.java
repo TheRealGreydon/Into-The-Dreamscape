@@ -1,5 +1,8 @@
 package APCS.Enms;
 
+import APCS.Skills.Atk;
+import APCS.Skills.bEAtk;
+
 public class HemoNeedle implements enm
 {
     private String name = "HemoNeedle";
@@ -7,8 +10,9 @@ public class HemoNeedle implements enm
     private int type = 1;
     private int hp;
     private boolean alive = true;
+    public Atk[] atks = new Atk [2];
 
-    public HemoNeedle(int lvl) {this.lvl = lvl;hp = 8 + (2*lvl);}
+    public HemoNeedle(int lvl) {this.lvl = lvl;hp = 8 + (2*lvl); atks[0] = new bEAtk();}
 
     public String getName() {return name;}
 
