@@ -141,3 +141,8 @@ Change Log
 -Finished resizing
 -Why is Jframe evil?
 -Nicholas-
+
+5/19/26
+-V.9.2-
+-Work on battle class to clean and organize
+-Nicholas-

@@ -8,6 +8,7 @@ import javax.swing.*;
 import APCS.Assets.AssetClasses.*;
 import APCS.Enms.*;
 import APCS.Skills.Atk;
+import APCS.Battle;
 import APCS.Player;
 
 public class GameGUI extends JFrame implements ActionListener
@@ -70,17 +71,9 @@ public class GameGUI extends JFrame implements ActionListener
         if(turn != 0)
         {
             for (Component c : lPanel.getComponents()) {if (c instanceof JButton && !c.equals(exit) && !c.equals(settings) && !c.equals(vole)) {c.setEnabled(false);}}
-            
-            if(turn )
         }
     }
 
-    private void battleImg()
-    {
-        charSprite = new JLabel(new ImageIcon(character.getBSprite()));charSprite.setPreferredSize(new Dimension(300,650));
-        charSprite.setOpaque(false);lPanel.add(charSprite);
-        charSprite.setBounds(100,0,300,550);
-    }
 
     private void enmBattleButtons()
     {
@@ -137,7 +130,7 @@ public class GameGUI extends JFrame implements ActionListener
         for(int i=0; i<3;i++) {if(bbE[i].selected) {z = i;}}
         if(z != -1)
         {
-            timedText(attack(bbE[z].Enm, character.atks[y]),350,120);
+            timedText(new Battle().attack(bbE[z].Enm, character.atks[y]),350,120);
             if(!bbE[z].Enm.isAlive()) {lPanel.remove(bbE[z].enmButton);}
         }
     }
@@ -407,7 +400,6 @@ public class GameGUI extends JFrame implements ActionListener
         else if(j.equals(bbA[0])) {atkSel(0);}
     }
 
-    private String attack(enm x, Atk y) {x.doHp(y.getDmg());return x.getName() + " took " + y.getDmg() + " from " + y.getName();}
     private void displayGame() {initialize();java.awt.EventQueue.invokeLater(new Runnable() {public void run() {setVisible(true);}});}
     private void initialize() {setDefaultCloseOperation(EXIT_ON_CLOSE);this.pack();this.setTitle("Into the Dreamscape");this.setVisible(true);this.setResizable(true);this.pack();this.add(lPanel);}
     private void close() {Window[] windows = Window.getWindows(); for (Window window : windows) {if (window != null) {window.dispose();}}}
@@ -425,4 +417,5 @@ public class GameGUI extends JFrame implements ActionListener
     private void keyActions() {lPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ESCAPE"), "Pause");lPanel.getActionMap().put("Pause", new AbstractAction() {public void actionPerformed(ActionEvent e) {pause();}});}
     private void enmSel(int x) {for(int i=0;i<3;i++) {bbE[i].select(false);} bbE[x].select(true);lPanel.repaint();}
     private void wait(int x) {long y = System.currentTimeMillis(); while((y+(1000*x) > System.currentTimeMillis())){}}
+    private void battleImg() {charSprite = new Battle(character).battleImg();lPanel.add(charSprite);}
 }
