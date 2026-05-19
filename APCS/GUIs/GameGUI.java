@@ -39,6 +39,8 @@ public class GameGUI extends JFrame implements ActionListener
     private boolean paused = false;
     private JLabel tText = new JLabel();
     private int count = 0;
+    private int turn = 0;
+    private int enm = 3;
 
     private BackgroundPanel a;
 
@@ -60,6 +62,17 @@ public class GameGUI extends JFrame implements ActionListener
         battleImg();
         battleButtons();
         keyActions();
+        doBattle();
+    }
+
+    private void doBattle()
+    {
+        if(turn != 0)
+        {
+            for (Component c : lPanel.getComponents()) {if (c instanceof JButton && !c.equals(exit) && !c.equals(settings) && !c.equals(vole)) {c.setEnabled(false);}}
+            
+            if(turn )
+        }
     }
 
     private void battleImg()
@@ -73,7 +86,7 @@ public class GameGUI extends JFrame implements ActionListener
     {
         for(int i=0; i<3; i++)
         {
-            bbE[i] = new disEnm(new enm("HemoNeedle-1",1,1));
+            bbE[i] = new disEnm(new HemoNeedle(1));
             bbE[i].enmButton.setLocation(1200, (i*250));   
             bbE[i].enmButton.addActionListener(this);
             bbE[i].enmButton.setDisabledIcon(bbE[i].enmButton.getIcon());
@@ -124,7 +137,7 @@ public class GameGUI extends JFrame implements ActionListener
         for(int i=0; i<3;i++) {if(bbE[i].selected) {z = i;}}
         if(z != -1)
         {
-            timedText(attack(bbE[z].Enm, character.atks[y]),100,20);
+            timedText(attack(bbE[z].Enm, character.atks[y]),350,120);
             if(!bbE[z].Enm.isAlive()) {lPanel.remove(bbE[z].enmButton);}
         }
     }
@@ -411,4 +424,5 @@ public class GameGUI extends JFrame implements ActionListener
     private void buttonShow() {for(int i=0; i<3; i++) {bb[i].setVisible(true);lPanel.add(bb[i]);}}
     private void keyActions() {lPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ESCAPE"), "Pause");lPanel.getActionMap().put("Pause", new AbstractAction() {public void actionPerformed(ActionEvent e) {pause();}});}
     private void enmSel(int x) {for(int i=0;i<3;i++) {bbE[i].select(false);} bbE[x].select(true);lPanel.repaint();}
+    private void wait(int x) {long y = System.currentTimeMillis(); while((y+(1000*x) > System.currentTimeMillis())){}}
 }
