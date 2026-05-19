@@ -5,6 +5,8 @@ import java.awt.event.*;
 import java.awt.image.*;
 import java.io.*;
 import javax.imageio.ImageIO;
+
+import APCS.Player;
 import APCS.Assets.AssetClasses.*;
 import javax.swing.*;
 
@@ -13,11 +15,10 @@ public class StartGUI extends JFrame implements ActionListener
 {
     JTextField nameBox;
     
-    private String name = "";private int gend = 1;/*-1;*/private int out = 1;/*-1;*/private int fav = 1;//-1;
-
-    private GUI gui = new GUI();
-    
+    private String name = "";private int gend = 1;/*-1;*/private int out = 1;/*-1;*/private int fav = 1;//-1;    
     private int page = 4;//0;
+
+    private LevelSelGUI lGUI;
 
     private JPanel sPanel;
 
@@ -317,7 +318,7 @@ public class StartGUI extends JFrame implements ActionListener
 
         else if(page==3) {if(fav!=-1){sPanel.removeAll();fin();sPanel.repaint();page++;}}
 
-        else if(page==4) {close();gui.cha(name, gend, out, fav);gui.game();}
+        else if(page==4) {close();lGUI = new LevelSelGUI(new Player(name, gend, out, fav)); lGUI.displayGame();}
     }
 
     //Handles when the back button is called

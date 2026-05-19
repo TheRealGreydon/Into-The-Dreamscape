@@ -16,7 +16,7 @@ public class Player
     public Skills[] skills = new Skills [4];
     public Atk[] atks = new Atk [4];
     private int fav;
-    private int curLev;
+    private int curLev = 0;
     private int curStage = 0;
     private int vol = 50;
     private Image sprite;
@@ -28,23 +28,6 @@ public class Player
         this.gend = gend;
         this.outfit = outfit;
         this.fav = fav;
-        //this.skills = new ArrayList<Skills>();
-        //switch (fav) {
-        //    case 1:
-        //    addAbil(new MatchBox());
-        //    break;
-        //    case 2:
-        //    addAbil(new WetTowel());
-        //    break;
-        //    case 3:
-        //    addAbil(new RockThrow());
-        //    break;
-        //    case 4:
-        //    addAbil(new PartyPopper());
-        //    break;
-        //    default:
-        //        throw new AssertionError();
-        //}
         spriteInit();
     }
     

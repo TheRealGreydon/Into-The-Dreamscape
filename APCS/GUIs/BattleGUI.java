@@ -12,13 +12,18 @@ import APCS.Skills.bEAtk;
 import APCS.Battle;
 import APCS.Player;
 
-public class GameGUI extends JFrame implements ActionListener
+public class BattleGUI extends JFrame implements ActionListener
 {
     private Player character;
 
-    public GameGUI(Player character) 
+    public BattleGUI(Player character) {this.character = character;}
+    public BattleGUI () {}
+
+    public JLabel battleImg()
     {
-        this.character = character;    
+        charSprite = new JLabel(new ImageIcon(character.getBSprite()));charSprite.setPreferredSize(new Dimension(300,650));
+        charSprite.setOpaque(false);charSprite.setBounds(100,0,300,550);
+        return charSprite;
     }
 
     private JPanel lPanel;
@@ -33,7 +38,7 @@ public class GameGUI extends JFrame implements ActionListener
     private JButton [] bbA = new JButton[4];    
     private JButton [] bbS = new JButton[4];    
     private JButton [] bbI = new JButton[4];    
-    private disEnm [] bbE;
+    private disEnm [] bbE = new disEnm[3];
     private JButton bbExit;
     private JButton actNext;
     private boolean paused = false;
@@ -51,31 +56,6 @@ public class GameGUI extends JFrame implements ActionListener
         close();this.setLocationRelativeTo(null);displayGame();battleInit();vol = character.getVol();
     }
 
-    private void battleInit()
-    {
-        this.pack();
-        lPanel.setLayout(null);
-        this.setSize(1500, 800);
-        battleImg();
-        battleButtons();
-        //keyActions();
-        //doBattle();
-    }
-
-    private void doBattle()
-    {
-        if(!turn)
-        {
-            enmTurn();
-            turn = true;
-            for (Component c : lPanel.getComponents()) {if (c instanceof JButton) {c.setEnabled(true);}}
-        }
-        else
-        {
-            
-        }
-    }
-
     private void enmTurn()
     {
         alv = 0;for(int i=0; i<3; i++) {if(bbE[i].Enm.isAlive()) {alv++;}}
@@ -88,7 +68,19 @@ public class GameGUI extends JFrame implements ActionListener
         timer.scheduleAtFixedRate(task, 0, 2000);
     }
 
-    private void enmBattleButtons() {bbE = new BattleGUI().enmBattleButtons();for(int i=0; i<3; i++) {lPanel.add(bbE[i].enmButton);}}
+    public disEnm[] enmBattleButtons()
+    {
+        disEnm[] temp = new disEnm[3];
+        for(int i=0; i<3; i++)
+        {
+            disEnm x = new disEnm(new HemoNeedle(1));
+            x.enmButton.setLocation(1200, (i*250));   
+            x.enmButton.addActionListener(this);
+            x.enmButton.setDisabledIcon(x.enmButton.getIcon());
+            temp[i] = x;
+        }
+        return temp;
+    }
 
     private void actBattleButtons()
     {
@@ -418,5 +410,4 @@ public class GameGUI extends JFrame implements ActionListener
     private void buttonShow() {for(int i=0; i<3; i++) {bb[i].setVisible(true);lPanel.add(bb[i]);}}
     private void keyActions() {lPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ESCAPE"), "Pause");lPanel.getActionMap().put("Pause", new AbstractAction() {public void actionPerformed(ActionEvent e) {pause();}});}
     private void enmSel(int x) {for(int i=0;i<3;i++) {bbE[i].select(false);} bbE[x].select(true);lPanel.repaint();}
-    private void battleImg() {charSprite = new BattleGUI(character).battleImg();lPanel.add(charSprite);}
 }
