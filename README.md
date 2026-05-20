@@ -145,4 +145,14 @@ Change Log
 5/19/26
 -V.9.2-
 -Work on battle class to clean and organize
+-V.10-
+-Newly rebuilt to be coherent and less relient on GUI class
+-New loading screen for the level
+-So much clean up
+-Full body re-done
+-Reworked menu and credits
+-Menu and credits now match sizing
+-Looks much cleaner
+-V.10.1-
+-Buttons now mostly arrow keys
 -Nicholas-
