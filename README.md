@@ -160,4 +160,5 @@ Change Log
 5/20/26
 -V.10.2-
 -Menu and credits now use randomly generated star patern every load
+-Working on converting start character select to null layout and adding stars
 -Nicholas-

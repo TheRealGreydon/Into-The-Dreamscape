@@ -26,12 +26,12 @@ public class MainGUI extends JFrame implements ActionListener
     {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.pack();
-        menu();credits();
-        this.add(mPanel);
+        this.add(sPanel);
+        //menu();credits();
+        //this.add(mPanel);
         this.setSize(1500, 800);
         this.setVisible(true);
-        mPanel.revalidate();mPanel.repaint();
-        //panSet(mPanel,sPanel);  //TEMP
+        //mPanel.revalidate();mPanel.repaint();
     }
 
     //Adds to menu
@@ -45,7 +45,7 @@ public class MainGUI extends JFrame implements ActionListener
             buttons[i].setBackground(Color.RED);
             buttons[i].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
             buttons[i].setFont(new Font(buttons[i].getFont().getName(), Font.BOLD, 40));
-            buttons[i].addActionListener(this);mPanel.setComponentZOrder(buttons[i], 0);
+            buttons[i].addActionListener(this);
             mPanel.add(buttons[i]);
         }
 
@@ -56,7 +56,7 @@ public class MainGUI extends JFrame implements ActionListener
         title.setText("Into the Dreamscape");
         title.setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
         title.setLocation(500, 50);
-        title.setSize(title.getPreferredSize());mPanel.setComponentZOrder(title, 0);
+        title.setSize(title.getPreferredSize());
         mPanel.add(title);
 
         buttons[0].setText("Start");buttons[0].setBounds(500, 325, 300, 150);
@@ -67,6 +67,7 @@ public class MainGUI extends JFrame implements ActionListener
 
     private void paint(JPanel x)
     {
+        for (Component c : x.getComponents()) {x.setComponentZOrder(c, 0);}
         for(int i=0; i<40; i++)
         {
             for(int j=0; j<75; j++)
@@ -110,7 +111,6 @@ public class MainGUI extends JFrame implements ActionListener
     //Adds button to credits
     public void credits()
     {
-        cPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/CelesteBackTEMP.jpg").getImage(), 0);
         cPanel.setLayout(null);
 
         buttons[3]=new JButton();
