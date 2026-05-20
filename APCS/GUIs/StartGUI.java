@@ -2,12 +2,10 @@ package APCS.GUIs;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.*;
 import java.io.*;
 import javax.imageio.ImageIO;
 
 import APCS.Player;
-import APCS.Assets.AssetClasses.*;
 import javax.swing.*;
 
 //Character creation screen and starts the game
@@ -15,20 +13,18 @@ public class StartGUI extends JFrame implements ActionListener
 {
     JTextField nameBox;
     
-    private String name = " ";private int gend = 1;/*-1;*/private int out = 1;/*-1;*/private int fav = 1;//-1;    
+    //private String name = "";private int gend = -1;private int out = 1;private int fav = -1;   
     //private int page = 0;
+    private String name = "";private int gend = 1;private int out = 1;private int fav = 1;
     private int page = 4;
 
     private LevelSelGUI lGUI;
 
     private JPanel sPanel = new JPanel();
-
-    private BackgroundPanel b = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Default Img/defaultBack.jpg").getImage(), 1);
-
     private JButton[]buttons = new JButton[100];
     private JLabel title;
     
-    public StartGUI() {sPanel = b;sPanel.setLayout(null);}
+    public StartGUI() {;sPanel.setLayout(null);}
     
     public void start() {displayGame();initialize();}
 
@@ -72,7 +68,7 @@ public class StartGUI extends JFrame implements ActionListener
         sPanel.add(title);
         sPanel.add(nameBox);
 
-        paint();
+        paint(5);
     }
 
     //Gender selection page
@@ -156,7 +152,7 @@ public class StartGUI extends JFrame implements ActionListener
         sPanel.add(out2lab);
         sPanel.add(out3lab);
 
-        paint();
+        paint(5);
     }
 
     //Outfit selection page
@@ -242,7 +238,7 @@ public class StartGUI extends JFrame implements ActionListener
         sPanel.add(out2lab);
         sPanel.add(out3lab);
 
-        paint();
+        paint(5);
     }
 
     //Favorite color page
@@ -295,7 +291,7 @@ public class StartGUI extends JFrame implements ActionListener
         sPanel.add(buttons[0]);
         sPanel.add(buttons[1]);
 
-        paint();
+        paint(5);
     }
 
     private void fin()
@@ -349,13 +345,13 @@ public class StartGUI extends JFrame implements ActionListener
         sPanel.add(buttons[1]);
         sPanel.add(charImg);
 
-        paint();
+        paint(5);
     }
 
     //Handles when the next button is called
     private void next()
     {
-        if(page==0) {name=nameBox.getText();if(name.length()>-1){sPanel.removeAll();gend();sPanel.repaint();page++;}}
+        if(page==0) {name=nameBox.getText();if(name.length()>0){sPanel.removeAll();gend();sPanel.repaint();page++;}}
 
         else if(page==1) {sPanel.removeAll();out();sPanel.repaint();page++;}
 
@@ -380,14 +376,15 @@ public class StartGUI extends JFrame implements ActionListener
         else if(page==4) {sPanel.removeAll();fav();sPanel.repaint();page--;}
     }
     
-    private void paint()
+    //Paints a JPanel with a percentage of stars randomly
+    private void paint(int percent)
     {
         for (Component c : sPanel.getComponents()) {sPanel.setComponentZOrder(c, 0);}
         for(int i=0; i<40; i++)
         {
             for(int j=0; j<75; j++)
             {
-                if((int)(Math.random()*18) == 0)
+                if((int)(Math.random()*100) == percent-1)
                 {
                     if((int)(Math.random()*2)==0)
                     {

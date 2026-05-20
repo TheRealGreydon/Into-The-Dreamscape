@@ -62,17 +62,18 @@ public class MainGUI extends JFrame implements ActionListener
         buttons[0].setText("Start");buttons[0].setBounds(500, 325, 300, 150);
         buttons[1].setText("Credits");buttons[1].setBounds(800,325, 200, 150);
         buttons[2].setText("Exit");buttons[2].setBounds(500,600, 300, 150);
-        paint(mPanel);
+        paint(mPanel,5);
     }
 
-    private void paint(JPanel x)
+    //Paints a JPanel with a percentage of stars randomly
+    private void paint(JPanel x, int percent)
     {
         for (Component c : x.getComponents()) {x.setComponentZOrder(c, 0);}
         for(int i=0; i<40; i++)
         {
             for(int j=0; j<75; j++)
             {
-                if((int)(Math.random()*18) == 0)
+                if((int)(Math.random()*100)<=percent-1)
                 {
                     if((int)(Math.random()*2)==0)
                     {
@@ -131,7 +132,7 @@ public class MainGUI extends JFrame implements ActionListener
         title.setLocation(575, 50);
         title.setSize(title.getPreferredSize());
         cPanel.add(title);
-        paint(cPanel);
+        paint(cPanel, 5);
     }
 
     //Buttons
