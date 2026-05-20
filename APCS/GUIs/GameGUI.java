@@ -27,26 +27,28 @@ public class GameGUI extends JFrame implements ActionListener
     private JButton exit = new JButton();
     private JButton settings = new JButton();
     private JButton vole = new JButton();
-    private int vol;
     private JLabel charSprite;
-    private JButton [] bb = new JButton[3];
+    private JButton [] bb;
+    //bb 0-2 (Atk, Skl, Itm), bb 3-4 (Exit, Next), bb 5-8 (Atk 1-4), bb 9-12 (Skl 1-4), bb 13-16 (Itm 1-4)
+    private JButton bbExit;
     private JButton [] bbA;    
     private JButton [] bbS;    
     private JButton [] bbI;    
     private disEnm [] bbE;
-    private JButton bbExit;
-    private JButton bbNext;
     private boolean paused = false;
     private JLabel tText = new JLabel();
     private int count = 0;
     private boolean turn = true;
     private int enm = 3;
     private int alv;
+    private int selBut = 0;
+    private int minSel = 0;
+    private int maxSel = 2;
 
     public void start()
     {
         lPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/Battle Level/BB" + ((int)(Math.random()*4 + 1)) +".png").getImage(), 0);
-        close();this.setLocationRelativeTo(null);displayGame();character.atks[0] = new bAtk();battleInit();vol = character.getVol();
+        close();this.setLocationRelativeTo(null);displayGame();character.atks[0] = new bAtk();battleInit();
     }
 
     private void battleInit()
@@ -54,6 +56,7 @@ public class GameGUI extends JFrame implements ActionListener
         this.pack();
         this.add(lPanel);
         bGUI = new BattleAssets();
+        bbExit = bGUI.bbExit();
         lPanel.setLayout(null);
         this.setSize(1500, 800);
         battleImg();
@@ -108,28 +111,72 @@ public class GameGUI extends JFrame implements ActionListener
 
     private void actBattleButtons()
     {
-        bb = bGUI.actBattleButtons(); for(int i=0; i<3; i++) {bb[i].addActionListener(this);}
+        bb = bGUI.actBattleButtons();highlight(bb[0]);
 
-        bbExit = bGUI.bbExit();bbExit.addActionListener(this);bbNext = bGUI.bbNext();bbNext.addActionListener(this);
         buttonShow();pauButtons();atkBattleButtons();sklBattleButtons();itmBattleButtons();
     }
 
-    private void atkBattleButtons()
+    private void atkBattleButtons() {for(int i=5; i<9; i++) {if(character.atks[i-5] != null) {bb[i].setText(character.atks[i-5].getName());}else {bb[i].setText("X");}}}
+
+    private void itmBattleButtons() {for(int i=13; i<16; i++) {bb[i].setText("X");}}
+
+    private void sklBattleButtons() {for(int i=9; i<12; i++) {if(character.skills[i-9] != null) {bb[i].setText(character.skills[i-9].getName());}else {bb[i].setText("X");}}}
+
+    private void keyActions() 
     {
-        bbA = bGUI.battleButtons();
-        for(int i=0; i<4; i++) {if(character.atks[i] != null) {bbA[i].addActionListener(this);bbA[i].setText(character.atks[i].getName());}else {bbA[i].setText("X");}}
+        lPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ESCAPE"), "Pause");
+        lPanel.getActionMap().put("Pause", new AbstractAction() {public void actionPerformed(ActionEvent e) {pause();}});
+        lPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ENTER"), "Select");
+        lPanel.getActionMap().put("Select", new AbstractAction() {public void actionPerformed(ActionEvent e) {Select(selBut);}});
+        lPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("LEFT"), "Left");
+        lPanel.getActionMap().put("Left", new AbstractAction() {public void actionPerformed(ActionEvent e) {Left();}});
+        lPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("RIGHT"), "Right");
+        lPanel.getActionMap().put("Right", new AbstractAction() {public void actionPerformed(ActionEvent e) {Right();}});
     }
 
-    private void itmBattleButtons()
+    private void Left() {if(selBut-1 >= minSel) {selBut--;highlight(bb[selBut]);}}
+
+    private void Right() {if(selBut+1 <= maxSel) {selBut++;highlight(bb[selBut]);}}
+
+    private void Select(int x)
     {
-        bbI = bGUI.battleButtons();
-        for(int i=0; i<4; i++) {bbI[i].setText("X");}
+        if(x==0)
+        {
+            atk();
+            minSel = 5; maxSel = 6;
+            highlight(bb[5]);
+        }
+        else if(x==1)
+        {
+            skl();
+        }
+        else if(x==2)
+        {
+            itm();
+        }
     }
 
-    private void sklBattleButtons()
+    private void atk() 
     {
-        bbS = bGUI.battleButtons();
-        for(int i=0; i<4; i++) {if(character.skills[i] != null) {bbS[i].addActionListener(this);bbS[i].setText(character.skills[i].getName());}else {bbS[i].setText("X");}}
+        buttonHide();
+        lPanel.add(bbExit);
+        lPanel.add(bb[3]);
+        lPanel.add(bb[4]);
+        lPanel.add(bb[5]);
+        lPanel.add(bb[6]);
+        lPanel.repaint();
+    }
+
+    private void skl() {buttonHide();lPanel.add(bbExit);lPanel.add(bb[3]);lPanel.add(bb[7]);lPanel.add(bb[8]);lPanel.add(bb[9]);lPanel.repaint();}
+    private void itm() {buttonHide();lPanel.add(bbExit);lPanel.add(bb[3]);lPanel.add(bb[10]);lPanel.add(bb[11]);lPanel.add(bb[12]);lPanel.repaint();}
+    
+
+    private void highlight(JButton x)
+    {
+        for (Component c : lPanel.getComponents()) {if (c instanceof JButton && !c.equals(exit) && !c.equals(settings) && !c.equals(vole)
+        && !c.equals(bbE[0].enmButton) && !c.equals(bbE[1].enmButton) && !c.equals(bbE[2].enmButton))
+            {((JButton) c).setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));}}    
+        x.setBorder(BorderFactory.createLineBorder(Color.black, 5));
     }
 
     private void atkSel(int y)
@@ -219,7 +266,8 @@ public class GameGUI extends JFrame implements ActionListener
         set.setFont(new Font(set.getFont().getName(), Font.BOLD, 40));set.setText("Settings"); 
         exit.setText("Back");settings.setText("Volume");settings.setEnabled(false);
         vole.setFont(new Font(vole.getFont().getName(), Font.BOLD, 40));vole.addActionListener(this);vole.setSize(new Dimension(125,100));vole.setBackground(Color.black);
-        vole.setForeground(Color.white);vole.setLocation((lPanel.getWidth()/2-50)+150, (lPanel.getHeight()/2-100));vole.setVisible(true);vole.setEnabled(true);vole.setText(String.valueOf(vol));
+        vole.setForeground(Color.white);vole.setLocation((lPanel.getWidth()/2-50)+150, (lPanel.getHeight()/2-100));
+        vole.setVisible(true);vole.setEnabled(true);vole.setText(String.valueOf(character.getVol()));
         lPanel.add(vole);set.setLocation(lPanel.getWidth()/2-2500, lPanel.getHeight()/2-2650);lPanel.add(set);
         vole.setFocusable(false);
     }
@@ -231,7 +279,7 @@ public class GameGUI extends JFrame implements ActionListener
         lPanel.add(bbE[1].enmButton);
         lPanel.add(bbE[2].enmButton);
         if(has(tText)) {tText.setVisible(true);lPanel.add(tText);}
-        if(has(bbNext)) {bbNext.setVisible(true);lPanel.add(bbNext);}
+        if(has(bb[4])) {bb[4].setVisible(true);lPanel.add(bb[4]);}
 
         if(has(bbA[0]) || has(bbA[2]))
         {
@@ -252,7 +300,7 @@ public class GameGUI extends JFrame implements ActionListener
             else {lPanel.add(bbI[2]);lPanel.add(bbI[3]);bbI[2].setVisible(true);bbI[3].setVisible(true);}
         }
 
-        if(has(bbExit)) {lPanel.add(bbExit);bbExit.setVisible(true);} if(has(bb[0])) {buttonShow();}
+        if(has(bb[3])) {lPanel.add(bb[3]);bb[3].setVisible(true);} if(has(bb[0])) {buttonShow();}
     }
 
     private void battleHide()
@@ -262,7 +310,7 @@ public class GameGUI extends JFrame implements ActionListener
         lPanel.remove(bbE[1].enmButton);
         lPanel.remove(bbE[2].enmButton);
         if(has(tText)) {tText.setVisible(false);}
-        if(has(bbNext)) {bbNext.setVisible(false);}
+        if(has(bb[4])) {bb[4].setVisible(false);}
 
         if(has(bbA[0]) || has(bbA[2]))
         {
@@ -283,7 +331,7 @@ public class GameGUI extends JFrame implements ActionListener
             else {bbI[2].setVisible(false);bbI[3].setVisible(false);}
         }
 
-        if(has(bbExit)) {bbExit.setVisible(false);} if(has(bb[0])) {for(int i=0; i<3; i++) {bb[i].setVisible(false);}}
+        if(has(bb[3])) {bb[3].setVisible(false);} if(has(bb[0])) {for(int i=0; i<3; i++) {bb[i].setVisible(false);}}
     }
     
     private void bbNext()
@@ -333,7 +381,7 @@ public class GameGUI extends JFrame implements ActionListener
             else {lPanel.remove(bbI[2]);lPanel.remove(bbI[3]);}
         }
 
-        lPanel.remove(bbNext);lPanel.remove(bbExit);buttonShow();lPanel.repaint();
+        lPanel.remove(bb[4]);lPanel.remove(bb[3]);buttonShow();lPanel.repaint();
     }
 
     public void actionPerformed(ActionEvent e)
@@ -344,25 +392,13 @@ public class GameGUI extends JFrame implements ActionListener
 
         else if(j.equals(settings)) {settings();}
         
-        else if(j.equals(vole)) {if(vol+25>100) {vol=0;}else{vol+=25;}character.setVol(vol);vole.setText(String.valueOf(vol));}
-
-        else if(j.equals(bb[0])) {atk();}
-        
-        else if(j.equals(bb[1])) {skl();}
-        
-        else if(j.equals(bb[2])) {itm();}
+        else if(j.equals(vole)) {if(character.getVol()+25>100) {character.setVol(0);}else{character.setVol(character.getVol()+25);}vole.setText(String.valueOf(character.getVol()));}
 
         else if(j.equals(bbE[0].enmButton)) {enmSel(0);}
         
         else if(j.equals(bbE[1].enmButton)) {enmSel(1);}
         
         else if(j.equals(bbE[2].enmButton)) {enmSel(2);}
-
-        else if(j.equals(bbExit)) {actBack();}
-
-        else if(j.equals(bbNext)) {bbNext();}
-
-        else if(j.equals(bbA[0])) {atkSel(0);}
     }
 
     private void battleButtons() {enmBattleButtons();actBattleButtons();}
@@ -371,13 +407,9 @@ public class GameGUI extends JFrame implements ActionListener
     private void close() {Window[] windows = Window.getWindows(); for (Window window : windows) {if (window != null) {window.dispose();}}}
     private boolean has(Component x) {for (Component c : lPanel.getComponents()) {if (c == x) {return true;}} return false;}
     private void exit() {if(set.isVisible()) {pause();} else {}}//levExit();}}
-    private void atk() {buttonHide();lPanel.add(bbExit);lPanel.add(bbA[0]);lPanel.add(bbA[1]);lPanel.add(bbNext);lPanel.repaint();}  
-    private void skl() {buttonHide();lPanel.add(bbExit);lPanel.add(bbS[0]);lPanel.add(bbS[1]);lPanel.add(bbNext);lPanel.repaint();}
-    private void itm() {buttonHide();lPanel.add(bbExit);lPanel.add(bbI[0]);lPanel.add(bbI[1]);lPanel.add(bbNext);lPanel.repaint();}
     private void buttonHide() {for(int i=0; i<3; i++) {lPanel.remove(bb[i]);}}
     private void buttonShow() {for(int i=0; i<3; i++) {bb[i].setVisible(true);lPanel.add(bb[i]);}}
-    private void keyActions() {lPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ESCAPE"), "Pause");lPanel.getActionMap().put("Pause", new AbstractAction() {public void actionPerformed(ActionEvent e) {pause();}});}
     private void enmSel(int x) {for(int i=0;i<3;i++) {bbE[i].select(false);} bbE[x].select(true);lPanel.repaint();}
-    private void battleImg() {lPanel.add(bGUI.battleImg(character));}
+    private void battleImg() {charSprite = bGUI.battleImg(character);lPanel.add(charSprite);}
     private void enmBattleButtons() {bbE = bGUI.enmBattleButtons(); for(int i=0; i<3; i++) {bbE[i].enmButton.setVisible(true);bbE[i].enmButton.addActionListener(this);lPanel.add(bbE[i].enmButton);}}
 }
