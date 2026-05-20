@@ -18,7 +18,7 @@ public class MainGUI extends JFrame implements ActionListener
     public MainGUI() {initialize();}
     
     //Runs the game
-    public void displayGame() {java.awt.EventQueue.invokeLater(new Runnable() {public void run() {setVisible(true);}});}
+    public void displayGame() {java.awt.EventQueue.invokeLater(new Runnable() {public void run() {setVisible(true);}});this.dispose();new StartGUI().start();}
 
     //Main initalize
     private void initialize()

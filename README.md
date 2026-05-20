@@ -161,7 +161,11 @@ Change Log
 -V.10.2-
 -Menu and credits now use randomly generated star patern every load
 -Working on converting start character select to null layout and adding stars
--v.10.3-
+-V.10.3-
 -Did the stuff
 -Its 3:33 am
+-V.10.4-
+-Enm sel and attacking is enabled with arrow keys now
+-Its 4:56
+-I hate my self
 -Nicholas-
