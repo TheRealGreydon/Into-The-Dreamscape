@@ -156,3 +156,8 @@ Change Log
 -V.10.1-
 -Buttons now mostly arrow keys
 -Nicholas-
+
+5/20/26
+-V.10.2-
+-Menu and credits now use randomly generated star patern every load
+-Nicholas-

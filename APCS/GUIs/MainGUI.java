@@ -31,13 +31,12 @@ public class MainGUI extends JFrame implements ActionListener
         this.setSize(1500, 800);
         this.setVisible(true);
         mPanel.revalidate();mPanel.repaint();
-        panSet(mPanel,sPanel);  //TEMP
+        //panSet(mPanel,sPanel);  //TEMP
     }
 
     //Adds to menu
     private void menu()
     {
-        mPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/CelesteBackTEMP.jpg").getImage(), 0);
         mPanel.setLayout(null);
 
         for(int i=0; i<3; i++)
@@ -46,7 +45,7 @@ public class MainGUI extends JFrame implements ActionListener
             buttons[i].setBackground(Color.RED);
             buttons[i].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
             buttons[i].setFont(new Font(buttons[i].getFont().getName(), Font.BOLD, 40));
-            buttons[i].addActionListener(this);
+            buttons[i].addActionListener(this);mPanel.setComponentZOrder(buttons[i], 0);
             mPanel.add(buttons[i]);
         }
 
@@ -57,14 +56,57 @@ public class MainGUI extends JFrame implements ActionListener
         title.setText("Into the Dreamscape");
         title.setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
         title.setLocation(500, 50);
-        title.setSize(title.getPreferredSize());
+        title.setSize(title.getPreferredSize());mPanel.setComponentZOrder(title, 0);
         mPanel.add(title);
 
         buttons[0].setText("Start");buttons[0].setBounds(500, 325, 300, 150);
         buttons[1].setText("Credits");buttons[1].setBounds(800,325, 200, 150);
         buttons[2].setText("Exit");buttons[2].setBounds(500,600, 300, 150);
+        paint(mPanel);
     }
 
+    private void paint(JPanel x)
+    {
+        for(int i=0; i<40; i++)
+        {
+            for(int j=0; j<75; j++)
+            {
+                if((int)(Math.random()*18) == 0)
+                {
+                    if((int)(Math.random()*2)==0)
+                    {
+                        JLabel star = new JLabel();
+                        star.setOpaque(true);
+                        star.setBackground(Color.YELLOW);
+                        star.setSize(new Dimension(20, 20));
+                        star.setLocation(j*20, i*20);
+                        x.setComponentZOrder(star, 1);
+                        x.add(star);
+                    }
+                    else
+                    {
+                        JLabel star = new JLabel();
+                        star.setOpaque(true);
+                        star.setBackground(new Color(189,185,38));
+                        star.setSize(new Dimension(20, 20));
+                        star.setLocation(j*20, i*20);
+                        x.setComponentZOrder(star, 1);
+                        x.add(star);
+                    }                    
+                }
+                else
+                {
+                    JLabel star = new JLabel();
+                    star.setOpaque(true);
+                    star.setBackground(Color.BLACK);
+                    star.setSize(new Dimension(20, 20));
+                    star.setLocation(j*20, i*20);
+                    x.setComponentZOrder(star, 1);
+                    x.add(star);
+                }
+            }
+        }
+    }
     //Adds button to credits
     public void credits()
     {
@@ -88,6 +130,7 @@ public class MainGUI extends JFrame implements ActionListener
         title.setLocation(575, 50);
         title.setSize(title.getPreferredSize());
         cPanel.add(title);
+        paint(cPanel);
     }
 
     //Buttons
