@@ -10,9 +10,9 @@ public class HemoNeedle implements enm
     private int type = 1;
     private int hp;
     private boolean alive = true;
-    public Atk[] atks = new Atk [2];
+    public Atk[] atks = {new bEAtk()};
 
-    public HemoNeedle(int lvl) {this.lvl = lvl;hp = 8 + (2*lvl); atks[0] = new bEAtk();}
+    public HemoNeedle(int lvl) {this.lvl = lvl;hp = 8 + (2*lvl);}
 
     public String getName() {return name;}
 

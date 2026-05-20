@@ -14,8 +14,8 @@ public class BattleAssets
     
     public JLabel battleImg(Player character)
     {
-        JLabel charSprite = new JLabel(new ImageIcon(character.getBSprite()));charSprite.setPreferredSize(new Dimension(300,650));
-        charSprite.setOpaque(false);charSprite.setBounds(100,0,300,550);
+        JLabel charSprite = new JLabel(new ImageIcon(character.getBSprite()));charSprite.setPreferredSize(new Dimension(450,650));
+        charSprite.setOpaque(false);charSprite.setBounds(0,0,500,550);
         return charSprite;
     }
 

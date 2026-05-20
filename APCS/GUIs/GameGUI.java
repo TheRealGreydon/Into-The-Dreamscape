@@ -24,6 +24,8 @@ public class GameGUI extends JFrame implements ActionListener
     private JButton [] bb;
     private JButton bbExit;
     private disEnm [] bbE;
+    //Yes, these arn't labled. Yes, these are IMPORTANT
+    private int x;private int y;
 
     private JButton pau = new JButton();
     private JButton set = new JButton();
@@ -35,8 +37,7 @@ public class GameGUI extends JFrame implements ActionListener
     private JLabel tText = new JLabel();
     private int count = 0;
 
-    private boolean turn = true;
-    private boolean seling = false;
+    private boolean selingEnmAtk = false;
     private int selEnm = 0;
 
     private int enm = 3;
@@ -74,10 +75,8 @@ public class GameGUI extends JFrame implements ActionListener
         if(type == 0) {atkSel(num);}
         else if(type == 1) {}
         else if(type ==2) {}
-        turn = false;
     }
 
-    private int x;private int y;
     private void enmTurn()
     {
         for(int i=0; i<3; i++)
@@ -86,23 +85,24 @@ public class GameGUI extends JFrame implements ActionListener
             y = i;
             if(bbE[i].Enm.isAlive())
             {
-                Timer timer = new Timer();
-                TimerTask task = new TimerTask()
-                {public void run() 
-                    {
-                        for (Component c : lPanel.getComponents()) {if (c instanceof JButton && !c.equals(exit) && !c.equals(settings) && !c.equals(vole)) {c.setEnabled(false);}}
-                        
-                        if(!paused)
-                        {
-                            if(x==0) {timedText(new BattleAssets().attack(character, bbE[y].Enm.atks[0]),350,120);}
-                            
-                            else if(x==40) {timer.cancel();}x++;
-                        }
-                    }
-                };
-                timer.scheduleAtFixedRate(task, 0, 50);
-
-                timedText(new BattleAssets().attack(character, bbE[i].Enm.atks[0]),350,120);
+                System.out.println(bbE[i].Enm.atks[0].getName());
+                //Timer timer = new Timer();
+                //TimerTask task = new TimerTask()
+                //{public void run() 
+                //    {
+                //        for (Component c : lPanel.getComponents()) {if (c instanceof JButton && !c.equals(exit) && !c.equals(settings) && !c.equals(vole)) {c.setEnabled(false);}}
+                //        
+                //        if(!paused)
+                //        {
+                //            if(x==0) {timedText(new BattleAssets().attack(character, bbE[y].Enm.atks[0]),350,120);}
+                //            
+                //            else if(x==40) {timer.cancel();}x++;
+                //        }
+                //    }
+                //};
+                //timer.scheduleAtFixedRate(task, 0, 50);
+//
+                ////timedText(new BattleAssets().attack(character, bbE[i].Enm.atks[0]),350,120);
             }
         }
     }
@@ -195,7 +195,7 @@ public class GameGUI extends JFrame implements ActionListener
 
     private void Up()
     {
-        if(!seling && !paused)
+        if(!selingEnmAtk && !paused)
         {
             if(down && !has(bb[0])) {highlight(-1);down = false;}
 
@@ -236,7 +236,7 @@ public class GameGUI extends JFrame implements ActionListener
 
     private void Down()
     {
-        if(!seling && !paused)
+        if(!selingEnmAtk && !paused)
         {
             if(down && !has(bb[0])) {highlight(-1);down = false;}
 
@@ -275,14 +275,14 @@ public class GameGUI extends JFrame implements ActionListener
         }
     }
 
-    private void Left() {if(selBut-1 >= minSel && !paused && !seling) {selBut--;highlight(selBut);}}
+    private void Left() {if(selBut-1 >= minSel && !paused && !selingEnmAtk) {selBut--;highlight(selBut);}}
 
-    private void Right() {if(selBut+1 <= maxSel && !paused && !seling) {selBut++;highlight(selBut);}}
+    private void Right() {if(selBut+1 <= maxSel && !paused && !selingEnmAtk) {selBut++;highlight(selBut);}}
 
     //Handles the button selection
     private void Select(int x)
     {
-        if(!paused && !seling)
+        if(!paused && !selingEnmAtk)
         {
             if(down)
             {
@@ -374,7 +374,7 @@ public class GameGUI extends JFrame implements ActionListener
             }
         }
     
-        else if(!paused && seling)
+        else if(!paused && selingEnmAtk)
         {
             int z = -1;
             for(int i=0; i<3;i++) {if(bbE[i].selected) {z = i;}}
@@ -384,14 +384,15 @@ public class GameGUI extends JFrame implements ActionListener
                 if(!bbE[z].Enm.isAlive()) {lPanel.remove(bbE[z].enmButton);}
             }
 
-            seling = false;
+            selingEnmAtk = false;
             highlight(selBut);
+            enmTurn();
         }
     }   
 
     private void atkSel(int y) 
     {
-        seling = true;
+        selingEnmAtk = true;
         highlight(-2);
         if(bbE[0].Enm.isAlive())
         {
@@ -436,6 +437,33 @@ public class GameGUI extends JFrame implements ActionListener
             }
         };
         timer.scheduleAtFixedRate(task, 0, 50);
+    }
+
+    private void timedText(String a)
+    {
+        count = 0;
+        Timer timer = new Timer();
+        String [] b = a.split("");
+        tText.setText("");
+        tText.setOpaque(true);
+        tText.setBackground(Color.WHITE);
+        tText.setFont(new Font(tText.getFont().getName(), Font.BOLD, 40));
+        TimerTask task = new TimerTask()
+        {public void run() 
+            {
+                for (Component c : lPanel.getComponents()) {if (c instanceof JButton && !c.equals(exit) && !c.equals(settings) && !c.equals(vole)) {c.setEnabled(false);}}
+                if(!paused)
+                {
+                    if(count<b.length) {tText.setText(tText.getText() + b[count]);tText.setSize(tText.getPreferredSize());
+                    tText.setLocation(lPanel.getWidth()/2 - tText.getWidth()/2, lPanel.getHeight()/2-tText.getHeight()/2);
+                    lPanel.add(tText);}
+                    else{if(count>b.length+15) {lPanel.remove(tText);lPanel.repaint();
+                        for (Component c : lPanel.getComponents()) {if (c instanceof JButton) {c.setEnabled(true);}}timer.cancel();close();new GameGUI(character).start();}}
+                        count++;
+                }
+            }
+        };
+        timer.scheduleAtFixedRate(task, 0, 50);        
     }
 
     private void pauButtons()
