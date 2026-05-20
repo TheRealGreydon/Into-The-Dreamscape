@@ -9,4 +9,8 @@ public class juiceBox implements healSkl
     public String getName() {return "Juice Box";}
 
     public String getDes() {return "Sippy Sip";}
+
+    public boolean isHeal() {return true;}
+
+    public boolean isDmg() {return false;}
 }

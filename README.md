@@ -1,6 +1,4 @@
 # APCS-Game-Project-2026
-This is the final for APCS, go Klusinator
-
 Change Log
 -------
 
@@ -174,4 +172,11 @@ Change Log
 -V.11-
 -Semi working battle
 -Able to tell when won
+-V.11.1-
+-Beginings of skills
+-New attacks
+-Level of randomness
+-Sweet jesus I have been awake for 34 hours I dont like this project
+-V.11.2-
+-Working healing
 -Nicholas-

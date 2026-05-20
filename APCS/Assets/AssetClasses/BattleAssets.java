@@ -1,17 +1,13 @@
 package APCS.Assets.AssetClasses;
 
-import java.awt.*;
-
-import javax.swing.*;
 import APCS.*;
 import APCS.Enms.*;
 import APCS.Skills.*;
+import java.awt.*;
+import javax.swing.*;
 
 public class BattleAssets
-{
-    private int count;
-    private JLabel tText = new JLabel();
-    
+{    
     public JLabel battleImg(Player character)
     {
         JLabel charSprite = new JLabel(new ImageIcon(character.getBSprite()));charSprite.setPreferredSize(new Dimension(450,650));

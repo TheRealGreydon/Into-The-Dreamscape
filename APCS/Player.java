@@ -1,9 +1,9 @@
 package APCS;
 
+import APCS.Skills.*;
 import java.awt.*;
 import java.io.*;
 import javax.imageio.ImageIO;
-import APCS.Skills.*;
 
 public class Player
 {
@@ -13,7 +13,7 @@ public class Player
     private int[] stats = {0,0,0,0,0,0};
     private int hp = 15;
     private int lvl = 1;
-    public Skills[] skills = {new juiceBox(), null, null, null};;
+    public Skills[] skls = {new juiceBox(), null, null, null};;
     public Atk[] atks = {new punch(), null, null, null};
     private int fav;
     private int curLev = 0;

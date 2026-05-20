@@ -1,7 +1,11 @@
 package APCS.Skills;
 
-public interface Atk extends Skills
+public interface Atk
 {
+    public String getName();
+
+    public String getDes();
+
     public int getDmg();
 
     public int getDmgType();
