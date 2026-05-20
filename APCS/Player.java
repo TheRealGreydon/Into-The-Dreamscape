@@ -11,16 +11,17 @@ public class Player
     private int gend;
     private int outfit;
     private int[] stats = {0,0,0,0,0,0};
-    private int hp = 9;
+    private int hp = 15;
     private int lvl = 1;
-    public Skills[] skills = new Skills [4];
-    public Atk[] atks = new Atk [4];
+    public Skills[] skills = {new juiceBox(), null, null, null};;
+    public Atk[] atks = {new punch(), null, null, null};
     private int fav;
     private int curLev = 0;
     private int curStage = 0;
     private int vol = 50;
     private Image sprite;
     private Image bSprite;
+    private boolean alive = true;
 
     public Player(String name, int gend, int outfit, int fav)
     {
@@ -31,6 +32,8 @@ public class Player
         spriteInit();
     }
     
+    public boolean isAlive() {return alive;}
+
     public void setName(String x) {name = x;}
 
     public void setStage(int x) {curStage = x;}
@@ -67,7 +70,7 @@ public class Player
 
     public void statMod(int x, int y) {stats[x]+= y;}
 
-    public void doHp(int x) {hp+=x;}
+    public void doHp(int x) {if(hp+x>0 && alive){hp+=x;} else{hp = 0; alive = false;}}
 
     public int getHealth() {return hp;}
 

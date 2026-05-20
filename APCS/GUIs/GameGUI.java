@@ -36,6 +36,8 @@ public class GameGUI extends JFrame implements ActionListener
 
     private JLabel tText = new JLabel();
     private int count = 0;
+    private int looped = 0;
+    private String [] b;
 
     private boolean selingEnmAtk = false;
     private int selEnm = 0;
@@ -53,7 +55,7 @@ public class GameGUI extends JFrame implements ActionListener
     public void start()
     {
         lPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/Battle Level/BB" + ((int)(Math.random()*4 + 1)) +".png").getImage(), 0);
-        close();this.setLocationRelativeTo(null);displayGame();character.atks[0] = new bAtk();battleInit();
+        close();this.setLocationRelativeTo(null);displayGame();battleInit();
     }
 
     private void battleInit()
@@ -75,36 +77,6 @@ public class GameGUI extends JFrame implements ActionListener
         if(type == 0) {atkSel(num);}
         else if(type == 1) {}
         else if(type ==2) {}
-    }
-
-    private void enmTurn()
-    {
-        for(int i=0; i<3; i++)
-        {
-            x = 0;
-            y = i;
-            if(bbE[i].Enm.isAlive())
-            {
-                System.out.println(bbE[i].Enm.atks[0].getName());
-                //Timer timer = new Timer();
-                //TimerTask task = new TimerTask()
-                //{public void run() 
-                //    {
-                //        for (Component c : lPanel.getComponents()) {if (c instanceof JButton && !c.equals(exit) && !c.equals(settings) && !c.equals(vole)) {c.setEnabled(false);}}
-                //        
-                //        if(!paused)
-                //        {
-                //            if(x==0) {timedText(new BattleAssets().attack(character, bbE[y].Enm.atks[0]),350,120);}
-                //            
-                //            else if(x==40) {timer.cancel();}x++;
-                //        }
-                //    }
-                //};
-                //timer.scheduleAtFixedRate(task, 0, 50);
-//
-                ////timedText(new BattleAssets().attack(character, bbE[i].Enm.atks[0]),350,120);
-            }
-        }
     }
 
     private void actBattleButtons()
@@ -378,15 +350,10 @@ public class GameGUI extends JFrame implements ActionListener
         {
             int z = -1;
             for(int i=0; i<3;i++) {if(bbE[i].selected) {z = i;}}
-            if(z != -1)
-            {
-                bbE[z].select(false); timedText(new BattleAssets().attack(bbE[z].Enm, character.atks[y]),350,120);
-                if(!bbE[z].Enm.isAlive()) {lPanel.remove(bbE[z].enmButton);}
-            }
 
-            selingEnmAtk = false;
+            if(z != -1) {bbE[z].select(false); atkPhaze(bbE[z], character.atks[y]);selingEnmAtk = false;}
+
             highlight(selBut);
-            enmTurn();
         }
     }   
 
@@ -413,57 +380,65 @@ public class GameGUI extends JFrame implements ActionListener
         }
     }
 
-    private void timedText(String a, int x, int y)
+    private void atkPhaze(disEnm x, Atk y)
     {
         count = 0;
+        looped = 0;
+
         Timer timer = new Timer();
-        String [] b = a.split("");
+        b = new BattleAssets().attack(x.Enm, y).split("");
         tText.setText("");
-        tText.setLocation(x, y);
+        tText.setLocation(350, 120);
         tText.setOpaque(true);
         tText.setBackground(Color.WHITE);
         tText.setFont(new Font(tText.getFont().getName(), Font.BOLD, 40));
         TimerTask task = new TimerTask()
         {public void run() 
             {
-                for (Component c : lPanel.getComponents()) {if (c instanceof JButton && !c.equals(exit) && !c.equals(settings) && !c.equals(vole)) {c.setEnabled(false);}}
                 if(!paused)
                 {
-                    if(count<b.length) {tText.setText(tText.getText() + b[count]);tText.setSize(tText.getPreferredSize()); lPanel.add(tText);}
-                    else{if(count>b.length+10) {lPanel.remove(tText);lPanel.repaint();
-                        for (Component c : lPanel.getComponents()) {if (c instanceof JButton) {c.setEnabled(true);}}
-                        timer.cancel();}}count++;
-                }
-            }
-        };
-        timer.scheduleAtFixedRate(task, 0, 50);
+                    if(count<b.length) {lPanel.remove(tText);tText.setText(tText.getText() + b[count]);tText.setSize(tText.getPreferredSize());
+                    lPanel.add(tText);lPanel.repaint();}
+                    else{if(count==b.length+10) 
+                        {
+                            if(!x.Enm.isAlive()) {lPanel.remove(x.enmButton);}
+                            lPanel.remove(tText);lPanel.repaint();lPanel.remove(tText);timer.cancel();enmBattlePhaze();
+                        }
+                    }count++;}}};
+
+        lPanel.add(tText);
+        timer.scheduleAtFixedRate(task, 0, 100);
     }
 
-    private void timedText(String a)
+    private void enmBattlePhaze()
     {
         count = 0;
-        Timer timer = new Timer();
-        String [] b = a.split("");
         tText.setText("");
+        tText.setLocation(350, 120);
         tText.setOpaque(true);
         tText.setBackground(Color.WHITE);
         tText.setFont(new Font(tText.getFont().getName(), Font.BOLD, 40));
-        TimerTask task = new TimerTask()
-        {public void run() 
-            {
-                for (Component c : lPanel.getComponents()) {if (c instanceof JButton && !c.equals(exit) && !c.equals(settings) && !c.equals(vole)) {c.setEnabled(false);}}
-                if(!paused)
+        Timer timer = new Timer();
+        if(looped <=2 && bbE[looped].Enm.isAlive()) 
+        {
+            if((int)(Math.random()*10)==0) {b = new BattleAssets().attack(character, bbE[looped].Enm.atks[1]).split("");}
+            
+            else {b = new BattleAssets().attack(character, bbE[looped].Enm.atks[0]).split("");}
+            TimerTask task = new TimerTask()
+            {public void run() 
+                {if(!paused)
                 {
-                    if(count<b.length) {tText.setText(tText.getText() + b[count]);tText.setSize(tText.getPreferredSize());
-                    tText.setLocation(lPanel.getWidth()/2 - tText.getWidth()/2, lPanel.getHeight()/2-tText.getHeight()/2);
-                    lPanel.add(tText);}
-                    else{if(count>b.length+15) {lPanel.remove(tText);lPanel.repaint();
-                        for (Component c : lPanel.getComponents()) {if (c instanceof JButton) {c.setEnabled(true);}}timer.cancel();close();new GameGUI(character).start();}}
-                        count++;
-                }
-            }
-        };
-        timer.scheduleAtFixedRate(task, 0, 50);        
+                    if(count<b.length) {lPanel.remove(tText);tText.setText(tText.getText() + b[count]);tText.setSize(tText.getPreferredSize());
+                    lPanel.add(tText);lPanel.repaint();}
+                    else{if(count==b.length+10) {lPanel.remove(tText);lPanel.repaint();lPanel.remove(tText);timer.cancel();enmBattlePhaze();}}count++;
+                }}};
+
+            lPanel.add(tText);timer.scheduleAtFixedRate(task, 0, 100);looped++;
+        }
+
+        else if(looped<2) {looped++;enmBattlePhaze();}
+
+        else if(!bbE[0].Enm.isAlive() && !bbE[1].Enm.isAlive() && !bbE[2].Enm.isAlive()) {System.out.println("WIN");}
     }
 
     private void pauButtons()

@@ -102,7 +102,29 @@ public class BattleAssets
         return temp;
     }
 
-    public String attack(enm x, Atk y) {x.doHp(y.getDmg());return x.getName() + " took " + y.getDmg() + " from " + y.getName();}
+    public String attack(enm x, Atk y) 
+    {
+        int z = y.getDmg();
+        if(z!=0)
+        {
+            x.doHp(z);return x.getName() + " took " + z;
+        }
+        else
+        {
+            return " Miss";
+        }
+    }
 
-    public String attack(Player x, Atk y) {x.doHp(y.getDmg());return x.getName() + " took " + y.getDmg() + " from " + y.getName();}
+    public String attack(Player x, Atk y) 
+    {
+        int z = y.getDmg();
+        if(z!=0)
+        {
+            x.doHp(z);return x.getName() + " took " + z;
+        }
+        else
+        {
+            return " Miss";
+        }
+    }
 }

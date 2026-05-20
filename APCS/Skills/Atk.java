@@ -7,6 +7,4 @@ public interface Atk extends Skills
     public int getDmgType();
 
     public int status();
-
-    public boolean spc();
 }

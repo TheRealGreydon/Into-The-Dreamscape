@@ -1,7 +1,6 @@
 package APCS.Enms;
 
-import APCS.Skills.Atk;
-import APCS.Skills.bEAtk;
+import APCS.Skills.*;
 
 public class HemoNeedle implements enm
 {
@@ -10,15 +9,15 @@ public class HemoNeedle implements enm
     private int type = 1;
     private int hp;
     private boolean alive = true;
-    public Atk[] atks = {new bEAtk()};
+    public Atk[] atks = enm.atks;
 
-    public HemoNeedle(int lvl) {this.lvl = lvl;hp = 8 + (2*lvl);}
+    public HemoNeedle(int lvl) {this.lvl = lvl;hp = 3 + (2*lvl); atks[1] = new bloodDraw();}
 
     public String getName() {return name;}
 
     public int getHp() {return hp;}
 
-    public void doHp(int x) {if(alive) {hp+=x;alive = hp>0;}}
+    public void doHp(int x) {if(hp+x>0 && alive){hp+=x;} else{hp = 0; alive = false;}}
 
     public int getLvl() {return lvl;}
 

@@ -168,4 +168,10 @@ Change Log
 -Enm sel and attacking is enabled with arrow keys now
 -Its 4:56
 -I hate my self
+-Kai screwed something up
+-No idea how, fixed kai's screw up
+-Please branch off kai
+-V.11-
+-Semi working battle
+-Able to tell when won
 -Nicholas-

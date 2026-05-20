@@ -9,7 +9,7 @@ public interface  enm
     public int lvl = 0;
     public int hp = 0;
     public boolean alive = true;
-    public Atk[] atks = new Atk [2];
+    public Atk[] atks = {new smack(), null};
 
     public String getName();
 

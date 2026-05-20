@@ -1,13 +1,13 @@
 package APCS.Skills;
 
-public class bAtk implements Atk
+public class smack implements Atk
 {
 
     public String getName() {return "Basic Attack";}
 
     public String getDes() {return "Basic Attack";}
 
-    public int getDmg() {return -5;}
+    public int getDmg() {return (int)(Math.random()*-3);}
 
     public int getDmgType() {return 1;}
 
