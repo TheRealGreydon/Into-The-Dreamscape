@@ -11,7 +11,6 @@ public class MainGUI extends JFrame implements ActionListener
     private Player character = new Player("Default", 1, 1, 1);
         
     private JPanel mPanel = new JPanel();
-    private JPanel sPanel = new StartGUI().start();
     private JPanel cPanel = new JPanel();
 
     private JButton[]buttons = new JButton[4];
@@ -26,12 +25,12 @@ public class MainGUI extends JFrame implements ActionListener
     {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.pack();
-        this.add(sPanel);
-        //menu();credits();
-        //this.add(mPanel);
+        menu();credits();
+        this.add(mPanel);
         this.setSize(1500, 800);
         this.setVisible(true);
-        //mPanel.revalidate();mPanel.repaint();
+        mPanel.revalidate();
+        mPanel.repaint();
     }
 
     //Adds to menu
@@ -46,6 +45,7 @@ public class MainGUI extends JFrame implements ActionListener
             buttons[i].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
             buttons[i].setFont(new Font(buttons[i].getFont().getName(), Font.BOLD, 40));
             buttons[i].addActionListener(this);
+            buttons[i].setFocusable(false);
             mPanel.add(buttons[i]);
         }
 
@@ -119,6 +119,7 @@ public class MainGUI extends JFrame implements ActionListener
         buttons[3].setFont(new Font(buttons[3].getFont().getName(), Font.BOLD, 40));
         buttons[3].addActionListener(this);
         buttons[3].setText("Exit");buttons[3].setBounds(500,600, 300, 150);        
+        buttons[3].setFocusable(false);
         cPanel.add(buttons[3]);
 
         JLabel title = new JLabel();
@@ -138,7 +139,7 @@ public class MainGUI extends JFrame implements ActionListener
     {
         JButton j = (JButton)(e.getSource());
         
-        if(j.equals(buttons[0])) {panSet(mPanel,sPanel);}
+        if(j.equals(buttons[0])) {this.dispose();new StartGUI().start();}
 
         else if(j.equals(buttons[1])) {panSet(mPanel, cPanel);}
 
