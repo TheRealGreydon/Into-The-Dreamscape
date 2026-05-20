@@ -14,36 +14,38 @@ import APCS.*;
 public class GameGUI extends JFrame implements ActionListener
 {
     private Player character;
-
-    public GameGUI(Player character) 
-    {
-        this.character = character;    
-    }
-
     private JPanel lPanel;
     private BattleAssets bGUI;
-    private JButton pau = new JButton();
-    private JButton set = new JButton();
-    private JButton exit = new JButton();
-    private JButton settings = new JButton();
-    private JButton vole = new JButton();
+
     private JLabel charSprite;
+    //bb 0-2 (Atk, Skl, Itm), bb 3-8 (Atk 1-4), bb 9-14 (Skl 1-4), bb 15-20 (Itm 1-4)
     private JButton [] bb;
-    //bb 0-2 (Atk, Skl, Itm), bb 3-4 (Exit, Next), bb 5-8 (Atk 1-4), bb 9-12 (Skl 1-4), bb 13-16 (Itm 1-4)
     private JButton bbExit;
     private JButton [] bbA;    
     private JButton [] bbS;    
     private JButton [] bbI;    
     private disEnm [] bbE;
+
+    private JButton pau = new JButton();
+    private JButton set = new JButton();
+    private JButton exit = new JButton();
+    private JButton settings = new JButton();
+    private JButton vole = new JButton();
     private boolean paused = false;
+
     private JLabel tText = new JLabel();
     private int count = 0;
+
     private boolean turn = true;
     private int enm = 3;
     private int alv;
+
     private int selBut = 0;
     private int minSel = 0;
     private int maxSel = 2;
+    private boolean down = true;
+
+    public GameGUI(Player character) {this.character = character;}
 
     public void start()
     {
@@ -116,11 +118,68 @@ public class GameGUI extends JFrame implements ActionListener
         buttonShow();pauButtons();atkBattleButtons();sklBattleButtons();itmBattleButtons();
     }
 
-    private void atkBattleButtons() {for(int i=5; i<9; i++) {if(character.atks[i-5] != null) {bb[i].setText(character.atks[i-5].getName());}else {bb[i].setText("X");}}}
+    private void atkBattleButtons() 
+    {
+        int x=0;
+        for(int i=3; i<8; i++) 
+        {
+            if(i!=5 && i!=8)
+            {
+                if(character.atks[x] != null) 
+                {
+                    bb[i].setText(character.atks[x].getName());
+                    bb[i].addActionListener(this);
+                }
+                else
+                {
+                    bb[i].setText("X");
+                }
+                x++;
+            }
+        }
+    }
 
-    private void itmBattleButtons() {for(int i=13; i<16; i++) {bb[i].setText("X");}}
+    private void itmBattleButtons() 
+    {
+        int x=0;
+        for(int i=15; i<20; i++) 
+        {
+            if(i!=17 && i!=20)
+            {
+                if(false)//character.atks[x] != null) 
+                {
+                    bb[i].setText(character.atks[x].getName());
+                    bb[i].addActionListener(this);
+                }
+                else
+                {
+                    bb[i].setText("X");
+                }
+                x++;
+            }
+        }
+    }
 
-    private void sklBattleButtons() {for(int i=9; i<12; i++) {if(character.skills[i-9] != null) {bb[i].setText(character.skills[i-9].getName());}else {bb[i].setText("X");}}}
+    private void sklBattleButtons() 
+    {
+        int x=0;
+        for(int i=9; i<14; i++) 
+        {
+            if(i!=11 && i!=14)
+            {
+                if(character.skills[x] != null) 
+                {
+                    bb[i].setText(character.atks[x].getName());
+                    bb[i].addActionListener(this);
+                }
+                else
+                {
+                    bb[i].setText("X");
+                }
+                x++;
+            }
+        }
+    }
 
     private void keyActions() 
     {
@@ -129,47 +188,132 @@ public class GameGUI extends JFrame implements ActionListener
         lPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ENTER"), "Select");
         lPanel.getActionMap().put("Select", new AbstractAction() {public void actionPerformed(ActionEvent e) {Select(selBut);}});
         lPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("LEFT"), "Left");
-        lPanel.getActionMap().put("Left", new AbstractAction() {public void actionPerformed(ActionEvent e) {Left();}});
+        lPanel.getActionMap().put("Left", new AbstractAction() {public void actionPerformed(ActionEvent e) {if(down){Left();}}});
         lPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("RIGHT"), "Right");
-        lPanel.getActionMap().put("Right", new AbstractAction() {public void actionPerformed(ActionEvent e) {Right();}});
+        lPanel.getActionMap().put("Right", new AbstractAction() {public void actionPerformed(ActionEvent e) {if(down){Right();}}});
+        lPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("DOWN"), "Up");
+        lPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("UP"), "Up");
+        lPanel.getActionMap().put("Up", new AbstractAction() {public void actionPerformed(ActionEvent e) {Up();}});
     }
 
-    private void Left() {if(selBut-1 >= minSel) {selBut--;highlight(bb[selBut]);}}
+    private void Up()
+    {
+        if(down && !has(bb[0])) {highlight(bbExit);down = false;}
 
-    private void Right() {if(selBut+1 <= maxSel) {selBut++;highlight(bb[selBut]);}}
+        else if(!down && !has(bb[0]))
+        {
+            if(has(bb[3])) {highlight(bb[3]);}
 
+            else if(has(bb[6])) {highlight(bb[6]);}
+
+            else if(has(bb[9])) {highlight(bb[9]);}
+
+            else if(has(bb[12])) {highlight(bb[12]);}
+
+            else if(has(bb[15])) {highlight(bb[15]);}
+
+            else if(has(bb[18])) {highlight(bb[18]);}
+
+            down = true;
+        }
+    }
+
+    private void Left() {if(selBut-1 >= minSel && !paused) {selBut--;highlight(bb[selBut]);}}
+
+    private void Right() {if(selBut+1 <= maxSel && !paused) {selBut++;highlight(bb[selBut]);}}
+
+    //Handles the button selection
     private void Select(int x)
     {
-        if(x==0)
+        if(!paused && down)
         {
-            atk();
-            minSel = 5; maxSel = 6;
-            highlight(bb[5]);
+            if(x>=0 && x<=2)
+            {
+                if(x==0) {atk();minSel = 3; maxSel = 5;selBut = 3;highlight(bb[3]);}
+                else if(x==1) {skl();minSel = 9; maxSel = 11;selBut = 9;highlight(bb[9]);}
+                else if(x==2) {itm();minSel = 15; maxSel = 17;selBut = 15;highlight(bb[15]);}
+            }
+
+            else if(x>=3 && x<=8)
+            {
+                if(!bb[x].getText().equals("Next") && !bb[x].getText().equals("X")) {bb[x].doClick();}
+
+                else if(bb[x].getText().equals("Next"))
+                {
+                    if(x==5)
+                    {
+                        lPanel.remove(bb[3]);lPanel.remove(bb[4]);lPanel.remove(bb[5]);
+                        lPanel.add(bb[6]);lPanel.add(bb[7]);lPanel.add(bb[8]);
+                        minSel = 6; maxSel = 8;selBut = 8;highlight(bb[8]);
+                    }
+
+                    else
+                    {
+                        lPanel.remove(bb[6]);lPanel.remove(bb[7]);lPanel.remove(bb[8]);
+                        lPanel.add(bb[3]);lPanel.add(bb[4]);lPanel.add(bb[5]);
+                        minSel = 3; maxSel = 5;selBut = 5;highlight(bb[5]);
+                    }
+                }
+            }
+
+            else if(x>=9 && x<=14)
+            {
+                if(!bb[x].getText().equals("Next") && !bb[x].getText().equals("X")) {bb[x].doClick();}
+
+                else if(bb[x].getText().equals("Next"))
+                {
+                    if(x==11)
+                    {
+                        lPanel.remove(bb[9]);lPanel.remove(bb[10]);lPanel.remove(bb[11]);
+                        lPanel.add(bb[12]);lPanel.add(bb[13]);lPanel.add(bb[14]);
+                        minSel = 12; maxSel = 14;selBut = 14;highlight(bb[14]);
+                    }
+                    
+                    else
+                    {
+                        lPanel.remove(bb[12]);lPanel.remove(bb[13]);lPanel.remove(bb[14]);
+                        lPanel.add(bb[9]);lPanel.add(bb[10]);lPanel.add(bb[11]);
+                        minSel = 9; maxSel = 11;selBut = 11;highlight(bb[11]);
+                    }
+                }
+            }
+
+            else if(x>=15 && x<=20)
+            {
+                if(!bb[x].getText().equals("Next") && !bb[x].getText().equals("X")) {bb[x].doClick();}
+
+                else if(bb[x].getText().equals("Next"))
+                {
+                    if(x==17)
+                    {
+                        lPanel.remove(bb[15]);lPanel.remove(bb[16]);lPanel.remove(bb[17]);
+                        lPanel.add(bb[18]);lPanel.add(bb[19]);lPanel.add(bb[20]);
+                        minSel = 18; maxSel = 20;selBut = 20;highlight(bb[20]);
+                    }
+                    
+                    else
+                    {
+                        lPanel.remove(bb[18]);lPanel.remove(bb[19]);lPanel.remove(bb[20]);
+                        lPanel.add(bb[15]);lPanel.add(bb[16]);lPanel.add(bb[17]);
+                        minSel = 15; maxSel = 17;selBut = 17;highlight(bb[17]);
+                    }
+                }
+            }
         }
-        else if(x==1)
+        
+        else
         {
-            skl();
-        }
-        else if(x==2)
-        {
-            itm();
+            for(int i = 3; i<21; i++)
+            {
+                if(has(bb[i])) {lPanel.remove(bb[i]);}
+
+                lPanel.add(bb[0]);lPanel.add(bb[1]);lPanel.add(bb[2]);
+                minSel = 0;maxSel = 2;selBut = 0;highlight(bb[0]);
+            }
+
+            lPanel.remove(bbExit);lPanel.repaint();
         }
     }
-
-    private void atk() 
-    {
-        buttonHide();
-        lPanel.add(bbExit);
-        lPanel.add(bb[3]);
-        lPanel.add(bb[4]);
-        lPanel.add(bb[5]);
-        lPanel.add(bb[6]);
-        lPanel.repaint();
-    }
-
-    private void skl() {buttonHide();lPanel.add(bbExit);lPanel.add(bb[3]);lPanel.add(bb[7]);lPanel.add(bb[8]);lPanel.add(bb[9]);lPanel.repaint();}
-    private void itm() {buttonHide();lPanel.add(bbExit);lPanel.add(bb[3]);lPanel.add(bb[10]);lPanel.add(bb[11]);lPanel.add(bb[12]);lPanel.repaint();}
-    
 
     private void highlight(JButton x)
     {
@@ -275,32 +419,13 @@ public class GameGUI extends JFrame implements ActionListener
     private void battlePause()
     {
         lPanel.add(charSprite);
+        for(int i=0;i<3;i++) {if(has(bbE[i].enmButton)) {lPanel.add(bbE[i].enmButton);}}
         lPanel.add(bbE[0].enmButton);
         lPanel.add(bbE[1].enmButton);
         lPanel.add(bbE[2].enmButton);
+        if(has(bbExit)) {lPanel.add(bbExit);}
         if(has(tText)) {tText.setVisible(true);lPanel.add(tText);}
-        if(has(bb[4])) {bb[4].setVisible(true);lPanel.add(bb[4]);}
-
-        if(has(bbA[0]) || has(bbA[2]))
-        {
-            if(has(bbA[0])) {lPanel.add(bbA[0]);lPanel.add(bbA[1]);bbA[0].setVisible(true);bbA[1].setVisible(true);}
-
-            else {lPanel.add(bbA[2]);lPanel.add(bbA[3]);bbA[2].setVisible(true);bbA[3].setVisible(true);}
-        }
-        else if(has(bbS[0]) || has(bbS[2]))
-        {
-            if(has(bbS[0])) {lPanel.add(bbS[0]);lPanel.add(bbS[1]);bbS[0].setVisible(true);bbS[1].setVisible(true);}
-
-            else {lPanel.add(bbS[2]);lPanel.add(bbS[3]);bbS[2].setVisible(true);bbS[3].setVisible(true);}
-        }
-        else if(has(bbI[0]) || has(bbI[2]))
-        {
-            if(has(bbI[0])) {lPanel.add(bbI[0]);lPanel.add(bbI[1]);bbI[0].setVisible(true);bbI[1].setVisible(true);}
-
-            else {lPanel.add(bbI[2]);lPanel.add(bbI[3]);bbI[2].setVisible(true);bbI[3].setVisible(true);}
-        }
-
-        if(has(bb[3])) {lPanel.add(bb[3]);bb[3].setVisible(true);} if(has(bb[0])) {buttonShow();}
+        for(int i = 0; i<21; i++) {if(has(bb[i])) {lPanel.add(bb[i]);}}
     }
 
     private void battleHide()
@@ -334,56 +459,6 @@ public class GameGUI extends JFrame implements ActionListener
         if(has(bb[3])) {bb[3].setVisible(false);} if(has(bb[0])) {for(int i=0; i<3; i++) {bb[i].setVisible(false);}}
     }
     
-    private void bbNext()
-    {
-        if(has(bbA[0]) || has(bbA[2]))
-        {
-            if(has(bbA[0])) {lPanel.remove(bbA[0]);lPanel.remove(bbA[1]);lPanel.add(bbA[2]);lPanel.add(bbA[3]);lPanel.repaint();}
-
-            else {lPanel.add(bbA[0]);lPanel.add(bbA[1]);lPanel.remove(bbA[2]);lPanel.remove(bbA[3]);lPanel.repaint();}
-        }
-        
-        else if(has(bbS[0]) || has(bbS[2]))
-        {
-            if(has(bbS[0])) {lPanel.remove(bbS[0]);lPanel.remove(bbS[1]);lPanel.add(bbS[2]);lPanel.add(bbS[3]);lPanel.repaint();}
-
-            else {lPanel.add(bbS[0]);lPanel.add(bbS[1]);lPanel.remove(bbS[2]);lPanel.remove(bbS[3]);lPanel.repaint();}
-        }
-
-        else if(has(bbI[0]) || has(bbI[2]))
-        {
-            if(has(bbI[0])) {lPanel.remove(bbI[0]);lPanel.remove(bbI[1]);lPanel.add(bbI[2]);lPanel.add(bbI[3]);lPanel.repaint();}
-
-            else {lPanel.add(bbI[0]);lPanel.add(bbI[1]);lPanel.remove(bbI[2]);lPanel.remove(bbI[3]);lPanel.repaint();}
-        }
-    }
-
-    private void actBack()
-    {
-        if(has(bbA[0]) || has(bbA[2]))
-        {
-            if(has(bbA[0])) {lPanel.remove(bbA[0]);lPanel.remove(bbA[1]);}
-
-            else {lPanel.remove(bbA[2]);lPanel.remove(bbA[3]);}
-        }
-        
-        else if(has(bbS[0]) || has(bbS[2]))
-        {
-            if(has(bbS[0])) {lPanel.remove(bbS[0]);lPanel.remove(bbS[1]);}
-
-            else {lPanel.remove(bbS[2]);lPanel.remove(bbS[3]);}
-        }
-        
-        else if(has(bbI[0]) || has(bbI[2]))
-        {
-            if(has(bbI[0])) {lPanel.remove(bbI[0]);lPanel.remove(bbI[1]);}
-
-            else {lPanel.remove(bbI[2]);lPanel.remove(bbI[3]);}
-        }
-
-        lPanel.remove(bb[4]);lPanel.remove(bb[3]);buttonShow();lPanel.repaint();
-    }
-
     public void actionPerformed(ActionEvent e)
     {
         JButton j = (JButton)(e.getSource());
@@ -394,11 +469,13 @@ public class GameGUI extends JFrame implements ActionListener
         
         else if(j.equals(vole)) {if(character.getVol()+25>100) {character.setVol(0);}else{character.setVol(character.getVol()+25);}vole.setText(String.valueOf(character.getVol()));}
 
-        else if(j.equals(bbE[0].enmButton)) {enmSel(0);}
-        
-        else if(j.equals(bbE[1].enmButton)) {enmSel(1);}
-        
-        else if(j.equals(bbE[2].enmButton)) {enmSel(2);}
+        else if(j.equals(bb[3])) {System.out.println("1");}
+
+        else if(j.equals(bb[4])) {System.out.println("2");}
+
+        else if(j.equals(bb[6])) {System.out.println("3");}
+
+        else if(j.equals(bb[7])) {System.out.println("4");}
     }
 
     private void battleButtons() {enmBattleButtons();actBattleButtons();}
@@ -412,4 +489,7 @@ public class GameGUI extends JFrame implements ActionListener
     private void enmSel(int x) {for(int i=0;i<3;i++) {bbE[i].select(false);} bbE[x].select(true);lPanel.repaint();}
     private void battleImg() {charSprite = bGUI.battleImg(character);lPanel.add(charSprite);}
     private void enmBattleButtons() {bbE = bGUI.enmBattleButtons(); for(int i=0; i<3; i++) {bbE[i].enmButton.setVisible(true);bbE[i].enmButton.addActionListener(this);lPanel.add(bbE[i].enmButton);}}
+    private void atk() {buttonHide();lPanel.add(bbExit);lPanel.add(bb[3]);lPanel.add(bb[4]);lPanel.add(bb[5]);lPanel.repaint();}
+    private void skl() {buttonHide();lPanel.add(bbExit);lPanel.add(bb[9]);lPanel.add(bb[10]);lPanel.add(bb[11]);lPanel.repaint();}
+    private void itm() {buttonHide();lPanel.add(bbExit);lPanel.add(bb[15]);lPanel.add(bb[16]);lPanel.add(bb[17]);lPanel.repaint();}
 }

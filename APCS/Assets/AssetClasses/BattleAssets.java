@@ -35,7 +35,7 @@ public class BattleAssets
 
     public JButton[] actBattleButtons()
     {
-        JButton[] temp = new JButton[22];
+        JButton[] temp = new JButton[21];
         for(int i=0; i<3; i++)
         {
             temp[i] = new JButton();temp[i].setBackground(new Color(179, 9, 9));

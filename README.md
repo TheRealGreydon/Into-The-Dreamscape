@@ -153,4 +153,6 @@ Change Log
 -Reworked menu and credits
 -Menu and credits now match sizing
 -Looks much cleaner
+-V.10.1-
+-Buttons now mostly arrow keys
 -Nicholas-
