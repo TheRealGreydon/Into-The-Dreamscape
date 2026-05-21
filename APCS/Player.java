@@ -74,7 +74,9 @@ public class Player
 
     public int getHealth() {return hp;}
 
-    public void resetHp() {hp=9+lvl+(getHp()*2);}
+    public void resetHP() {hp=9+lvl+(getHp()*2);}
+
+    public void reset() {resetHP();curLev = 0; curStage = 0;}
 
     public int getCurLev() {return curLev;}
 

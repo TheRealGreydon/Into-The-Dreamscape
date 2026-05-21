@@ -34,6 +34,7 @@ public class GameGUI extends JFrame implements ActionListener
     private JButton vole = new JButton();
     private boolean paused = false;
     private JButton lose = new JButton();
+    private JButton win = new JButton();
 
     private JLabel tText = new JLabel();
     private int count = 0;
@@ -455,14 +456,9 @@ public class GameGUI extends JFrame implements ActionListener
                     lPanel.add(tText);lPanel.repaint();}
                     else{if(count==b.length+10) 
                     {
-                        if(character.isAlive())
-                        {
-                            lPanel.remove(tText);lPanel.repaint();timer.cancel();enmBattlePhaze();
-                        }
-                        else
-                        {
-                            lose();timer.cancel();
-                        }
+                        if(character.isAlive()) {lPanel.remove(tText);lPanel.repaint();timer.cancel();enmBattlePhaze();}
+
+                        else {lose();timer.cancel();}
                     }}count++;
                 }}};
 
@@ -471,9 +467,38 @@ public class GameGUI extends JFrame implements ActionListener
 
         else if(looped<2) {looped++;enmBattlePhaze();}
 
-        else if(!bbE[0].Enm.isAlive() && !bbE[1].Enm.isAlive() && !bbE[2].Enm.isAlive()) {System.out.println("WIN");}
+        else if(!bbE[0].Enm.isAlive() && !bbE[1].Enm.isAlive() && !bbE[2].Enm.isAlive()) {win();}
     }    
     
+    private void win()
+    {
+        if(character.getStage() + 1 != 2) {character.setStage(character.getStage()+1);}
+
+        else{character.setStage(0);character.setCurLev(character.getCurLev()+1);}
+
+        lPanel.remove(tText);lPanel.repaint();
+        lPanel.getActionMap().clear();highlight(-2);
+        
+        win = new JButton();
+        win.setBackground(new Color(0,0,0));
+        win.setSize(new Dimension(200,100));
+        win.setEnabled(true);
+        win.setVisible(true);
+        win.setForeground(Color.white);
+        win.setFont(new Font(win.getFont().getName(), Font.BOLD, 40));
+        win.setText("Next");
+        win.setFocusable(false);
+        win.addActionListener(this);
+        win.setLocation(650,350); 
+        pause();
+        lPanel.add(win);
+        lPanel.setComponentZOrder(win, 1);
+        lPanel.remove(settings);
+        lPanel.remove(exit);
+        pau.setText("You Win");
+        lPanel.repaint();
+    }
+
     private void lose()
     {
         lPanel.remove(tText);lPanel.repaint();
@@ -486,7 +511,7 @@ public class GameGUI extends JFrame implements ActionListener
         lose.setVisible(true);
         lose.setForeground(Color.white);
         lose.setFont(new Font(lose.getFont().getName(), Font.BOLD, 40));
-        lose.setText("Menu");
+        lose.setText("Back");
         lose.setFocusable(false);
         lose.addActionListener(this);
         lose.setLocation(650,350); 
@@ -525,7 +550,9 @@ public class GameGUI extends JFrame implements ActionListener
 
         else if(j.equals(bb[13])) {playTurn(1,3);}
 
-        else if(j.equals(lose)) {character.resetHp();close();lGUI = new LevelSelGUI(character);lGUI.displayGame();}
+        else if(j.equals(win)) {character.resetHP();close();lGUI = new LevelSelGUI(character);lGUI.displayGame();}
+
+        else if(j.equals(lose)) {character.reset();close();lGUI = new LevelSelGUI(character);lGUI.displayGame();}
     }
 
     private void battleButtons() {enmBattleButtons();actBattleButtons();}
@@ -595,9 +622,6 @@ public class GameGUI extends JFrame implements ActionListener
             vole.setVisible(false);vole.setEnabled(false);
             lPanel.add(charSprite);
             for(int i=0;i<3;i++) {if(has(bbE[i].enmButton)) {lPanel.add(bbE[i].enmButton);}}
-            lPanel.add(bbE[0].enmButton);
-            lPanel.add(bbE[1].enmButton);
-            lPanel.add(bbE[2].enmButton);
             if(has(bbExit)) {lPanel.add(bbExit);}
             if(has(tText)) {tText.setVisible(true);lPanel.add(tText);}
             for(int i = 0; i<21; i++) {if(has(bb[i])) {lPanel.add(bb[i]);}}
@@ -613,16 +637,12 @@ public class GameGUI extends JFrame implements ActionListener
             lPanel.add(settings);lPanel.add(exit);lPanel.add(pau);
             lPanel.add(charSprite);
             for(int i=0;i<3;i++) {if(has(bbE[i].enmButton)) {lPanel.add(bbE[i].enmButton);}}
-            lPanel.add(bbE[0].enmButton);
-            lPanel.add(bbE[1].enmButton);
-            lPanel.add(bbE[2].enmButton);
             if(has(bbExit)) {lPanel.add(bbExit);}
             if(has(tText)) {tText.setVisible(true);lPanel.add(tText);}
             for(int i = 0; i<21; i++) {if(has(bb[i])) {lPanel.add(bb[i]);}}
             exit.setLocation((lPanel.getWidth()/2)-100, (lPanel.getHeight()/2));
             settings.setLocation((lPanel.getWidth()/2-100), (lPanel.getHeight()/2-100));settings.setVisible(true);settings.setEnabled(true);
-            exit.setVisible(true);exit.setEnabled(true);exit.setText("Exit");
-            pau.setVisible(true);
+            exit.setVisible(true);exit.setEnabled(true);exit.setText("Exit");pau.setVisible(true);
         }
     }    
     private void settings()

@@ -11,7 +11,7 @@ public class HemoNeedle implements enm
     private boolean alive = true;
     public Atk[] atks = enm.atks;
 
-    public HemoNeedle(int lvl) {this.lvl = lvl;hp = 3 + (2*lvl); atks[1] = new bloodDraw();}
+    public HemoNeedle(int lvl) {this.lvl = lvl;hp = /*3*/0 + (2*lvl); atks[1] = new bloodDraw();}
 
     public String getName() {return name;}
 
