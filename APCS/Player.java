@@ -32,6 +32,8 @@ public class Player
         spriteInit();
     }
     
+    public void nextLvl() {if(curStage + 1 >2) {curStage = 0;curLev++;} else {curStage++;}}
+
     public boolean isAlive() {return alive;}
 
     public void setName(String x) {name = x;}

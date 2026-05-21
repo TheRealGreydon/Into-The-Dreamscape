@@ -24,27 +24,31 @@ public class GameGUI extends JFrame implements ActionListener
     private JButton [] bb;
     private JButton bbExit;
     private disEnm [] bbE;
-    //Yes, these arn't labled. Yes, these are IMPORTANT
+    //Not entierly sure what this is but its important
     private int y;
 
+    //Pause items
     private JButton pau = new JButton();
     private JButton set = new JButton();
     private JButton exit = new JButton();
     private JButton settings = new JButton();
     private JButton vole = new JButton();
     private boolean paused = false;
+
+    //Win/Lose buttons
     private JButton lose = new JButton();
     private JButton win = new JButton();
 
+    //Control the scrolling text
     private JLabel tText = new JLabel();
     private int count = 0;
     private int looped = 0;
     private int wideLoop = 0;
     private String [] b;
 
+    //Control the selected button/enm
     private boolean selingEnmAtk = false;
     private int selEnm = 0;
-
     private int selBut = 0;
     private int minSel = 0;
     private int maxSel = 2;
@@ -52,12 +56,14 @@ public class GameGUI extends JFrame implements ActionListener
 
     public GameGUI(Player character) {this.character = character;}
 
+    //Makes the game
     public void start()
     {
         lPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/Battle Level/BB" + ((int)(Math.random()*4 + 1)) +".png").getImage(), 0);
         close();this.setLocationRelativeTo(null);displayGame();battleInit();
     }
 
+    //Initilizes the battle items
     private void battleInit()
     {
         this.pack();
@@ -67,11 +73,14 @@ public class GameGUI extends JFrame implements ActionListener
         lPanel.setLayout(null);
         this.setSize(1500, 800);
         battleImg();
-        battleButtons();
-        lPanel.revalidate(); lPanel.repaint();
+        enmBattleButtons();
+        actBattleButtons();
+        lPanel.revalidate();
+        lPanel.repaint();
         keyActions();
     }
 
+    //Runs the players turn
     private void playTurn(int type, int num)
     {
         if(type == 0) {if(!character.atks[num].swing()){atkSel(num);} else {wideLoop = 0;turnPhaze(character.atks[num]);}}
@@ -79,6 +88,7 @@ public class GameGUI extends JFrame implements ActionListener
         else if(type ==2) {}
     }
 
+    //Attack, skill, and item buttons
     private void atkBattleButtons() 
     {
         int x=0;
@@ -142,6 +152,7 @@ public class GameGUI extends JFrame implements ActionListener
         }
     }
 
+    //Keybinds
     private void keyActions() 
     {
         lPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ESCAPE"), "Pause");
@@ -158,6 +169,7 @@ public class GameGUI extends JFrame implements ActionListener
         lPanel.getActionMap().put("Down", new AbstractAction() {public void actionPerformed(ActionEvent e) {Down();}});
     }
 
+    //Left, Right, Up and Down keybind actions
     private void Up()
     {
         if(!has(tText))
@@ -359,6 +371,7 @@ public class GameGUI extends JFrame implements ActionListener
         }
     }
 
+    //Selects the enm during a single enm attack
     private void atkSel(int y) 
     {
         selingEnmAtk = true;
@@ -583,7 +596,7 @@ public class GameGUI extends JFrame implements ActionListener
         }
     }
 
-    //Buttons
+    //Button actions
     public void actionPerformed(ActionEvent e)
     {
         JButton j = (JButton)(e.getSource());
@@ -610,25 +623,22 @@ public class GameGUI extends JFrame implements ActionListener
 
         else if(j.equals(bb[13])) {playTurn(1,3);}
 
-        else if(j.equals(win)) {character.resetHP();close();lGUI = new LevelSelGUI(character);lGUI.displayGame();}
+        else if(j.equals(win)) {character.nextLvl();character.resetHP();close();lGUI = new LevelSelGUI(character);lGUI.displayGame();}
 
         else if(j.equals(lose)) {character.reset();close();lGUI = new LevelSelGUI(character);lGUI.displayGame();}
     }
 
-    private void battleButtons() {enmBattleButtons();actBattleButtons();}
-    private void displayGame() {initialize();java.awt.EventQueue.invokeLater(new Runnable() {public void run() {setVisible(true);}});}
-    private void initialize() {setDefaultCloseOperation(EXIT_ON_CLOSE);this.pack();this.setTitle("Into the Dreamscape");this.setVisible(true);this.setResizable(true);this.pack();}
+    //Various helpers
+    private void displayGame() {setDefaultCloseOperation(EXIT_ON_CLOSE);this.pack();this.setTitle("Into the Dreamscape");this.setVisible(true);this.setResizable(true);this.pack();java.awt.EventQueue.invokeLater(new Runnable() {public void run() {setVisible(true);}});}
     private void close() {Window[] windows = Window.getWindows(); for (Window window : windows) {if (window != null) {window.dispose();}}}
     private boolean has(Component x) {for (Component c : lPanel.getComponents()) {if (c == x) {return true;}} return false;}
-    private void exit() {if(set.isVisible()) {pause();} else {}}//levExit();}}
-    private void buttonHide() {for(int i=0; i<3; i++) {lPanel.remove(bb[i]);}}
-    private void buttonShow() {for(int i=0; i<3; i++) {bb[i].setVisible(true);lPanel.add(bb[i]);}}
+    private void exit() {if(set.isVisible()) {pause();} else {}}
     private void battleImg() {charSprite = bGUI.battleImg(character);lPanel.add(charSprite);}
     private void enmBattleButtons() {bbE = bGUI.enmBattleButtons(); for(int i=0; i<3; i++) {bbE[i].enmButton.setVisible(true);bbE[i].enmButton.addActionListener(this);lPanel.add(bbE[i].enmButton);}}
-    private void atk() {buttonHide();lPanel.add(bbExit);lPanel.add(bb[3]);lPanel.add(bb[4]);lPanel.add(bb[5]);lPanel.repaint();}
-    private void skl() {buttonHide();lPanel.add(bbExit);lPanel.add(bb[9]);lPanel.add(bb[10]);lPanel.add(bb[11]);lPanel.repaint();}
-    private void itm() {buttonHide();lPanel.add(bbExit);lPanel.add(bb[15]);lPanel.add(bb[16]);lPanel.add(bb[17]);lPanel.repaint();}
-    private void actBattleButtons() {bb = bGUI.actBattleButtons();highlight(0);buttonShow();pauButtons();atkBattleButtons();sklBattleButtons();itmBattleButtons();}
+    private void atk() {for(int i=0; i<3; i++) {lPanel.remove(bb[i]);}lPanel.add(bbExit);lPanel.add(bb[3]);lPanel.add(bb[4]);lPanel.add(bb[5]);lPanel.repaint();}
+    private void skl() {for(int i=0; i<3; i++) {lPanel.remove(bb[i]);}lPanel.add(bbExit);lPanel.add(bb[9]);lPanel.add(bb[10]);lPanel.add(bb[11]);lPanel.repaint();}
+    private void itm() {for(int i=0; i<3; i++) {lPanel.remove(bb[i]);}lPanel.add(bbExit);lPanel.add(bb[15]);lPanel.add(bb[16]);lPanel.add(bb[17]);lPanel.repaint();}
+    private void actBattleButtons() {bb = bGUI.actBattleButtons();highlight(0);for(int i=0; i<3; i++) {bb[i].setVisible(true);lPanel.add(bb[i]);}pauButtons();atkBattleButtons();sklBattleButtons();itmBattleButtons();}
     private void highlight(int x)
     {
         for (Component c : lPanel.getComponents()) {if (c instanceof JButton && !c.equals(exit) && !c.equals(settings) && !c.equals(vole)

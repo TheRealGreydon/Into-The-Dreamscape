@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import APCS.*;
-import APCS.Assets.AssetClasses.*;
 
 public class MainGUI extends JFrame implements ActionListener
 {
@@ -149,5 +148,6 @@ public class MainGUI extends JFrame implements ActionListener
         else if(j.equals(buttons[3])) {panSet(cPanel, mPanel);}
     }
 
+    //Sets panel to a new panel
     private void panSet(JPanel x, JPanel y) {this.remove(x);this.add(y);y.revalidate();y.repaint();}
 }
