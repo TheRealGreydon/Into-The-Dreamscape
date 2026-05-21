@@ -13,4 +13,8 @@ public class bEAtk implements Atk
     public int status() {return 0;}
 
     public boolean spc() {return false;}   
+
+    public boolean swing() {return false;}
+
+    public int acur() {return 100;}
 }

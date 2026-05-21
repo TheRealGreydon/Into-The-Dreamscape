@@ -11,4 +11,8 @@ public interface Atk
     public int getDmgType();
 
     public int status();
+
+    public boolean swing();
+
+    public int acur();
 }

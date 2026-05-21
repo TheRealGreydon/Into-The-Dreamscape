@@ -39,6 +39,7 @@ public class GameGUI extends JFrame implements ActionListener
     private JLabel tText = new JLabel();
     private int count = 0;
     private int looped = 0;
+    private int wideLoop = 0;
     private String [] b;
 
     private boolean selingEnmAtk = false;
@@ -73,7 +74,7 @@ public class GameGUI extends JFrame implements ActionListener
 
     private void playTurn(int type, int num)
     {
-        if(type == 0) {atkSel(num);}
+        if(type == 0) {if(!character.atks[num].swing()){atkSel(num);} else {wideLoop = 0;turnPhaze(character.atks[num]);}}
         else if(type == 1) {turnPhaze(character.skls[y]);}
         else if(type ==2) {}
     }
@@ -159,193 +160,202 @@ public class GameGUI extends JFrame implements ActionListener
 
     private void Up()
     {
-        if(!selingEnmAtk && !paused)
+        if(!has(tText))
         {
-            if(down && !has(bb[0])) {highlight(-1);down = false;}
-
-            else if(!down && !has(bb[0]))
+            if(!selingEnmAtk && !paused)
             {
-                if(has(bb[3])) {highlight(3);}
+                if(down && !has(bb[0])) {highlight(-1);down = false;}
 
-                else if(has(bb[6])) {highlight(6);}
-
-                else if(has(bb[9])) {highlight(9);}
-
-                else if(has(bb[12])) {highlight(12);}
-
-                else if(has(bb[15])) {highlight(15);}
-
-                else if(has(bb[18])) {highlight(18);}
-
-                down = true;
-            }
-        }
-
-        else if(!paused) 
-        {
-            if(selEnm - 1>=0 && bbE[selEnm - 1].Enm.isAlive() || selEnm - 2>=0 && bbE[selEnm - 2].Enm.isAlive()) 
-            {
-                if(selEnm - 1>=0 && bbE[selEnm - 1].Enm.isAlive()){selEnm--;}
-
-                else {selEnm -= 2;}
-
-                for(int i=0; i<3; i++) 
+                else if(!down && !has(bb[0]))
                 {
-                    bbE[i].select(false);
-                } 
-                bbE[selEnm].select(true);
+                    if(has(bb[3])) {highlight(3);}
+
+                    else if(has(bb[6])) {highlight(6);}
+
+                    else if(has(bb[9])) {highlight(9);}
+
+                    else if(has(bb[12])) {highlight(12);}
+
+                    else if(has(bb[15])) {highlight(15);}
+
+                    else if(has(bb[18])) {highlight(18);}
+
+                    down = true;
+                }
+            }
+
+            else if(!paused) 
+            {
+                if(selEnm - 1>=0 && bbE[selEnm - 1].Enm.isAlive() || selEnm - 2>=0 && bbE[selEnm - 2].Enm.isAlive()) 
+                {
+                    if(selEnm - 1>=0 && bbE[selEnm - 1].Enm.isAlive()){selEnm--;}
+
+                    else {selEnm -= 2;}
+
+                    for(int i=0; i<3; i++) 
+                    {
+                        bbE[i].select(false);
+                    } 
+                    bbE[selEnm].select(true);
+                }
             }
         }
     }
 
     private void Down()
     {
-        if(!selingEnmAtk && !paused)
+        if(!has(tText))
         {
-            if(down && !has(bb[0])) {highlight(-1);down = false;}
-
-            else if(!down && !has(bb[0]))
+            if(!selingEnmAtk && !paused)
             {
-                if(has(bb[3])) {highlight(3);}
-            
-                else if(has(bb[6])) {highlight(6);}
-            
-                else if(has(bb[9])) {highlight(9);}
-            
-                else if(has(bb[12])) {highlight(12);}
-            
-                else if(has(bb[15])) {highlight(15);}
-            
-                else if(has(bb[18])) {highlight(18);}
-            
-                down = true;
-            }
-        }
+                if(down && !has(bb[0])) {highlight(-1);down = false;}
 
-        else if(!paused) 
-        {
-            if(selEnm + 1<=2 && bbE[selEnm + 1].Enm.isAlive() || selEnm + 2<=2 && bbE[selEnm + 2].Enm.isAlive()) 
-            {
-                if(selEnm + 1<=2 && bbE[selEnm + 1].Enm.isAlive()){selEnm++;}
-
-                else {selEnm += 2;}
-
-                for(int i=0; i<3; i++) 
+                else if(!down && !has(bb[0]))
                 {
-                    bbE[i].select(false);
-                } 
-                bbE[selEnm].select(true);
+                    if(has(bb[3])) {highlight(3);}
+                
+                    else if(has(bb[6])) {highlight(6);}
+                
+                    else if(has(bb[9])) {highlight(9);}
+                
+                    else if(has(bb[12])) {highlight(12);}
+                
+                    else if(has(bb[15])) {highlight(15);}
+                
+                    else if(has(bb[18])) {highlight(18);}
+                
+                    down = true;
+                }
+            }
+
+            else if(!paused) 
+            {
+                if(selEnm + 1<=2 && bbE[selEnm + 1].Enm.isAlive() || selEnm + 2<=2 && bbE[selEnm + 2].Enm.isAlive()) 
+                {
+                    if(selEnm + 1<=2 && bbE[selEnm + 1].Enm.isAlive()){selEnm++;}
+
+                    else {selEnm += 2;}
+
+                    for(int i=0; i<3; i++) 
+                    {
+                        bbE[i].select(false);
+                    } 
+                    bbE[selEnm].select(true);
+                }
             }
         }
     }
 
-    private void Left() {if(selBut-1 >= minSel && !paused && !selingEnmAtk) {selBut--;highlight(selBut);}}
+    private void Left() {if(!has(tText)){if(selBut-1 >= minSel && !paused && !selingEnmAtk) {selBut--;highlight(selBut);}}}
 
-    private void Right() {if(selBut+1 <= maxSel && !paused && !selingEnmAtk) {selBut++;highlight(selBut);}}
+    private void Right() {if(!has(tText)){if(selBut+1 <= maxSel && !paused && !selingEnmAtk) {selBut++;highlight(selBut);}}}
 
     //Handles the button selection
     private void Select(int x)
     {
-        if(!paused && !selingEnmAtk)
+        if(!has(tText))
         {
-            if(down)
+            if(!paused && !selingEnmAtk)
             {
-                if(x>=0 && x<=2)
+                if(down)
                 {
-                    if(x==0) {atk();minSel = 3; maxSel = 5;selBut = 3;highlight(3);}
-                    else if(x==1) {skl();minSel = 9; maxSel = 11;selBut = 9;highlight(9);}
-                    else if(x==2) {itm();minSel = 15; maxSel = 17;selBut = 15;highlight(15);}
-                }
-
-                else if(x>=3 && x<=8)
-                {
-                    if(!bb[x].getText().equals("Next") && !bb[x].getText().equals("X")) {bb[x].doClick();}
-
-                    else if(bb[x].getText().equals("Next"))
+                    if(x>=0 && x<=2)
                     {
-                        if(x==5)
-                        {
-                            lPanel.remove(bb[3]);lPanel.remove(bb[4]);lPanel.remove(bb[5]);
-                            lPanel.add(bb[6]);lPanel.add(bb[7]);lPanel.add(bb[8]);
-                            minSel = 6; maxSel = 8;selBut = 8;highlight(8);
-                        }
+                        if(x==0) {atk();minSel = 3; maxSel = 5;selBut = 3;highlight(3);}
+                        else if(x==1) {skl();minSel = 9; maxSel = 11;selBut = 9;highlight(9);}
+                        else if(x==2) {itm();minSel = 15; maxSel = 17;selBut = 15;highlight(15);}
+                    }
 
-                        else
+                    else if(x>=3 && x<=8)
+                    {
+                        if(!bb[x].getText().equals("Next") && !bb[x].getText().equals("X")) {bb[x].doClick();}
+
+                        else if(bb[x].getText().equals("Next"))
                         {
-                            lPanel.remove(bb[6]);lPanel.remove(bb[7]);lPanel.remove(bb[8]);
-                            lPanel.add(bb[3]);lPanel.add(bb[4]);lPanel.add(bb[5]);
-                            minSel = 3; maxSel = 5;selBut = 5;highlight(5);
+                            if(x==5)
+                            {
+                                lPanel.remove(bb[3]);lPanel.remove(bb[4]);lPanel.remove(bb[5]);
+                                lPanel.add(bb[6]);lPanel.add(bb[7]);lPanel.add(bb[8]);
+                                minSel = 6; maxSel = 8;selBut = 8;highlight(8);
+                            }
+
+                            else
+                            {
+                                lPanel.remove(bb[6]);lPanel.remove(bb[7]);lPanel.remove(bb[8]);
+                                lPanel.add(bb[3]);lPanel.add(bb[4]);lPanel.add(bb[5]);
+                                minSel = 3; maxSel = 5;selBut = 5;highlight(5);
+                            }
+                        }
+                    }
+
+                    else if(x>=9 && x<=14)
+                    {
+                        if(!bb[x].getText().equals("Next") && !bb[x].getText().equals("X")) {bb[x].doClick();}
+
+                        else if(bb[x].getText().equals("Next"))
+                        {
+                            if(x==11)
+                            {
+                                lPanel.remove(bb[9]);lPanel.remove(bb[10]);lPanel.remove(bb[11]);
+                                lPanel.add(bb[12]);lPanel.add(bb[13]);lPanel.add(bb[14]);
+                                minSel = 12; maxSel = 14;selBut = 14;highlight(14);
+                            }
+
+                            else
+                            {
+                                lPanel.remove(bb[12]);lPanel.remove(bb[13]);lPanel.remove(bb[14]);
+                                lPanel.add(bb[9]);lPanel.add(bb[10]);lPanel.add(bb[11]);
+                                minSel = 9; maxSel = 11;selBut = 11;highlight(11);
+                            }
+                        }
+                    }
+
+                    else if(x>=15 && x<=20)
+                    {
+                        if(!bb[x].getText().equals("Next") && !bb[x].getText().equals("X")) {bb[x].doClick();}
+
+                        else if(bb[x].getText().equals("Next"))
+                        {
+                            if(x==17)
+                            {
+                                lPanel.remove(bb[15]);lPanel.remove(bb[16]);lPanel.remove(bb[17]);
+                                lPanel.add(bb[18]);lPanel.add(bb[19]);lPanel.add(bb[20]);
+                                minSel = 18; maxSel = 20;selBut = 20;highlight(20);
+                            }
+
+                            else
+                            {
+                                lPanel.remove(bb[18]);lPanel.remove(bb[19]);lPanel.remove(bb[20]);
+                                lPanel.add(bb[15]);lPanel.add(bb[16]);lPanel.add(bb[17]);
+                                minSel = 15; maxSel = 17;selBut = 17;highlight(17);
+                            }
                         }
                     }
                 }
 
-                else if(x>=9 && x<=14)
+                else
                 {
-                    if(!bb[x].getText().equals("Next") && !bb[x].getText().equals("X")) {bb[x].doClick();}
-
-                    else if(bb[x].getText().equals("Next"))
+                    for(int i = 3; i<21; i++)
                     {
-                        if(x==11)
-                        {
-                            lPanel.remove(bb[9]);lPanel.remove(bb[10]);lPanel.remove(bb[11]);
-                            lPanel.add(bb[12]);lPanel.add(bb[13]);lPanel.add(bb[14]);
-                            minSel = 12; maxSel = 14;selBut = 14;highlight(14);
-                        }
+                        if(has(bb[i])) {lPanel.remove(bb[i]);}
 
-                        else
-                        {
-                            lPanel.remove(bb[12]);lPanel.remove(bb[13]);lPanel.remove(bb[14]);
-                            lPanel.add(bb[9]);lPanel.add(bb[10]);lPanel.add(bb[11]);
-                            minSel = 9; maxSel = 11;selBut = 11;highlight(11);
-                        }
+                        lPanel.add(bb[0]);lPanel.add(bb[1]);lPanel.add(bb[2]);
+                        minSel = 0;maxSel = 2;selBut = 0;highlight(0);down = true;
                     }
-                }
 
-                else if(x>=15 && x<=20)
-                {
-                    if(!bb[x].getText().equals("Next") && !bb[x].getText().equals("X")) {bb[x].doClick();}
-
-                    else if(bb[x].getText().equals("Next"))
-                    {
-                        if(x==17)
-                        {
-                            lPanel.remove(bb[15]);lPanel.remove(bb[16]);lPanel.remove(bb[17]);
-                            lPanel.add(bb[18]);lPanel.add(bb[19]);lPanel.add(bb[20]);
-                            minSel = 18; maxSel = 20;selBut = 20;highlight(20);
-                        }
-
-                        else
-                        {
-                            lPanel.remove(bb[18]);lPanel.remove(bb[19]);lPanel.remove(bb[20]);
-                            lPanel.add(bb[15]);lPanel.add(bb[16]);lPanel.add(bb[17]);
-                            minSel = 15; maxSel = 17;selBut = 17;highlight(17);
-                        }
-                    }
+                    lPanel.remove(bbExit);lPanel.repaint();
                 }
             }
-
-            else
+        
+            else if(!paused && selingEnmAtk)
             {
-                for(int i = 3; i<21; i++)
-                {
-                    if(has(bb[i])) {lPanel.remove(bb[i]);}
+                int z = -1;
+                for(int i=0; i<3;i++) {if(bbE[i].selected) {z = i;}}
 
-                    lPanel.add(bb[0]);lPanel.add(bb[1]);lPanel.add(bb[2]);
-                    minSel = 0;maxSel = 2;selBut = 0;highlight(0);down = true;
-                }
+                if(z != -1) {bbE[z].select(false); turnPhaze(bbE[z], character.atks[y]);selingEnmAtk = false;}
 
-                lPanel.remove(bbExit);lPanel.repaint();
+                highlight(selBut);
             }
-        }
-    
-        else if(!paused && selingEnmAtk)
-        {
-            int z = -1;
-            for(int i=0; i<3;i++) {if(bbE[i].selected) {z = i;}}
-
-            if(z != -1) {bbE[z].select(false); turnPhaze(bbE[z], character.atks[y]);selingEnmAtk = false;}
-
-            highlight(selBut);
         }
     }
 
@@ -372,6 +382,7 @@ public class GameGUI extends JFrame implements ActionListener
         }
     }
 
+    //Player used attack
     private void turnPhaze(disEnm x, Atk y)
     {
         count = 0;
@@ -404,6 +415,44 @@ public class GameGUI extends JFrame implements ActionListener
         timer.scheduleAtFixedRate(task, 0, 100);
     }
 
+    //Player used attak that hits all enm
+    private void turnPhaze(Atk y)
+    {
+        count = 0;
+        tText.setText("");
+        tText.setLocation(350, 120);
+        tText.setOpaque(true);
+        tText.setBackground(Color.WHITE);
+        tText.setFont(new Font(tText.getFont().getName(), Font.BOLD, 40));
+        Timer timer = new Timer();
+        if(wideLoop <=2 && bbE[wideLoop].Enm.isAlive()) 
+        {
+            b = new BattleAssets().attack(bbE[wideLoop].Enm, y).split("");
+            TimerTask task = new TimerTask()
+            {public void run() 
+                {if(!paused)
+                {
+                    if(count<b.length) {lPanel.remove(tText);tText.setText(tText.getText() + b[count]);
+                    tText.setSize(tText.getPreferredSize());tText.setSize(tText.getWidth()+10, tText.getHeight());
+                    lPanel.add(tText);lPanel.repaint();}
+                    else{if(count==b.length+10) 
+                    {
+                        if(!bbE[wideLoop].Enm.isAlive()) {lPanel.remove(bbE[wideLoop].enmButton);}
+                        lPanel.remove(tText);lPanel.repaint();timer.cancel();if(wideLoop<2){turnPhaze(y);}
+                        else {looped = 0; enmBattlePhaze();}
+                    }}count++;
+                }}};
+
+            lPanel.add(tText);timer.scheduleAtFixedRate(task, 0, 100);
+        }
+
+        else if(wideLoop <2)
+        {
+            wideLoop++;turnPhaze(y);
+        }
+    }
+
+    //Player used skill
     private void turnPhaze(Skills y)
     {
         count = 0;
@@ -433,6 +482,7 @@ public class GameGUI extends JFrame implements ActionListener
         lPanel.add(tText);timer.scheduleAtFixedRate(task, 0, 100);
     }
 
+    //Enm turn, also handles winning/losing
     private void enmBattlePhaze()
     {
         count = 0;
@@ -458,7 +508,7 @@ public class GameGUI extends JFrame implements ActionListener
                     {
                         if(character.isAlive()) {lPanel.remove(tText);lPanel.repaint();timer.cancel();enmBattlePhaze();}
 
-                        else {lose();timer.cancel();}
+                        else {gEnd(false);timer.cancel();}
                     }}count++;
                 }}};
 
@@ -467,63 +517,73 @@ public class GameGUI extends JFrame implements ActionListener
 
         else if(looped<2) {looped++;enmBattlePhaze();}
 
-        else if(!bbE[0].Enm.isAlive() && !bbE[1].Enm.isAlive() && !bbE[2].Enm.isAlive()) {win();}
+        else if(!bbE[0].Enm.isAlive() && !bbE[1].Enm.isAlive() && !bbE[2].Enm.isAlive()) {gEnd(true);}
     }    
-    
-    private void win()
-    {
-        if(character.getStage() + 1 != 2) {character.setStage(character.getStage()+1);}
 
-        else{character.setStage(0);character.setCurLev(character.getCurLev()+1);}
-
-        lPanel.remove(tText);lPanel.repaint();
-        lPanel.getActionMap().clear();highlight(-2);
-        
-        win = new JButton();
-        win.setBackground(new Color(0,0,0));
-        win.setSize(new Dimension(200,100));
-        win.setEnabled(true);
-        win.setVisible(true);
-        win.setForeground(Color.white);
-        win.setFont(new Font(win.getFont().getName(), Font.BOLD, 40));
-        win.setText("Next");
-        win.setFocusable(false);
-        win.addActionListener(this);
-        win.setLocation(650,350); 
-        pause();
-        lPanel.add(win);
-        lPanel.setComponentZOrder(win, 1);
-        lPanel.remove(settings);
-        lPanel.remove(exit);
-        pau.setText("You Win");
-        lPanel.repaint();
-    }
-
-    private void lose()
+    //Handles end screen
+    private void gEnd(boolean x)
     {
         lPanel.remove(tText);lPanel.repaint();
         lPanel.getActionMap().clear();highlight(-2);
         
-        lose = new JButton();
-        lose.setBackground(new Color(0,0,0));
-        lose.setSize(new Dimension(200,100));
-        lose.setEnabled(true);
-        lose.setVisible(true);
-        lose.setForeground(Color.white);
-        lose.setFont(new Font(lose.getFont().getName(), Font.BOLD, 40));
-        lose.setText("Back");
-        lose.setFocusable(false);
-        lose.addActionListener(this);
-        lose.setLocation(650,350); 
-        pause();
-        lPanel.add(lose);
-        lPanel.setComponentZOrder(lose, 1);
-        lPanel.remove(settings);
-        lPanel.remove(exit);
-        pau.setText("You Lost");
-        lPanel.repaint();
+        lPanel.remove(pau);
+         
+
+        pau.setForeground(Color.white);
+        pau.setFont(new Font(pau.getFont().getName(), Font.BOLD, 40));
+        pau.setBackground(new Color(0,0,0,200));
+        pau.setLocation(lPanel.getWidth()/2-2500, lPanel.getHeight()/2-2650);
+        lPanel.add(pau);
+        lPanel.add(charSprite);
+        for(int i=0;i<3;i++) {if(has(bbE[i].enmButton)) {lPanel.add(bbE[i].enmButton);}}
+        if(has(bbExit)) {lPanel.add(bbExit);}
+        if(has(tText)) {tText.setVisible(true);lPanel.add(tText);}
+        for(int i = 0; i<21; i++) {if(has(bb[i])) {lPanel.add(bb[i]);}}
+        pau.setVisible(true);
+
+        if(x)
+        {
+            character.resetHP();
+            pau.setText("You Win!");
+            win = new JButton();
+            win.setBackground(new Color(0,0,0));
+            win.setSize(new Dimension(200,100));
+            win.setEnabled(true);
+            win.setVisible(true);
+            win.setForeground(Color.white);
+            win.setFont(new Font(win.getFont().getName(), Font.BOLD, 40));
+            win.setText("Next");
+            win.setFocusable(false);
+            win.addActionListener(this);
+            win.setLocation(650,350);
+            lPanel.setComponentZOrder(pau, 0);
+            lPanel.add(win);
+            lPanel.setComponentZOrder(win, 0);
+            lPanel.repaint();
+        }
+        else
+        {
+            character.reset();
+            pau.setText("You Win!");
+            lose = new JButton();
+            lose.setBackground(new Color(0,0,0));
+            lose.setSize(new Dimension(200,100));
+            lose.setEnabled(true);
+            lose.setVisible(true);
+            lose.setForeground(Color.white);
+            lose.setFont(new Font(win.getFont().getName(), Font.BOLD, 40));
+            lose.setText("Next");
+            lose.setFocusable(false);
+            lose.addActionListener(this);
+            lose.setLocation(650,350);
+            lPanel.setComponentZOrder(pau, 0);
+            lPanel.add(lose);
+            lPanel.setComponentZOrder(lose, 0);
+            lPanel.repaint();
+        }
     }
 
+    //Buttons
     public void actionPerformed(ActionEvent e)
     {
         JButton j = (JButton)(e.getSource());

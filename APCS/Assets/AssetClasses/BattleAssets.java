@@ -107,27 +107,19 @@ public class BattleAssets
 
     public String attack(enm x, Atk y) 
     {
-        int z = y.getDmg();
-        if(z!=0)
-        {
-            x.doHp(z);return x.getName() + " took " + z;
-        }
-        else
-        {
-            return " Miss";
-        }
+        int z = (int)(Math.random()*100+1);
+        int w = y.getDmg();
+        if(z<=y.acur()) {x.doHp(w);return " " + x.getName() + " took " + w;}
+
+        else {return " Miss";}
     }
 
     public String attack(Player x, Atk y) 
     {
-        int z = y.getDmg();
-        if(z!=0)
-        {
-            x.doHp(z);return x.getName() + " took " + z;
-        }
-        else
-        {
-            return " Miss";
-        }
+        int z = (int)(Math.random()*100+1);
+        int w = y.getDmg();
+        if(z<=y.acur()) {x.doHp(w);return " " + x.getName() + " took " + w;}
+
+        else {return " Miss";}
     }
 }

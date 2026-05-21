@@ -186,3 +186,11 @@ Change Log
 -Very confused how but winning
 -Dont insult the code, it will get mad
 -Nicholas-
+
+5/21/26
+-V.11.4-
+-Accuracy for attacks
+-Multi enm attack added
+-Winning/Losing now works as intended
+-Using buttons during attacks doesn't work
+-Nicholas-

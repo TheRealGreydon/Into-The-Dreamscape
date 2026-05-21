@@ -14,7 +14,7 @@ public class Player
     private int hp = 15;
     private int lvl = 1;
     public Skills[] skls = {new juiceBox(), null, null, null};;
-    public Atk[] atks = {new punch(), null, null, null};
+    public Atk[] atks = {new punch(), new widePunch(), null, null};
     private int fav;
     private int curLev = 0;
     private int curStage = 0;

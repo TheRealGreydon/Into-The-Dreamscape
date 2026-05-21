@@ -13,10 +13,10 @@ public class StartGUI extends JFrame implements ActionListener
 {
     JTextField nameBox;
     
-    //private String name = "";private int gend = -1;private int out = 1;private int fav = -1;   
-    //private int page = 0;
-    private String name = "";private int gend = 1;private int out = 1;private int fav = 1;
-    private int page = 4;
+    private String name = "";private int gend = -1;private int out = 1;private int fav = -1;   
+    private int page = 0;
+    //private String name = "";private int gend = 1;private int out = 1;private int fav = 1;
+    //private int page = 4;
 
     private LevelSelGUI lGUI;
 
@@ -39,7 +39,7 @@ public class StartGUI extends JFrame implements ActionListener
         this.add(sPanel);
         this.setSize(1500, 800);
         this.setVisible(true);
-        next();
+        int gend = 1;int out = 1;int fav = 1;page = 4;next();
     }
 
     //Name page

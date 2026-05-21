@@ -12,4 +12,8 @@ public class punch implements Atk
     public int getDmgType() {return 1;}
 
     public int status() {return 0;}
+
+    public boolean swing() {return false;}
+
+    public int acur() {return 100;}
 }
