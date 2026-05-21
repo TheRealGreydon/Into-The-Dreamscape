@@ -15,6 +15,13 @@ public class BattleAssets
         return charSprite;
     }
 
+    public JLabel spriteImg(Player character)
+    {
+        JLabel charSprite = new JLabel(new ImageIcon(character.getSprite()));charSprite.setPreferredSize(new Dimension(450,650));
+        charSprite.setOpaque(false);charSprite.setBounds(0,0,500,550);
+        return charSprite;
+    }
+
     public disEnm[] enmBattleButtons()
     {
         disEnm[] temp = new disEnm[3];

@@ -179,4 +179,6 @@ Change Log
 -Sweet jesus I have been awake for 34 hours I dont like this project
 -V.11.2-
 -Working healing
+-Good news, you can now lose in the game like im losing my sanity
+-Winning is coming soon, unlike in real life
 -Nicholas-
