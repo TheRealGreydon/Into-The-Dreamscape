@@ -1,8 +1,8 @@
 package APCS.Assets.AssetClasses;
 
 import APCS.*;
+import APCS.Actions.Attacks.Atk;
 import APCS.Enms.*;
-import APCS.Skills.*;
 import java.awt.*;
 import javax.swing.*;
 
@@ -27,7 +27,7 @@ public class BattleAssets
         disEnm[] temp = new disEnm[3];
         for(int i=0; i<3; i++)
         {
-            disEnm x = new disEnm(new HemoNeedle(1));
+            disEnm x = new disEnm(new Needle(1));
             x.enmButton.setLocation(1200, (i*250));   
             x.enmButton.setDisabledIcon(x.enmButton.getIcon());
             temp[i] = x;

@@ -1,14 +1,10 @@
 package APCS.Enms;
 
-import APCS.Skills.*;
+import APCS.Actions.Attacks.Atk;
+import APCS.Actions.Attacks.smack;
 
 public interface  enm 
 {
-    public String name = "";
-    public int type = 0;
-    public int lvl = 0;
-    public int hp = 0;
-    public boolean alive = true;
     public Atk[] atks = {new smack(), null};
 
     public String getName();
@@ -20,6 +16,4 @@ public interface  enm
     public int getLvl();
 
     public boolean isAlive();
-    
-    public int getType();
 }

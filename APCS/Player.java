@@ -1,9 +1,13 @@
 package APCS;
 
-import APCS.Skills.*;
 import java.awt.*;
 import java.io.*;
 import javax.imageio.ImageIO;
+
+import APCS.Actions.Attacks.Atk;
+import APCS.Actions.Attacks.punch;
+import APCS.Actions.Attacks.widePunch;
+import APCS.Actions.Skills.*;
 
 public class Player
 {

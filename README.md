@@ -193,4 +193,6 @@ Change Log
 -Multi enm attack added
 -Winning/Losing now works as intended
 -Using buttons during attacks doesn't work
+-V.11.5-
+-Im tired man, something changed, figure it the fuck out
 -Nicholas-

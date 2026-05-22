@@ -1,0 +1,1 @@
+package APCS.Actions; public interface Actions {public String getName();}
