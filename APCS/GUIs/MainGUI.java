@@ -6,27 +6,11 @@ import javax.swing.*;
 import java.io.*;
 import java.util.*;
 import APCS.*;
-import APCS.Actions.Attacks.*;
-import APCS.Actions.Skills.*;
-import APCS.Items.*;
 
 public class MainGUI extends JFrame implements ActionListener
 {
     private File save = new File("APCS/Save.txt");
     private Player character = new Player();
-    private String name;
-    private int gend;
-    private int out;
-    private int[] stats = {0,0,0,0,0,0};
-    private int hp = 15;
-    private int lvl = 1;
-    public Skl[] skls = {null, null, null, null};
-    public Itm[] itms = {null, null, null, null};
-    public Atk[] atks = {null, null, null, null};
-    private int fav;
-    private int curLev = 0;
-    private int curStage = 0;
-    private int vol = 50;
     private boolean newSave;
         
     private JPanel mPanel = new JPanel();
@@ -72,7 +56,7 @@ public class MainGUI extends JFrame implements ActionListener
             buttons[i].setFont(new Font(buttons[i].getFont().getName(), Font.BOLD, 40));
             buttons[i].addActionListener(this);
             buttons[i].setFocusable(false);
-            mPanel.add(buttons[i]);
+            if(i!=3) {mPanel.add(buttons[i]);} else if(!newSave) {mPanel.add(buttons[i]);}
         }
 
         JLabel title = new JLabel();
@@ -83,6 +67,7 @@ public class MainGUI extends JFrame implements ActionListener
         title.setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
         title.setLocation(500, 50);
         title.setSize(title.getPreferredSize());
+        title.setSize(title.getWidth()+10, title.getHeight());
         mPanel.add(title);
 
         if(newSave) {buttons[0].setText("Start");}
@@ -154,7 +139,7 @@ public class MainGUI extends JFrame implements ActionListener
         buttons[4].setFont(new Font(buttons[4].getFont().getName(), Font.BOLD, 40));
         buttons[4].addActionListener(this);
         buttons[4].setText("Exit");
-        buttons[4].setBounds(500,600, 300, 150);        
+        buttons[4].setBounds(600,600, 300, 150);        
         buttons[4].setFocusable(false);
         cPanel.add(buttons[4]);
 
@@ -164,9 +149,29 @@ public class MainGUI extends JFrame implements ActionListener
         title.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
         title.setText("Credits");
         title.setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
-        title.setLocation(575, 50);
+        title.setLocation(650, 50);
         title.setSize(title.getPreferredSize());
+        title.setSize(title.getWidth()+10, title.getHeight());
+
+        JTextPane cred = new JTextPane();
+        cred.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
+        cred.setText("          Into the Dreamscape\n" +
+                    "----------------------------------------------\n"+
+                    "Main Code: Nicholas\n"+
+                    "Main Story: Kai\n"+
+                    "Main Art: Kai\n"+
+                    "Literaly all the Code: Nicholas\n"+
+                    "Please give us a 100% Mr. Klus :)");
+        cred.setBackground(Color.white);
+        cred.setFont(new Font(cred.getFont().getName(), Font.BOLD, 40));
+        cred.setForeground(Color.BLACK);      
+        cred.setSize(cred.getPreferredSize());
+        cred.setSize(cred.getWidth()+10, cred.getHeight());
+        cred.setLocation(450,200);
+        cred.setEditable(false);
+        
         cPanel.add(title);
+        cPanel.add(cred);
         paint(cPanel, 5);
     }
 
@@ -202,6 +207,7 @@ public class MainGUI extends JFrame implements ActionListener
         title.setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
         title.setLocation(575, 50);
         title.setSize(title.getPreferredSize());
+        title.setSize(title.getWidth()+10, title.getHeight());
         dPanel.add(title);
         paint(dPanel, 5);
     }
@@ -221,8 +227,12 @@ public class MainGUI extends JFrame implements ActionListener
 
         else if(j.equals(buttons[4])) {panSet(cPanel, mPanel);}
 
-        else if(j.equals(buttons[5])) {panSet(cPanel, mPanel);}
-
+        else if(j.equals(buttons[5])) 
+        {
+            try {FileWriter w = new FileWriter("APCS/Save.txt");w.write("NEW SAVE");w.close();}
+            catch (IOException e1) {} newSave = true;menu();panSet(dPanel, mPanel);
+        }
+        
         else if(j.equals(buttons[6])) {panSet(dPanel, mPanel);}
     }
 

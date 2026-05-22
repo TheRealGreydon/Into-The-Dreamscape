@@ -3,12 +3,11 @@ package APCS;
 import APCS.Actions.Attacks.*;
 import APCS.Actions.Skills.*;
 import APCS.Items.AttackItem.swordITM;
-import APCS.Items.SkillItem.grilledCheeseITM;
 import APCS.Items.Itm;
+import APCS.Items.SkillItem.grilledCheeseITM;
 import java.awt.*;
 import java.io.*;
 import java.util.Scanner;
-
 import javax.imageio.ImageIO;
 
 
@@ -38,8 +37,6 @@ public class Player
 
     public Player() {spriteInit();}
     
-    public void nextLvl() {if(curStage + 1 >2) {curStage = 0;curLev++;} else {curStage++;}}
-
     public boolean isAlive() {return alive;}
 
     public void setName(String x) {name = x;}

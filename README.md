@@ -242,3 +242,11 @@ Change Log
 
 -V.12.1-
 -Fixed error
+-Finalize text box no longer is editable
+-Added borders to text boxes
+-Color page no longer has title????
+
+-V.12.2-
+-Color page has a title again, I literaly dont know how or why it stoped and started working
+-Credits now acrediting, mostly me
+-We getting shit done bois

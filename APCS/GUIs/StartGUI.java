@@ -13,7 +13,8 @@ public class StartGUI extends JFrame implements ActionListener
 {
     JTextField nameBox;
     
-    private String name = "";private int gend = -1;private int out = 1;private int fav = -1;   
+    private String name = "";
+    private int gend = -1, out = -1, fav = -1;   
     private int page = 0;
 
     private LevelGUI lGUI;
@@ -47,6 +48,7 @@ public class StartGUI extends JFrame implements ActionListener
         nameBox = new JTextField(9);
         nameBox.setFont(new Font("SansSerif", Font.PLAIN, 48));
         nameBox.setBounds(600, 400, 300,100);
+        nameBox.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
 
         title = new JLabel();
         title.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
@@ -55,6 +57,7 @@ public class StartGUI extends JFrame implements ActionListener
         title.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
         title.setText("What is your name?");
         title.setSize(title.getPreferredSize());
+        title.setSize(title.getWidth()+10, title.getHeight());
         title.setLocation(750 - title.getWidth()/2, 400 - title.getHeight()/2-100);
 
         buttons[0]=new JButton();
@@ -80,6 +83,7 @@ public class StartGUI extends JFrame implements ActionListener
         title.setText("What gender are you?");
         title.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
         title.setSize(title.getPreferredSize());
+        title.setSize(title.getWidth()+10, title.getHeight());
         title.setLocation(750 - title.getWidth()/2, 400 - title.getHeight()/2-300);
         
 
@@ -164,6 +168,7 @@ public class StartGUI extends JFrame implements ActionListener
         title.setText("Pick an outfit");
         title.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
         title.setSize(title.getPreferredSize());
+        title.setSize(title.getWidth()+10, title.getHeight());
         title.setLocation(750 - title.getWidth()/2, 400 - title.getHeight()/2-300);
         
 
@@ -243,16 +248,6 @@ public class StartGUI extends JFrame implements ActionListener
     //Favorite color page
     private void fav()
     {
-        title = new JLabel();
-        title.setOpaque(true);
-        title.setBackground(Color.WHITE);
-        title.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
-        title.setText("Whats your favorite color?");
-        title.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
-        title.setSize(title.getPreferredSize());
-        title.setLocation(750 - title.getWidth()/2, 400 - title.getHeight()/2-300);
-
-        
         buttons[1].setBackground(new Color(179, 9, 9));
         buttons[1].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
         buttons[1].setFont(new Font(buttons[1].getFont().getName(), Font.BOLD, 15));
@@ -274,23 +269,20 @@ public class StartGUI extends JFrame implements ActionListener
             sPanel.add(buttons[i]);
         }
 
-        buttons[5].setBackground(new Color(179, 9, 9));
-        buttons[5].setBounds(550,150,200,200);
+        buttons[6].setBackground(new Color(43,18,204));buttons[5].setBackground(new Color(179, 9, 9));buttons[7].setBackground(new Color(5,97,51));buttons[8].setBackground(Color.WHITE);
+        buttons[6].setBounds(750,150,200,200);buttons[5].setBounds(550,150,200,200);buttons[7].setBounds(550,350,200,200);buttons[8].setBounds(750,350,200,200);
 
-        buttons[6].setBackground(new Color(43,18,204));
-        buttons[6].setBounds(750,150,200,200);
-    
-        buttons[7].setBackground(new Color(5,97,51));
-        buttons[7].setBounds(550,350,200,200);
+        title = new JLabel();
+        title.setOpaque(true);
+        title.setBackground(Color.WHITE);
+        title.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
+        title.setText("What's your favorite color?");
+        title.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
+        title.setSize(title.getPreferredSize());
+        title.setSize(title.getWidth()+10, title.getHeight());
+        title.setLocation(750 - title.getWidth()/2, 400 - title.getHeight()/2-300);
         
-        buttons[8].setBackground(Color.WHITE);
-        buttons[8].setBounds(750,350,200,200);
-
-        sPanel.add(title);
-        sPanel.add(buttons[0]);
-        sPanel.add(buttons[1]);
-
-        paint(5);
+        sPanel.add(title);sPanel.add(buttons[0]);sPanel.add(buttons[1]);paint(5);
     }
 
     private void fin()
@@ -302,27 +294,30 @@ public class StartGUI extends JFrame implements ActionListener
         title.setText("Finalize your character");
         title.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
         title.setSize(title.getPreferredSize());
+        title.setSize(title.getWidth()+10, title.getHeight());
         title.setLocation(750 - title.getWidth()/2, 400 - title.getHeight()/2-300);
 
-        String g; String o; String f;
+        String g, o, f;
         if(gend==1){g="Male";}else if(gend==2){g="Female";}else{g="Non-Binary";}
         if(out==1){o="1";}else if(out==2){o="2";}else{o="3";}
         if(fav==1){f="red";}else if(fav==2){f="blue";}else if(fav==3){f="green";}else{f="white";}
+
         JTextPane charlist = new JTextPane();
-        charlist.setBackground(Color.white);
-        charlist.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
-        charlist.setForeground(Color.BLACK);
+        charlist.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
         charlist.setText("Name: " + name + "\nGender: " + g + "\nOutfit number: " + o + "\nFavorite color: " + f);
-        charlist.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
+        charlist.setBackground(Color.white);
+        charlist.setFont(new Font(charlist.getFont().getName(), Font.BOLD, 40));
+        charlist.setForeground(Color.BLACK);      
         charlist.setSize(charlist.getPreferredSize());
+        charlist.setSize(charlist.getWidth()+10, charlist.getHeight());
         charlist.setLocation(450,194);
+        charlist.setEditable(false);
 
         if(gend==1){g="M";}else if(gend==2){g="F";}else{g="N";} if(out==1){o="1";}else if (out==2){o="2";}else{o="3";}
 
         JLabel charImg = null;
         try {charImg = new JLabel(new ImageIcon(ImageIO.read(new File("APCS/Assets/Img/Character Img/Char3.png")).getScaledInstance(488, 488, Image.SCALE_SMOOTH)));} 
-        catch (IOException e) {e.printStackTrace();}charImg.setOpaque(false);charImg.setBounds(850,194,225,413);
-
+        catch (IOException e) {} charImg.setOpaque(false);charImg.setBounds(850,194,225,413);
 
         buttons[0].setBackground(new Color(179, 9, 9));
         buttons[0].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
@@ -350,33 +345,27 @@ public class StartGUI extends JFrame implements ActionListener
     //Handles when the next button is called
     private void next()
     {
-        if(page==0) {name=nameBox.getText();if(name.length()>0){sPanel.removeAll();gend();sPanel.repaint();page++;}}
+        if(page==0) {name=nameBox.getText(); if(name.length()>0) {sPanel.removeAll();gend();sPanel.repaint();page++;}}
 
-        else if(page==1) {sPanel.removeAll();out();sPanel.repaint();page++;}
+        else if(page==1) {if(gend!=-1) {sPanel.removeAll();out();sPanel.repaint();page++;}}
 
-        else if(page==2) {if(out!=-1){sPanel.removeAll();fav();sPanel.repaint();page++;}}
+        else if(page==2) {if(out!=-1) {sPanel.removeAll();fav();sPanel.repaint();page++;}}
 
-        else if(page==3) {if(fav!=-1){sPanel.removeAll();fin();sPanel.repaint();page++;}}
+        else if(page==3) {if(fav!=-1) {sPanel.removeAll();fin();sPanel.repaint();page++;}}
 
-        else if(page==4) 
-        {
-            character = new Player(name, gend, out, fav);character.saveGame();
-            close();lGUI = new LevelGUI(character);lGUI.displayGame();
-        }
+        else if(page==4) {character = new Player(name, gend, out, fav);character.saveGame();close();lGUI = new LevelGUI(character);lGUI.displayGame();}
     }
 
     //Handles when the back button is called
     private void back()
     {
-        if(page==1) {
-            for (Component c : sPanel.getComponents()) {{if (c instanceof JLabel == false){sPanel.remove(c);}}};
-            name();sPanel.repaint();page--;}
+        if(page==1) {sPanel.removeAll();name = "";name();sPanel.repaint();page--;}
 
-        else if(page==2) {sPanel.removeAll();gend();sPanel.repaint();page--;}
+        else if(page==2) {sPanel.removeAll();gend = -1;gend();sPanel.repaint();page--;}
 
-        else if(page==3) {sPanel.removeAll();out();sPanel.repaint();page--;}
+        else if(page==3) {sPanel.removeAll();out = -1;out();sPanel.repaint();page--;}
 
-        else if(page==4) {sPanel.removeAll();fav();sPanel.repaint();page--;}
+        else if(page==4) {sPanel.removeAll();fav = -1;fav();sPanel.repaint();page--;}
     }
     
     //Paints a JPanel with a percentage of stars randomly
