@@ -1,13 +1,12 @@
 package APCS;
 
+import APCS.Actions.Attacks.*;
+import APCS.Actions.Skills.*;
+import APCS.Items.AttackItem.swordITM;
+import APCS.Items.Itm;
 import java.awt.*;
 import java.io.*;
 import javax.imageio.ImageIO;
-
-import APCS.Actions.Attacks.Atk;
-import APCS.Actions.Attacks.punch;
-import APCS.Actions.Attacks.widePunch;
-import APCS.Actions.Skills.*;
 
 public class Player
 {
@@ -17,7 +16,8 @@ public class Player
     private int[] stats = {0,0,0,0,0,0};
     private int hp = 15;
     private int lvl = 1;
-    public Skills[] skls = {new juiceBox(), null, null, null};;
+    public Skl[] skls = {new juiceBox(), null, null, null};
+    public Itm[] itms = {new swordITM(), null, null, null};
     public Atk[] atks = {new punch(), new widePunch(), null, null};
     private int fav;
     private int curLev = 0;

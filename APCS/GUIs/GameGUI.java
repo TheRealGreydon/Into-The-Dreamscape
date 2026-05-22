@@ -102,11 +102,8 @@ public class GameGUI extends JFrame implements ActionListener
                     bb[i].setText(character.atks[x].getName());
                     bb[i].addActionListener(this);
                 }
-                else
-                {
-                    bb[i].setText("X");
-                }
-                x++;
+                
+                else{bb[i].setText("X");} x++;
             }
         }
     }
@@ -118,16 +115,13 @@ public class GameGUI extends JFrame implements ActionListener
         {
             if(i!=17 && i!=20)
             {
-                if(false)//character.atks[x] != null) 
+                if(character.itms[x] != null) 
                 {
-                    bb[i].setText(character.atks[x].getName());
+                    bb[i].setText(character.itms[x].getName());
                     bb[i].addActionListener(this);
                 }
-                else
-                {
-                    bb[i].setText("X");
-                }
-                x++;
+
+                else{bb[i].setText("X");} x++;
             }
         }
     }
@@ -144,11 +138,8 @@ public class GameGUI extends JFrame implements ActionListener
                     bb[i].setText(character.skls[x].getName());
                     bb[i].addActionListener(this);
                 }
-                else
-                {
-                    bb[i].setText("X");
-                }
-                x++;
+                
+                else{bb[i].setText("X");} x++;
             }
         }
     }
@@ -467,7 +458,7 @@ public class GameGUI extends JFrame implements ActionListener
     }
 
     //Player used skill
-    private void turnPhaze(Skills y)
+    private void turnPhaze(Skl y)
     {
         count = 0;
         looped = 0;

@@ -195,4 +195,6 @@ Change Log
 -Using buttons during attacks doesn't work
 -V.11.5-
 -Im tired man, something changed, figure it the fuck out
+-V.11.6-
+-Added items
 -Nicholas-
