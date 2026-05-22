@@ -10,6 +10,7 @@ import APCS.Enms.*;
 import APCS.*;
 import APCS.Actions.Attacks.Atk;
 import APCS.Actions.Skills.*;
+import APCS.Items.AttackItem.atkItm;
 
 public class GameGUI extends JFrame implements ActionListener
 {
@@ -27,13 +28,10 @@ public class GameGUI extends JFrame implements ActionListener
     private disEnm [] bbE;
     //Not entierly sure what this is but its important
     private int y;
+    private Atk selAtk;
 
     //Pause items
-    private JButton pau = new JButton();
-    private JButton set = new JButton();
-    private JButton exit = new JButton();
-    private JButton settings = new JButton();
-    private JButton vole = new JButton();
+    private JButton pau = new JButton(), set = new JButton(), exit = new JButton(), settings = new JButton(), vole = new JButton();
     private boolean paused = false;
 
     //Win/Lose buttons
@@ -42,16 +40,12 @@ public class GameGUI extends JFrame implements ActionListener
 
     //Control the scrolling text
     private JLabel tText = new JLabel();
-    private int count = 0;
-    private int looped = 0;
-    private int wideLoop = 0;
+    private int count = 0,looped = 0, wideLoop = 0;
     private String [] b;
 
     //Control the selected button/enm
     private boolean selingEnmAtk = false;
-    private int selEnm = 0;
-    private int selBut = 0;
-    private int minSel = 0;
+    private int selEnm = 0, selBut = 0, minSel =0;
     private int maxSel = 2;
     private boolean down = true;
 
@@ -84,9 +78,9 @@ public class GameGUI extends JFrame implements ActionListener
     //Runs the players turn
     private void playTurn(int type, int num)
     {
-        if(type == 0) {if(!character.atks[num].swing()){atkSel(num);} else {wideLoop = 0;turnPhaze(character.atks[num]);}}
+        if(type == 0) {if(!character.atks[num].swing()){atkSel();} else {wideLoop = 0;turnPhaze(character.atks[num]);}}
         else if(type == 1) {turnPhaze(character.skls[y]);}
-        else if(type ==2) {}
+        else if(type ==2) {if(character.itms[num].isAtk()) {if(!((atkItm)(character.itms[num])).getAtk().swing()) {atkSel();}}}
     }
 
     //Attack, skill, and item buttons
@@ -364,8 +358,36 @@ public class GameGUI extends JFrame implements ActionListener
     }
 
     //Selects the enm during a single enm attack
-    private void atkSel(int y) 
+    private void atkSel() 
     {
+        switch (selBut) {
+            case 3:
+                break;
+            case 4:
+                break;
+            case 6:
+                break;
+            case 7:
+                break;
+            case 9:
+                break;
+            case 10:
+                break;
+            case 12:
+                break;
+            case 13:
+                break;
+            case 15:
+                break;
+            case 16:
+                break;
+            case 18:
+                break;
+            case 19:
+                break;
+            default:
+                break;
+        }
         selingEnmAtk = true;
         highlight(-2);
         if(bbE[0].Enm.isAlive())
@@ -614,6 +636,14 @@ public class GameGUI extends JFrame implements ActionListener
         else if(j.equals(bb[12])) {playTurn(1,2);}
 
         else if(j.equals(bb[13])) {playTurn(1,3);}
+
+        else if(j.equals(bb[15])) {playTurn(2,0);}
+
+        else if(j.equals(bb[17])) {playTurn(2,1);}
+
+        else if(j.equals(bb[19])) {playTurn(2,2);}
+
+        else if(j.equals(bb[20])) {playTurn(2,3);}
 
         else if(j.equals(win)) {character.nextLvl();character.resetHP();close();lGUI = new LevelSelGUI(character);lGUI.displayGame();}
 
