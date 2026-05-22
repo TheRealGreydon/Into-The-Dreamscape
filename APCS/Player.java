@@ -7,28 +7,32 @@ import APCS.Items.SkillItem.grilledCheeseITM;
 import APCS.Items.Itm;
 import java.awt.*;
 import java.io.*;
+import java.util.Scanner;
+
 import javax.imageio.ImageIO;
+
 
 public class Player
 {
-    private String name;
-    private int gend;
-    private int outfit;
+    private String name = "DEFAULT";
+    private int gend = 1;
+    private int outfit = 1;;
     private int[] stats = {0,0,0,0,0,0};
     private int hp = 15;
     private int lvl = 1;
     public Skl[] skls = {new juiceBox(), null, null, null};
-    public Itm[] itms = {new swordITM(), new grilledCheeseITM(), null, null};
+    public Itm[] itms = {new swordITM(), null, null, null};
     public Atk[] atks = {new punch(), new widePunch(), null, null};
-    private int fav;
+    private int fav = 1;;
     private int curLev = 0;
     private int curStage = 0;
     private int vol = 50;
     private Image sprite;
     private Image bSprite;
     private boolean alive = true;
+    private File save = new File("APCS/Save.txt");
 
-    public Player(String name, int gend, int outfit, int fav)
+    public Player(String name, int gend, int outfit, int fav) 
     {
         this.name = name;
         this.gend = gend;
@@ -36,6 +40,8 @@ public class Player
         this.fav = fav;
         spriteInit();
     }
+
+    public Player() {spriteInit();}
     
     public void nextLvl() {if(curStage + 1 >2) {curStage = 0;curLev++;} else {curStage++;}}
 
@@ -43,7 +49,7 @@ public class Player
 
     public void setName(String x) {name = x;}
 
-    public void setStage(int x) {curStage = x;}
+    public void setStage(int x) {curStage = x;System.out.println(curStage);}
 
     public int getStage() {return curStage;}
 
@@ -120,5 +126,97 @@ public class Player
         
         try {bSprite = ImageIO.read(new File("APCS/Assets/Img/Character Img/HeroCombat-" + outfit + ".png")).getScaledInstance(650, 650, Image.SCALE_SMOOTH);}
         catch (IOException e) {e.printStackTrace();}
+    }
+
+    public void loadSave()
+    {
+        String temp;try (Scanner sc = new Scanner(save)) 
+        {while(sc.hasNext())
+        {
+            temp = sc.next();
+
+            if(temp.equals("NAME")) {name = sc.next();}
+
+            else if(temp.equals("GEND")) {gend = Integer.parseInt(sc.next());}
+
+            else if(temp.equals("OUT")) {outfit = Integer.parseInt(sc.next());}
+
+            else if(temp.equals("FAV")) {fav = Integer.parseInt(sc.next());}
+
+            else if(temp.equals("LVL")) {lvl = Integer.parseInt(sc.next());}
+
+            else if(temp.equals("STATS")) {for(int i=0; i<6; i++) {stats[i] = Integer.parseInt(sc.next());}}
+
+            else if(temp.equals("ATK")) 
+            {
+                for(int i=0; i<4; i++)
+                {
+                    temp = sc.next();
+
+                    if(!temp.equals("NULL")) 
+                    {
+                        if(temp.equals("PUNCH")) {atks[i] = new punch();}
+
+                        else if(temp.equals("WIDEPUNCH")) {atks[i] = new widePunch();}
+                    }
+                }
+            }
+
+            else if(temp.equals("SKL")) 
+            {
+                for(int i=0; i<4; i++)
+                {
+                    temp = sc.next();
+
+                    if(!temp.equals("NULL")) 
+                    {
+                        if(temp.equals("JUICEBOX")) {skls[i] = new juiceBox();}
+                    }
+                }
+            }
+
+            else if(temp.equals("ITM")) 
+            {
+                for(int i=0; i<4; i++)
+                {
+                    temp = sc.next();
+
+                    if(!temp.equals("NULL")) 
+                    {
+                        if(temp.equals("GRILLEDCHEESE")) {itms[i] = new grilledCheeseITM();}
+                    }
+                }
+            }
+
+            else if(temp.equals("LEVEL")) {curLev = Integer.parseInt(sc.next());}
+
+            else if(temp.equals("STAGE")) {curStage = Integer.parseInt(sc.next());}
+
+            else if(temp.equals("VOL")) {vol = Integer.parseInt(sc.next());}}
+        }
+        
+        catch (FileNotFoundException e){}
+    }
+
+    public void saveGame()
+    {
+        String load = "NAME " + name +"\n" + 
+                "GEND "+ gend +"\n" + 
+                "OUT "+ outfit +"\n" + 
+                "FAV "+ fav +"\n" +
+                "LVL "+ lvl +"\n" +
+                "STATS "+ stats[0] +" " + stats[1] +" " + stats[2] +" " + stats[3] +" " + stats[4] +" " + stats[5] + "\n";
+                
+                load += "ATK "; for(int i=0; i<4; i++) {if(atks[i]!=null) {load += atks[i].getDis();} else {load += "NULL";} load+= " ";} load += "\n";
+
+                load += "SKL "; for(int i=0; i<4; i++) {if(skls[i]!=null) {load += skls[i].getDis();} else {load += "NULL";} load+= " ";} load += "\n";
+
+                load += "ITM "; for(int i=0; i<4; i++) {if(itms[i]!=null) {load += itms[i].getDis();} else {load += "NULL";} load+= " ";} load += "\n";
+
+                load += "LEVEL " + curLev +"\n" + 
+                "STAGE " + curStage +"\n" + 
+                "VOL " + vol;
+
+        try {FileWriter w = new FileWriter("APCS/Save.txt");w.write(load);w.close();} catch (IOException e) {}
     }
 }

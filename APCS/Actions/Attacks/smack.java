@@ -10,4 +10,6 @@ public class smack implements Atk
     public boolean swing() {return false;}
 
     public int acur() {return 75;}
+
+    public String getDis() {return "SMACK";}
 }

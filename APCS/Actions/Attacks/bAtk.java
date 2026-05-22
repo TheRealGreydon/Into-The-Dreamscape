@@ -9,4 +9,6 @@ public class bAtk implements Atk
     public int acur() {return 100;}
 
     public String getName() {return "bAtk";}
+
+    public String getDis() {return "BATK";}
 }

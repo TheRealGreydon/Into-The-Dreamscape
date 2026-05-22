@@ -10,4 +10,6 @@ public class swordATK implements Atk
     public boolean swing() {return false;}
 
     public int acur() {return 100;}
+
+    public String getDis() {return "SWORDATK";}
 }

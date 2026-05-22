@@ -234,3 +234,8 @@ Change Log
 -Swing attack items now added
 -Skill items added
 -Healing items work
+
+-V.12-
+-Added a save feature
+-Error where sometimes will move up one extra lvl
+-Need to add save reset

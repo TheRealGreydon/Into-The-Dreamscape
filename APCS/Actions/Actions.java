@@ -1,1 +1,1 @@
-package APCS.Actions; public interface Actions {public String getName();}
+package APCS.Actions; public interface Actions {public String getName();public String getDis();}

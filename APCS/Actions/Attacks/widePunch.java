@@ -10,4 +10,6 @@ public class widePunch implements Atk
     public boolean swing() {return true;}
 
     public int acur() {return 100;}
+
+    public String getDis() {return "WIDEPUNCH";}
 }

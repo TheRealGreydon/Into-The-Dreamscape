@@ -6,4 +6,6 @@ public interface Itm
     public String getName();
 
     public boolean isAtk();
+
+    public String getDis();
 }

@@ -17,4 +17,6 @@ public class bEAtk implements Atk
     public boolean swing() {return false;}
 
     public int acur() {return 100;}
+
+    public String getDis() {return "BEATK";}
 }

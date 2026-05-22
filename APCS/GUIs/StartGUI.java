@@ -15,14 +15,13 @@ public class StartGUI extends JFrame implements ActionListener
     
     private String name = "";private int gend = -1;private int out = 1;private int fav = -1;   
     private int page = 0;
-    //private String name = "";private int gend = 1;private int out = 1;private int fav = 1;
-    //private int page = 4;
 
     private LevelSelGUI lGUI;
 
     private JPanel sPanel = new JPanel();
-    private JButton[]buttons = new JButton[100];
+    private JButton[]buttons = new JButton[9];
     private JLabel title;
+    private Player character;
     
     public StartGUI() {;sPanel.setLayout(null);}
     
@@ -39,7 +38,7 @@ public class StartGUI extends JFrame implements ActionListener
         this.add(sPanel);
         this.setSize(1500, 800);
         this.setVisible(true);
-        int gend = 1;int out = 1;int fav = 1;page = 4;next();
+        //int gend = 1;int out = 1;int fav = 1;page = 4;next();
     }
 
     //Name page
@@ -359,7 +358,11 @@ public class StartGUI extends JFrame implements ActionListener
 
         else if(page==3) {if(fav!=-1){sPanel.removeAll();fin();sPanel.repaint();page++;}}
 
-        else if(page==4) {close();lGUI = new LevelSelGUI(new Player(name, gend, out, fav)); lGUI.displayGame();}
+        else if(page==4) 
+        {
+            character = new Player(name, gend, out, fav);character.saveGame();
+            close();lGUI = new LevelSelGUI(character);lGUI.displayGame();
+        }
     }
 
     //Handles when the back button is called

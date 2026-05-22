@@ -3,11 +3,33 @@ package APCS.GUIs;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.io.*;
+import java.util.*;
 import APCS.*;
+import APCS.Actions.Attacks.*;
+import APCS.Actions.Skills.*;
+import APCS.Items.*;
+import APCS.Items.AttackItem.*;
+import APCS.Items.SkillItem.*;
 
 public class MainGUI extends JFrame implements ActionListener
 {
-    private Player character = new Player("Default", 1, 1, 1);
+    private File save = new File("APCS/Save.txt");
+    private Player character = new Player();
+    private String name;
+    private int gend;
+    private int out;
+    private int[] stats = {0,0,0,0,0,0};
+    private int hp = 15;
+    private int lvl = 1;
+    public Skl[] skls = {null, null, null, null};
+    public Itm[] itms = {null, null, null, null};
+    public Atk[] atks = {null, null, null, null};
+    private int fav;
+    private int curLev = 0;
+    private int curStage = 0;
+    private int vol = 50;
+    private boolean newSave;
         
     private JPanel mPanel = new JPanel();
     private JPanel cPanel = new JPanel();
@@ -17,11 +39,17 @@ public class MainGUI extends JFrame implements ActionListener
     public MainGUI() {initialize();}
     
     //Runs the game
-    public void displayGame() {java.awt.EventQueue.invokeLater(new Runnable() {public void run() {setVisible(true);}});this.dispose();new StartGUI().start();}
+    public void displayGame() {java.awt.EventQueue.invokeLater(new Runnable() {public void run() {setVisible(true);}});}//this.dispose();new StartGUI().start();}
 
     //Main initalize
     private void initialize()
     {
+        //Checks if it's a new game file
+        try (Scanner sc = new Scanner(save)) {newSave = sc.nextLine().equals("NEW SAVE");}catch (FileNotFoundException e){}
+
+        //Loads data from game file
+        if(!newSave) {character.loadSave();}
+
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.pack();
         menu();credits();
@@ -58,7 +86,11 @@ public class MainGUI extends JFrame implements ActionListener
         title.setSize(title.getPreferredSize());
         mPanel.add(title);
 
-        buttons[0].setText("Start");buttons[0].setBounds(500, 325, 300, 150);
+        if(newSave) {buttons[0].setText("Start");}
+        
+        else {buttons[0].setText("Continue");}
+
+        buttons[0].setBounds(500, 325, 300, 150);
         buttons[1].setText("Credits");buttons[1].setBounds(800,325, 200, 150);
         buttons[2].setText("Exit");buttons[2].setBounds(500,600, 300, 150);
         paint(mPanel,5);
@@ -139,7 +171,7 @@ public class MainGUI extends JFrame implements ActionListener
     {
         JButton j = (JButton)(e.getSource());
         
-        if(j.equals(buttons[0])) {this.dispose();new StartGUI().start();}
+        if(j.equals(buttons[0])) {if(newSave) {this.dispose();new StartGUI().start();} else {this.dispose();new LevelSelGUI(character).displayGame();}}
 
         else if(j.equals(buttons[1])) {panSet(mPanel, cPanel);}
 

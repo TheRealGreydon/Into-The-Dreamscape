@@ -551,8 +551,7 @@ public class GameGUI extends JFrame implements ActionListener
         lPanel.getActionMap().clear();highlight(-2);
         
         lPanel.remove(pau);
-         
-
+        
         pau.setForeground(Color.white);
         pau.setFont(new Font(pau.getFont().getName(), Font.BOLD, 40));
         pau.setBackground(new Color(0,0,0,200));
@@ -584,6 +583,10 @@ public class GameGUI extends JFrame implements ActionListener
             lPanel.add(win);
             lPanel.setComponentZOrder(win, 0);
             lPanel.repaint();
+
+            if(character.getStage()<2) {character.setStage(character.getStage()+1);}
+
+            else {character.setStage(0);character.setCurLev(character.getCurLev()+1);}
         }
         else
         {
@@ -605,6 +608,8 @@ public class GameGUI extends JFrame implements ActionListener
             lPanel.setComponentZOrder(lose, 0);
             lPanel.repaint();
         }
+
+        character.saveGame();
     }
 
     //Button actions
