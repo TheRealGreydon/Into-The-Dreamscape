@@ -15,20 +15,15 @@ import javax.imageio.ImageIO;
 public class Player
 {
     private String name = "DEFAULT";
-    private int gend = 1;
-    private int outfit = 1;;
+    private int gend = 1, lvl = 1, outfit = 1, fav = 1;
     private int[] stats = {0,0,0,0,0,0};
-    private int hp = 15;
-    private int lvl = 1;
+    private int hp = 1;
     public Skl[] skls = {new juiceBox(), null, null, null};
     public Itm[] itms = {new swordITM(), null, null, null};
     public Atk[] atks = {new punch(), new widePunch(), null, null};
-    private int fav = 1;;
-    private int curLev = 0;
-    private int curStage = 0;
+    private int curLev = 0,curStage = 0;
     private int vol = 50;
-    private Image sprite;
-    private Image bSprite;
+    private Image sprite, bSprite;
     private boolean alive = true;
     private File save = new File("APCS/Save.txt");
 
@@ -49,7 +44,7 @@ public class Player
 
     public void setName(String x) {name = x;}
 
-    public void setStage(int x) {curStage = x;System.out.println(curStage);}
+    public void setStage(int x) {curStage = x;}
 
     public int getStage() {return curStage;}
 

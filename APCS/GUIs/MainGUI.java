@@ -9,8 +9,6 @@ import APCS.*;
 import APCS.Actions.Attacks.*;
 import APCS.Actions.Skills.*;
 import APCS.Items.*;
-import APCS.Items.AttackItem.*;
-import APCS.Items.SkillItem.*;
 
 public class MainGUI extends JFrame implements ActionListener
 {
@@ -33,8 +31,9 @@ public class MainGUI extends JFrame implements ActionListener
         
     private JPanel mPanel = new JPanel();
     private JPanel cPanel = new JPanel();
+    private JPanel dPanel = new JPanel();
 
-    private JButton[]buttons = new JButton[4];
+    private JButton[]buttons = new JButton[7];
            
     public MainGUI() {initialize();}
     
@@ -52,7 +51,7 @@ public class MainGUI extends JFrame implements ActionListener
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.pack();
-        menu();credits();
+        menu();credits();saveDel();
         this.add(mPanel);
         this.setSize(1500, 800);
         this.setVisible(true);
@@ -65,7 +64,7 @@ public class MainGUI extends JFrame implements ActionListener
     {
         mPanel.setLayout(null);
 
-        for(int i=0; i<3; i++)
+        for(int i=0; i<4; i++)
         {
             buttons[i]=new JButton();
             buttons[i].setBackground(Color.RED);
@@ -91,8 +90,12 @@ public class MainGUI extends JFrame implements ActionListener
         else {buttons[0].setText("Continue");}
 
         buttons[0].setBounds(500, 325, 300, 150);
-        buttons[1].setText("Credits");buttons[1].setBounds(800,325, 200, 150);
-        buttons[2].setText("Exit");buttons[2].setBounds(500,600, 300, 150);
+        buttons[1].setText("Credits");
+        buttons[1].setBounds(800,325, 200, 150);
+        buttons[2].setText("Exit");
+        buttons[2].setBounds(500,600, 300, 150);
+        buttons[3].setText("Delete Save");
+        buttons[3].setBounds(200,325, 300, 150);
         paint(mPanel,5);
     }
 
@@ -145,14 +148,15 @@ public class MainGUI extends JFrame implements ActionListener
     {
         cPanel.setLayout(null);
 
-        buttons[3]=new JButton();
-        buttons[3].setBackground(Color.RED);
-        buttons[3].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
-        buttons[3].setFont(new Font(buttons[3].getFont().getName(), Font.BOLD, 40));
-        buttons[3].addActionListener(this);
-        buttons[3].setText("Exit");buttons[3].setBounds(500,600, 300, 150);        
-        buttons[3].setFocusable(false);
-        cPanel.add(buttons[3]);
+        buttons[4]=new JButton();
+        buttons[4].setBackground(Color.RED);
+        buttons[4].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
+        buttons[4].setFont(new Font(buttons[4].getFont().getName(), Font.BOLD, 40));
+        buttons[4].addActionListener(this);
+        buttons[4].setText("Exit");
+        buttons[4].setBounds(500,600, 300, 150);        
+        buttons[4].setFocusable(false);
+        cPanel.add(buttons[4]);
 
         JLabel title = new JLabel();
         title.setOpaque(true);
@@ -166,18 +170,60 @@ public class MainGUI extends JFrame implements ActionListener
         paint(cPanel, 5);
     }
 
+    public void saveDel()
+    {
+        dPanel.setLayout(null);
+
+        buttons[5]=new JButton();
+        buttons[5].setBackground(Color.RED);
+        buttons[5].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
+        buttons[5].setFont(new Font(buttons[4].getFont().getName(), Font.BOLD, 40));
+        buttons[5].addActionListener(this);
+        buttons[5].setText("Confirm");
+        buttons[5].setBounds(625,300, 300, 150);        
+        buttons[5].setFocusable(false);
+        dPanel.add(buttons[5]);
+
+        buttons[6]=new JButton();
+        buttons[6].setBackground(Color.RED);
+        buttons[6].setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
+        buttons[6].setFont(new Font(buttons[6].getFont().getName(), Font.BOLD, 40));
+        buttons[6].addActionListener(this);
+        buttons[6].setText("Exit");
+        buttons[6].setBounds(625,600, 300, 150);        
+        buttons[6].setFocusable(false);
+        dPanel.add(buttons[6]);
+
+        JLabel title = new JLabel();
+        title.setOpaque(true);
+        title.setBackground(Color.WHITE);
+        title.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
+        title.setText("Delete Current Save?");
+        title.setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
+        title.setLocation(575, 50);
+        title.setSize(title.getPreferredSize());
+        dPanel.add(title);
+        paint(dPanel, 5);
+    }
+
     //Buttons
     public void actionPerformed(ActionEvent e)
     {
         JButton j = (JButton)(e.getSource());
         
-        if(j.equals(buttons[0])) {if(newSave) {this.dispose();new StartGUI().start();} else {this.dispose();new LevelSelGUI(character).displayGame();}}
+        if(j.equals(buttons[0])) {if(newSave) {this.dispose();new StartGUI().start();} else {this.dispose();new LevelGUI(character).displayGame();}}
 
         else if(j.equals(buttons[1])) {panSet(mPanel, cPanel);}
 
         else if(j.equals(buttons[2])) {this.dispose();}
 
-        else if(j.equals(buttons[3])) {panSet(cPanel, mPanel);}
+        else if(j.equals(buttons[3])) {panSet(mPanel, dPanel);}
+
+        else if(j.equals(buttons[4])) {panSet(cPanel, mPanel);}
+
+        else if(j.equals(buttons[5])) {panSet(cPanel, mPanel);}
+
+        else if(j.equals(buttons[6])) {panSet(dPanel, mPanel);}
     }
 
     //Sets panel to a new panel

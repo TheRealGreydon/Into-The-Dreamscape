@@ -18,7 +18,7 @@ public class GameGUI extends JFrame implements ActionListener
     private Player character;
     private JPanel lPanel;
     private BattleAssets bGUI;
-    private LevelSelGUI lGUI;
+    private LevelGUI lGUI;
 
     private JLabel charSprite;
 
@@ -647,9 +647,9 @@ public class GameGUI extends JFrame implements ActionListener
 
         else if(j.equals(bb[19])) {playTurn(2,3);}
 
-        else if(j.equals(win)) {character.nextLvl();character.resetHP();close();lGUI = new LevelSelGUI(character);lGUI.displayGame();}
+        else if(j.equals(win)) {character.resetHP();close();lGUI = new LevelGUI(character);lGUI.displayGame();}
 
-        else if(j.equals(lose)) {character.reset();close();lGUI = new LevelSelGUI(character);lGUI.displayGame();}
+        else if(j.equals(lose)) {character.reset();close();lGUI = new LevelGUI(character);lGUI.displayGame();}
     }
 
     //Various helpers

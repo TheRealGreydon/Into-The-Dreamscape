@@ -239,3 +239,6 @@ Change Log
 -Added a save feature
 -Error where sometimes will move up one extra lvl
 -Need to add save reset
+
+-V.12.1-
+-Fixed error

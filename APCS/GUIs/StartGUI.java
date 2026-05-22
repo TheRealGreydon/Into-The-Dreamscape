@@ -16,7 +16,7 @@ public class StartGUI extends JFrame implements ActionListener
     private String name = "";private int gend = -1;private int out = 1;private int fav = -1;   
     private int page = 0;
 
-    private LevelSelGUI lGUI;
+    private LevelGUI lGUI;
 
     private JPanel sPanel = new JPanel();
     private JButton[]buttons = new JButton[9];
@@ -361,7 +361,7 @@ public class StartGUI extends JFrame implements ActionListener
         else if(page==4) 
         {
             character = new Player(name, gend, out, fav);character.saveGame();
-            close();lGUI = new LevelSelGUI(character);lGUI.displayGame();
+            close();lGUI = new LevelGUI(character);lGUI.displayGame();
         }
     }
 

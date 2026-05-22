@@ -8,11 +8,11 @@ import javax.swing.*;
 import APCS.Assets.AssetClasses.*;
 import APCS.Player;
 
-public class LevelSelGUI extends JFrame implements ActionListener
+public class LevelGUI extends JFrame implements ActionListener
 {
     private Player character;
 
-    public LevelSelGUI(Player character) 
+    public LevelGUI(Player character) 
     {
         this.character = character;
         a = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/Game Level Menu/defaultLevelMenu" + character.getCurLev() + ".jpg").getImage(), 1);
