@@ -1,8 +1,3 @@
 package APCS.Actions.Skills;
 
-public interface healSkl extends Skl
-{
-    public int getHeal();
-
-    public int status();
-}
+public interface healSkl extends Skl {public int getHeal();}

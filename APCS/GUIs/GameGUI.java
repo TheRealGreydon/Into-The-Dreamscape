@@ -11,6 +11,7 @@ import APCS.*;
 import APCS.Actions.Attacks.Atk;
 import APCS.Actions.Skills.*;
 import APCS.Items.AttackItem.atkItm;
+import APCS.Items.SkillItem.sklItm;
 
 public class GameGUI extends JFrame implements ActionListener
 {
@@ -80,7 +81,16 @@ public class GameGUI extends JFrame implements ActionListener
     {
         if(type == 0) {if(!character.atks[num].swing()){atkSel();} else {wideLoop = 0;turnPhaze(character.atks[num]);}}
         else if(type == 1) {turnPhaze(character.skls[y]);}
-        else if(type ==2) {if(character.itms[num].isAtk()) {if(!((atkItm)(character.itms[num])).getAtk().swing()) {atkSel();}}}
+        else if(type ==2) 
+        {
+            if(character.itms[num].isAtk()) 
+            {
+                if(!((atkItm)(character.itms[num])).getAtk().swing()) {atkSel();} 
+                
+                else {turnPhaze(((atkItm)(character.itms[num])).getAtk());}
+            }
+            else {turnPhaze((Skl)((sklItm)character.itms[num]).getSkill());}
+        }
     }
 
     //Attack, skill, and item buttons
@@ -350,7 +360,7 @@ public class GameGUI extends JFrame implements ActionListener
                 int z = -1;
                 for(int i=0; i<3;i++) {if(bbE[i].selected) {z = i;}}
 
-                if(z != -1) {bbE[z].select(false); turnPhaze(bbE[z], character.atks[y]);selingEnmAtk = false;}
+                if(z != -1) {bbE[z].select(false); turnPhaze(bbE[z], selAtk);selingEnmAtk = false;}
 
                 highlight(selBut);
             }
@@ -360,53 +370,40 @@ public class GameGUI extends JFrame implements ActionListener
     //Selects the enm during a single enm attack
     private void atkSel() 
     {
-        switch (selBut) {
+        switch (selBut) 
+        {
             case 3:
+                selAtk = character.atks[0];
                 break;
             case 4:
+                selAtk = character.atks[1];
                 break;
             case 6:
+                selAtk = character.atks[2];
                 break;
             case 7:
-                break;
-            case 9:
-                break;
-            case 10:
-                break;
-            case 12:
-                break;
-            case 13:
+                selAtk = character.atks[3];
                 break;
             case 15:
+                selAtk = ((atkItm)character.itms[0]).getAtk();
                 break;
             case 16:
+                selAtk = ((atkItm)character.itms[1]).getAtk();
                 break;
             case 18:
+                selAtk = ((atkItm)character.itms[2]).getAtk();
                 break;
             case 19:
-                break;
-            default:
+                selAtk = ((atkItm)character.itms[3]).getAtk();
                 break;
         }
         selingEnmAtk = true;
         highlight(-2);
-        if(bbE[0].Enm.isAlive())
-        {
-            bbE[0].select(true);
-            selEnm = 0;
-        }
+        if(bbE[0].Enm.isAlive()) {bbE[0].select(true);selEnm = 0;}
 
-        else if(bbE[1].Enm.isAlive())
-        {
-            bbE[1].select(true);
-            selEnm = 1;
-        }
+        else if(bbE[1].Enm.isAlive()) {bbE[1].select(true);selEnm = 1;}
 
-        else if(bbE[2].Enm.isAlive())
-        {
-            bbE[2].select(true);
-            selEnm = 2;
-        }
+        else if(bbE[2].Enm.isAlive()) {bbE[2].select(true);selEnm = 2;}
     }
 
     //Player used attack
@@ -639,11 +636,11 @@ public class GameGUI extends JFrame implements ActionListener
 
         else if(j.equals(bb[15])) {playTurn(2,0);}
 
-        else if(j.equals(bb[17])) {playTurn(2,1);}
+        else if(j.equals(bb[16])) {playTurn(2,1);}
 
-        else if(j.equals(bb[19])) {playTurn(2,2);}
+        else if(j.equals(bb[18])) {playTurn(2,2);}
 
-        else if(j.equals(bb[20])) {playTurn(2,3);}
+        else if(j.equals(bb[19])) {playTurn(2,3);}
 
         else if(j.equals(win)) {character.nextLvl();character.resetHP();close();lGUI = new LevelSelGUI(character);lGUI.displayGame();}
 

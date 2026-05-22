@@ -3,6 +3,7 @@ package APCS;
 import APCS.Actions.Attacks.*;
 import APCS.Actions.Skills.*;
 import APCS.Items.AttackItem.swordITM;
+import APCS.Items.SkillItem.grilledCheeseITM;
 import APCS.Items.Itm;
 import java.awt.*;
 import java.io.*;
@@ -17,7 +18,7 @@ public class Player
     private int hp = 15;
     private int lvl = 1;
     public Skl[] skls = {new juiceBox(), null, null, null};
-    public Itm[] itms = {new swordITM(), null, null, null};
+    public Itm[] itms = {new swordITM(), new grilledCheeseITM(), null, null};
     public Atk[] atks = {new punch(), new widePunch(), null, null};
     private int fav;
     private int curLev = 0;

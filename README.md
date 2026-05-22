@@ -227,3 +227,10 @@ Change Log
 
 -V.11.6-
 -Added items
+
+5/22/26
+-------
+-V.11.7-
+-Swing attack items now added
+-Skill items added
+-Healing items work

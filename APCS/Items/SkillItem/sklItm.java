@@ -1,9 +1,6 @@
 package APCS.Items.SkillItem; 
 
-import APCS.Actions.Attacks.Atk;
+import APCS.Actions.Skills.*;
 import APCS.Items.Itm;
 
-public interface sklItm extends Itm
-{
-    public Atk getAtk();
-}
+public interface sklItm extends Itm {public Skl getSkill();}

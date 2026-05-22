@@ -1,7 +1,6 @@
 package APCS.Items.AttackItem;
 
-import APCS.Actions.Attacks.Atk;
-import APCS.Actions.Attacks.swordATK;
+import APCS.Actions.Attacks.*;
 
 public class swordITM implements atkItm
 {
