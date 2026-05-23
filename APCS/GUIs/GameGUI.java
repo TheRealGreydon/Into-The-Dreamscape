@@ -8,8 +8,9 @@ import javax.swing.*;
 import APCS.Assets.AssetClasses.*;
 import APCS.Enms.*;
 import APCS.*;
-import APCS.Actions.Attacks.Atk;
+import APCS.Actions.Attacks.*;
 import APCS.Actions.Skills.*;
+import APCS.Items.Itm;
 import APCS.Items.AttackItem.atkItm;
 import APCS.Items.SkillItem.sklItm;
 
@@ -34,10 +35,10 @@ public class GameGUI extends JFrame implements ActionListener
     //Pause items
     private JButton pau = new JButton(), set = new JButton(), exit = new JButton(), settings = new JButton(), vole = new JButton();
     private boolean paused = false;
+    private Itm tempItm;
 
     //Win/Lose buttons
-    private JButton lose = new JButton();
-    private JButton win = new JButton();
+    private JButton lose = new JButton(), win = new JButton();
 
     //Control the scrolling text
     private JLabel tText = new JLabel();
@@ -79,17 +80,18 @@ public class GameGUI extends JFrame implements ActionListener
     //Runs the players turn
     private void playTurn(int type, int num)
     {
-        if(type == 0) {if(!character.atks[num].swing()){atkSel();} else {wideLoop = 0;turnPhaze(character.atks[num]);}}
+        if(type == 0) {if(!character.atks[num].swing()){atkSel(character.atks[num]);} else {wideLoop = 0;turnPhaze(character.atks[num]);}}
         else if(type == 1) {turnPhaze(character.skls[y]);}
         else if(type ==2) 
         {
             if(character.itms[num].isAtk()) 
             {
-                if(!((atkItm)(character.itms[num])).getAtk().swing()) {atkSel();} 
+                tempItm = character.itms[num];
+                if(!((atkItm)tempItm).getAtk().swing()) {atkSel(((atkItm)tempItm).getAtk());} 
                 
-                else {turnPhaze(((atkItm)(character.itms[num])).getAtk());}
+                else {turnPhaze(((atkItm)(tempItm)).getAtk());}
             }
-            else {turnPhaze((Skl)((sklItm)character.itms[num]).getSkill());}
+            else {turnPhaze((Skl)((sklItm)tempItm).getSkill());}
         }
     }
 
@@ -368,35 +370,10 @@ public class GameGUI extends JFrame implements ActionListener
     }
 
     //Selects the enm during a single enm attack
-    private void atkSel() 
+    private void atkSel(Atk z) 
     {
-        switch (selBut) 
-        {
-            case 3:
-                selAtk = character.atks[0];
-                break;
-            case 4:
-                selAtk = character.atks[1];
-                break;
-            case 6:
-                selAtk = character.atks[2];
-                break;
-            case 7:
-                selAtk = character.atks[3];
-                break;
-            case 15:
-                selAtk = ((atkItm)character.itms[0]).getAtk();
-                break;
-            case 16:
-                selAtk = ((atkItm)character.itms[1]).getAtk();
-                break;
-            case 18:
-                selAtk = ((atkItm)character.itms[2]).getAtk();
-                break;
-            case 19:
-                selAtk = ((atkItm)character.itms[3]).getAtk();
-                break;
-        }
+        selAtk = z;
+
         selingEnmAtk = true;
         highlight(-2);
         if(bbE[0].Enm.isAlive()) {bbE[0].select(true);selEnm = 0;}
