@@ -168,6 +168,7 @@ public class LevelGUI extends JFrame implements ActionListener
         
         else if(j.equals(vole)) {if(character.getVol()+25>100) {character.setVol(0);} else {character.setVol(character.getVol() + 25);} vole.setText(String.valueOf(character.getVol()));}
     }
+    
     private void close() {Window[] windows = Window.getWindows(); for (Window window : windows) {if (window != null) {window.dispose();}}}
     private void exit() {if(!settings.getText().equals("Volume")){close();} else{pause();}}
 }
