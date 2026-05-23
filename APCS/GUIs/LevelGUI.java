@@ -10,21 +10,16 @@ import APCS.Player;
 
 public class LevelGUI extends JFrame implements ActionListener
 {
-    private Player character;
-
     public LevelGUI(Player character) 
     {
         this.character = character;
         a = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/Game Level Menu/defaultLevelMenu" + character.getCurLev() + ".jpg").getImage(), 1);
     }
 
+    private Player character;
     private JPanel lPanel;
-    private JButton pau = new JButton();
-    private JButton set = new JButton();
-    private JButton exit = new JButton();
-    private JButton settings = new JButton();
-    private JButton vole = new JButton();
-    private int vol;
+    private JButton pau = new JButton(), set = new JButton(), exit = new JButton(), settings = new JButton(), vole = new JButton();
+    //private int character.getVol();
     private boolean paused = false;
     private JLabel tText = new JLabel();
     private int count = 0;
@@ -35,7 +30,7 @@ public class LevelGUI extends JFrame implements ActionListener
 
     private void initialize() 
     {
-        vol = character.getVol();
+        //character.getVol() = character.getVol();
         lPanel = a;
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.pack();
@@ -150,7 +145,7 @@ public class LevelGUI extends JFrame implements ActionListener
         set.setFont(new Font(set.getFont().getName(), Font.BOLD, 40));set.setText("Settings"); 
         exit.setText("Back");settings.setText("Volume");settings.setEnabled(false);
         vole.setFont(new Font(vole.getFont().getName(), Font.BOLD, 40));vole.addActionListener(this);vole.setSize(new Dimension(125,100));vole.setBackground(Color.black);
-        vole.setForeground(Color.white);vole.setLocation((lPanel.getWidth()/2-50)+150, (lPanel.getHeight()/2-100));vole.setVisible(true);vole.setEnabled(true);vole.setText(String.valueOf(vol));
+        vole.setForeground(Color.white);vole.setLocation((lPanel.getWidth()/2-50)+150, (lPanel.getHeight()/2-100));vole.setVisible(true);vole.setEnabled(true);vole.setText(String.valueOf(character.getVol()));
         lPanel.add(vole);set.setLocation(lPanel.getWidth()/2-2500, lPanel.getHeight()/2-2650);lPanel.add(set);
         vole.setFocusable(false);
     }
@@ -171,7 +166,7 @@ public class LevelGUI extends JFrame implements ActionListener
 
         else if(j.equals(settings)) {settings();}
         
-        else if(j.equals(vole)) {if(vol+25>100) {vol=0;}else{vol+=25;}character.setVol(vol);vole.setText(String.valueOf(vol));}
+        else if(j.equals(vole)) {if(character.getVol()+25>100) {character.setVol(0);} else {character.setVol(character.getVol() + 25);} vole.setText(String.valueOf(character.getVol()));}
     }
     private void close() {Window[] windows = Window.getWindows(); for (Window window : windows) {if (window != null) {window.dispose();}}}
     private void exit() {if(!settings.getText().equals("Volume")){close();} else{pause();}}

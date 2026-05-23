@@ -250,3 +250,4 @@ Change Log
 -Color page has a title again, I literaly dont know how or why it stoped and started working
 -Credits now acrediting, mostly me
 -We getting shit done bois
+-Visual updates for alignment

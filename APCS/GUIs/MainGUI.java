@@ -13,10 +13,8 @@ public class MainGUI extends JFrame implements ActionListener
     private Player character = new Player();
     private boolean newSave;
         
-    private JPanel mPanel = new JPanel();
-    private JPanel cPanel = new JPanel();
-    private JPanel dPanel = new JPanel();
-
+    private JPanel mPanel = new JPanel(), cPanel = new JPanel(), dPanel = new JPanel();
+  
     private JButton[]buttons = new JButton[7];
            
     public MainGUI() {initialize();}
@@ -65,7 +63,7 @@ public class MainGUI extends JFrame implements ActionListener
         title.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
         title.setText("Into the Dreamscape");
         title.setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
-        title.setLocation(500, 50);
+        title.setLocation(550, 50);
         title.setSize(title.getPreferredSize());
         title.setSize(title.getWidth()+10, title.getHeight());
         mPanel.add(title);
@@ -78,56 +76,12 @@ public class MainGUI extends JFrame implements ActionListener
         buttons[1].setText("Credits");
         buttons[1].setBounds(800,325, 200, 150);
         buttons[2].setText("Exit");
-        buttons[2].setBounds(500,600, 300, 150);
+        buttons[2].setBounds(600,600, 300, 150);
         buttons[3].setText("Delete Save");
         buttons[3].setBounds(200,325, 300, 150);
         paint(mPanel,5);
     }
-
-    //Paints a JPanel with a percentage of stars randomly
-    private void paint(JPanel x, int percent)
-    {
-        for (Component c : x.getComponents()) {x.setComponentZOrder(c, 0);}
-        for(int i=0; i<40; i++)
-        {
-            for(int j=0; j<75; j++)
-            {
-                if((int)(Math.random()*100)<=percent-1)
-                {
-                    if((int)(Math.random()*2)==0)
-                    {
-                        JLabel star = new JLabel();
-                        star.setOpaque(true);
-                        star.setBackground(Color.YELLOW);
-                        star.setSize(new Dimension(20, 20));
-                        star.setLocation(j*20, i*20);
-                        x.setComponentZOrder(star, 1);
-                        x.add(star);
-                    }
-                    else
-                    {
-                        JLabel star = new JLabel();
-                        star.setOpaque(true);
-                        star.setBackground(new Color(189,185,38));
-                        star.setSize(new Dimension(20, 20));
-                        star.setLocation(j*20, i*20);
-                        x.setComponentZOrder(star, 1);
-                        x.add(star);
-                    }                    
-                }
-                else
-                {
-                    JLabel star = new JLabel();
-                    star.setOpaque(true);
-                    star.setBackground(Color.BLACK);
-                    star.setSize(new Dimension(20, 20));
-                    star.setLocation(j*20, i*20);
-                    x.setComponentZOrder(star, 1);
-                    x.add(star);
-                }
-            }
-        }
-    }
+    
     //Adds button to credits
     public void credits()
     {
@@ -210,6 +164,51 @@ public class MainGUI extends JFrame implements ActionListener
         title.setSize(title.getWidth()+10, title.getHeight());
         dPanel.add(title);
         paint(dPanel, 5);
+    }
+    
+    //Paints a JPanel with a percentage of stars randomly
+    private void paint(JPanel x, int percent)
+    {
+        for (Component c : x.getComponents()) {x.setComponentZOrder(c, 0);}
+        for(int i=0; i<40; i++)
+        {
+            for(int j=0; j<75; j++)
+            {
+                if((int)(Math.random()*100)<=percent-1)
+                {
+                    if((int)(Math.random()*2)==0)
+                    {
+                        JLabel star = new JLabel();
+                        star.setOpaque(true);
+                        star.setBackground(Color.YELLOW);
+                        star.setSize(new Dimension(20, 20));
+                        star.setLocation(j*20, i*20);
+                        x.setComponentZOrder(star, 1);
+                        x.add(star);
+                    }
+                    else
+                    {
+                        JLabel star = new JLabel();
+                        star.setOpaque(true);
+                        star.setBackground(new Color(189,185,38));
+                        star.setSize(new Dimension(20, 20));
+                        star.setLocation(j*20, i*20);
+                        x.setComponentZOrder(star, 1);
+                        x.add(star);
+                    }                    
+                }
+                else
+                {
+                    JLabel star = new JLabel();
+                    star.setOpaque(true);
+                    star.setBackground(Color.BLACK);
+                    star.setSize(new Dimension(20, 20));
+                    star.setLocation(j*20, i*20);
+                    x.setComponentZOrder(star, 1);
+                    x.add(star);
+                }
+            }
+        }
     }
 
     //Buttons
