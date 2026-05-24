@@ -251,3 +251,8 @@ Change Log
 -Credits now acrediting, mostly me
 -We getting shit done bois
 -Visual updates for alignment
+
+5/24/26
+-------
+-V.12.2-
+-Items are now single use

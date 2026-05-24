@@ -81,13 +81,18 @@ public class GameGUI extends JFrame implements ActionListener
     private void playTurn(int type, int num)
     {
         if(type == 0) {if(!character.atks[num].swing()){atkSel(character.atks[num]);} else {wideLoop = 0;turnPhaze(character.atks[num]);}}
+        
         else if(type == 1) {turnPhaze(character.skls[y]);}
+        
         else if(type ==2) 
         {
-            if(character.itms[num].isAtk()) 
+            tempItm = character.itms[num]; for(int i=3; i>num; i--) {character.itms[i-1] = character.itms[i];}
+            
+            character.itms[3] = null;itmBattleButtons();
+
+            if(tempItm.isAtk())
             {
-                tempItm = character.itms[num];
-                if(!((atkItm)tempItm).getAtk().swing()) {atkSel(((atkItm)tempItm).getAtk());} 
+                if(!((atkItm)tempItm).getAtk().swing()) {atkSel(((atkItm)tempItm).getAtk());}
                 
                 else {turnPhaze(((atkItm)(tempItm)).getAtk());}
             }
@@ -96,7 +101,7 @@ public class GameGUI extends JFrame implements ActionListener
     }
 
     //Attack, skill, and item buttons
-    private void atkBattleButtons() 
+    private void atkBattleButtons()
     {
         int x=0;
         for(int i=3; i<8; i++) 
@@ -151,7 +156,7 @@ public class GameGUI extends JFrame implements ActionListener
     }
 
     //Keybinds
-    private void keyActions() 
+    private void keyActions()
     {
         lPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ESCAPE"), "Pause");
         lPanel.getActionMap().put("Pause", new AbstractAction() {public void actionPerformed(ActionEvent e) {pause();}});
@@ -256,9 +261,27 @@ public class GameGUI extends JFrame implements ActionListener
         }
     }
 
-    private void Left() {if(!has(tText)){if(selBut-1 >= minSel && !paused && !selingEnmAtk) {selBut--;highlight(selBut);}}}
+    private void Left()
+    {
+        if(!has(tText))
+        {
+            if(selBut-1 >= minSel && !paused && !selingEnmAtk) 
+            {
+                selBut--;highlight(selBut);
+            }
+        }
+    }
 
-    private void Right() {if(!has(tText)){if(selBut+1 <= maxSel && !paused && !selingEnmAtk) {selBut++;highlight(selBut);}}}
+    private void Right()
+    {
+        if(!has(tText))
+        {
+            if(selBut+1 <= maxSel && !paused && !selingEnmAtk)
+            {
+                selBut++;highlight(selBut);
+            }
+        }
+    }
 
     //Handles the button selection
     private void Select(int x)
@@ -516,8 +539,8 @@ public class GameGUI extends JFrame implements ActionListener
             lPanel.add(tText);timer.scheduleAtFixedRate(task, 0, 100);looped++;
         }
 
-        else if(looped<2) {looped++;enmBattlePhaze();}
-
+        else if(looped<2) {looped++;enmBattlePhaze();} 
+        
         else if(!bbE[0].Enm.isAlive() && !bbE[1].Enm.isAlive() && !bbE[2].Enm.isAlive()) {gEnd(true);}
     }    
 
@@ -561,22 +584,19 @@ public class GameGUI extends JFrame implements ActionListener
             lPanel.setComponentZOrder(win, 0);
             lPanel.repaint();
 
-            if(character.getStage()<2) {character.setStage(character.getStage()+1);}
-
-            else {character.setStage(0);character.setCurLev(character.getCurLev()+1);}
+            if(character.getStage()<2) {character.setStage(character.getStage()+1);} else {character.setStage(0);character.setCurLev(character.getCurLev()+1);}
         }
         else
         {
             character.reset();
-            pau.setText("You Win!");
-            lose = new JButton();
+            pau.setText("You Lose");
             lose.setBackground(new Color(0,0,0));
             lose.setSize(new Dimension(200,100));
             lose.setEnabled(true);
             lose.setVisible(true);
             lose.setForeground(Color.white);
             lose.setFont(new Font(win.getFont().getName(), Font.BOLD, 40));
-            lose.setText("Next");
+            lose.setText("Retry?");
             lose.setFocusable(false);
             lose.addActionListener(this);
             lose.setLocation(650,350);
