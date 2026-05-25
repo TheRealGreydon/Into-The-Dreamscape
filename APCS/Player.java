@@ -17,9 +17,9 @@ public class Player
     private int gend = 1, lvl = 1, outfit = 1, fav = 1;
     private int[] stats = {0,0,0,0,0,0};
     private int hp = 100;
-    public Skl[] skls = new Skl[4];
-    public Itm[] itms = new Itm[4];
-    public Atk[] atks = new Atk[4];
+    public Skl[] skls = {new juiceBox(), null, null, null};
+    public Itm[] itms = {null, null, null, null};
+    public Atk[] atks = {new punch(), null, null, null};
     private int curLev = 0,curStage = 0;
     private int vol = 50;
     private Image sprite, bSprite;
