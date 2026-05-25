@@ -17,21 +17,24 @@ public class Player
     private int gend = 1, lvl = 1, outfit = 1, fav = 1;
     private int[] stats = {0,0,0,0,0,0};
     private int hp = 100;
-    public Skl[] skls = {new juiceBox(), null, null, null};
-    public Itm[] itms = {null, null, null, null};
-    public Atk[] atks = {new punch(), null, null, null};
+
     private int curLev = 0,curStage = 0;
     private int vol = 50;
     private Image sprite, bSprite;
     private boolean alive = true;
     private File save = new File("APCS/Save.txt");
 
+    //Starting atk/skls
+    public Skl[] skls = {new juiceBox(), null, null, null};
+    public Itm[] itms = {null, null, null, null};
+    public Atk[] atks = {new punch(), null, null, null};
+    
     //To add an atk/skl/itm to the player, add discription in ID, and the matching obj to IDS
     private String [] atkId = {"PUNCH", "WIDEPUNCH"};
     private Atk [] atkIdS = {new punch(), new widePunch()};
     
-    private String [] sklId = {"JUICEBOX"};
-    private Skl [] sklIdS = {new juiceBox()};
+    private String [] sklId = {"JUICEBOX", "ROCKTHROW"};
+    private Skl [] sklIdS = {new juiceBox(), new rockThrowSKL()};
     
     private String [] itmId = {"SWORD", "GRILLEDCHEESE"};
     private Itm [] itmIdS = {new swordITM(), new grilledCheeseITM()};

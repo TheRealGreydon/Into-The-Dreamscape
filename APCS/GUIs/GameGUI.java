@@ -22,6 +22,7 @@ public class GameGUI extends JFrame implements ActionListener
     private LevelGUI lGUI;
 
     private JLabel charSprite;
+    private JLabel hp = new JLabel();
 
     //bb 0-2 (Atk, Skl, Itm), bb 3-8 (Atk 1-4), bb 9-14 (Skl 1-4), bb 15-20 (Itm 1-4)
     //Im sorry, this is the worst way to do it, and I fucking love it
@@ -72,9 +73,32 @@ public class GameGUI extends JFrame implements ActionListener
         battleImg();
         enmBattleButtons();
         actBattleButtons();
+
+        hp.setBackground(new Color(179, 9, 9));
+        hp.setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
+        hp.setForeground(Color.black);
+        hp.setFont(new Font(hp.getFont().getName(), Font.BOLD, 40));
+        hp.setText(String.valueOf("HP: " + character.getHealth()));
+        hp.setSize(hp.getPreferredSize());
+        hp.setSize((hp.getWidth()+10),(hp.getHeight()+10));
+        hp.setLocation(0,40);
+        hp.setOpaque(true);
+        lPanel.add(hp);
+        lPanel.setComponentZOrder(hp,0);
+
         lPanel.revalidate();
         lPanel.repaint();
         keyActions();
+    }
+
+    private void hpReset()
+    {
+        hp.setText(String.valueOf("HP: " + character.getHealth()));
+        hp.setSize(hp.getPreferredSize());
+        hp.setSize((hp.getWidth()+10),(hp.getHeight()+10));
+        hp.setLocation(0,40);
+        lPanel.revalidate();
+        lPanel.repaint();
     }
 
     //Runs the players turn
@@ -82,7 +106,17 @@ public class GameGUI extends JFrame implements ActionListener
     {
         if(type == 0) {if(!character.atks[num].swing()){atkSel(character.atks[num]);} else {wideLoop = 0;turnPhaze(character.atks[num]);}}
         
-        else if(type == 1) {turnPhaze(character.skls[y]);}
+        else if(type == 1) 
+        {
+            if(character.skls[num].isHeal()) {turnPhaze(character.skls[num]);}
+
+            else
+            {
+                if(!((atkSkl)character.skls[num]).getAtk().swing()) {atkSel(((atkSkl)character.skls[num]).getAtk());}
+                
+                else {wideLoop = 0;turnPhaze(((atkSkl)character.skls[num]).getAtk());}   
+            }
+        }
         
         else if(type ==2) 
         {
@@ -102,6 +136,8 @@ public class GameGUI extends JFrame implements ActionListener
             }
             else {turnPhaze((Skl)((sklItm)tempItm).getSkill());}
         }
+
+        hpReset();
     }
 
     //Attack, skill, and item buttons
@@ -489,11 +525,12 @@ public class GameGUI extends JFrame implements ActionListener
         count = 0;
         looped = 0;
 
+        int tmp = ((healSkl)y).getHeal();
         Timer timer = new Timer();
         if(y.isHeal())
         {
-            b = ("Heal " + ((healSkl)y).getHeal()).split("");
-            character.doHp(((healSkl)y).getHeal());
+            b = ("Heal " + String.valueOf(tmp)).split("");
+            character.doHp(tmp);
         }
         tText.setText("");
         tText.setLocation(350, 120);
@@ -543,78 +580,15 @@ public class GameGUI extends JFrame implements ActionListener
                     }}count++;
                 }}};
 
+            hpReset();
             lPanel.add(tText);timer.scheduleAtFixedRate(task, 0, 100);looped++;
         }
 
-        else if(looped<2) {looped++;enmBattlePhaze();} 
+        else if(looped<2) {looped++;enmBattlePhaze();hpReset();} 
         
         else if(!bbE[0].Enm.isAlive() && !bbE[1].Enm.isAlive() && !bbE[2].Enm.isAlive()) {gEnd(true);}
     }    
 
-    //Handles end screen
-    private void gEnd(boolean x)
-    {
-        lPanel.remove(tText);lPanel.repaint();
-        lPanel.getActionMap().clear();highlight(-2);
-        
-        lPanel.remove(pau);
-        
-        pau.setForeground(Color.white);
-        pau.setFont(new Font(pau.getFont().getName(), Font.BOLD, 40));
-        pau.setBackground(new Color(0,0,0,200));
-        pau.setLocation(lPanel.getWidth()/2-2500, lPanel.getHeight()/2-2650);
-        lPanel.add(pau);
-        lPanel.add(charSprite);
-        for(int i=0;i<3;i++) {if(has(bbE[i].enmButton)) {lPanel.add(bbE[i].enmButton);}}
-        if(has(bbExit)) {lPanel.add(bbExit);}
-        if(has(tText)) {tText.setVisible(true);lPanel.add(tText);}
-        for(int i = 0; i<21; i++) {if(has(bb[i])) {lPanel.add(bb[i]);}}
-        pau.setVisible(true);
-
-        if(x)
-        {
-            character.resetHP();
-            pau.setText("You Win!");
-            win = new JButton();
-            win.setBackground(new Color(0,0,0));
-            win.setSize(new Dimension(200,100));
-            win.setEnabled(true);
-            win.setVisible(true);
-            win.setForeground(Color.white);
-            win.setFont(new Font(win.getFont().getName(), Font.BOLD, 40));
-            win.setText("Next");
-            win.setFocusable(false);
-            win.addActionListener(this);
-            win.setLocation(650,350);
-            lPanel.setComponentZOrder(pau, 0);
-            lPanel.add(win);
-            lPanel.setComponentZOrder(win, 0);
-            lPanel.repaint();
-
-            if(character.getStage()<2) {character.setStage(character.getStage()+1);} else {character.setStage(0);character.setCurLev(character.getCurLev()+1);}
-        }
-        else
-        {
-            character.reset();
-            pau.setText("You Lose");
-            lose.setBackground(new Color(0,0,0));
-            lose.setSize(new Dimension(200,100));
-            lose.setEnabled(true);
-            lose.setVisible(true);
-            lose.setForeground(Color.white);
-            lose.setFont(new Font(win.getFont().getName(), Font.BOLD, 40));
-            lose.setText("Retry?");
-            lose.setFocusable(false);
-            lose.addActionListener(this);
-            lose.setLocation(650,350);
-            lPanel.setComponentZOrder(pau, 0);
-            lPanel.add(lose);
-            lPanel.setComponentZOrder(lose, 0);
-            lPanel.repaint();
-        }
-
-        character.saveGame();
-    }
 
     //Button actions
     public void actionPerformed(ActionEvent e)
@@ -761,5 +735,68 @@ public class GameGUI extends JFrame implements ActionListener
         vole.setVisible(true);vole.setEnabled(true);vole.setText(String.valueOf(character.getVol()));
         lPanel.add(vole);set.setLocation(lPanel.getWidth()/2-2500, lPanel.getHeight()/2-2650);lPanel.add(set);
         vole.setFocusable(false);
+    }
+    private void gEnd(boolean x)
+    {
+        lPanel.remove(tText);lPanel.repaint();
+        lPanel.getActionMap().clear();highlight(-2);
+        
+        lPanel.remove(pau);
+        
+        pau.setForeground(Color.white);
+        pau.setFont(new Font(pau.getFont().getName(), Font.BOLD, 40));
+        pau.setBackground(new Color(0,0,0,200));
+        pau.setLocation(lPanel.getWidth()/2-2500, lPanel.getHeight()/2-2650);
+        lPanel.add(pau);
+        lPanel.add(charSprite);
+        for(int i=0;i<3;i++) {if(has(bbE[i].enmButton)) {lPanel.add(bbE[i].enmButton);}}
+        if(has(bbExit)) {lPanel.add(bbExit);}
+        if(has(tText)) {tText.setVisible(true);lPanel.add(tText);}
+        for(int i = 0; i<21; i++) {if(has(bb[i])) {lPanel.add(bb[i]);}}
+        pau.setVisible(true);
+
+        if(x)
+        {
+            character.resetHP();
+            pau.setText("You Win!");
+            win = new JButton();
+            win.setBackground(new Color(0,0,0));
+            win.setSize(new Dimension(200,100));
+            win.setEnabled(true);
+            win.setVisible(true);
+            win.setForeground(Color.white);
+            win.setFont(new Font(win.getFont().getName(), Font.BOLD, 40));
+            win.setText("Next");
+            win.setFocusable(false);
+            win.addActionListener(this);
+            win.setLocation(650,350);
+            lPanel.setComponentZOrder(pau, 0);
+            lPanel.add(win);
+            lPanel.setComponentZOrder(win, 0);
+            lPanel.repaint();
+
+            if(character.getStage()<2) {character.setStage(character.getStage()+1);} else {character.setStage(0);character.setCurLev(character.getCurLev()+1);}
+        }
+        else
+        {
+            character.reset();
+            pau.setText("You Lose");
+            lose.setBackground(new Color(0,0,0));
+            lose.setSize(new Dimension(200,100));
+            lose.setEnabled(true);
+            lose.setVisible(true);
+            lose.setForeground(Color.white);
+            lose.setFont(new Font(win.getFont().getName(), Font.BOLD, 40));
+            lose.setText("Retry?");
+            lose.setFocusable(false);
+            lose.addActionListener(this);
+            lose.setLocation(650,350);
+            lPanel.setComponentZOrder(pau, 0);
+            lPanel.add(lose);
+            lPanel.setComponentZOrder(lose, 0);
+            lPanel.repaint();
+        }
+
+        character.saveGame();
     }
 }
