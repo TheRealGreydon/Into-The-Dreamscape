@@ -26,6 +26,16 @@ public class Player
     private boolean alive = true;
     private File save = new File("APCS/Save.txt");
 
+    //To add an atk/skl/itm to the player, add discription in ID, and the matching obj to IDS
+    private String [] atkId = {"PUNCH", "WIDEPUNCH"};
+    private Atk [] atkIdS = {new punch(), new widePunch()};
+    
+    private String [] sklId = {"JUICEBOX"};
+    private Skl [] sklIdS = {new juiceBox()};
+    
+    private String [] itmId = {"SWORD", "GRILLEDCHEESE"};
+    private Itm [] itmIdS = {new swordITM(), new grilledCheeseITM()};
+
     public Player(String name, int gend, int outfit, int fav) 
     {
         this.name = name;
@@ -145,12 +155,7 @@ public class Player
                 {
                     temp = sc.next();
 
-                    if(!temp.equals("NULL")) 
-                    {
-                        if(temp.equals("PUNCH")) {atks[i] = new punch();}
-
-                        else if(temp.equals("WIDEPUNCH")) {atks[i] = new widePunch();}
-                    }
+                    if(!temp.equals("NULL")) {for(int j=0; j<atkId.length; j++) {if(temp.equals(atkId[j])) {atks[i] = atkIdS[j];}}}
 
                     else {atks[i] = null;}
                 }
@@ -162,10 +167,7 @@ public class Player
                 {
                     temp = sc.next();
 
-                    if(!temp.equals("NULL")) 
-                    {
-                        if(temp.equals("JUICEBOX")) {skls[i] = new juiceBox();}
-                    }
+                    if(!temp.equals("NULL")) {for(int j=0; j<sklId.length; j++) {if(temp.equals(sklId[j])) {skls[i] = sklIdS[j];}}}
 
                     else {skls[i] = null;}
                 }
@@ -177,12 +179,7 @@ public class Player
                 {
                     temp = sc.next();
 
-                    if(!temp.equals("NULL")) 
-                    {
-                        if(temp.equals("GRILLEDCHEESE")) {itms[i] = new grilledCheeseITM();}
-
-                        else if(temp.equals("SWORD")) {itms[i] = new swordITM();}
-                    }
+                    if(!temp.equals("NULL")) {for(int j=0; j<itmId.length; j++) {if(temp.equals(itmId[j])) {itms[i] = itmIdS[j];}}}
 
                     else {itms[i] = null;}
                 }

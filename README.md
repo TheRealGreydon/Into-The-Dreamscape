@@ -257,3 +257,4 @@ Change Log
 -V.12.2-
 -Items are now single use
 -Issue where items would cause item buttons to have multiple action listeners
+-Update to how the player save works with atk/skl/itm to simplify for future use
