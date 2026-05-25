@@ -266,3 +266,4 @@ Change Log
 -Bad news, found a bug where THE FKELDMJFEORF HEAL DONT HEAL RIGHT
 -GOD WHY WERWEOPDKOPEWJFEWEF FUCK
 -Nvm I fixed it we guchi gang
+-Hp cant go over max hp

@@ -16,7 +16,7 @@ public class Player
     private String name = "DEFAULT";
     private int gend = 1, lvl = 1, outfit = 1, fav = 1;
     private int[] stats = {0,0,0,0,0,0};
-    private int hp = 100;
+    private int hp, hpM = 100;
 
     private int curLev = 0,curStage = 0;
     private int vol = 50;
@@ -45,6 +45,7 @@ public class Player
         this.gend = gend;
         this.outfit = outfit;
         this.fav = fav;
+        hp = hpM;
         spriteInit();
     }
 
@@ -88,7 +89,7 @@ public class Player
 
     public void statMod(int x, int y) {stats[x]+= y;}
 
-    public void doHp(int x) {if(hp+x>0 && alive){hp+=x;} else{hp = 0; alive = false;}}
+    public void doHp(int x) {if(hp+x>0 && alive){if(hp+x<=hpM) {hp+=x;} else{hp = hpM;}} else{hp = 0; alive = false;}}
 
     public int getHealth() {return hp;}
 
