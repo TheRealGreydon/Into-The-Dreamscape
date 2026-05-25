@@ -86,9 +86,13 @@ public class GameGUI extends JFrame implements ActionListener
         
         else if(type ==2) 
         {
-            tempItm = character.itms[num]; for(int i=3; i>num; i--) {character.itms[i-1] = character.itms[i];}
-            
-            character.itms[3] = null;itmBattleButtons();
+            tempItm = character.itms[num];
+
+            for(int i=num; i<3; i++) {character.itms[i] = character.itms[i+1];} character.itms[3] = null;
+
+            bb[15].removeActionListener(this);bb[16].removeActionListener(this);bb[18].removeActionListener(this);bb[19].removeActionListener(this);
+
+            itmBattleButtons();
 
             if(tempItm.isAtk())
             {
@@ -119,24 +123,6 @@ public class GameGUI extends JFrame implements ActionListener
         }
     }
 
-    private void itmBattleButtons() 
-    {
-        int x=0;
-        for(int i=15; i<20; i++) 
-        {
-            if(i!=17 && i!=20)
-            {
-                if(character.itms[x] != null) 
-                {
-                    bb[i].setText(character.itms[x].getName());
-                    bb[i].addActionListener(this);
-                }
-
-                else{bb[i].setText("X");} x++;
-            }
-        }
-    }
-
     private void sklBattleButtons() 
     {
         int x=0;
@@ -155,6 +141,23 @@ public class GameGUI extends JFrame implements ActionListener
         }
     }
 
+    private void itmBattleButtons() 
+    {
+        int x=0;
+        for(int i=15; i<20; i++) 
+        {
+            if(i!=17 && i!=20)
+            {
+                if(character.itms[x] != null) 
+                {
+                    bb[i].setText(character.itms[x].getName());
+                    bb[i].addActionListener(this);
+                }
+
+                else{bb[i].setText("X");} x++;
+            }
+        }
+    }
     //Keybinds
     private void keyActions()
     {
@@ -292,6 +295,7 @@ public class GameGUI extends JFrame implements ActionListener
             {
                 if(down)
                 {
+                    //Atk, Skl, Itm
                     if(x>=0 && x<=2)
                     {
                         if(x==0) {atk();minSel = 3; maxSel = 5;selBut = 3;highlight(3);}
@@ -299,6 +303,7 @@ public class GameGUI extends JFrame implements ActionListener
                         else if(x==2) {itm();minSel = 15; maxSel = 17;selBut = 15;highlight(15);}
                     }
 
+                    //Atk buttons
                     else if(x>=3 && x<=8)
                     {
                         if(!bb[x].getText().equals("Next") && !bb[x].getText().equals("X")) {bb[x].doClick();}
@@ -321,6 +326,7 @@ public class GameGUI extends JFrame implements ActionListener
                         }
                     }
 
+                    //Skl buttons
                     else if(x>=9 && x<=14)
                     {
                         if(!bb[x].getText().equals("Next") && !bb[x].getText().equals("X")) {bb[x].doClick();}
@@ -343,6 +349,7 @@ public class GameGUI extends JFrame implements ActionListener
                         }
                     }
 
+                    //Itm buttons
                     else if(x>=15 && x<=20)
                     {
                         if(!bb[x].getText().equals("Next") && !bb[x].getText().equals("X")) {bb[x].doClick();}

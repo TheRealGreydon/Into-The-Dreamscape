@@ -256,3 +256,4 @@ Change Log
 -------
 -V.12.2-
 -Items are now single use
+-Issue where items would cause item buttons to have multiple action listeners
