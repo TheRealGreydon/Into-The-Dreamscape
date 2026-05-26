@@ -13,21 +13,17 @@ public class CutGUI extends JFrame implements ActionListener
     public CutGUI(Player character) 
     {
         this.character = character;
-        a = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/Game Level Menu/defaultLevelMenu" + character.getCurLev() + ".jpg").getImage(), 1);
     }
 
     private Player character;
     private JPanel cPanel;
     private JLabel tText = new JLabel();
-    private int count = 0;
-
-    private BackgroundPanel a;
+    private int l = 0, f = 0, count = 0;
 
     public void displayGame() {initialize();java.awt.EventQueue.invokeLater(new Runnable() {public void run() {setVisible(true);}});}
 
     private void initialize() 
     {
-        cPanel = a;
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.pack();
         cPanel.setLayout(null);
@@ -36,6 +32,7 @@ public class CutGUI extends JFrame implements ActionListener
         this.setVisible(true);
         this.setResizable(true);
         this.add(cPanel);
+
         keyActions();
     }
 
@@ -54,14 +51,25 @@ public class CutGUI extends JFrame implements ActionListener
         }
     }
 
-    private void loadScreen()
+    private void aniScene(int frames, int loops, String scene)
     {
-        this.remove(cPanel);
-        cPanel = new JPanel();
-        cPanel.setBackground(Color.black);
-        cPanel.setLayout(null);
-        this.add(cPanel);this.revalidate();this.repaint();
-        timedText("Level " + (character.getCurLev()+1) + " - " + (character.getStage()+1));
+        l = 0;
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask()
+        {
+            public void run() 
+            {
+                while(l<loops)
+                {
+                    f = 0;
+                    while(f<frames)
+                    {
+                        cPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Cut/Cut-Temp/" + scene + "-" + f + ".png").getImage(), 1);
+                    }
+                }
+            }
+        };
+        timer.scheduleAtFixedRate(task, 0, 50);        
     }
 
     private void timedText(String a)
