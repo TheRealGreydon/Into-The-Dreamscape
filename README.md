@@ -251,3 +251,19 @@ Change Log
 -Credits now acrediting, mostly me
 -We getting shit done bois
 -Visual updates for alignment
+
+5/24/26
+-------
+-V.12.2-
+-Items are now single use
+-Issue where items would cause item buttons to have multiple action listeners
+-Update to how the player save works with atk/skl/itm to simplify for future use
+
+5/25/26
+-------
+-V.12.3-
+-Good news, added a hp counter
+-Bad news, found a bug where THE FKELDMJFEORF HEAL DONT HEAL RIGHT
+-GOD WHY WERWEOPDKOPEWJFEWEF FUCK
+-Nvm I fixed it we guchi gang
+-Hp cant go over max hp

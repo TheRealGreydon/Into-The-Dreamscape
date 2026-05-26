@@ -10,7 +10,7 @@ public class Needle implements enm
     private boolean alive = true;
     private Atk[] atks = enm.atks;
 
-    public Needle(int lvl) {this.lvl = lvl;hp = /*3*/0 + (2*lvl); atks[1] = new bloodDraw();}
+    public Needle(int lvl) {this.lvl = lvl;hp = 10 + (2*lvl); atks[1] = new bloodDraw();}
 
     public String getName() {return "Needle";}
 

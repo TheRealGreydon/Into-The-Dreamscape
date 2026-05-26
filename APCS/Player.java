@@ -16,15 +16,28 @@ public class Player
     private String name = "DEFAULT";
     private int gend = 1, lvl = 1, outfit = 1, fav = 1;
     private int[] stats = {0,0,0,0,0,0};
-    private int hp = 1;
-    public Skl[] skls = {new juiceBox(), null, null, null};
-    public Itm[] itms = {new swordITM(), null, null, null};
-    public Atk[] atks = {new punch(), new widePunch(), null, null};
+    private int hp, hpM = 100;
+
     private int curLev = 0,curStage = 0;
     private int vol = 50;
     private Image sprite, bSprite;
     private boolean alive = true;
     private File save = new File("APCS/Save.txt");
+
+    //Starting atk/skls
+    public Skl[] skls = {new juiceBox(), null, null, null};
+    public Itm[] itms = {null, null, null, null};
+    public Atk[] atks = {new punch(), null, null, null};
+    
+    //To add an atk/skl/itm to the player, add discription in ID, and the matching obj to IDS
+    private String [] atkId = {"PUNCH", "WIDEPUNCH"};
+    private Atk [] atkIdS = {new punch(), new widePunch()};
+    
+    private String [] sklId = {"JUICEBOX", "ROCKTHROW"};
+    private Skl [] sklIdS = {new juiceBox(), new rockThrowSKL()};
+    
+    private String [] itmId = {"SWORD", "GRILLEDCHEESE"};
+    private Itm [] itmIdS = {new swordITM(), new grilledCheeseITM()};
 
     public Player(String name, int gend, int outfit, int fav) 
     {
@@ -32,6 +45,7 @@ public class Player
         this.gend = gend;
         this.outfit = outfit;
         this.fav = fav;
+        hp = hpM;
         spriteInit();
     }
 
@@ -75,7 +89,7 @@ public class Player
 
     public void statMod(int x, int y) {stats[x]+= y;}
 
-    public void doHp(int x) {if(hp+x>0 && alive){hp+=x;} else{hp = 0; alive = false;}}
+    public void doHp(int x) {if(hp+x>0 && alive){if(hp+x<=hpM) {hp+=x;} else{hp = hpM;}} else{hp = 0; alive = false;}}
 
     public int getHealth() {return hp;}
 
@@ -145,12 +159,9 @@ public class Player
                 {
                     temp = sc.next();
 
-                    if(!temp.equals("NULL")) 
-                    {
-                        if(temp.equals("PUNCH")) {atks[i] = new punch();}
+                    if(!temp.equals("NULL")) {for(int j=0; j<atkId.length; j++) {if(temp.equals(atkId[j])) {atks[i] = atkIdS[j];}}}
 
-                        else if(temp.equals("WIDEPUNCH")) {atks[i] = new widePunch();}
-                    }
+                    else {atks[i] = null;}
                 }
             }
 
@@ -160,10 +171,9 @@ public class Player
                 {
                     temp = sc.next();
 
-                    if(!temp.equals("NULL")) 
-                    {
-                        if(temp.equals("JUICEBOX")) {skls[i] = new juiceBox();}
-                    }
+                    if(!temp.equals("NULL")) {for(int j=0; j<sklId.length; j++) {if(temp.equals(sklId[j])) {skls[i] = sklIdS[j];}}}
+
+                    else {skls[i] = null;}
                 }
             }
 
@@ -173,10 +183,9 @@ public class Player
                 {
                     temp = sc.next();
 
-                    if(!temp.equals("NULL")) 
-                    {
-                        if(temp.equals("GRILLEDCHEESE")) {itms[i] = new grilledCheeseITM();}
-                    }
+                    if(!temp.equals("NULL")) {for(int j=0; j<itmId.length; j++) {if(temp.equals(itmId[j])) {itms[i] = itmIdS[j];}}}
+
+                    else {itms[i] = null;}
                 }
             }
 
