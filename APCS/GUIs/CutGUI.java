@@ -36,20 +36,20 @@ public class CutGUI extends JFrame implements ActionListener
         keyActions();
     }
 
-    private void select() 
-    {
-        if(cPanel.equals(a))
-        {
-            cPanel.removeAll();
-            this.remove(cPanel);
-            cPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/Game Level Menu/Lvl Sel/defaultLevelSel" + 
-            character.getCurLev() + "" + character.getStage() + ".jpg").getImage(), 1);
-            this.add(cPanel);
-            this.revalidate();
-            this.repaint();
-            keyActions();
-        }
-    }
+    //private void select() 
+    //{
+    //    if(cPanel.equals(a))
+    //    {
+    //        cPanel.removeAll();
+    //        this.remove(cPanel);
+    //        cPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/Game Level Menu/Lvl Sel/defaultLevelSel" + 
+    //        character.getCurLev() + "" + character.getStage() + ".jpg").getImage(), 1);
+    //        this.add(cPanel);
+    //        this.revalidate();
+    //        this.repaint();
+    //        keyActions();
+    //    }
+    //}
 
     private void aniScene(int frames, int loops, String scene)
     {
@@ -99,7 +99,7 @@ public class CutGUI extends JFrame implements ActionListener
     private void keyActions() 
     {
         cPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ENTER"), "Sel");
-        cPanel.getActionMap().put("Sel", new AbstractAction() {public void actionPerformed(ActionEvent e) {select();}});
+        //cPanel.getActionMap().put("Sel", new AbstractAction() {public void actionPerformed(ActionEvent e) {select();}});
     }
 
     public void actionPerformed(ActionEvent e)
