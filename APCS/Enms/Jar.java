@@ -2,16 +2,16 @@ package APCS.Enms;
 
 import APCS.Actions.Attacks.*;
 
-public class Needle implements enm
+public class Jar implements enm
 {
     private int lvl;
     private int hp;
     private boolean alive = true;
     private Atk[] atks = enm.atks;
 
-    public Needle(int lvl) {this.lvl = lvl;hp = 10 + (2*lvl); atks[1] = new bloodDraw();}
+    public Jar(int lvl) {this.lvl = lvl;hp = 15 + (2*lvl); atks[1] = new jarCapt();}
 
-    public String getName() {return "Needle";}
+    public String getName() {return "Jar";}
 
     public int getHp() {return hp;}
 

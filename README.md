@@ -267,3 +267,10 @@ Change Log
 -GOD WHY WERWEOPDKOPEWJFEWEF FUCK
 -Nvm I fixed it we guchi gang
 -Hp cant go over max hp
+
+5/26/26
+-------
+-V.12.4
+-Permanent lvl select images
+-New jar enm added
+-Code cleaned
