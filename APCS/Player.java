@@ -29,8 +29,8 @@ public class Player
     public Atk[] atks = {new punch(), null, null, null};
     
     //To add an atk/skl/itm to the player, add discription in ID, and the matching obj to IDS
-    private String [] atkId = {"PUNCH", "WIDEPUNCH"};
-    private Atk [] atkIdS = {new punch(), new widePunch()};
+    private String [] atkId = {"PUNCH", "WIDEPUNCH", "WINPUNCH"};
+    private Atk [] atkIdS = {new punch(), new widePunch(), new winPunch()};
     
     private String [] sklId = {"JUICEBOX", "ROCKTHROW"};
     private Skl [] sklIdS = {new juiceBox(), new rockThrowSKL()};
