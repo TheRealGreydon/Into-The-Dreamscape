@@ -20,6 +20,7 @@ public class GameGUI extends JFrame implements ActionListener
     private JPanel lPanel;
     private BattleAssets bGUI;
     private LevelGUI lGUI;
+    private CutGUI cGUI;
 
     private JLabel charSprite;
     private JLabel hp = new JLabel();
@@ -38,7 +39,7 @@ public class GameGUI extends JFrame implements ActionListener
     private JButton pau = new JButton(), set = new JButton(), exit = new JButton(), settings = new JButton(), vole = new JButton();
     private boolean paused = false;
 
-    //bbWL/Lose buttons
+    //Win/Lose buttons
     private JButton bbWL = new JButton();
 
     //Control the scrolling text
@@ -514,7 +515,9 @@ public class GameGUI extends JFrame implements ActionListener
 
         else if(j.equals(bb[19])) {turnPhaze(character.itms[3],3);}
 
-        else if(j.equals(bbWL)) {close();lGUI = new LevelGUI(character);lGUI.displayGame();}
+        else if(j.equals(bbWL)) {close();cGUI = new CutGUI(character);cGUI.aniScene("sce");}
+
+        //else if(j.equals(bbWL)) {close();lGUI = new LevelGUI(character);lGUI.displayGame();}
     }
 
     //Various helpers

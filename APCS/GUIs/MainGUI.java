@@ -237,4 +237,5 @@ public class MainGUI extends JFrame implements ActionListener
 
     //Sets panel to a new panel
     private void panSet(JPanel x, JPanel y) {this.remove(x);this.add(y);y.revalidate();y.repaint();}
+    private void close() {Window[] windows = Window.getWindows(); for (Window window : windows) {if (window != null) {window.dispose();}}}
 }

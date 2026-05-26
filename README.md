@@ -275,3 +275,4 @@ Change Log
 -New jar enm added
 -Code cleaned
 -Fixed error that set hp to 0
+-Functoning cut scenes

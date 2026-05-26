@@ -10,17 +10,17 @@ import APCS.Player;
 
 public class CutGUI extends JFrame implements ActionListener
 {
-    public CutGUI(Player character) 
-    {
-        this.character = character;
-    }
+    public CutGUI(Player character) {this.character = character; displayGame();}
 
     private Player character;
-    private JPanel cPanel;
+    private JPanel cPanel = new JPanel();
     private JLabel tText = new JLabel();
-    private int l = 0, f = 0, count = 0;
+    private int frames,f = 0, count = 0;
 
-    public void displayGame() {initialize();java.awt.EventQueue.invokeLater(new Runnable() {public void run() {setVisible(true);}});}
+    private String [] scenes = {"sce"};
+    private int [] frameCount = {5};
+
+    private void displayGame() {initialize();java.awt.EventQueue.invokeLater(new Runnable() {public void run() {setVisible(true);}});}
 
     private void initialize() 
     {
@@ -51,25 +51,22 @@ public class CutGUI extends JFrame implements ActionListener
     //    }
     //}
 
-    private void aniScene(int frames, int loops, String scene)
+    public void aniScene(String scene)
     {
-        l = 0;
-        Timer timer = new Timer();
-        TimerTask task = new TimerTask()
-        {
-            public void run() 
-            {
-                while(l<loops)
-                {
-                    f = 0;
-                    while(f<frames)
-                    {
-                        cPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Cut/Cut-Temp/" + scene + "-" + f + ".png").getImage(), 1);
-                    }
-                }
-            }
-        };
-        timer.scheduleAtFixedRate(task, 0, 50);        
+        f = 0;Timer timer = new Timer();
+
+        for(int i = 0; i<frameCount.length; i++) {if(scenes[i].equals(scene)){frames = frameCount[i];}}
+
+        TimerTask task = new TimerTask() {public void run() {if(f<frames) {nextFrame(f, scene);} else if(f==frames+5) {timer.cancel();close(); new LevelGUI(character).displayGame();}f++;}};
+        
+        timer.scheduleAtFixedRate(task, 0, 200);
+    }
+
+    private void nextFrame(int x, String scene)
+    {
+        cPanel.removeAll();this.remove(cPanel);
+        cPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Cut/" + scene + "-" + x + ".png").getImage(), 2);
+        this.add(cPanel);this.revalidate();this.repaint();
     }
 
     private void timedText(String a)
