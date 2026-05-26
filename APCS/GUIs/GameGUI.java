@@ -327,7 +327,7 @@ public class GameGUI extends JFrame implements ActionListener
     //Player turn
     private void turnPhaze(Itm y, int z)
     {
-        if(y.isAtk())
+        if(y instanceof atkItm)
         {
             if(!((atkItm)y).getAtk().swing()) {atkSel(((atkItm)y).getAtk());}
 
@@ -407,7 +407,7 @@ public class GameGUI extends JFrame implements ActionListener
     }
     private void turnPhaze(Skl y)
     {
-        if(!y.isHeal()) 
+        if(!(y instanceof healSkl)) 
         {
             if(((atkSkl)y).getAtk().swing()) {turnPhaze(((atkSkl)y).getAtk());}
 
@@ -421,7 +421,7 @@ public class GameGUI extends JFrame implements ActionListener
 
             int tmp = ((healSkl)y).getHeal();
             Timer timer = new Timer();
-            if(y.isHeal()) {b = ("Heal " + String.valueOf(tmp)).split("");character.doHp(tmp);}
+            if(y instanceof healSkl) {b = ("Heal " + String.valueOf(tmp)).split("");character.doHp(tmp);}
             tText.setText("");
             tText.setLocation(350, 120);
             tText.setOpaque(true);

@@ -6,8 +6,6 @@ public class swordITM implements atkItm
 {
     public String getName() {return "Sword";}
 
-    public boolean isAtk() {return true;}
-
     public Atk getAtk() {return new swordATK();}
 
     public String getDis() {return "SWORDITM";}

@@ -276,3 +276,4 @@ Change Log
 -Code cleaned
 -Fixed error that set hp to 0
 -Functoning cut scenes
+-Cleaned skills and items replacing checkers with instanceof
