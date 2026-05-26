@@ -20,7 +20,6 @@ public class GameGUI extends JFrame implements ActionListener
     private JPanel lPanel;
     private BattleAssets bGUI;
     private LevelGUI lGUI;
-    private CutGUI cGUI;
 
     private JLabel charSprite;
     private JLabel hp = new JLabel();
@@ -30,9 +29,6 @@ public class GameGUI extends JFrame implements ActionListener
     private JButton [] bb;
     private JButton bbExit;
     private disEnm [] bbE;
-    
-    //Not entierly sure what this is but its important
-    private int y;
     private Atk selAtk;
 
     //Pause items
@@ -49,9 +45,14 @@ public class GameGUI extends JFrame implements ActionListener
 
     //Control the selected button/enm
     private boolean selingEnmAtk = false;
-    private int selEnm = 0, selBut = 0, minSel =0;
+    private int selEnm = 0, selBut = 0, minSel = 0;
     private int maxSel = 2;
     private boolean down = true;
+
+    //Cutscene
+    private String [] scenes = {"sce"};
+    private int [] frameCount = {5};
+    private int frames,f = 0;
 
     public GameGUI(Player character) {this.character = character;}
 
@@ -64,9 +65,7 @@ public class GameGUI extends JFrame implements ActionListener
         bbExit = bGUI.bbExit();
         lPanel.setLayout(null);
         this.setSize(1500, 800);
-        battleImg();
-        enmBattleButtons();
-        actBattleButtons();
+        battleImg();enmBattleButtons();actBattleButtons();
 
         hp.setBackground(new Color(179, 9, 9));
         hp.setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
@@ -147,22 +146,6 @@ public class GameGUI extends JFrame implements ActionListener
                 else{bb[i].setText("X");} x++;
             }
         }
-    }
-
-    //Keybinds
-    private void keyActions()
-    {
-        lPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ESCAPE"), "Pause");
-        lPanel.getActionMap().put("Pause", new AbstractAction() {public void actionPerformed(ActionEvent e) {pause();}});
-        lPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ENTER"), "Select");
-        lPanel.getActionMap().put("Select", new AbstractAction() {public void actionPerformed(ActionEvent e) {Select(selBut);}});
-        lPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("LEFT"), "Left");
-        lPanel.getActionMap().put("Left", new AbstractAction() {public void actionPerformed(ActionEvent e) {if(down){Left();}}});
-        lPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("RIGHT"), "Right");
-        lPanel.getActionMap().put("Right", new AbstractAction() {public void actionPerformed(ActionEvent e) {if(down){Right();}}});
-        lPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("DOWN"), "UpDown");
-        lPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("UP"), "UpDown");
-        lPanel.getActionMap().put("UpDown", new AbstractAction() {public void actionPerformed(ActionEvent e) {UpDown();}});
     }
 
     //Left, Right, Up and Down keybind actions
@@ -480,7 +463,7 @@ public class GameGUI extends JFrame implements ActionListener
         else if(!bbE[0].Enm.isAlive() && !bbE[1].Enm.isAlive() && !bbE[2].Enm.isAlive()) {gEnd(true);}
     }    
 
-    //Button actions
+    //Button actions and keybinds
     public void actionPerformed(ActionEvent e)
     {
         JButton j = (JButton)(e.getSource());
@@ -517,10 +500,24 @@ public class GameGUI extends JFrame implements ActionListener
 
         else if(j.equals(bbWL)) 
         {
-            if(bbWL.getText().equals("You Win!")) {close();cGUI = new CutGUI(character);cGUI.aniScene("sce");}
+            if(bbWL.getText().equals("Next")) {cutScene("sce");}
 
             else {close();lGUI = new LevelGUI(character);lGUI.displayGame();}
         }
+    }
+    private void keyActions()
+    {
+        lPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ESCAPE"), "Pause");
+        lPanel.getActionMap().put("Pause", new AbstractAction() {public void actionPerformed(ActionEvent e) {pause();}});
+        lPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ENTER"), "Select");
+        lPanel.getActionMap().put("Select", new AbstractAction() {public void actionPerformed(ActionEvent e) {Select(selBut);}});
+        lPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("LEFT"), "Left");
+        lPanel.getActionMap().put("Left", new AbstractAction() {public void actionPerformed(ActionEvent e) {if(down){Left();}}});
+        lPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("RIGHT"), "Right");
+        lPanel.getActionMap().put("Right", new AbstractAction() {public void actionPerformed(ActionEvent e) {if(down){Right();}}});
+        lPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("DOWN"), "UpDown");
+        lPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("UP"), "UpDown");
+        lPanel.getActionMap().put("UpDown", new AbstractAction() {public void actionPerformed(ActionEvent e) {UpDown();}});
     }
 
     //Various helpers
@@ -695,5 +692,22 @@ public class GameGUI extends JFrame implements ActionListener
 
         character.itms[3] = null; 
         bb[15].removeActionListener(this);bb[16].removeActionListener(this);bb[18].removeActionListener(this);bb[19].removeActionListener(this);itmBattleButtons();
+    }
+    private void cutScene(String scene)
+    {
+        this.setSize(900,900);
+        f = 0;Timer timer = new Timer();
+
+        for(int i = 0; i<frameCount.length; i++) {if(scenes[i].equals(scene)){frames = frameCount[i];}}
+
+        TimerTask task = new TimerTask() {public void run() {if(f<frames) {nextFrame(f, scene);} else if(f==frames+5) {timer.cancel();close(); new LevelGUI(character).displayGame();}f++;}};
+        
+        timer.scheduleAtFixedRate(task, 0, 200);
+    }
+    private void nextFrame(int x, String scene)
+    {
+        lPanel.removeAll();this.remove(lPanel);
+        lPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Cut/" + scene + "/" + x + ".png").getImage(), 2);
+        this.add(lPanel);this.revalidate();this.repaint();
     }
 }
