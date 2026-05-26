@@ -35,7 +35,7 @@ public class LevelGUI extends JFrame implements ActionListener
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.pack();
         lPanel.setLayout(null);
-        this.setSize(1000, 1000);
+        this.setSize(900, 900);
         this.setTitle("Into the Dreamscape");
         this.setVisible(true);
         this.setResizable(true);
@@ -50,7 +50,7 @@ public class LevelGUI extends JFrame implements ActionListener
         {
             lPanel.removeAll();
             this.remove(lPanel);
-            lPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/Game Level Menu/Lvl Sel/MapScreens-" + character.getStage() + ".png").getImage(), 2);
+            lPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/Game Level Menu/Lvl Sel/MapScreens-" + character.getStage() + ".png").getImage(), 0);
             this.add(lPanel);
             this.revalidate();
             this.repaint();
