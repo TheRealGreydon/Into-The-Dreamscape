@@ -46,6 +46,7 @@ public class Player
         this.fav = fav;
         hp = hpM;
         spriteInit();
+        System.out.println(hp);System.out.println(hpM);
     }
 
     public Player() {spriteInit();}
@@ -152,7 +153,7 @@ public class Player
 
             else if(temp.equals("STAGE")) {curStage = Integer.parseInt(sc.next());}
 
-            else if(temp.equals("VOL")) {vol = Integer.parseInt(sc.next());}}
+            else if(temp.equals("VOL")) {vol = Integer.parseInt(sc.next());}}hp = hpM;
         }
         
         catch (FileNotFoundException e){}

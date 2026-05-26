@@ -323,18 +323,6 @@ public class GameGUI extends JFrame implements ActionListener
         }
     }
 
-    //Selects the enm during a single enm attack
-    private void atkSel(Atk z) 
-    {
-        selAtk = z;selingEnmAtk = true;highlight(-2);
-        
-        if(bbE[0].Enm.isAlive()) {bbE[0].select(true);selEnm = 0;}
-
-        else if(bbE[1].Enm.isAlive()) {bbE[1].select(true);selEnm = 1;}
-
-        else if(bbE[2].Enm.isAlive()) {bbE[2].select(true);selEnm = 2;}
-    }
-
     //Player turn
     private void turnPhaze(Itm y, int z)
     {
@@ -542,6 +530,7 @@ public class GameGUI extends JFrame implements ActionListener
     private void skl() {for(int i=0; i<3; i++) {lPanel.remove(bb[i]);}lPanel.add(bbExit);lPanel.add(bb[9]);lPanel.add(bb[10]);lPanel.add(bb[11]);lPanel.repaint();}
     private void itm() {for(int i=0; i<3; i++) {lPanel.remove(bb[i]);}lPanel.add(bbExit);lPanel.add(bb[15]);lPanel.add(bb[16]);lPanel.add(bb[17]);lPanel.repaint();}
     private void actBattleButtons() {bb = bGUI.actBattleButtons();highlight(0);for(int i=0; i<3; i++) {bb[i].setVisible(true);lPanel.add(bb[i]);}pauButtons();atkBattleButtons();sklBattleButtons();itmBattleButtons();}
+    private void atkSel(Atk z) {selAtk = z;selingEnmAtk = true;highlight(-2);for(int i=0;i<3;i++) {if(bbE[i].Enm.isAlive()) {bbE[i].select(true);selEnm = i;}}}
     private void highlight(int x)
     {
         for (Component c : lPanel.getComponents()) {if (c instanceof JButton && !c.equals(exit) && !c.equals(settings) && !c.equals(vole)

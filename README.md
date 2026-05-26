@@ -270,7 +270,8 @@ Change Log
 
 5/26/26
 -------
--V.12.4
+-V.13-
 -Permanent lvl select images
 -New jar enm added
 -Code cleaned
+-Fixed error that set hp to 0

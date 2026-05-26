@@ -110,7 +110,7 @@ public class MainGUI extends JFrame implements ActionListener
         JTextPane cred = new JTextPane();
         cred.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
         cred.setText("          Into the Dreamscape\n" +
-                    "----------------------------------------------\n"+
+                    " ------------------------------------------------\n"+
                     "Main Code: Nicholas\n"+
                     "Main Story: Kai\n"+
                     "Main Art: Kai\n"+
