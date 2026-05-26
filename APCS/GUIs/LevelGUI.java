@@ -13,7 +13,7 @@ public class LevelGUI extends JFrame implements ActionListener
     public LevelGUI(Player character) 
     {
         this.character = character;
-        a = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/Game Level Menu/defaultLevelMenu" + character.getCurLev() + ".jpg").getImage(), 1);
+        a = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/Game Level Menu/MapScreens-" + character.getLevel() + ".png").getImage(), 2);
     }
 
     private Player character;
@@ -35,7 +35,7 @@ public class LevelGUI extends JFrame implements ActionListener
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.pack();
         lPanel.setLayout(null);
-        this.setSize(1500, 800);
+        this.setSize(1000, 1000);
         this.setTitle("Into the Dreamscape");
         this.setVisible(true);
         this.setResizable(true);
@@ -50,8 +50,7 @@ public class LevelGUI extends JFrame implements ActionListener
         {
             lPanel.removeAll();
             this.remove(lPanel);
-            lPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/Game Level Menu/Lvl Sel/defaultLevelSel" + 
-            character.getCurLev() + "" + character.getStage() + ".jpg").getImage(), 1);
+            lPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/Game Level Menu/Lvl Sel/MapScreens-" + character.getStage() + ".png").getImage(), 2);
             this.add(lPanel);
             this.revalidate();
             this.repaint();
@@ -69,7 +68,7 @@ public class LevelGUI extends JFrame implements ActionListener
         lPanel.setBackground(Color.black);
         lPanel.setLayout(null);
         this.add(lPanel);this.revalidate();this.repaint();
-        timedText("Level " + (character.getCurLev()+1) + " - " + (character.getStage()+1));
+        timedText("Level " + (character.getLevel()+1) + " - " + (character.getStage()+1));
     }
 
     private void timedText(String a)

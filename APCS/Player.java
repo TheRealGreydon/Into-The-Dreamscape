@@ -15,10 +15,9 @@ public class Player
 {
     private String name = "DEFAULT";
     private int gend = 1, lvl = 1, outfit = 1, fav = 1;
-    private int[] stats = {0,0,0,0,0,0};
     private int hp, hpM = 100;
 
-    private int curLev = 0,curStage = 0;
+    private int lev = 0,curStage = 0;
     private int vol = 50;
     private Image sprite, bSprite;
     private boolean alive = true;
@@ -53,17 +52,9 @@ public class Player
     
     public boolean isAlive() {return alive;}
 
-    public void setName(String x) {name = x;}
-
     public void setStage(int x) {curStage = x;}
 
     public int getStage() {return curStage;}
-
-    public void setFav(int x) {fav = x;}
-
-    public void setOut(int x) {outfit = x;}
-
-    public void setGend(int x) {gend = x;}
 
     public String getName() {return name;}    
 
@@ -75,31 +66,17 @@ public class Player
 
     public int getOutfit() {return outfit;}
 
-    public int getStr() {return stats[0];}
-
-    public int getCha() {return stats[1];}
-
-    public int getHp() {return stats[2];}
-
-    public int getInt() {return stats[3];}
-
-    public int getSpe() {return stats[4];}
-
-    public int getSpd() {return stats[5];}
-
-    public void statMod(int x, int y) {stats[x]+= y;}
-
     public void doHp(int x) {if(hp+x>0 && alive){if(hp+x<=hpM) {hp+=x;} else{hp = hpM;}} else{hp = 0; alive = false;}}
 
     public int getHealth() {return hp;}
 
-    public void resetHP() {hp=9+lvl+(getHp()*2);}
+    public void resetHP() {hp=hpM;}
 
-    public void reset() {resetHP();curLev = 0; curStage = 0;}
+    public void reset() {resetHP();lev = 0; curStage = 0;}
 
-    public int getCurLev() {return curLev;}
+    public int getLevel() {return lev;}
 
-    public void setCurLev(int x) {curLev = x;}
+    public void setLevel(int x) {lev = x;}
 
     public void setSprite(Image x) {sprite = x;}
 
@@ -108,22 +85,6 @@ public class Player
     public void setBSprite(Image x) {bSprite = x;}
 
     public Image getBSprite() {return bSprite;}
-
-    public void lvlUp(int x)
-    {
-        lvl++;
-        statMod(x, 1);
-        int temp=(int)(Math.random()*6);
-        statMod(temp, 1);
-    }
-
-    public String toString()
-    {
-        String temp="";
-        temp+="Player name: " + name + "\n";
-        temp+="Player Lvl: " + lvl + "\n";
-        return temp;
-    }
 
     private void spriteInit() 
     {
@@ -150,8 +111,6 @@ public class Player
             else if(temp.equals("FAV")) {fav = Integer.parseInt(sc.next());}
 
             else if(temp.equals("LVL")) {lvl = Integer.parseInt(sc.next());}
-
-            else if(temp.equals("STATS")) {for(int i=0; i<6; i++) {stats[i] = Integer.parseInt(sc.next());}}
 
             else if(temp.equals("ATK")) 
             {
@@ -189,7 +148,7 @@ public class Player
                 }
             }
 
-            else if(temp.equals("LEVEL")) {curLev = Integer.parseInt(sc.next());}
+            else if(temp.equals("LEVEL")) {lev = Integer.parseInt(sc.next());}
 
             else if(temp.equals("STAGE")) {curStage = Integer.parseInt(sc.next());}
 
@@ -205,8 +164,7 @@ public class Player
                 "GEND "+ gend +"\n" + 
                 "OUT "+ outfit +"\n" + 
                 "FAV "+ fav +"\n" +
-                "LVL "+ lvl +"\n" +
-                "STATS "+ stats[0] +" " + stats[1] +" " + stats[2] +" " + stats[3] +" " + stats[4] +" " + stats[5] + "\n";
+                "LVL "+ lvl +"\n";
                 
                 load += "ATK "; for(int i=0; i<4; i++) {if(atks[i]!=null) {load += atks[i].getDis();} else {load += "NULL";} load+= " ";} load += "\n";
 
@@ -214,7 +172,7 @@ public class Player
 
                 load += "ITM "; for(int i=0; i<4; i++) {if(itms[i]!=null) {load += itms[i].getDis();} else {load += "NULL";} load+= " ";} load += "\n";
 
-                load += "LEVEL " + curLev +"\n" + 
+                load += "LEVEL " + lev +"\n" + 
                 "STAGE " + curStage +"\n" + 
                 "VOL " + vol;
 

@@ -775,7 +775,7 @@ public class GameGUI extends JFrame implements ActionListener
             lPanel.setComponentZOrder(win, 0);
             lPanel.repaint();
 
-            if(character.getStage()<2) {character.setStage(character.getStage()+1);} else {character.setStage(0);character.setCurLev(character.getCurLev()+1);}
+            if(character.getStage()<2) {character.setStage(character.getStage()+1);} else {character.setStage(0);character.setLevel(character.getLevel()+1);}
         }
         else
         {
