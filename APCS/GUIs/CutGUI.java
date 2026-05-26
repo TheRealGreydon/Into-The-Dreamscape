@@ -17,6 +17,7 @@ public class CutGUI extends JFrame implements ActionListener
     private JLabel tText = new JLabel();
     private int frames,f = 0, count = 0;
 
+    //Add name of the scene, then matching number of frames
     private String [] scenes = {"sce"};
     private int [] frameCount = {5};
 
@@ -65,7 +66,7 @@ public class CutGUI extends JFrame implements ActionListener
     private void nextFrame(int x, String scene)
     {
         cPanel.removeAll();this.remove(cPanel);
-        cPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Cut/" + scene + "-" + x + ".png").getImage(), 2);
+        cPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Cut/" + scene + "/" + x + ".png").getImage(), 2);
         this.add(cPanel);this.revalidate();this.repaint();
     }
 

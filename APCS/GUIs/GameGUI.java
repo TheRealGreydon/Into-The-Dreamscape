@@ -515,9 +515,12 @@ public class GameGUI extends JFrame implements ActionListener
 
         else if(j.equals(bb[19])) {turnPhaze(character.itms[3],3);}
 
-        else if(j.equals(bbWL)) {close();cGUI = new CutGUI(character);cGUI.aniScene("sce");}
+        else if(j.equals(bbWL)) 
+        {
+            if(bbWL.getText().equals("You Win!")) {close();cGUI = new CutGUI(character);cGUI.aniScene("sce");}
 
-        //else if(j.equals(bbWL)) {close();lGUI = new LevelGUI(character);lGUI.displayGame();}
+            else {close();lGUI = new LevelGUI(character);lGUI.displayGame();}
+        }
     }
 
     //Various helpers
