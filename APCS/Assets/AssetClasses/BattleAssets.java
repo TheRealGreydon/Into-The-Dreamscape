@@ -38,38 +38,38 @@ public class BattleAssets
         return temp;
     }
 
-    public JButton[] actBattleButtons()
+    public JLabel[] actBattleButtons()
     {
-        JButton[] temp = new JButton[21];
-        for(int i=0; i<3; i++)
-        {
-            temp[i] = new JButton();temp[i].setBackground(new Color(179, 9, 9));
-            temp[i].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));temp[i].setForeground(Color.black);
-            temp[i].setFont(new Font(temp[i].getFont().getName(), Font.BOLD, 40));
-            temp[i].setSize(new Dimension(300,150));temp[i].setFocusable(false);temp[i].setLocation((i*400), 615);
-        }
-        temp[0].setText("Attack");temp[1].setText("Skills");temp[2].setText("Items");
+        JLabel[] temp = new JLabel[21];
 
-        int count = 3;
+        for(int i=0; i<21; i++)
+        {
+            temp[i] = new JLabel();
+            temp[i].setBackground(new Color(179, 9, 9));
+            temp[i].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
+            temp[i].setForeground(Color.black);
+            temp[i].setFont(new Font(temp[i].getFont().getName(), Font.BOLD, 40));
+            temp[i].setSize(new Dimension(300,150));temp[i].setFocusable(false);
+            temp[i].setOpaque(true);
+            temp[i].setHorizontalAlignment(SwingConstants.CENTER);
+            temp[i].setVerticalAlignment(SwingConstants.CENTER);
+        }
+        
+        for(int i=0; i<3; i++) {temp[i].setLocation((i*400), 615);}
+
+        temp[0].setText("Attack");temp[1].setText("Skills");temp[2].setText("Items");int count = 3;
+
         while(count<21)
         {
             for(int j=0; j<3; j++)
             {
-                if(j==0 || j==1)
-                {
-                    temp[count] = new JButton();
-                    temp[count].setBackground(new Color(179, 9, 9));
-                    temp[count].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
-                    temp[count].setForeground(Color.black);
-                    temp[count].setFont(new Font(temp[count].getFont().getName(), Font.BOLD, 40));
-                    temp[count].setSize(new Dimension(300,150));temp[count].setFocusable(false);
+                if(j==0 || j==1) {if(j==0) {temp[count].setLocation(0, 615);} else {temp[count].setLocation(400, 615);}}
 
-                    if(j==0) {temp[count].setLocation(0, 615);} else {temp[count].setLocation(400, 615);}
-                }
-                else {temp[count] = bbNext();}
-                count++;
+                else {temp[count] = bbNext();}count++;
             }
         }
+
+        
         return temp;
     }
 
@@ -82,14 +82,20 @@ public class BattleAssets
         bbExit.setLocation(0,540);bbExit.setFocusable(false);return bbExit;
     }
 
-    private JButton bbNext()
+    private JLabel bbNext()
     {
-        JButton bbNext = new JButton();
+        JLabel bbNext = new JLabel();
         bbNext.setBackground(new Color(179, 9, 9));
-        bbNext.setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));bbNext.setForeground(Color.black);
+        bbNext.setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
+        bbNext.setForeground(Color.black);
         bbNext.setFont(new Font(bbNext.getFont().getName(), Font.BOLD, 40));
-        bbNext.setText("Next");bbNext.setSize(new Dimension(300,150));
-        bbNext.setLocation(800,615);bbNext.setFocusable(false);return bbNext;
+        bbNext.setText("Next");
+        bbNext.setSize(new Dimension(300,150));
+        bbNext.setLocation(800,615);
+        bbNext.setHorizontalAlignment(SwingConstants.CENTER);
+        bbNext.setVerticalAlignment(SwingConstants.CENTER);
+        bbNext.setOpaque(true);
+        return bbNext;
     }
 
     public JButton[] battleButtons()

@@ -21,12 +21,11 @@ public class GameGUI extends JFrame implements ActionListener
     private BattleAssets bGUI;
     private LevelGUI lGUI;
 
-    private JLabel charSprite;
-    private JLabel hp = new JLabel();
+    private JLabel charSprite, hp = new JLabel();
 
     //bb 0-2 (Atk, Skl, Itm), bb 3-8 (Atk 1-4), bb 9-14 (Skl 1-4), bb 15-20 (Itm 1-4)
     //Im sorry, this is the worst way to do it, and I fucking love it
-    private JButton [] bb;
+    private JLabel [] bb;
     private JButton bbExit;
     private disEnm [] bbE;
     private Atk selAtk;
@@ -103,11 +102,7 @@ public class GameGUI extends JFrame implements ActionListener
         {
             if(i!=5 && i!=8)
             {
-                if(character.atks[x] != null) 
-                {
-                    bb[i].setText(character.atks[x].getName());
-                    bb[i].addActionListener(this);
-                }
+                if(character.atks[x] != null) {bb[i].setText(character.atks[x].getName());}
                 
                 else{bb[i].setText("X");} x++;
             }
@@ -120,11 +115,7 @@ public class GameGUI extends JFrame implements ActionListener
         {
             if(i!=11 && i!=14)
             {
-                if(character.skls[x] != null) 
-                {
-                    bb[i].setText(character.skls[x].getName());
-                    bb[i].addActionListener(this);
-                }
+                if(character.skls[x] != null) {bb[i].setText(character.skls[x].getName());}
                 
                 else{bb[i].setText("X");} x++;
             }
@@ -137,11 +128,7 @@ public class GameGUI extends JFrame implements ActionListener
         {
             if(i!=17 && i!=20)
             {
-                if(character.itms[x] != null) 
-                {
-                    bb[i].setText(character.itms[x].getName());
-                    bb[i].addActionListener(this);
-                }
+                if(character.itms[x] != null) {bb[i].setText(character.itms[x].getName());}
 
                 else{bb[i].setText("X");} x++;
             }
@@ -240,7 +227,7 @@ public class GameGUI extends JFrame implements ActionListener
                         //Atk buttons
                         else if(x>=3 && x<=8)
                         {
-                            if(!character.froze() && !bb[x].getText().equals("Next") &&!bb[x].getText().equals("X")) {hpReset();bb[x].doClick();}
+                            if(!character.froze() && !bb[x].getText().equals("Next") &&!bb[x].getText().equals("X")) {turnPhaze(x);}
 
                             else if(!bb[x].getText().equals("Next") && !bb[x].getText().equals("X")) {frozPhaze();}
 
@@ -265,7 +252,7 @@ public class GameGUI extends JFrame implements ActionListener
                         //Skl buttons
                         else if(x>=9 && x<=14)
                         {
-                            if(!character.froze() && !bb[x].getText().equals("Next") &&!bb[x].getText().equals("X")) {hpReset();bb[x].doClick();}
+                            if(!character.froze() && !bb[x].getText().equals("Next") &&!bb[x].getText().equals("X")) {turnPhaze(x);}
 
                             else if(!bb[x].getText().equals("Next") && !bb[x].getText().equals("X")) {frozPhaze();}
 
@@ -290,7 +277,7 @@ public class GameGUI extends JFrame implements ActionListener
                         //Itm buttons
                         else if(x>=15 && x<=20)
                         {
-                            if(!bb[x].getText().equals("Next") && !bb[x].getText().equals("X")) {hpReset();bb[x].doClick();}
+                            if(!bb[x].getText().equals("Next") && !bb[x].getText().equals("X")) {turnPhaze(x);}
 
                             else if(bb[x].getText().equals("Next"))
                             {
@@ -318,17 +305,34 @@ public class GameGUI extends JFrame implements ActionListener
     }
 
     //Player turn
+    private void turnPhaze(int y)
+    {
+        switch (y) {
+            case 3:turnPhaze(character.atks[0]);break;
+            case 4:turnPhaze(character.atks[1]);break;
+            case 6:turnPhaze(character.atks[2]);break;
+            case 7:turnPhaze(character.atks[3]);break;
+            case 9:turnPhaze(character.skls[0]);break;
+            case 10:turnPhaze(character.skls[1]);break;
+            case 12:turnPhaze(character.skls[2]);break;
+            case 13:turnPhaze(character.skls[3]);break;
+            case 15:turnPhaze(character.itms[0], 0);break;
+            case 16:turnPhaze(character.itms[1], 1);break;
+            case 18:turnPhaze(character.itms[2], 2);break;
+            case 19:turnPhaze(character.itms[3], 3);break;
+            default:break;
+        }
+        hpReset();
+    }
     private void turnPhaze(Itm y, int z)
     {
-        if(y instanceof atkItm)
+        if(y != null)
         {
-            if(!((atkItm)y).getAtk().swing()) {atkSel(((atkItm)y).getAtk());}
-
-            else {turnPhaze(((atkItm)(y)).getAtk());}
+            if(y instanceof atkItm) {if(!((atkItm)y).getAtk().swing()) {atkSel(((atkItm)y).getAtk());} else {turnPhaze(((atkItm)(y)).getAtk());}}
+            
+            else {turnPhaze((Skl)((sklItm)y).getSkill());}itmUsed(z);
         }
-        else {turnPhaze((Skl)((sklItm)y).getSkill());}   
-
-        itmUsed(z);
+        
     }
     private void turnPhaze(disEnm x, Atk y)
     {
@@ -501,30 +505,6 @@ public class GameGUI extends JFrame implements ActionListener
         
         else if(j.equals(vole)) {if(character.getVol()+25>100) {character.setVol(0);}else{character.setVol(character.getVol()+25);}vole.setText(String.valueOf(character.getVol()));}
 
-        else if(j.equals(bb[3])) {turnPhaze(character.atks[0]);}
-
-        else if(j.equals(bb[4])) {turnPhaze(character.atks[1]);}
-
-        else if(j.equals(bb[6])) {turnPhaze(character.atks[2]);}
-
-        else if(j.equals(bb[7])) {turnPhaze(character.atks[3]);}
-
-        else if(j.equals(bb[9])) {turnPhaze(character.skls[0]);}
-        
-        else if(j.equals(bb[10])) {turnPhaze(character.skls[1]);}
-
-        else if(j.equals(bb[12])) {turnPhaze(character.skls[2]);}
-
-        else if(j.equals(bb[13])) {turnPhaze(character.skls[3]);}
-
-        else if(j.equals(bb[15])) {turnPhaze(character.itms[0],0);}
-
-        else if(j.equals(bb[16])) {turnPhaze(character.itms[1],1);}
-
-        else if(j.equals(bb[18])) {turnPhaze(character.itms[2],2);}
-
-        else if(j.equals(bb[19])) {turnPhaze(character.itms[3],3);}
-
         else if(j.equals(bbWL)) 
         {
             if(bbWL.getText().equals("Next")) {cutScene("sce");}
@@ -561,11 +541,10 @@ public class GameGUI extends JFrame implements ActionListener
     private void atkSel(Atk z) {selAtk = z;selingEnmAtk = true;highlight(-2);for(int i=0;i<3;i++) {if(bbE[i].Enm.isAlive()) {bbE[i].select(true);selEnm = i;}}}
     private void highlight(int x)
     {
-        for (Component c : lPanel.getComponents()) {if (c instanceof JButton && !c.equals(exit) && !c.equals(settings) && !c.equals(vole)
-        && !c.equals(bbE[0].enmButton) && !c.equals(bbE[1].enmButton) && !c.equals(bbE[2].enmButton))
-            {((JButton) c).setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));}}   
+        for (Component c : lPanel.getComponents()) {if (c instanceof JLabel && !c.equals(charSprite) && !c.equals(tText))
+            {((JLabel)c).setBorder(BorderFactory.createLineBorder(Color.black, 5));}}   
 
-        if(x>=0) {bb[x].setBorder(BorderFactory.createLineBorder(Color.black, 5));}
+        if(x>=0) {bb[x].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 10));}
 
         else if(x==-1) {bbExit.setBorder(BorderFactory.createLineBorder(Color.black, 5));}
     }
@@ -611,10 +590,11 @@ public class GameGUI extends JFrame implements ActionListener
             set.setVisible(false);
             vole.setVisible(false);vole.setEnabled(false);
             lPanel.add(charSprite);
+            
             for(int i=0;i<3;i++) {if(has(bbE[i].enmButton)) {lPanel.add(bbE[i].enmButton);}}
             if(has(bbExit)) {lPanel.add(bbExit);}
             if(has(tText)) {tText.setVisible(true);lPanel.add(tText);}
-            for(int i = 0; i<21; i++) {if(has(bb[i])) {lPanel.add(bb[i]);}}
+            for(int i = 0; i<21; i++) {if(has(bb[i])) {lPanel.add(bb[i]);}}lPanel.add(hp);
         }
 
         else 
@@ -627,7 +607,7 @@ public class GameGUI extends JFrame implements ActionListener
             lPanel.add(settings);lPanel.add(exit);lPanel.add(pau);
             lPanel.add(charSprite);
             for(int i=0;i<3;i++) {if(has(bbE[i].enmButton)) {lPanel.add(bbE[i].enmButton);}}
-            if(has(bbExit)) {lPanel.add(bbExit);}
+            if(has(bbExit)) {lPanel.add(bbExit);}lPanel.add(hp);
             if(has(tText)) {tText.setVisible(true);lPanel.add(tText);}
             for(int i = 0; i<21; i++) {if(has(bb[i])) {lPanel.add(bb[i]);}}
             exit.setLocation((lPanel.getWidth()/2)-100, (lPanel.getHeight()/2));
@@ -717,8 +697,7 @@ public class GameGUI extends JFrame implements ActionListener
             character.itms[i] = character.itms[i+1];
         }
 
-        character.itms[3] = null; 
-        bb[15].removeActionListener(this);bb[16].removeActionListener(this);bb[18].removeActionListener(this);bb[19].removeActionListener(this);itmBattleButtons();
+        character.itms[3] = null;itmBattleButtons();
     }
     private void cutScene(String scene)
     {
