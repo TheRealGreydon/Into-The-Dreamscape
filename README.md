@@ -295,3 +295,6 @@ Change Log
 -Pause and settings now actualy work on the game page
 -For reasons neither me nor god can comprehend there seems to be a 50/50 for the hp bar to apear above the character
 -Im so confused
+-V.13.3-
+-Help
+-Fixed enmSel issue

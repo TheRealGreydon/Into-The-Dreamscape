@@ -39,15 +39,12 @@ public class GameGUI extends JFrame implements ActionListener
 
     //Control the scrolling text
     private JLabel tText = new JLabel();
-    private int count = 0,looped = 0, wideLoop = 0;
+    private int f,count = 0,looped = 0, wideLoop = 0;
     private String [] b;
-    private int f;
 
     //Control the selected button/enm
-    private boolean selingEnmAtk = false;
-    private int selEnm = 0, selBut = 0, minSel = 0;
-    private int maxSel = 2;
-    private boolean down = true;
+    private boolean selingEnmAtk = false, down = true;
+    private int selEnm = 0, selBut = 0, minSel = 0, maxSel = 2;
 
     public GameGUI(Player character, JFrame kronk) {this.kronk = kronk;this.character = character;}
 
@@ -135,31 +132,26 @@ public class GameGUI extends JFrame implements ActionListener
     //Left, Right, Up and Down keybind actions
     private void UpDown()
     {
-        if(!has(tText))
+        if(down && !has(bb[0])) {highlight(-1);down = false;}
+
+        else if(!down && !has(bb[0]))
         {
-            if(!selingEnmAtk && !paused)
-            {
-                if(down && !has(bb[0])) {highlight(-1);down = false;}
+            if(has(bb[3])) {highlight(3);}
 
-                else if(!down && !has(bb[0]))
-                {
-                    if(has(bb[3])) {highlight(3);}
+            else if(has(bb[6])) {highlight(6);}
 
-                    else if(has(bb[6])) {highlight(6);}
+            else if(has(bb[9])) {highlight(9);}
 
-                    else if(has(bb[9])) {highlight(9);}
+            else if(has(bb[12])) {highlight(12);}
 
-                    else if(has(bb[12])) {highlight(12);}
+            else if(has(bb[15])) {highlight(15);}
 
-                    else if(has(bb[15])) {highlight(15);}
+            else if(has(bb[18])) {highlight(18);}
 
-                    else if(has(bb[18])) {highlight(18);}
+            down = true;
+        }
 
-                    down = true;
-                }
-            }
-
-            else if(!paused) 
+            /*else if(!paused) 
             {
                 if(selEnm - 1>=0 && bbE[selEnm - 1].Enm.isAlive() || selEnm - 2>=0 && bbE[selEnm - 2].Enm.isAlive()) 
                 {
@@ -173,7 +165,40 @@ public class GameGUI extends JFrame implements ActionListener
                     } 
                     bbE[selEnm].select(true);
                 }
+            }*/
+    }
+
+    private void Up()
+    {
+        if(!paused && !has(tText))
+        {
+            if(selingEnmAtk)
+            {
+                if(selEnm - 1>=0 && bbE[selEnm-1].Enm.isAlive()) {selEnm--;}
+
+                else if(selEnm-2>=0 && bbE[selEnm-2].Enm.isAlive()) {selEnm-=2;}
+                
+                for(int i=0; i<3; i++) {bbE[i].select(false);}bbE[selEnm].select(true);
             }
+
+            else {UpDown();}
+        }
+    }
+
+    private void Down()
+    {
+        if(!paused && !has(tText))
+        {
+            if(selingEnmAtk)
+            {
+                if(selEnm+1<=2 && bbE[selEnm+1].Enm.isAlive()) {selEnm++;}
+
+                else if(selEnm+2<=2 && bbE[selEnm+2].Enm.isAlive()) {selEnm+=2;}
+                
+                for(int i=0; i<3; i++) {bbE[i].select(false);}bbE[selEnm].select(true);
+            }
+
+            else {UpDown();}
         }
     }
     private void Left()
@@ -298,6 +323,23 @@ public class GameGUI extends JFrame implements ActionListener
                     else {for(int i = 3; i<21; i++) {if(has(bb[i])) {lPanel.remove(bb[i]);}} for(int i=0;i<3;i++) {lPanel.add(bb[i]);}minSel = 0;maxSel = 2;selBut = 0;highlight(0);down = true;lPanel.remove(bbExit);lPanel.repaint();}
                 }
             }
+        }
+    }
+    private void atkSel(Atk z) 
+    {
+        selAtk = z;selingEnmAtk = true;
+        highlight(-2);
+        if(bbE[0].Enm.isAlive()) 
+        {
+            bbE[0].select(true);selEnm = 0;
+        }
+        else if(bbE[1].Enm.isAlive()) 
+        {
+            bbE[1].select(true);selEnm = 1;
+        }
+        else if(bbE[2].Enm.isAlive()) 
+        {
+            bbE[2].select(true);selEnm = 2;
         }
     }
 
@@ -518,9 +560,10 @@ public class GameGUI extends JFrame implements ActionListener
         lPanel.getActionMap().put("Left", new AbstractAction() {public void actionPerformed(ActionEvent e) {if(down){Left();}}});
         lPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("RIGHT"), "Right");
         lPanel.getActionMap().put("Right", new AbstractAction() {public void actionPerformed(ActionEvent e) {if(down){Right();}}});
-        lPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("DOWN"), "UpDown");
-        lPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("UP"), "UpDown");
-        lPanel.getActionMap().put("UpDown", new AbstractAction() {public void actionPerformed(ActionEvent e) {UpDown();}});
+        lPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("DOWN"), "Down");
+        lPanel.getActionMap().put("Down", new AbstractAction() {public void actionPerformed(ActionEvent e) {Down();}});
+        lPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("UP"), "Up");
+        lPanel.getActionMap().put("Up", new AbstractAction() {public void actionPerformed(ActionEvent e) {Up();}});
     }
 
     //Various helpers
@@ -532,7 +575,7 @@ public class GameGUI extends JFrame implements ActionListener
     private void skl() {for(int i=0; i<3; i++) {lPanel.remove(bb[i]);}lPanel.add(bbExit);lPanel.add(bb[9]);lPanel.add(bb[10]);lPanel.add(bb[11]);lPanel.repaint();}
     private void itm() {for(int i=0; i<3; i++) {lPanel.remove(bb[i]);}lPanel.add(bbExit);lPanel.add(bb[15]);lPanel.add(bb[16]);lPanel.add(bb[17]);lPanel.repaint();}
     private void actBattleButtons() {bb = bGUI.actBattleButtons();highlight(0);for(int i=0; i<3; i++) {bb[i].setVisible(true);lPanel.add(bb[i]);}pauButtons();atkBattleButtons();sklBattleButtons();itmBattleButtons();}
-    private void atkSel(Atk z) {selAtk = z;selingEnmAtk = true;highlight(-2);for(int i=0;i<3;i++) {if(bbE[i].Enm.isAlive()) {bbE[i].select(true);selEnm = i;}}}
+    
     public void start() {lPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/Battle Level/BB" + ((int)(Math.random()*4 + 1)) +".png").getImage(), 0);kronk.setLocationRelativeTo(null);battleInit();}
     private void highlight(int x)
     {
