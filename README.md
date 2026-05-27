@@ -290,3 +290,8 @@ Change Log
 -Now swaping between screens doesnt close and reopen
 -I am not going slowly insane
 -I am going fast insane
+-Squonk text still glitchy
+-Going to ignore that for now
+-Pause and settings now actualy work on the game page
+-For reasons neither me nor god can comprehend there seems to be a 50/50 for the hp bar to apear above the character
+-Im so confused

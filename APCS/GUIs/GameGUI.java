@@ -19,7 +19,6 @@ public class GameGUI extends JFrame implements ActionListener
     private Player character;
     private JPanel lPanel, cut;
     private BattleAssets bGUI;
-    private LevelGUI lGUI;
     private JFrame kronk;
 
     private JLabel charSprite, hp = new JLabel();
@@ -74,6 +73,7 @@ public class GameGUI extends JFrame implements ActionListener
         hp.setOpaque(true);
         lPanel.add(hp);
         lPanel.setComponentZOrder(hp,0);
+        lPanel.setComponentZOrder(charSprite,1);
 
         lPanel.revalidate();
         lPanel.repaint();
@@ -428,8 +428,6 @@ public class GameGUI extends JFrame implements ActionListener
             lPanel.add(tText);timer.scheduleAtFixedRate(task, 0, 100);
         }
     }
-    
-    //Runs the turn when the player is constricted
     private void frozPhaze()
     {
         count = 0; looped = 0;
@@ -527,7 +525,7 @@ public class GameGUI extends JFrame implements ActionListener
 
     //Various helpers
     private boolean has(Component x) {for (Component c : lPanel.getComponents()) {if (c == x) {return true;}} return false;}
-    private void exit() {if(set.isVisible()) {pause();} else {}}
+    private void exit() {if(set.isVisible()) {pause();} else {character.resetHP();kronk.remove(lPanel);new LevelGUI(character, kronk).initialize();}}
     private void battleImg() {charSprite = bGUI.battleImg(character);lPanel.add(charSprite);}
     private void enmBattleButtons() {bbE = bGUI.enmBattleButtons(); for(int i=0; i<3; i++) {bbE[i].enmButton.setVisible(true);bbE[i].enmButton.addActionListener(this);lPanel.add(bbE[i].enmButton);}}
     private void atk() {for(int i=0; i<3; i++) {lPanel.remove(bb[i]);}lPanel.add(bbExit);lPanel.add(bb[3]);lPanel.add(bb[4]);lPanel.add(bb[5]);lPanel.repaint();}
@@ -580,44 +578,49 @@ public class GameGUI extends JFrame implements ActionListener
     {  
         if(paused) 
         {
-            paused=false;
-            settings.setVisible(false);settings.setEnabled(false);
+            settings.setVisible(false);
+            settings.setEnabled(false);
             pau.setVisible(false);
-            exit.setEnabled(false);exit.setVisible(false);
+            exit.setEnabled(false);
+            exit.setVisible(false);
             set.setVisible(false);
-            vole.setVisible(false);vole.setEnabled(false);
-            lPanel.add(charSprite);
-            
-            for(int i=0;i<3;i++) {if(has(bbE[i].enmButton)) {lPanel.add(bbE[i].enmButton);}}
-            if(has(bbExit)) {lPanel.add(bbExit);}
-            if(has(tText)) {tText.setVisible(true);lPanel.add(tText);}
-            for(int i = 0; i<21; i++) {if(has(bb[i])) {lPanel.add(bb[i]);}}lPanel.add(hp);
+            vole.setVisible(false);
+            vole.setEnabled(false);
         }
 
         else 
         {
-            paused=true;
             pau.setForeground(Color.white);
-            pau.setFont(new Font(pau.getFont().getName(), Font.BOLD, 40));pau.setText("Paused");pau.setBackground(new Color(0,0,0,200));
+            pau.setFont(new Font(pau.getFont().getName(), Font.BOLD, 40));
+            pau.setText("Paused");
+            pau.setBackground(new Color(0,0,0,200));
             pau.setLocation(lPanel.getWidth()/2-2500, lPanel.getHeight()/2-2650);
             settings.setText("Settings");
             lPanel.add(settings);lPanel.add(exit);lPanel.add(pau);
-            lPanel.add(charSprite);
-            for(int i=0;i<3;i++) {if(has(bbE[i].enmButton)) {lPanel.add(bbE[i].enmButton);}}
-            if(has(bbExit)) {lPanel.add(bbExit);}lPanel.add(hp);
-            if(has(tText)) {tText.setVisible(true);lPanel.add(tText);}
-            for(int i = 0; i<21; i++) {if(has(bb[i])) {lPanel.add(bb[i]);}}
             exit.setLocation((lPanel.getWidth()/2)-100, (lPanel.getHeight()/2));
-            settings.setLocation((lPanel.getWidth()/2-100), (lPanel.getHeight()/2-100));settings.setVisible(true);settings.setEnabled(true);
-            exit.setVisible(true);exit.setEnabled(true);exit.setText("Exit");pau.setVisible(true);
+            settings.setLocation((lPanel.getWidth()/2-100), (lPanel.getHeight()/2-100));settings.setVisible(true);
+            settings.setEnabled(true);
+            exit.setVisible(true);
+            exit.setEnabled(true);
+            exit.setText("Exit");
+            pau.setVisible(true);
         }
+        
+        lPanel.add(charSprite);lPanel.add(hp);
+        for(int i=0;i<3;i++) {if(has(bbE[i].enmButton)) {lPanel.add(bbE[i].enmButton);bbE[i].enmButton.setVisible(true);}}
+        if(has(bbExit)) {lPanel.add(bbExit);bbExit.setVisible(true);}
+        if(has(tText)) {tText.setVisible(true);lPanel.add(tText);tText.setVisible(true);}
+        for(int i = 0; i<21; i++) {if(has(bb[i])) {lPanel.add(bb[i]);bb[i].setVisible(true);}}
+
+        paused ^= true;
     }    
     private void settings()
     {
         lPanel.remove(charSprite);
-        for(int i=0;i<3;i++) {if(has(bbE[i].enmButton)) {lPanel.remove(bbE[i].enmButton);} lPanel.remove(bbE[i].enmButton);}
-        if(has(bbExit)) {lPanel.remove(bbExit);}if(has(tText)) {tText.setVisible(true);lPanel.remove(tText);}
-        for(int i = 0; i<21; i++) {if(has(bb[i])) {lPanel.remove(bb[i]);}}
+        for(int i=0;i<3;i++) {if(has(bbE[i].enmButton)) {bbE[i].enmButton.setVisible(false);}}
+        if(has(bbExit)) {bbExit.setVisible(false);}if(has(tText)) {tText.setVisible(false);}lPanel.remove(hp);
+        for(int i = 0; i<21; i++) {if(has(bb[i])) {bb[i].setVisible(false);}}
+
         pau.setVisible(false);set.setEnabled(false);set.setForeground(Color.white);set.setVisible(true);set.setBackground(Color.BLACK);
         set.setFont(new Font(set.getFont().getName(), Font.BOLD, 40));set.setText("Settings"); 
         exit.setText("Back");settings.setText("Volume");settings.setEnabled(false);
