@@ -17,7 +17,7 @@ import APCS.Items.SkillItem.sklItm;
 public class GameGUI extends JFrame implements ActionListener
 {
     private Player character;
-    private JPanel lPanel;
+    private JPanel lPanel, cut;
     private BattleAssets bGUI;
     private LevelGUI lGUI;
 
@@ -26,7 +26,7 @@ public class GameGUI extends JFrame implements ActionListener
     //bb 0-2 (Atk, Skl, Itm), bb 3-8 (Atk 1-4), bb 9-14 (Skl 1-4), bb 15-20 (Itm 1-4)
     //Im sorry, this is the worst way to do it, and I fucking love it
     private JLabel [] bb;
-    private JButton bbExit;
+    private JLabel bbExit;
     private disEnm [] bbE;
     private Atk selAtk;
 
@@ -507,9 +507,10 @@ public class GameGUI extends JFrame implements ActionListener
 
         else if(j.equals(bbWL)) 
         {
-            if(bbWL.getText().equals("Next")) {cutScene("sce");}
-
-            else {close();lGUI = new LevelGUI(character);lGUI.displayGame();}
+            SQUONKINIT();
+            //if(bbWL.getText().equals("Next")) {cutScene("sce");}
+//
+            //else {close();lGUI = new LevelGUI(character);lGUI.displayGame();}
         }
     }
     private void keyActions()
@@ -715,5 +716,55 @@ public class GameGUI extends JFrame implements ActionListener
         lPanel.removeAll();this.remove(lPanel);
         lPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Cut/" + scene + "/" + x + ".png").getImage(), 2);
         this.add(lPanel);this.revalidate();this.repaint();
+    }
+    private void SQUONKINIT()
+    {
+        this.setSize(900,900);
+        f = 0;Timer timer = new Timer();
+
+        cut = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Cut/CircleOfSquonk.gif").getImage(), 2);
+
+        this.remove(lPanel);this.add(cut);
+
+        TimerTask task = new TimerTask() {public void run() {if(f==20) {timer.cancel();SQUONKINIT2();}f++;}};
+        
+        timer.scheduleAtFixedRate(task, 0, 200);
+    }
+
+    private void SQUONKINIT2()
+    {
+        this.remove(cut);
+        lPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Sprites/SquonkingIt.png").getImage(), 0);
+        this.add(lPanel);
+        this.revalidate();
+        this.repaint();
+
+        count = 0;
+        Timer timer = new Timer();
+        String [] b = " Squonk has saved you.".split("");
+        tText.setText("");
+        tText.setOpaque(true);
+        tText.setBackground(Color.WHITE);
+        tText.setFont(new Font(tText.getFont().getName(), Font.BOLD, 40));
+        TimerTask task = new TimerTask()
+        {public void run() 
+            {
+                if(count>4)
+                {
+                    if(count<b.length+5) 
+                    {
+                        tText.setText(tText.getText() + b[count-5]);
+                        tText.setSize(tText.getPreferredSize());
+                        tText.setLocation(500 - tText.getWidth()/2, 450/2-tText.getHeight()/2);
+                        lPanel.add(tText);
+                    }
+
+                    else if(count>b.length+20) {lPanel.remove(tText);}
+                    else if(count>b.length+22) {timer.cancel();}
+                }count++;    
+            }
+        };
+        
+        timer.scheduleAtFixedRate(task, 0, 50);
     }
 }

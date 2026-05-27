@@ -46,7 +46,7 @@ public class BattleAssets
         {
             temp[i] = new JLabel();
             temp[i].setBackground(new Color(179, 9, 9));
-            temp[i].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
+            temp[i].setBorder(BorderFactory.createLineBorder(Color.black, 5));
             temp[i].setForeground(Color.black);
             temp[i].setFont(new Font(temp[i].getFont().getName(), Font.BOLD, 40));
             temp[i].setSize(new Dimension(300,150));temp[i].setFocusable(false);
@@ -73,20 +73,23 @@ public class BattleAssets
         return temp;
     }
 
-    public JButton bbExit()
+    public JLabel bbExit()
     {
-        JButton bbExit = new JButton();bbExit.setBackground(new Color(179, 9, 9));
-        bbExit.setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));bbExit.setForeground(Color.black);
+        JLabel bbExit = new JLabel();bbExit.setBackground(new Color(179, 9, 9));
+        bbExit.setBorder(BorderFactory.createLineBorder(Color.black, 5));bbExit.setForeground(Color.black);
         bbExit.setFont(new Font(bbExit.getFont().getName(), Font.BOLD, 20));
         bbExit.setText("Back");bbExit.setSize(new Dimension(150,75));
-        bbExit.setLocation(0,540);bbExit.setFocusable(false);return bbExit;
+        bbExit.setHorizontalAlignment(SwingConstants.CENTER);
+        bbExit.setVerticalAlignment(SwingConstants.CENTER);
+        bbExit.setOpaque(true);
+        bbExit.setLocation(0,540);return bbExit;
     }
 
     private JLabel bbNext()
     {
         JLabel bbNext = new JLabel();
         bbNext.setBackground(new Color(179, 9, 9));
-        bbNext.setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
+        bbNext.setBorder(BorderFactory.createLineBorder(Color.black, 5));
         bbNext.setForeground(Color.black);
         bbNext.setFont(new Font(bbNext.getFont().getName(), Font.BOLD, 40));
         bbNext.setText("Next");
@@ -105,7 +108,7 @@ public class BattleAssets
         {
             temp[i] = new JButton();
             temp[i].setBackground(new Color(179, 9, 9));
-            temp[i].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));temp[i].setForeground(Color.black);
+            temp[i].setBorder(BorderFactory.createLineBorder(Color.black, 5));temp[i].setForeground(Color.black);
             temp[i].setFont(new Font(temp[i].getFont().getName(), Font.BOLD, 40));
             temp[i].setSize(new Dimension(300,150));temp[i].setFocusable(false);
             

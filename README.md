@@ -279,3 +279,9 @@ Change Log
 -Cleaned skills and items replacing checkers with instanceof
 -Player now can be frozen for a turn by the jar
 -Fixed error where all enm special attack is whatever the last enm created has
+
+5/27/26
+-------
+-V.13.1-
+-Oh my fucking god there are so many bugs
+-Added squonk
