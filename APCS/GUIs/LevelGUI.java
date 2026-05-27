@@ -19,7 +19,6 @@ public class LevelGUI extends JFrame implements ActionListener
     private Player character;
     private JPanel lPanel;
     private JButton pau = new JButton(), set = new JButton(), exit = new JButton(), settings = new JButton(), vole = new JButton();
-    //private int character.getVol();
     private boolean paused = false;
     private JLabel tText = new JLabel();
     private JFrame kronk;
@@ -86,9 +85,21 @@ public class LevelGUI extends JFrame implements ActionListener
                     if(count<b.length) {tText.setText(tText.getText() + b[count]);tText.setSize(tText.getPreferredSize());
                     tText.setLocation(lPanel.getWidth()/2 - tText.getWidth()/2, lPanel.getHeight()/2-tText.getHeight()/2);
                     lPanel.add(tText);}
-                    else{if(count>b.length+15) {lPanel.remove(tText);lPanel.repaint();
-                        for (Component c : lPanel.getComponents()) {if (c instanceof JButton) {c.setEnabled(true);}}timer.cancel();kronk.remove(lPanel);new GameGUI(character,kronk).start();}}
-                        count++;
+                    else{
+                        if(count>b.length+15) 
+                        {
+                            lPanel.remove(tText);lPanel.repaint();
+                            for (Component c : lPanel.getComponents()) 
+                            {
+                                if (c instanceof JButton) 
+                                {
+                                    c.setEnabled(true);
+                                }
+                            }
+                            timer.cancel();kronk.remove(lPanel);
+                            if(character.getStage()==2){new BossGUI(character,kronk).start();} else {new GameGUI(character,kronk).start();}
+                        }
+                    }count++;  
                 }
             }
         };
