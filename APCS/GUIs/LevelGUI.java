@@ -1,18 +1,18 @@
 package APCS.GUIs;
 
+import APCS.Assets.AssetClasses.*;
+import APCS.Player;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import java.util.Timer;
 import javax.swing.*;
-import APCS.Assets.AssetClasses.*;
-import APCS.Player;
 
 public class LevelGUI extends JFrame implements ActionListener
 {
-    public LevelGUI(Player character) 
+    public LevelGUI(Player character, JFrame kronk) 
     {
-        this.character = character;
+        this.character = character;this.kronk = kronk;
         a = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/Game Level Menu/MapScreens-" + character.getLevel() + ".png").getImage(), 2);
     }
 
@@ -22,26 +22,23 @@ public class LevelGUI extends JFrame implements ActionListener
     //private int character.getVol();
     private boolean paused = false;
     private JLabel tText = new JLabel();
+    private JFrame kronk;
     private int count = 0;
 
     private BackgroundPanel a;
 
-    public void displayGame() {initialize();java.awt.EventQueue.invokeLater(new Runnable() {public void run() {setVisible(true);}});}
-
-    private void initialize() 
+    public void initialize() 
     {
-        //character.getVol() = character.getVol();
         lPanel = a;
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.pack();
+        kronk.pack();
         lPanel.setLayout(null);
-        this.setSize(900, 900);
-        this.setTitle("Into the Dreamscape");
-        this.setVisible(true);
-        this.setResizable(true);
-        this.add(lPanel);
-        pauButtons();
-        keyActions();
+        kronk.setSize(900, 900);
+        kronk.setTitle("Into the Dreamscape");
+        kronk.setVisible(true);
+        kronk.setResizable(true);
+        kronk.add(lPanel);
+        pauButtons();keyActions();
     }
 
     private void select() 
@@ -49,11 +46,11 @@ public class LevelGUI extends JFrame implements ActionListener
         if(lPanel.equals(a) && !paused)
         {
             lPanel.removeAll();
-            this.remove(lPanel);
+            kronk.remove(lPanel);
             lPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/Game Level Menu/Lvl Sel/MapScreens-" + character.getStage() + ".png").getImage(), 0);
-            this.add(lPanel);
-            this.revalidate();
-            this.repaint();
+            kronk.add(lPanel);
+            kronk.revalidate();
+            kronk.repaint();
             pauButtons();
             keyActions();
         }
@@ -63,11 +60,11 @@ public class LevelGUI extends JFrame implements ActionListener
 
     private void loadScreen()
     {
-        this.remove(lPanel);
+        kronk.remove(lPanel);
         lPanel = new JPanel();
         lPanel.setBackground(Color.black);
         lPanel.setLayout(null);
-        this.add(lPanel);this.revalidate();this.repaint();
+        kronk.add(lPanel);kronk.revalidate();kronk.repaint();
         timedText("Level " + (character.getLevel()+1) + " - " + (character.getStage()+1));
     }
 
@@ -90,7 +87,7 @@ public class LevelGUI extends JFrame implements ActionListener
                     tText.setLocation(lPanel.getWidth()/2 - tText.getWidth()/2, lPanel.getHeight()/2-tText.getHeight()/2);
                     lPanel.add(tText);}
                     else{if(count>b.length+15) {lPanel.remove(tText);lPanel.repaint();
-                        for (Component c : lPanel.getComponents()) {if (c instanceof JButton) {c.setEnabled(true);}}timer.cancel();close();new GameGUI(character).start();}}
+                        for (Component c : lPanel.getComponents()) {if (c instanceof JButton) {c.setEnabled(true);}}timer.cancel();kronk.remove(lPanel);new GameGUI(character,kronk).start();}}
                         count++;
                 }
             }
@@ -168,6 +165,5 @@ public class LevelGUI extends JFrame implements ActionListener
         else if(j.equals(vole)) {if(character.getVol()+25>100) {character.setVol(0);} else {character.setVol(character.getVol() + 25);} vole.setText(String.valueOf(character.getVol()));}
     }
     
-    private void close() {Window[] windows = Window.getWindows(); for (Window window : windows) {if (window != null) {window.dispose();}}}
-    private void exit() {if(!settings.getText().equals("Volume")){close();} else{pause();}}
+    private void exit() {if(!settings.getText().equals("Volume")){kronk.dispose();} else{pause();}}
 }

@@ -285,3 +285,8 @@ Change Log
 -V.13.1-
 -Oh my fucking god there are so many bugs
 -Added squonk
+-I am slowly going insane
+-V.13.2-
+-Now swaping between screens doesnt close and reopen
+-I am not going slowly insane
+-I am going fast insane

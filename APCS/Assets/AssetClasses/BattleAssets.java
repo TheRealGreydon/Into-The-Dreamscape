@@ -76,13 +76,16 @@ public class BattleAssets
     public JLabel bbExit()
     {
         JLabel bbExit = new JLabel();bbExit.setBackground(new Color(179, 9, 9));
-        bbExit.setBorder(BorderFactory.createLineBorder(Color.black, 5));bbExit.setForeground(Color.black);
+        bbExit.setBorder(BorderFactory.createLineBorder(Color.black, 5));
+        bbExit.setForeground(Color.black);
         bbExit.setFont(new Font(bbExit.getFont().getName(), Font.BOLD, 20));
-        bbExit.setText("Back");bbExit.setSize(new Dimension(150,75));
+        bbExit.setText("Back");
+        bbExit.setSize(new Dimension(150,75));
         bbExit.setHorizontalAlignment(SwingConstants.CENTER);
         bbExit.setVerticalAlignment(SwingConstants.CENTER);
         bbExit.setOpaque(true);
-        bbExit.setLocation(0,540);return bbExit;
+        bbExit.setLocation(0,540);
+        return bbExit;
     }
 
     private JLabel bbNext()
@@ -99,22 +102,6 @@ public class BattleAssets
         bbNext.setVerticalAlignment(SwingConstants.CENTER);
         bbNext.setOpaque(true);
         return bbNext;
-    }
-
-    public JButton[] battleButtons()
-    {
-        JButton[] temp = new JButton[4];
-        for(int i=0; i<4; i++)
-        {
-            temp[i] = new JButton();
-            temp[i].setBackground(new Color(179, 9, 9));
-            temp[i].setBorder(BorderFactory.createLineBorder(Color.black, 5));temp[i].setForeground(Color.black);
-            temp[i].setFont(new Font(temp[i].getFont().getName(), Font.BOLD, 40));
-            temp[i].setSize(new Dimension(300,150));temp[i].setFocusable(false);
-            
-            if(i%2==0) {temp[i].setLocation(0, 615);} else {temp[i].setLocation(400, 615);}
-        }
-        return temp;
     }
 
     public String attack(enm x, Atk y) 

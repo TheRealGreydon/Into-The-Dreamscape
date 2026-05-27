@@ -1,11 +1,10 @@
 package APCS.GUIs;
 
+import APCS.Player;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import javax.imageio.ImageIO;
-
-import APCS.Player;
 import javax.swing.*;
 
 //Character creation screen and starts the game
@@ -20,25 +19,26 @@ public class StartGUI extends JFrame implements ActionListener
     private LevelGUI lGUI;
 
     private JPanel sPanel = new JPanel();
+    private JFrame kronk;
     private JButton[]buttons = new JButton[9];
     private JLabel title;
     private Player character;
     
-    public StartGUI() {;sPanel.setLayout(null);}
+    public StartGUI(JFrame kronk) {this.kronk = kronk;sPanel.setLayout(null);}
     
-    public void start() {displayGame();initialize();}
+    public void start() {initialize();}
 
-    private void displayGame() {java.awt.EventQueue.invokeLater(new Runnable() {public void run() {setVisible(true);}});}
+    //private void displayGame() {java.awt.EventQueue.invokeLater(new Runnable() {public void run() {setVisible(true);}});}
 
     //Main initalize
     private void initialize()
     {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.pack();
+        kronk.pack();
         name();
-        this.add(sPanel);
-        this.setSize(1500, 800);
-        this.setVisible(true);
+        kronk.add(sPanel);
+        kronk.setSize(1500, 800);
+        kronk.setVisible(true);
         //int gend = 1;int out = 1;int fav = 1;page = 4;next();
     }
 
@@ -353,7 +353,7 @@ public class StartGUI extends JFrame implements ActionListener
 
         else if(page==3) {if(fav!=-1) {sPanel.removeAll();fin();sPanel.repaint();page++;}}
 
-        else if(page==4) {character = new Player(name, gend, out, fav);character.saveGame();close();lGUI = new LevelGUI(character);lGUI.displayGame();}
+        else if(page==4) {character = new Player(name, gend, out, fav);character.saveGame();kronk.remove(sPanel);lGUI = new LevelGUI(character,kronk);lGUI.initialize();}
     }
 
     //Handles when the back button is called

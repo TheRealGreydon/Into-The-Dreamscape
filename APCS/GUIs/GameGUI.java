@@ -1,18 +1,18 @@
 package APCS.GUIs;
 
+import APCS.*;
+import APCS.Actions.Attacks.*;
+import APCS.Actions.Skills.*;
+import APCS.Assets.AssetClasses.*;
+import APCS.Enms.*;
+import APCS.Items.AttackItem.atkItm;
+import APCS.Items.Itm;
+import APCS.Items.SkillItem.sklItm;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import java.util.Timer;
 import javax.swing.*;
-import APCS.Assets.AssetClasses.*;
-import APCS.Enms.*;
-import APCS.*;
-import APCS.Actions.Attacks.*;
-import APCS.Actions.Skills.*;
-import APCS.Items.Itm;
-import APCS.Items.AttackItem.atkItm;
-import APCS.Items.SkillItem.sklItm;
 
 public class GameGUI extends JFrame implements ActionListener
 {
@@ -20,6 +20,7 @@ public class GameGUI extends JFrame implements ActionListener
     private JPanel lPanel, cut;
     private BattleAssets bGUI;
     private LevelGUI lGUI;
+    private JFrame kronk;
 
     private JLabel charSprite, hp = new JLabel();
 
@@ -41,6 +42,7 @@ public class GameGUI extends JFrame implements ActionListener
     private JLabel tText = new JLabel();
     private int count = 0,looped = 0, wideLoop = 0;
     private String [] b;
+    private int f;
 
     //Control the selected button/enm
     private boolean selingEnmAtk = false;
@@ -48,22 +50,17 @@ public class GameGUI extends JFrame implements ActionListener
     private int maxSel = 2;
     private boolean down = true;
 
-    //Cutscene
-    private String [] scenes = {"sce"};
-    private int [] frameCount = {5};
-    private int frames,f = 0;
-
-    public GameGUI(Player character) {this.character = character;}
+    public GameGUI(Player character, JFrame kronk) {this.kronk = kronk;this.character = character;}
 
     //Initilizes the battle items
     private void battleInit()
     {
-        this.pack();
-        this.add(lPanel);
+        kronk.pack();
+        kronk.add(lPanel);
         bGUI = new BattleAssets();
         bbExit = bGUI.bbExit();
         lPanel.setLayout(null);
-        this.setSize(1500, 800);
+        kronk.setSize(1500, 800);
         battleImg();enmBattleButtons();actBattleButtons();
 
         hp.setBackground(new Color(179, 9, 9));
@@ -509,7 +506,7 @@ public class GameGUI extends JFrame implements ActionListener
         {
             SQUONKINIT();
             //if(bbWL.getText().equals("Next")) {cutScene("sce");}
-//
+
             //else {close();lGUI = new LevelGUI(character);lGUI.displayGame();}
         }
     }
@@ -529,8 +526,6 @@ public class GameGUI extends JFrame implements ActionListener
     }
 
     //Various helpers
-    private void displayGame() {setDefaultCloseOperation(EXIT_ON_CLOSE);this.pack();this.setTitle("Into the Dreamscape");this.setVisible(true);this.setResizable(true);this.pack();java.awt.EventQueue.invokeLater(new Runnable() {public void run() {setVisible(true);}});}
-    private void close() {Window[] windows = Window.getWindows(); for (Window window : windows) {if (window != null) {window.dispose();}}}
     private boolean has(Component x) {for (Component c : lPanel.getComponents()) {if (c == x) {return true;}} return false;}
     private void exit() {if(set.isVisible()) {pause();} else {}}
     private void battleImg() {charSprite = bGUI.battleImg(character);lPanel.add(charSprite);}
@@ -540,6 +535,7 @@ public class GameGUI extends JFrame implements ActionListener
     private void itm() {for(int i=0; i<3; i++) {lPanel.remove(bb[i]);}lPanel.add(bbExit);lPanel.add(bb[15]);lPanel.add(bb[16]);lPanel.add(bb[17]);lPanel.repaint();}
     private void actBattleButtons() {bb = bGUI.actBattleButtons();highlight(0);for(int i=0; i<3; i++) {bb[i].setVisible(true);lPanel.add(bb[i]);}pauButtons();atkBattleButtons();sklBattleButtons();itmBattleButtons();}
     private void atkSel(Atk z) {selAtk = z;selingEnmAtk = true;highlight(-2);for(int i=0;i<3;i++) {if(bbE[i].Enm.isAlive()) {bbE[i].select(true);selEnm = i;}}}
+    public void start() {lPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/Battle Level/BB" + ((int)(Math.random()*4 + 1)) +".png").getImage(), 0);kronk.setLocationRelativeTo(null);battleInit();}
     private void highlight(int x)
     {
         for (Component c : lPanel.getComponents()) {if (c instanceof JLabel && !c.equals(charSprite) && !c.equals(tText))
@@ -547,7 +543,7 @@ public class GameGUI extends JFrame implements ActionListener
 
         if(x>=0) {bb[x].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 10));}
 
-        else if(x==-1) {bbExit.setBorder(BorderFactory.createLineBorder(Color.black, 5));}
+        else if(x==-1) {bbExit.setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 10));}
     }
     private void pauButtons()
     {   
@@ -576,7 +572,7 @@ public class GameGUI extends JFrame implements ActionListener
         settings.setText("Settings");
         settings.addActionListener(this);
         exit.addActionListener(this);
-        this.setLocationRelativeTo(null);
+        kronk.setLocationRelativeTo(null);
         settings.setFocusable(false);
         exit.setFocusable(false);
     }
@@ -685,12 +681,7 @@ public class GameGUI extends JFrame implements ActionListener
         }
         
         lPanel.add(bbWL);lPanel.setComponentZOrder(bbWL, 0);character.saveGame();
-    }
-    public void start()
-    {
-        lPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/Battle Level/BB" + ((int)(Math.random()*4 + 1)) +".png").getImage(), 0);
-        close();this.setLocationRelativeTo(null);displayGame();battleInit();
-    }
+    }   
     private void itmUsed(int x) 
     {
         for(int i=x; i<3; i++)
@@ -700,71 +691,53 @@ public class GameGUI extends JFrame implements ActionListener
 
         character.itms[3] = null;itmBattleButtons();
     }
-    private void cutScene(String scene)
-    {
-        this.setSize(900,900);
-        f = 0;Timer timer = new Timer();
-
-        for(int i = 0; i<frameCount.length; i++) {if(scenes[i].equals(scene)){frames = frameCount[i];}}
-
-        TimerTask task = new TimerTask() {public void run() {if(f<frames) {nextFrame(f, scene);} else if(f==frames+5) {timer.cancel();close(); new LevelGUI(character).displayGame();}f++;}};
-        
-        timer.scheduleAtFixedRate(task, 0, 200);
-    }
-    private void nextFrame(int x, String scene)
-    {
-        lPanel.removeAll();this.remove(lPanel);
-        lPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Cut/" + scene + "/" + x + ".png").getImage(), 2);
-        this.add(lPanel);this.revalidate();this.repaint();
-    }
     private void SQUONKINIT()
     {
-        this.setSize(900,900);
-        f = 0;Timer timer = new Timer();
-
-        cut = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Cut/CircleOfSquonk.gif").getImage(), 2);
-
-        this.remove(lPanel);this.add(cut);
-
-        TimerTask task = new TimerTask() {public void run() {if(f==20) {timer.cancel();SQUONKINIT2();}f++;}};
+        kronk.setSize(900,900);f = 0;
         
-        timer.scheduleAtFixedRate(task, 0, 200);
-    }
-
-    private void SQUONKINIT2()
-    {
-        this.remove(cut);
-        lPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Sprites/SquonkingIt.png").getImage(), 0);
-        this.add(lPanel);
-        this.revalidate();
-        this.repaint();
-
-        count = 0;
         Timer timer = new Timer();
+        count = 0;
         String [] b = " Squonk has saved you.".split("");
         tText.setText("");
         tText.setOpaque(true);
         tText.setBackground(Color.WHITE);
         tText.setFont(new Font(tText.getFont().getName(), Font.BOLD, 40));
-        TimerTask task = new TimerTask()
-        {public void run() 
+
+        cut = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Cut/CircleOfSquonk.gif").getImage(), 2);
+        kronk.remove(lPanel);kronk.add(cut);
+        TimerTask task = new TimerTask() 
+        {
+            public void run() 
             {
-                if(count>4)
+                if(f==40)
                 {
-                    if(count<b.length+5) 
+                    kronk.remove(cut);
+                    lPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Sprites/SquonkingIt.png").getImage(), 0);
+                    kronk.add(lPanel);
+                    kronk.revalidate();
+                    kronk.repaint();
+                    lPanel.add(tText);
+                }
+
+                if(f>=40) 
+                {
+                    if(!(count<5) && count<b.length+5) 
                     {
                         tText.setText(tText.getText() + b[count-5]);
                         tText.setSize(tText.getPreferredSize());
-                        tText.setLocation(500 - tText.getWidth()/2, 450/2-tText.getHeight()/2);
-                        lPanel.add(tText);
+                        tText.setLocation(500 - tText.getWidth()/2, 450-tText.getHeight()/2);
+                        //lPanel.add(tText);
+                        //lPanel.setComponentZOrder(tText, 0);
                     }
 
-                    else if(count>b.length+20) {lPanel.remove(tText);}
-                    else if(count>b.length+22) {timer.cancel();}
-                }count++;    
+                    //else if(count>b.length+25) {lPanel.remove(tText);}
+                    else if(count>b.length+27) {timer.cancel();}
+                    count++;
+                }
+                f++;
             }
         };
         
-        timer.scheduleAtFixedRate(task, 0, 50);
+        timer.scheduleAtFixedRate(task, 0, 100);
     }
 }

@@ -14,6 +14,7 @@ public class MainGUI extends JFrame implements ActionListener
     private boolean newSave;
         
     private JPanel mPanel = new JPanel(), cPanel = new JPanel(), dPanel = new JPanel();
+    private JFrame kronk = this;
   
     private JButton[]buttons = new JButton[7];
            
@@ -216,7 +217,12 @@ public class MainGUI extends JFrame implements ActionListener
     {
         JButton j = (JButton)(e.getSource());
         
-        if(j.equals(buttons[0])) {if(newSave) {this.dispose();new StartGUI().start();} else {this.dispose();new LevelGUI(character).displayGame();}}
+        if(j.equals(buttons[0])) 
+        {
+            if(newSave) {this.remove(mPanel);new StartGUI(kronk).start();}
+            
+            else {this.remove(mPanel);new LevelGUI(character, kronk).initialize();}
+        }
 
         else if(j.equals(buttons[1])) {panSet(mPanel, cPanel);}
 
@@ -237,5 +243,4 @@ public class MainGUI extends JFrame implements ActionListener
 
     //Sets panel to a new panel
     private void panSet(JPanel x, JPanel y) {this.remove(x);this.add(y);y.revalidate();y.repaint();}
-    private void close() {Window[] windows = Window.getWindows(); for (Window window : windows) {if (window != null) {window.dispose();}}}
 }
