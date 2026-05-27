@@ -18,5 +18,5 @@ public class bEAtk implements Atk
 
     public int acur() {return 100;}
 
-    public String getDis() {return "BEATK";}
+    public String getId() {return "BEATK";}
 }

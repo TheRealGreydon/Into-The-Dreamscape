@@ -2,7 +2,6 @@ package APCS.Actions.Attacks;
 
 public class jarCapt implements Atk
 {
-
     public String getName() {return "Jar Capture";}
 
     public int getDmg() {return -1;}
@@ -11,5 +10,5 @@ public class jarCapt implements Atk
 
     public int acur() {return 75;}
 
-    public String getDis() {return "JARCAPTURE";}
+    public String getId() {return "JARCAPTURE";}
 }

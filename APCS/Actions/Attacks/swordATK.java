@@ -11,5 +11,5 @@ public class swordATK implements Atk
 
     public int acur() {return 100;}
 
-    public String getDis() {return "SWORDATK";}
+    public String getId() {return "SWORDATK";}
 }

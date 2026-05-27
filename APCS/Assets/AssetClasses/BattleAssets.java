@@ -27,13 +27,14 @@ public class BattleAssets
         disEnm[] temp = new disEnm[3];
         for(int i=0; i<3; i++)
         {
-            disEnm x = new disEnm(new Needle(1));
+            disEnm x;
             if((int)(Math.random()*2) == 1) {x = new disEnm(new Jar(1));}
-
+            else {x = new disEnm(new Needle(1));}
             x.enmButton.setLocation(1200, (i*250));   
             x.enmButton.setDisabledIcon(x.enmButton.getIcon());
             temp[i] = x;
         }
+
         return temp;
     }
 
@@ -120,7 +121,16 @@ public class BattleAssets
     {
         int z = (int)(Math.random()*100+1);
         int w = y.getDmg();
-        if(z<=y.acur()) {x.doHp(w);return " " + x.getName() + " took " + w;}
+        if(z<=y.acur()) 
+        {
+            if(y.getId().equals("JARCAPTURE"))
+            {
+                x.freeze(true); return " " + x.getName() + " was constricted";
+            }
+
+            else
+            {x.doHp(w);return " " + x.getName() + " took " + w;}
+        }
 
         else {return " Miss";}
     }

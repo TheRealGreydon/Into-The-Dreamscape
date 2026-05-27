@@ -17,7 +17,6 @@ public class disEnm
     private void buttonInit()
     {
         enmButton = new JButton(new ImageIcon(sprite));
-        enmButton.setText("APCS/Assets/Img/Enemies/HemoNeedle-1");
         enmButton.setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
         enmButton.setSize(new Dimension(250,250));
         enmButton.setContentAreaFilled(false);

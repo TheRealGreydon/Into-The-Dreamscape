@@ -7,7 +7,7 @@ public class rockThrowSKL implements atkSkl
 {
     public String getName() {return "Rock Throw";}
     
-    public String getDis() {return "ROCKTHROW";}
+    public String getId() {return "ROCKTHROW";}
 
     public Atk getAtk() {return new rockThrowATK();}
 }

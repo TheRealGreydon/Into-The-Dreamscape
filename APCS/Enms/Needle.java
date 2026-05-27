@@ -7,9 +7,9 @@ public class Needle implements enm
     private int lvl;
     private int hp;
     private boolean alive = true;
-    private Atk[] atks = enm.atks;
+    public Atk[] atks = {new smack(), new bloodDraw()};
 
-    public Needle(int lvl) {this.lvl = lvl;hp = 10 + (2*lvl); atks[1] = new bloodDraw();}
+    public Needle(int lvl) {this.lvl = lvl;hp = 10 + (2*lvl);}
 
     public String getName() {return "Needle";}
 
@@ -20,4 +20,6 @@ public class Needle implements enm
     public int getLvl() {return lvl;}
 
     public boolean isAlive() {return alive;}
+
+    public Atk getAtk(int x) {return atks[x];}
 }

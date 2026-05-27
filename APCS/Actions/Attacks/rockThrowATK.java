@@ -2,7 +2,6 @@ package APCS.Actions.Attacks;
 
 public class rockThrowATK implements Atk
 {
-
     public String getName() {return "Rock Throw";}
 
     public int getDmg() {return -8;}
@@ -11,5 +10,5 @@ public class rockThrowATK implements Atk
 
     public int acur() {return 75;}
 
-    public String getDis() {return "ROCKTHROW";}
+    public String getId() {return "ROCKTHROW";}
 }

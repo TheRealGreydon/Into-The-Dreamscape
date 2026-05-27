@@ -10,5 +10,5 @@ public class bAtk implements Atk
 
     public String getName() {return "bAtk";}
 
-    public String getDis() {return "BATK";}
+    public String getId() {return "BATK";}
 }

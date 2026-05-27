@@ -11,5 +11,5 @@ public class smack implements Atk
 
     public int acur() {return 75;}
 
-    public String getDis() {return "SMACK";}
+    public String getId() {return "SMACK";}
 }

@@ -20,7 +20,7 @@ public class Player
     private int lev = 0,curStage = 0;
     private int vol = 50;
     private Image sprite, bSprite;
-    private boolean alive = true;
+    private boolean frozen = false, alive = true;
     private File save = new File("APCS/Save.txt");
 
     //Starting atk/skls
@@ -28,7 +28,7 @@ public class Player
     public Itm[] itms = {null, null, null, null};
     public Atk[] atks = {new punch(), null, null, null};
     
-    //To add an atk/skl/itm to the player, add discription in ID, and the matching obj to IDS
+    //To add an atk/skl/itm to the player, add discription in getId, and the matching obj to IDS
     private String [] atkId = {"PUNCH", "WIDEPUNCH", "WINPUNCH"};
     private Atk [] atkIdS = {new punch(), new widePunch(), new winPunch()};
     
@@ -51,6 +51,10 @@ public class Player
 
     public Player() {spriteInit();}
     
+    public boolean froze() {return frozen;}
+
+    public void freeze(boolean x) {frozen = x;}
+
     public boolean isAlive() {return alive;}
 
     public void setStage(int x) {curStage = x;}
@@ -167,11 +171,11 @@ public class Player
                 "FAV "+ fav +"\n" +
                 "LVL "+ lvl +"\n";
                 
-                load += "ATK "; for(int i=0; i<4; i++) {if(atks[i]!=null) {load += atks[i].getDis();} else {load += "NULL";} load+= " ";} load += "\n";
+                load += "ATK "; for(int i=0; i<4; i++) {if(atks[i]!=null) {load += atks[i].getId();} else {load += "NULL";} load+= " ";} load += "\n";
 
-                load += "SKL "; for(int i=0; i<4; i++) {if(skls[i]!=null) {load += skls[i].getDis();} else {load += "NULL";} load+= " ";} load += "\n";
+                load += "SKL "; for(int i=0; i<4; i++) {if(skls[i]!=null) {load += skls[i].getId();} else {load += "NULL";} load+= " ";} load += "\n";
 
-                load += "ITM "; for(int i=0; i<4; i++) {if(itms[i]!=null) {load += itms[i].getDis();} else {load += "NULL";} load+= " ";} load += "\n";
+                load += "ITM "; for(int i=0; i<4; i++) {if(itms[i]!=null) {load += itms[i].getId();} else {load += "NULL";} load+= " ";} load += "\n";
 
                 load += "LEVEL " + lev +"\n" + 
                 "STAGE " + curStage +"\n" + 

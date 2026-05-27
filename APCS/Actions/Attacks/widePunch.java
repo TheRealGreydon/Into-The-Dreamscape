@@ -11,5 +11,5 @@ public class widePunch implements Atk
 
     public int acur() {return 100;}
 
-    public String getDis() {return "WIDEPUNCH";}
+    public String getId() {return "WIDEPUNCH";}
 }

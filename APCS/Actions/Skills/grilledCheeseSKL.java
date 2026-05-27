@@ -6,5 +6,5 @@ public class grilledCheeseSKL implements healSkl
 
     public int getHeal() {return ((int)(Math.random()*3 + 2));}
 
-    public String getDis() {return "GRILLEDCHEESESKL";}
+    public String getId() {return "GRILLEDCHEESESKL";}
 }

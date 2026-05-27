@@ -227,14 +227,22 @@ public class GameGUI extends JFrame implements ActionListener
                     //Atk, Skl, Itm
                     if(down)
                     {
-                        if(x==0) {atk();minSel = 3; maxSel = 5;selBut = 3;highlight(3);}
-                        else if(x==1) {skl();minSel = 9; maxSel = 11;selBut = 9;highlight(9);}
-                        else if(x==2) {itm();minSel = 15; maxSel = 17;selBut = 15;highlight(15);}
+                        if(x<=2)
+                        {
+                            if(x==0) {atk();minSel = 3; maxSel = 5;selBut = 3;highlight(3);}
+
+                            else if(x==1) {skl();minSel = 9; maxSel = 11;selBut = 9;highlight(9);}
+
+                            else if(x==2) {itm();minSel = 15; maxSel = 17;selBut = 15;highlight(15);}
+                        }
+                        
 
                         //Atk buttons
                         else if(x>=3 && x<=8)
                         {
-                            if(!bb[x].getText().equals("Next") && !bb[x].getText().equals("X")) {hpReset();bb[x].doClick();}
+                            if(!character.froze() && !bb[x].getText().equals("Next") &&!bb[x].getText().equals("X")) {hpReset();bb[x].doClick();}
+
+                            else if(!bb[x].getText().equals("Next") && !bb[x].getText().equals("X")) {frozPhaze();}
 
                             else if(bb[x].getText().equals("Next"))
                             {
@@ -257,7 +265,9 @@ public class GameGUI extends JFrame implements ActionListener
                         //Skl buttons
                         else if(x>=9 && x<=14)
                         {
-                            if(!bb[x].getText().equals("Next") && !bb[x].getText().equals("X")) {hpReset();bb[x].doClick();}
+                            if(!character.froze() && !bb[x].getText().equals("Next") &&!bb[x].getText().equals("X")) {hpReset();bb[x].doClick();}
+
+                            else if(!bb[x].getText().equals("Next") && !bb[x].getText().equals("X")) {frozPhaze();}
 
                             else if(bb[x].getText().equals("Next"))
                             {
@@ -342,10 +352,10 @@ public class GameGUI extends JFrame implements ActionListener
                     tText.setSize(tText.getWidth()+10, tText.getHeight());
                     lPanel.add(tText);lPanel.repaint();}
                     else{if(count==b.length+10) 
-                        {
-                            if(!x.Enm.isAlive()) {lPanel.remove(x.enmButton);}
-                            lPanel.remove(tText);lPanel.repaint();lPanel.remove(tText);timer.cancel();enmBattlePhaze();
-                        }
+                    {
+                        if(!x.Enm.isAlive()) {lPanel.remove(x.enmButton);}
+                        lPanel.remove(tText);lPanel.repaint();lPanel.remove(tText);timer.cancel();enmBattlePhaze();
+                    }
                     }count++;}}};
 
         lPanel.add(tText);
@@ -390,17 +400,11 @@ public class GameGUI extends JFrame implements ActionListener
     }
     private void turnPhaze(Skl y)
     {
-        if(!(y instanceof healSkl)) 
-        {
-            if(((atkSkl)y).getAtk().swing()) {turnPhaze(((atkSkl)y).getAtk());}
-
-            else{atkSel(((atkSkl)y).getAtk());}
-        }
+        if(!(y instanceof healSkl)) {if(((atkSkl)y).getAtk().swing()) {turnPhaze(((atkSkl)y).getAtk());} else{atkSel(((atkSkl)y).getAtk());}}
 
         else
         {
-            count = 0;
-            looped = 0;
+            count = 0; looped = 0;
 
             int tmp = ((healSkl)y).getHeal();
             Timer timer = new Timer();
@@ -423,7 +427,30 @@ public class GameGUI extends JFrame implements ActionListener
             lPanel.add(tText);timer.scheduleAtFixedRate(task, 0, 100);
         }
     }
+    
+    //Runs the turn when the player is constricted
+    private void frozPhaze()
+    {
+        count = 0; looped = 0;
 
+        Timer timer = new Timer();
+        b = (" " + character.getName() + " is constricted").split("");
+        tText.setText("");
+        tText.setLocation(350, 120);
+        tText.setOpaque(true);
+        tText.setBackground(Color.WHITE);
+        tText.setFont(new Font(tText.getFont().getName(), Font.BOLD, 40));
+        TimerTask task = new TimerTask()
+        {public void run() {if(!paused)
+        {
+            if(count<b.length) {lPanel.remove(tText);tText.setText(tText.getText() + b[count]);
+            tText.setSize(tText.getPreferredSize());tText.setSize(tText.getWidth()+10, tText.getHeight());lPanel.add(tText);lPanel.repaint();}
+            else {if(count==b.length+10) {lPanel.remove(tText);lPanel.repaint();lPanel.remove(tText);timer.cancel();enmBattlePhaze();}}count++;
+        }}};
+
+        lPanel.add(tText);timer.scheduleAtFixedRate(task, 0, 100);character.freeze(false);
+    }
+    
     //Enm turn, also handles winning/losing
     private void enmBattlePhaze()
     {
@@ -436,9 +463,9 @@ public class GameGUI extends JFrame implements ActionListener
         Timer timer = new Timer();
         if(looped <=2 && bbE[looped].Enm.isAlive()) 
         {
-            if((int)(Math.random()*10)==0) {b = new BattleAssets().attack(character, bbE[looped].Enm.atks[1]).split("");}
+            if((int)(Math.random()*10)==0) {b = new BattleAssets().attack(character, bbE[looped].Enm.getAtk(1)).split("");}
             
-            else {b = new BattleAssets().attack(character, bbE[looped].Enm.atks[0]).split("");}
+            else {b = new BattleAssets().attack(character, bbE[looped].Enm.getAtk(0)).split("");}
             TimerTask task = new TimerTask()
             {public void run() 
                 {if(!paused)

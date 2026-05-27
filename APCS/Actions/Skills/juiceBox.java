@@ -6,5 +6,5 @@ public class juiceBox implements healSkl
 
     public int getHeal() {return ((int)(Math.random()*3 + 2));}
 
-    public String getDis() {return "JUICEBOX";}
+    public String getId() {return "JUICEBOX";}
 }
