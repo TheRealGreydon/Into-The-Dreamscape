@@ -277,3 +277,5 @@ Change Log
 -Fixed error that set hp to 0
 -Functoning cut scenes
 -Cleaned skills and items replacing checkers with instanceof
+-Player now can be frozen for a turn by the jar
+-Fixed error where all enm special attack is whatever the last enm created has
