@@ -21,6 +21,7 @@ public class LevelGUI extends JFrame implements ActionListener
     private JButton pau = new JButton(), set = new JButton(), exit = new JButton(), settings = new JButton(), vole = new JButton();
     private boolean paused = false;
     private JLabel tText = new JLabel();
+    //KRONK IS IMPORTANT DONT MESS WITH KRONK
     private JFrame kronk;
     private int count = 0;
 
@@ -99,9 +100,9 @@ public class LevelGUI extends JFrame implements ActionListener
                             timer.cancel();kronk.remove(lPanel);
                             //Impl boss GUI
                             //if(character.getStage()==2){new BossGUI(character,kronk).start();} else 
-                            //{new GameGUI(character,kronk).start();}
+                            {new GameGUI(character,kronk).start();}
 
-                            {new RewGUI(character,kronk).initialize();}
+                            //{new RewGUI(character,kronk).initialize();}
                         }
                     }count++;  
                 }

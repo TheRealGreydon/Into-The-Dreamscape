@@ -8,13 +8,16 @@ import javax.swing.*;
 
 public class BattleAssets
 {    
+    //List of standard enms
+    private disEnm enmArray [] = {new disEnm(new Needle(1)),new disEnm(new Jar(1)),new disEnm(new Plane(1))};
+
+    //Player sprites in label form
     public JLabel battleImg(Player character)
     {
         JLabel charSprite = new JLabel(new ImageIcon(character.getBSprite()));charSprite.setPreferredSize(new Dimension(450,650));
         charSprite.setOpaque(false);charSprite.setBounds(0,0,500,550);
         return charSprite;
     }
-
     public JLabel spriteImg(Player character)
     {
         JLabel charSprite = new JLabel(new ImageIcon(character.getSprite()));charSprite.setPreferredSize(new Dimension(450,650));
@@ -22,28 +25,28 @@ public class BattleAssets
         return charSprite;
     }
 
+    //Makes the enms
     public disEnm[] enmBattleButtons(int lvl)
     {
         disEnm[] temp = new disEnm[3];
         for(int i=0; i<3; i++)
         {
-            disEnm x = randEnm(lvl);
-            if((int)(Math.random()*2) == 1) {x = new disEnm(new Jar(1));}
-            else {x = new disEnm(new Needle(1));}
-            x.enmButton.setLocation(1200, (i*250));   
-            temp[i] = x;
+            temp[i] = randEnm(lvl);
+            temp[i].enmImg.setLocation(1200, (i*250));   
         }
 
         return temp;
     }
 
+    //Randomly picks one enm from the list
     private disEnm randEnm(int lvl)
     {
-        disEnm enmArray [] = {new disEnm(new Needle(lvl)),new disEnm(new Jar(lvl)),new disEnm(new Plane(lvl)),};
-        
-        return enmArray[((int)(Math.random()*enmArray.length))];
+        disEnm temp = enmArray[((int)(Math.random()*enmArray.length))];
+        temp.Enm.setLvl(lvl);
+        return temp;
     }
 
+    //Action buttons
     public JLabel[] actBattleButtons()
     {
         JLabel[] temp = new JLabel[21];
@@ -78,6 +81,7 @@ public class BattleAssets
         return temp;
     }
 
+    //Next/Exit buttons
     public JLabel bbEN(boolean x)
     {
         JLabel bbNE = new JLabel();bbNE.setBackground(new Color(179, 9, 9));
@@ -104,6 +108,7 @@ public class BattleAssets
         return bbNE;
     }
 
+    //Attack method
     public String attack(enm x, Atk y) 
     {
         int z = (int)(Math.random()*100+1);
@@ -112,7 +117,6 @@ public class BattleAssets
 
         else {return " Miss";}
     }
-
     public String attack(Player x, Atk y) 
     {
         int z = (int)(Math.random()*100+1);

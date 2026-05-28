@@ -10,20 +10,20 @@ import javax.swing.*;
 
 public class RewGUI extends JFrame implements ActionListener
 {
-    public RewGUI(Player character, JFrame kronk) 
-    {
-        this.character = character;this.kronk = kronk;
-        a = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/Game Level Menu/MapScreens-" + character.getLevel() + ".png").getImage(), 2);
-    }
-
     private Player character;
     private JPanel lPanel;
     private JButton pau = new JButton(), set = new JButton(), exit = new JButton(), settings = new JButton(), vole = new JButton();
     private boolean paused = false;
     private JLabel tText = new JLabel();
+    //KRONK IS IMPORTANT DONT MESS WITH KRONK
     private JFrame kronk;
     private int count = 0;
 
+    public RewGUI(Player character, JFrame kronk) 
+    {
+        this.character = character;this.kronk = kronk;
+        a = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/Game Level Menu/MapScreens-" + character.getLevel() + ".png").getImage(), 2);
+    }
     private BackgroundPanel a;
 
     public void initialize() 

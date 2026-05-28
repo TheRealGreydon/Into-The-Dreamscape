@@ -1,11 +1,11 @@
 package APCS.GUIs;
 
+import APCS.*;
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.*;
 import java.io.*;
 import java.util.*;
-import APCS.*;
+import javax.swing.*;
 
 public class MainGUI extends JFrame implements ActionListener
 {
@@ -14,6 +14,7 @@ public class MainGUI extends JFrame implements ActionListener
     private boolean newSave;
         
     private JPanel mPanel = new JPanel(), cPanel = new JPanel(), dPanel = new JPanel();
+    //KRONK IS IMPORTANT DONT MESS WITH KRONK
     private JFrame kronk = this;
   
     private JButton[]buttons = new JButton[7];
@@ -21,7 +22,7 @@ public class MainGUI extends JFrame implements ActionListener
     public MainGUI() {initialize();}
     
     //Runs the game
-    public void displayGame() {java.awt.EventQueue.invokeLater(new Runnable() {public void run() {setVisible(true);}});}//this.dispose();new StartGUI().start();}
+    public void displayGame() {java.awt.EventQueue.invokeLater(() -> {setVisible(true);});}
 
     //Main initalize
     private void initialize()
@@ -110,13 +111,16 @@ public class MainGUI extends JFrame implements ActionListener
 
         JTextPane cred = new JTextPane();
         cred.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
-        cred.setText("          Into the Dreamscape\n" +
-                    " ------------------------------------------------\n"+
-                    "Main Code: Nicholas\n"+
-                    "Main Story: Kai\n"+
-                    "Main Art: Kai\n"+
-                    "Literaly all the Code: Nicholas\n"+
-                    "Please give us a 100% Mr. Klus :)");
+       
+        cred.setText("""
+                                Into the Dreamscape
+                        ------------------------------------------------
+                        Main Code: Nicholas
+                        Main Story: Kai
+                        Main Art: Kai
+                        Literaly all the Code: Nicholas
+                        Please give us a 100% Mr. Klus :)""");
+
         cred.setBackground(Color.white);
         cred.setFont(new Font(cred.getFont().getName(), Font.BOLD, 40));
         cred.setForeground(Color.BLACK);      
@@ -211,7 +215,8 @@ public class MainGUI extends JFrame implements ActionListener
             }
         }
     }
-
+    
+    @Override
     //Buttons
     public void actionPerformed(ActionEvent e)
     {

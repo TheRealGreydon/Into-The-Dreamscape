@@ -4,8 +4,7 @@ import APCS.Actions.Attacks.*;
 
 public class Needle implements enm
 {
-    private int lvl;
-    private int hp;
+    private int lvl, hp;
     private boolean alive = true;
     public Atk[] atks = {new smack(), new bloodDraw()};
 

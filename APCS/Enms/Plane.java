@@ -4,14 +4,13 @@ import APCS.Actions.Attacks.*;
 
 public class Plane implements enm
 {
-    private int lvl;
-    private int hp;
+    private int lvl,hp;
     private boolean alive = true;
     public Atk[] atks = {new smack(), new bloodDraw()};
 
     public Plane(int lvl) {this.lvl = lvl;hp = 10 + (2*lvl);}
 
-    public String getName() {return "Needle";}
+    public String getName() {return "Plane";}
 
     public int getHp() {return hp;}
 

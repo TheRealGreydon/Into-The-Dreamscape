@@ -19,6 +19,7 @@ public class GameGUI extends JFrame implements ActionListener
     private Player character;
     private JPanel gPanel, cut;
     private BattleAssets bGUI;
+    //KRONK IS IMPORTANT DONT MESS WITH KRONK
     private JFrame kronk;
 
     private JLabel charSprite, hp = new JLabel();
@@ -73,7 +74,7 @@ public class GameGUI extends JFrame implements ActionListener
         hp.setLocation(0,40);
         hp.setOpaque(true);
         
-        for(int i=0; i<3; i++) gPanel.add(bbE[i].enmButton);
+        for(int i=0; i<3; i++) gPanel.add(bbE[i].enmImg);
         gPanel.add(hp);
         gPanel.add(charSprite);
         gPanel.setComponentZOrder(hp,0);
@@ -220,11 +221,35 @@ public class GameGUI extends JFrame implements ActionListener
                     {
                         if(x<=2)
                         {
-                            if(x==0) {atk();minSel = 3; maxSel = 5;selBut = 3;highlight(3);}
+                            switch (x) 
+                            {
+                                case 0 -> 
+                                {
+                                    atk();
+                                    minSel = 3;
+                                    maxSel = 5;
+                                    selBut = 3;
+                                    highlight(3);
+                                }
 
-                            else if(x==1) {skl();minSel = 9; maxSel = 11;selBut = 9;highlight(9);}
+                                case 1 -> 
+                                {
+                                    skl();
+                                    minSel = 9;
+                                    maxSel = 11;
+                                    selBut = 9;
+                                    highlight(9);
+                                }
 
-                            else if(x==2) {itm();minSel = 15; maxSel = 17;selBut = 15;highlight(15);}
+                                case 2 -> 
+                                {
+                                    itm();
+                                    minSel = 15;
+                                    maxSel = 17;
+                                    selBut = 15;
+                                    highlight(15);
+                                }
+                            }
                         }
                         
 
@@ -329,19 +354,18 @@ public class GameGUI extends JFrame implements ActionListener
     private void turnPhaze(int y)
     {
         switch (y) {
-            case 3:turnPhaze(character.atks[0]);break;
-            case 4:turnPhaze(character.atks[1]);break;
-            case 6:turnPhaze(character.atks[2]);break;
-            case 7:turnPhaze(character.atks[3]);break;
-            case 9:turnPhaze(character.skls[0]);break;
-            case 10:turnPhaze(character.skls[1]);break;
-            case 12:turnPhaze(character.skls[2]);break;
-            case 13:turnPhaze(character.skls[3]);break;
-            case 15:turnPhaze(character.itms[0], 0);break;
-            case 16:turnPhaze(character.itms[1], 1);break;
-            case 18:turnPhaze(character.itms[2], 2);break;
-            case 19:turnPhaze(character.itms[3], 3);break;
-            default:break;
+            case 3 -> turnPhaze(character.atks[0]);
+            case 4 -> turnPhaze(character.atks[1]);
+            case 6 -> turnPhaze(character.atks[2]);
+            case 7 -> turnPhaze(character.atks[3]);
+            case 9 -> turnPhaze(character.skls[0]);
+            case 10 -> turnPhaze(character.skls[1]);
+            case 12 -> turnPhaze(character.skls[2]);
+            case 13 -> turnPhaze(character.skls[3]);
+            case 15 -> turnPhaze(character.itms[0], 0);
+            case 16 -> turnPhaze(character.itms[1], 1);
+            case 18 -> turnPhaze(character.itms[2], 2);
+            case 19 -> turnPhaze(character.itms[3], 3);
         }
         hpReset();
     }
@@ -384,7 +408,7 @@ public class GameGUI extends JFrame implements ActionListener
                     {
                         if(count==b.length+10) 
                         {
-                            if(!x.Enm.isAlive()) {gPanel.remove(x.enmButton);}
+                            if(!x.Enm.isAlive()) {gPanel.remove(x.enmImg);}
 
                             gPanel.remove(tText);
                             gPanel.repaint();
@@ -423,7 +447,7 @@ public class GameGUI extends JFrame implements ActionListener
                         gPanel.add(tText);gPanel.repaint();}
                         else{if(count==b.length+10) 
                         {
-                            if(!bbE[wideLoop].Enm.isAlive()) {gPanel.remove(bbE[wideLoop].enmButton);}
+                            if(!bbE[wideLoop].Enm.isAlive()) {gPanel.remove(bbE[wideLoop].enmImg);}
                             gPanel.remove(tText);gPanel.repaint();timer.cancel();if(wideLoop<2){turnPhaze(y);}
                             else {looped = 0; enmBattlePhaze();}
                         }}count++;
@@ -637,7 +661,7 @@ public class GameGUI extends JFrame implements ActionListener
         }
         
         gPanel.add(charSprite);gPanel.add(hp);
-        for(int i=0;i<3;i++) {if(has(bbE[i].enmButton)) {gPanel.add(bbE[i].enmButton);bbE[i].enmButton.setVisible(true);}}
+        for(int i=0;i<3;i++) {if(has(bbE[i].enmImg)) {gPanel.add(bbE[i].enmImg);bbE[i].enmImg.setVisible(true);}}
         if(has(bbExit)) {gPanel.add(bbExit);bbExit.setVisible(true);}
         if(has(tText)) {tText.setVisible(true);gPanel.add(tText);tText.setVisible(true);}
         for(int i = 0; i<21; i++) {if(has(bb[i])) {gPanel.add(bb[i]);bb[i].setVisible(true);}}
@@ -647,7 +671,7 @@ public class GameGUI extends JFrame implements ActionListener
     private void settings()
     {
         gPanel.remove(charSprite);
-        for(int i=0;i<3;i++) {if(has(bbE[i].enmButton)) {bbE[i].enmButton.setVisible(false);}}
+        for(int i=0;i<3;i++) {if(has(bbE[i].enmImg)) {bbE[i].enmImg.setVisible(false);}}
         if(has(bbExit)) {bbExit.setVisible(false);}if(has(tText)) {tText.setVisible(false);}gPanel.remove(hp);
         for(int i = 0; i<21; i++) {if(has(bb[i])) {bb[i].setVisible(false);}}
 
@@ -676,7 +700,7 @@ public class GameGUI extends JFrame implements ActionListener
             pau.setLocation(gPanel.getWidth()/2-2500, gPanel.getHeight()/2-2650);
             gPanel.add(pau);
             gPanel.add(charSprite);
-            for(int i=0;i<3;i++) {if(has(bbE[i].enmButton)) {gPanel.add(bbE[i].enmButton);}}
+            for(int i=0;i<3;i++) {if(has(bbE[i].enmImg)) {gPanel.add(bbE[i].enmImg);}}
             if(has(bbExit)) {gPanel.add(bbExit);}
             if(has(tText)) {tText.setVisible(true);gPanel.add(tText);}
             for(int i = 0; i<21; i++) {if(has(bb[i])) {gPanel.add(bb[i]);}}

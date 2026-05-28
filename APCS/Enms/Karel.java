@@ -11,7 +11,7 @@ public class Karel implements enm
 
     public Karel(int lvl) {this.lvl = lvl;hp = 10 + (2*lvl);}
 
-    public String getName() {return "Needle";}
+    public String getName() {return "Karel";}
 
     public int getHp() {return hp;}
 
