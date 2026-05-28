@@ -15,4 +15,6 @@ public interface  enm
     public Atk getAtk(int x);
 
     public boolean isAlive();
+
+    public void setLvl(int x);
 }

@@ -22,12 +22,12 @@ public class BattleAssets
         return charSprite;
     }
 
-    public disEnm[] enmBattleButtons()
+    public disEnm[] enmBattleButtons(int lvl)
     {
         disEnm[] temp = new disEnm[3];
         for(int i=0; i<3; i++)
         {
-            disEnm x;
+            disEnm x = randEnm(lvl);
             if((int)(Math.random()*2) == 1) {x = new disEnm(new Jar(1));}
             else {x = new disEnm(new Needle(1));}
             x.enmButton.setLocation(1200, (i*250));   
@@ -35,6 +35,13 @@ public class BattleAssets
         }
 
         return temp;
+    }
+
+    private disEnm randEnm(int lvl)
+    {
+        disEnm enmArray [] = {new disEnm(new Needle(lvl)),new disEnm(new Jar(lvl)),new disEnm(new Plane(lvl)),};
+        
+        return enmArray[((int)(Math.random()*enmArray.length))];
     }
 
     public JLabel[] actBattleButtons()

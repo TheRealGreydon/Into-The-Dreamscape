@@ -22,4 +22,6 @@ public class Jar implements enm
     public boolean isAlive() {return alive;}
 
     public Atk getAtk(int x) {return atks[x];}
+
+    public void setLvl(int x) {lvl = x;}
 }

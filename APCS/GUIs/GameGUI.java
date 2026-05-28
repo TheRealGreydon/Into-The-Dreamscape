@@ -53,7 +53,7 @@ public class GameGUI extends JFrame implements ActionListener
     {
         bGUI = new BattleAssets();
         bbExit = bGUI.bbEN(false);
-        bbE = bGUI.enmBattleButtons();
+        bbE = bGUI.enmBattleButtons(character.getLevel());
         charSprite = bGUI.battleImg(character);
 
         kronk.pack();

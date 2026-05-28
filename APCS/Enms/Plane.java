@@ -2,14 +2,14 @@ package APCS.Enms;
 
 import APCS.Actions.Attacks.*;
 
-public class Needle implements enm
+public class Plane implements enm
 {
     private int lvl;
     private int hp;
     private boolean alive = true;
     public Atk[] atks = {new smack(), new bloodDraw()};
 
-    public Needle(int lvl) {this.lvl = lvl;hp = 10 + (2*lvl);}
+    public Plane(int lvl) {this.lvl = lvl;hp = 10 + (2*lvl);}
 
     public String getName() {return "Needle";}
 
