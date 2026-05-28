@@ -51,13 +51,17 @@ public class GameGUI extends JFrame implements ActionListener
     //Initilizes the battle items
     private void battleInit()
     {
+        bGUI = new BattleAssets();
+        bbExit = bGUI.bbEN(false);
+        bbE = bGUI.enmBattleButtons();
+        charSprite = bGUI.battleImg(character);
+
         kronk.pack();
         kronk.add(gPanel);
-        bGUI = new BattleAssets();
-        bbExit = bGUI.bbExit();
         gPanel.setLayout(null);
         kronk.setSize(1500, 800);
-        battleImg();enmBattleButtons();actBattleButtons();
+
+        actBattleButtons();
 
         hp.setBackground(new Color(179, 9, 9));
         hp.setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
@@ -68,7 +72,10 @@ public class GameGUI extends JFrame implements ActionListener
         hp.setSize((hp.getWidth()+10),(hp.getHeight()+10));
         hp.setLocation(0,40);
         hp.setOpaque(true);
+        
+        for(int i=0; i<3; i++) gPanel.add(bbE[i].enmButton);
         gPanel.add(hp);
+        gPanel.add(charSprite);
         gPanel.setComponentZOrder(hp,0);
         gPanel.setComponentZOrder(charSprite,1);
 
@@ -365,16 +372,30 @@ public class GameGUI extends JFrame implements ActionListener
             {
                 if(!paused)
                 {
-                    if(count<b.length) {gPanel.remove(tText);tText.setText(tText.getText() + b[count]);
-                    tText.setSize(tText.getPreferredSize());
-                    tText.setSize(tText.getWidth()+10, tText.getHeight());
-                    gPanel.add(tText);gPanel.repaint();}
-                    else{if(count==b.length+10) 
+                    if(count<b.length) 
                     {
-                        if(!x.Enm.isAlive()) {gPanel.remove(x.enmButton);}
-                        gPanel.remove(tText);gPanel.repaint();gPanel.remove(tText);timer.cancel();enmBattlePhaze();
+                        gPanel.remove(tText);tText.setText(tText.getText() + b[count]);
+                        tText.setSize(tText.getPreferredSize());
+                        tText.setSize(tText.getWidth()+10, tText.getHeight());
+                        gPanel.add(tText);gPanel.repaint();
                     }
-                    }count++;}}};
+
+                    else
+                    {
+                        if(count==b.length+10) 
+                        {
+                            if(!x.Enm.isAlive()) {gPanel.remove(x.enmButton);}
+
+                            gPanel.remove(tText);
+                            gPanel.repaint();
+                            timer.cancel();
+                            enmBattlePhaze();
+                        }
+                    }
+                    count++;
+                }
+            }
+        };
 
         gPanel.add(tText);
         timer.scheduleAtFixedRate(task, 0, 100);
@@ -538,8 +559,6 @@ public class GameGUI extends JFrame implements ActionListener
     //Various helpers
     private boolean has(Component x) {for (Component c : gPanel.getComponents()) {if (c == x) {return true;}} return false;}
     private void exit() {if(set.isVisible()) {pause();} else {character.resetHP();kronk.remove(gPanel);new LevelGUI(character, kronk).initialize();}}
-    private void battleImg() {charSprite = bGUI.battleImg(character);gPanel.add(charSprite);}
-    private void enmBattleButtons() {bbE = bGUI.enmBattleButtons(); for(int i=0; i<3; i++) gPanel.add(bbE[i].enmButton);}
     private void atk() {for(int i=0; i<3; i++) {gPanel.remove(bb[i]);}gPanel.add(bbExit);gPanel.add(bb[3]);gPanel.add(bb[4]);gPanel.add(bb[5]);gPanel.repaint();}
     private void skl() {for(int i=0; i<3; i++) {gPanel.remove(bb[i]);}gPanel.add(bbExit);gPanel.add(bb[9]);gPanel.add(bb[10]);gPanel.add(bb[11]);gPanel.repaint();}
     private void itm() {for(int i=0; i<3; i++) {gPanel.remove(bb[i]);}gPanel.add(bbExit);gPanel.add(bb[15]);gPanel.add(bb[16]);gPanel.add(bb[17]);gPanel.repaint();}

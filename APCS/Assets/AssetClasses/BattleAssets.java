@@ -64,43 +64,37 @@ public class BattleAssets
             {
                 if(j==0 || j==1) {if(j==0) {temp[count].setLocation(0, 615);} else {temp[count].setLocation(400, 615);}}
 
-                else {temp[count] = bbNext();}count++;
+                else {temp[count] = bbEN(true);}count++;
             }
         }
 
-        
         return temp;
     }
 
-    public JLabel bbExit()
+    public JLabel bbEN(boolean x)
     {
-        JLabel bbExit = new JLabel();bbExit.setBackground(new Color(179, 9, 9));
-        bbExit.setBorder(BorderFactory.createLineBorder(Color.black, 5));
-        bbExit.setForeground(Color.black);
-        bbExit.setFont(new Font(bbExit.getFont().getName(), Font.BOLD, 20));
-        bbExit.setText("Back");
-        bbExit.setSize(new Dimension(150,75));
-        bbExit.setHorizontalAlignment(SwingConstants.CENTER);
-        bbExit.setVerticalAlignment(SwingConstants.CENTER);
-        bbExit.setOpaque(true);
-        bbExit.setLocation(0,540);
-        return bbExit;
-    }
+        JLabel bbNE = new JLabel();bbNE.setBackground(new Color(179, 9, 9));
+        bbNE.setBorder(BorderFactory.createLineBorder(Color.black, 5));
+        bbNE.setForeground(Color.black);
+        if(x)
+        {
+            bbNE.setFont(new Font(bbNE.getFont().getName(), Font.BOLD, 40));
+            bbNE.setBounds(800,615,300,150);
+            bbNE.setText("Next");
+        }
 
-    private JLabel bbNext()
-    {
-        JLabel bbNext = new JLabel();
-        bbNext.setBackground(new Color(179, 9, 9));
-        bbNext.setBorder(BorderFactory.createLineBorder(Color.black, 5));
-        bbNext.setForeground(Color.black);
-        bbNext.setFont(new Font(bbNext.getFont().getName(), Font.BOLD, 40));
-        bbNext.setText("Next");
-        bbNext.setSize(new Dimension(300,150));
-        bbNext.setLocation(800,615);
-        bbNext.setHorizontalAlignment(SwingConstants.CENTER);
-        bbNext.setVerticalAlignment(SwingConstants.CENTER);
-        bbNext.setOpaque(true);
-        return bbNext;
+        else
+        {
+            bbNE.setFont(new Font(bbNE.getFont().getName(), Font.BOLD, 20));
+            bbNE.setBounds(0,540,150,75);
+            bbNE.setText("Back");
+        }
+        
+        bbNE.setHorizontalAlignment(SwingConstants.CENTER);
+        bbNE.setVerticalAlignment(SwingConstants.CENTER);
+        bbNE.setOpaque(true);
+        
+        return bbNE;
     }
 
     public String attack(enm x, Atk y) 
