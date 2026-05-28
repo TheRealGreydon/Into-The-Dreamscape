@@ -34,12 +34,12 @@ public class disEnm
     {
         if(x)
         {
-            try {sprite = ImageIO.read(new File("APCS/Assets/Img/Enemies/" + Enm.getName() + "Sel.png")).getScaledInstance(250, 250, Image.SCALE_SMOOTH);}
+            try {sprite = ImageIO.read(new File("APCS/Assets/Img/Enemies/" + Enm.getName() + "Sel.gif")).getScaledInstance(250, 250, Image.SCALE_SMOOTH);}
             catch (IOException e) {e.printStackTrace();}
         }
         else
         {
-            try {sprite = ImageIO.read(new File("APCS/Assets/Img/Enemies/" + Enm.getName() + ".png")).getScaledInstance(250, 250, Image.SCALE_SMOOTH);}
+            try {sprite = ImageIO.read(new File("APCS/Assets/Img/Enemies/" + Enm.getName() + ".gif")).getScaledInstance(250, 250, Image.SCALE_SMOOTH);}
             catch (IOException e) {e.printStackTrace();}
         }
         selected = x;
@@ -48,7 +48,7 @@ public class disEnm
 
     private void spriteInit() 
     {
-        try {sprite = ImageIO.read(new File("APCS/Assets/Img/Enemies/" + Enm.getName() + ".png")).getScaledInstance(250, 250, Image.SCALE_SMOOTH);}
+        try {sprite = ImageIO.read(new File("APCS/Assets/Img/Enemies/" + Enm.getName() + ".gif")).getScaledInstance(250, 250, Image.SCALE_SMOOTH);}
         catch (IOException e) {e.printStackTrace();}
     }
 }
