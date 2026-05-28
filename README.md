@@ -304,3 +304,5 @@ Change Log
 -V.13.4-
 -Squonk now a 1/20 chance to save you if you lose
 -All hail Squonk
+-Animated characters
+-God I HATE Jlabels

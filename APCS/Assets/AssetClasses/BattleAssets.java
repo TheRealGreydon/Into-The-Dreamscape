@@ -31,7 +31,6 @@ public class BattleAssets
             if((int)(Math.random()*2) == 1) {x = new disEnm(new Jar(1));}
             else {x = new disEnm(new Needle(1));}
             x.enmButton.setLocation(1200, (i*250));   
-            x.enmButton.setDisabledIcon(x.enmButton.getIcon());
             temp[i] = x;
         }
 
