@@ -97,7 +97,9 @@ public class LevelGUI extends JFrame implements ActionListener
                                 }
                             }
                             timer.cancel();kronk.remove(lPanel);
-                            if(character.getStage()==2){new BossGUI(character,kronk).start();} else {new GameGUI(character,kronk).start();}
+                            //Impl boss GUI
+                            //if(character.getStage()==2){new BossGUI(character,kronk).start();} else 
+                            {new GameGUI(character,kronk).start();}
                         }
                     }count++;  
                 }

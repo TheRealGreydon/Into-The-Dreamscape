@@ -298,3 +298,9 @@ Change Log
 -V.13.3-
 -Help
 -Fixed enmSel issue
+
+5/28/26
+-------
+-V.13.4-
+-Squonk now a 1/20 chance to save you if you lose
+-All hail Squonk

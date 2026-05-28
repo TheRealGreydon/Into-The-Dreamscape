@@ -517,12 +517,7 @@ public class GameGUI extends JFrame implements ActionListener
         
         else if(j.equals(vole)) {if(character.getVol()+25>100) {character.setVol(0);}else{character.setVol(character.getVol()+25);}vole.setText(String.valueOf(character.getVol()));}
 
-        else if(j.equals(bbWL)) 
-        {
-            if(bbWL.getText().equals("Next")) {}
-
-            else {new LevelGUI(character, kronk).initialize();}
-        }
+        else if(j.equals(bbWL)) {kronk.remove(gPanel);new LevelGUI(character, kronk).initialize();}
     }
     private void keyActions()
     {
@@ -648,49 +643,49 @@ public class GameGUI extends JFrame implements ActionListener
     }
     private void gEnd(boolean x)
     {
-        gPanel.remove(tText);gPanel.repaint();
-        gPanel.getActionMap().clear();highlight(-2);
-        gPanel.remove(pau);
-        
-        pau.setForeground(Color.white);
-        pau.setFont(new Font(pau.getFont().getName(), Font.BOLD, 40));
-        pau.setBackground(new Color(0,0,0,200));
-        pau.setLocation(gPanel.getWidth()/2-2500, gPanel.getHeight()/2-2650);
-        gPanel.add(pau);
-        gPanel.add(charSprite);
-        for(int i=0;i<3;i++) {if(has(bbE[i].enmButton)) {gPanel.add(bbE[i].enmButton);}}
-        if(has(bbExit)) {gPanel.add(bbExit);}
-        if(has(tText)) {tText.setVisible(true);gPanel.add(tText);}
-        for(int i = 0; i<21; i++) {if(has(bb[i])) {gPanel.add(bb[i]);}}
-        pau.setVisible(true);
-
-        bbWL = new JButton();
-        bbWL.setBackground(new Color(0,0,0));
-        bbWL.setSize(new Dimension(200,100));
-        bbWL.setEnabled(true);
-        bbWL.setVisible(true);
-        bbWL.setForeground(Color.white);
-        bbWL.setFont(new Font(bbWL.getFont().getName(), Font.BOLD, 40));
-        bbWL.setFocusable(false);
-        bbWL.addActionListener(this);
-        bbWL.setLocation(650,350);
-
-        if(x)
-        {
-            character.resetHP();
-            pau.setText("You Win!");
-            gPanel.setComponentZOrder(pau, 0);
-            gPanel.repaint();
-            character.resetHP();
-            bbWL.setText("Next");
-
-            if(character.getStage()<2) {character.setStage(character.getStage()+1);} else {character.setStage(0);character.setLevel(character.getLevel()+1);}
-        }
+        if(((int)(Math.random())*20) == 19 && !x) {SQUONKINIT();}
 
         else
         {
-            if(((int)(Math.random())*20) == 19) {SQUONKINIT();}
+            gPanel.remove(tText);gPanel.repaint();
+            gPanel.getActionMap().clear();highlight(-2);
+            gPanel.remove(pau);
             
+            pau.setForeground(Color.white);
+            pau.setFont(new Font(pau.getFont().getName(), Font.BOLD, 40));
+            pau.setBackground(new Color(0,0,0,200));
+            pau.setLocation(gPanel.getWidth()/2-2500, gPanel.getHeight()/2-2650);
+            gPanel.add(pau);
+            gPanel.add(charSprite);
+            for(int i=0;i<3;i++) {if(has(bbE[i].enmButton)) {gPanel.add(bbE[i].enmButton);}}
+            if(has(bbExit)) {gPanel.add(bbExit);}
+            if(has(tText)) {tText.setVisible(true);gPanel.add(tText);}
+            for(int i = 0; i<21; i++) {if(has(bb[i])) {gPanel.add(bb[i]);}}
+            pau.setVisible(true);
+
+            bbWL = new JButton();
+            bbWL.setBackground(new Color(0,0,0));
+            bbWL.setSize(new Dimension(200,100));
+            bbWL.setEnabled(true);
+            bbWL.setVisible(true);
+            bbWL.setForeground(Color.white);
+            bbWL.setFont(new Font(bbWL.getFont().getName(), Font.BOLD, 40));
+            bbWL.setFocusable(false);
+            bbWL.addActionListener(this);
+            bbWL.setLocation(650,350);
+
+            if(x)
+            {
+                character.resetHP();
+                pau.setText("You Win!");
+                gPanel.setComponentZOrder(pau, 0);
+                gPanel.repaint();
+                character.resetHP();
+                bbWL.setText("Next");
+
+                if(character.getStage()<2) {character.setStage(character.getStage()+1);} else {character.setStage(0);character.setLevel(character.getLevel()+1);}
+            }
+
             else
             {
                 character.reset();
@@ -702,9 +697,9 @@ public class GameGUI extends JFrame implements ActionListener
                 gPanel.repaint();
                 character.reset();
             }
+
+            gPanel.add(bbWL);gPanel.setComponentZOrder(bbWL, 0);character.saveGame();
         }
-        
-        gPanel.add(bbWL);gPanel.setComponentZOrder(bbWL, 0);character.saveGame();
     }   
     private void itmUsed(int x) 
     {
@@ -729,7 +724,7 @@ public class GameGUI extends JFrame implements ActionListener
         tText.setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 10));
 
         cut = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Cut/CircleOfSquonk.gif").getImage(), 2);
-        kronk.remove(gPanel);kronk.add(cut);
+        gPanel.removeAll();kronk.remove(gPanel);kronk.add(cut);kronk.revalidate();kronk.repaint();
         TimerTask task = new TimerTask() 
         {
             public void run() 
