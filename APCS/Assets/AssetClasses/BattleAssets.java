@@ -11,14 +11,14 @@ public class BattleAssets
     //Player sprites in label form
     public JLabel battleImg(Player character)
     {
-        JLabel charSprite = new JLabel(new ImageIcon(character.getBSprite()));charSprite.setPreferredSize(new Dimension(450,650));
-        charSprite.setOpaque(false);charSprite.setBounds(0,0,500,550);
+        JLabel charSprite = new JLabel(new ImageIcon(new ImageIcon(new ImageIcon("APCS/Assets/Img/Character Img/HeroCombat-" + character.getOutfit() +".png").getImage()).getImage().getScaledInstance(500, 500, Image.SCALE_DEFAULT)));
+        charSprite.setBounds(0,125,500,500);
         return charSprite;
     }
     public JLabel spriteImg(Player character)
     {
-        JLabel charSprite = new JLabel(new ImageIcon(character.getSprite()));charSprite.setPreferredSize(new Dimension(450,650));
-        charSprite.setOpaque(false);charSprite.setBounds(0,0,500,550);
+        JLabel charSprite = new JLabel(new ImageIcon(new ImageIcon(new ImageIcon("APCS/Assets/Img/Character Img/Char" + character.getOutfit() +".png").getImage()).getImage().getScaledInstance(500, 500, Image.SCALE_DEFAULT)));
+        charSprite.setSize(500,500);
         return charSprite;
     }
 

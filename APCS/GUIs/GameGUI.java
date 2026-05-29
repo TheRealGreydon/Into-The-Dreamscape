@@ -63,7 +63,7 @@ public class GameGUI extends JFrame implements ActionListener
         hp.setText(String.valueOf("HP: " + character.getHealth()));
         hp.setSize(hp.getPreferredSize());
         hp.setSize((hp.getWidth()+10),(hp.getHeight()+10));
-        hp.setLocation(0,40);
+        hp.setLocation(175,100);
         hp.setOpaque(true);
         
         actBattleButtons();

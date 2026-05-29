@@ -183,4 +183,14 @@ public class Player
 
         try {FileWriter w = new FileWriter("APCS/Save.txt");w.write(load);w.close();} catch (IOException e) {}
     }
+
+    //Check if the Atk/Skl/Itms are full
+    public boolean AtkF() {int x=0;for(int i=0;i<4;i++) {if(atks[i]!=null) {x++;}}return x==4;}
+    public boolean SklF() {int x=0;for(int i=0;i<4;i++) {if(skls[i]!=null) {x++;}}return x==4;}
+    public boolean ItmF() {int x=0;for(int i=0;i<4;i++) {if(itms[i]!=null) {x++;}}return x==4;}
+
+    //Adds to the Atk/Skl/Itms list
+    public void AtkA(Atk x) {if(!AtkF()) {for(int i=0; i<4; i++) {if(atks[i]==null) {atks[i] = x;}}}}
+    public void SklA(Skl x) {if(!SklF()) {for(int i=0; i<4; i++) {if(skls[i]==null) {skls[i] = x;}}}}
+    public void ItmA(Itm x) {if(!ItmF()) {for(int i=0; i<4; i++) {if(itms[i]==null) {itms[i] = x;}}}}
 }
