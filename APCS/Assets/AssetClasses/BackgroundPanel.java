@@ -3,7 +3,7 @@ package APCS.Assets.AssetClasses;
 import java.awt.*;
 import javax.swing.*;
 
-//Oh thank the fucking lord I love github
+//Oh thank the lord I love github
 public class BackgroundPanel extends JPanel
 {
 	public static final int SCALED = 0;

@@ -10,11 +10,7 @@ import javax.swing.*;
 
 public class LevelGUI extends JFrame implements ActionListener
 {
-    public LevelGUI(Player character, JFrame kronk) 
-    {
-        this.character = character;this.kronk = kronk;
-        a = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/Game Level Menu/MapScreens-" + character.getLevel() + ".png").getImage(), 2);
-    }
+    
 
     private Player character;
     private JPanel lPanel;
@@ -24,16 +20,22 @@ public class LevelGUI extends JFrame implements ActionListener
     //KRONK IS IMPORTANT DONT MESS WITH KRONK
     private JFrame kronk;
     private int count = 0;
-
     private BackgroundPanel a;
+
+    public LevelGUI(Player character, JFrame kronk) 
+    {
+        this.character = character;this.kronk = kronk;
+        a = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/Game Level Menu/MapScreens-" + character.getLevel() + ".png").getImage(), 2);
+    }
 
     public void initialize() 
     {
         lPanel = a;
+        lPanel.setBackground(Color.BLACK);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         kronk.pack();
         lPanel.setLayout(null);
-        kronk.setSize(900, 900);
+        kronk.setSize(1500, 800);
         kronk.setTitle("Into the Dreamscape");
         kronk.setVisible(true);
         kronk.setResizable(true);
@@ -41,13 +43,14 @@ public class LevelGUI extends JFrame implements ActionListener
         pauButtons();keyActions();
     }
 
+    //Select
     private void select() 
     {
         if(lPanel.equals(a) && !paused)
         {
             lPanel.removeAll();
             kronk.remove(lPanel);
-            lPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/Game Level Menu/Lvl Sel/MapScreens-" + character.getStage() + ".png").getImage(), 0);
+            lPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/Game Level Menu/Lvl Sel/MapScreens-" + character.getStage() + ".png").getImage(), 2);
             kronk.add(lPanel);
             kronk.revalidate();
             kronk.repaint();
@@ -58,6 +61,7 @@ public class LevelGUI extends JFrame implements ActionListener
         else if(!paused) {loadScreen();}
     }
 
+    //Loading screen
     private void loadScreen()
     {
         kronk.remove(lPanel);
@@ -68,6 +72,7 @@ public class LevelGUI extends JFrame implements ActionListener
         timedText("Level " + (character.getLevel()+1) + " - " + (character.getStage()+1));
     }
 
+    //Scrolling text
     private void timedText(String a)
     {
         count = 0;
@@ -100,7 +105,7 @@ public class LevelGUI extends JFrame implements ActionListener
                             timer.cancel();kronk.remove(lPanel);
                             //Impl boss GUI
                             //if(character.getStage()==2){new BossGUI(character,kronk).start();} else 
-                            {new GameGUI(character,kronk).start();}
+                            {new GameGUI(character,kronk);}
 
                             //{new RewGUI(character,kronk).initialize();}
                         }
@@ -111,6 +116,7 @@ public class LevelGUI extends JFrame implements ActionListener
         timer.scheduleAtFixedRate(task, 0, 50);        
     }
 
+    //Pause and settings
     private void pauButtons()
     {   
         set.setVisible(false);
@@ -124,7 +130,6 @@ public class LevelGUI extends JFrame implements ActionListener
         settings.setFocusable(false);
         exit.setFocusable(false);
     }
-
     private void pause()
     {  
         if(paused) 
@@ -150,7 +155,6 @@ public class LevelGUI extends JFrame implements ActionListener
             pau.setVisible(true);
         }
     }    
-
     private void settings()
     {
         pau.setVisible(false);set.setEnabled(false);set.setForeground(Color.white);set.setVisible(true);set.setBackground(Color.BLACK);
@@ -162,6 +166,7 @@ public class LevelGUI extends JFrame implements ActionListener
         vole.setFocusable(false);
     }
     
+    //Keybinds and buttons
     private void keyActions() 
     {
         lPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ESCAPE"), "Pause");
@@ -169,7 +174,6 @@ public class LevelGUI extends JFrame implements ActionListener
         lPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ENTER"), "Sel");
         lPanel.getActionMap().put("Sel", new AbstractAction() {public void actionPerformed(ActionEvent e) {select();}});
     }
-
     public void actionPerformed(ActionEvent e)
     {
         JButton j = (JButton)(e.getSource());

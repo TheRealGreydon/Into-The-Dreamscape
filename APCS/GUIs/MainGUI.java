@@ -8,9 +8,11 @@ import java.util.*;
 import javax.swing.*;
 
 public class MainGUI extends JFrame implements ActionListener
-{
-    private File save = new File("APCS/Save.txt");
+{    
     private Player character = new Player();
+
+    //Save file location
+    private File save = new File("APCS/Save.txt");
     private boolean newSave;
         
     private JPanel mPanel = new JPanel(), cPanel = new JPanel(), dPanel = new JPanel();
@@ -19,13 +21,7 @@ public class MainGUI extends JFrame implements ActionListener
   
     private JButton[]buttons = new JButton[7];
            
-    public MainGUI() {initialize();}
-    
-    //Runs the game
-    public void displayGame() {java.awt.EventQueue.invokeLater(() -> {setVisible(true);});}
-
-    //Main initalize
-    private void initialize()
+    public MainGUI() 
     {
         //Checks if it's a new game file
         try (Scanner sc = new Scanner(save)) {newSave = sc.nextLine().equals("NEW SAVE");}catch (FileNotFoundException e){}
@@ -35,13 +31,20 @@ public class MainGUI extends JFrame implements ActionListener
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.pack();
-        menu();credits();saveDel();
+
+        menu();
+        credits();
+        saveDel();
+
         this.add(mPanel);
         this.setSize(1500, 800);
         this.setVisible(true);
         mPanel.revalidate();
         mPanel.repaint();
     }
+    
+    //Runs the game
+    public void displayGame() {java.awt.EventQueue.invokeLater(() -> {setVisible(true);});}
 
     //Adds to menu
     private void menu()
@@ -85,7 +88,7 @@ public class MainGUI extends JFrame implements ActionListener
     }
     
     //Adds button to credits
-    public void credits()
+    private void credits()
     {
         cPanel.setLayout(null);
 
@@ -97,7 +100,6 @@ public class MainGUI extends JFrame implements ActionListener
         buttons[4].setText("Exit");
         buttons[4].setBounds(600,600, 300, 150);        
         buttons[4].setFocusable(false);
-        cPanel.add(buttons[4]);
 
         JLabel title = new JLabel();
         title.setOpaque(true);
@@ -113,12 +115,13 @@ public class MainGUI extends JFrame implements ActionListener
         cred.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
        
         cred.setText("""
-                                Into the Dreamscape
-                        ------------------------------------------------
-                        Main Code: Nicholas
+                                  Into the Dreamscape
+                        ----------------------------------------------
                         Main Story: Kai
-                        Main Art: Kai
+                        Main Code: Nicholas
                         Literaly all the Code: Nicholas
+                        3 all nighters: Nicholas
+                        Art: Kai
                         Please give us a 100% Mr. Klus :)""");
 
         cred.setBackground(Color.white);
@@ -126,15 +129,18 @@ public class MainGUI extends JFrame implements ActionListener
         cred.setForeground(Color.BLACK);      
         cred.setSize(cred.getPreferredSize());
         cred.setSize(cred.getWidth()+10, cred.getHeight());
-        cred.setLocation(450,200);
+        cred.setLocation(450,150);
         cred.setEditable(false);
         
+        cPanel.add(buttons[4]);
         cPanel.add(title);
         cPanel.add(cred);
+
         paint(cPanel, 5);
     }
 
-    public void saveDel()
+    //Deletes the save file
+    private void saveDel()
     {
         dPanel.setLayout(null);
 
@@ -224,6 +230,7 @@ public class MainGUI extends JFrame implements ActionListener
         
         if(j.equals(buttons[0])) 
         {
+            //this.remove(mPanel);new RewGUI(character,kronk).initialize();
             if(newSave) {this.remove(mPanel);new StartGUI(kronk).start();}
             
             else {this.remove(mPanel);new LevelGUI(character, kronk).initialize();}

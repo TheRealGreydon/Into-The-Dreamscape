@@ -47,7 +47,7 @@ public class GameGUI extends JFrame implements ActionListener
     private boolean selingEnmAtk = false, down = true;
     private int selEnm = 0, selBut = 0, minSel = 0, maxSel = 2;
 
-    public GameGUI(Player character, JFrame kronk) {this.kronk = kronk;this.character = character;}
+    public GameGUI(Player character, JFrame kronk) {this.kronk = kronk;this.character = character;start();}
 
     //Initilizes the battle items
     private void battleInit()
@@ -562,7 +562,13 @@ public class GameGUI extends JFrame implements ActionListener
         
         else if(j.equals(vole)) {if(character.getVol()+25>100) {character.setVol(0);}else{character.setVol(character.getVol()+25);}vole.setText(String.valueOf(character.getVol()));}
 
-        else if(j.equals(bbWL)) {kronk.remove(gPanel);new LevelGUI(character, kronk).initialize();}
+        else if(j.equals(bbWL)) 
+        {
+            kronk.remove(gPanel);
+            if(j.getText().equals("You Win!")) {new RewGUI(character, kronk).initialize();}
+
+            else {new LevelGUI(character, kronk).initialize();}
+        }
     }
     private void keyActions()
     {
@@ -580,14 +586,14 @@ public class GameGUI extends JFrame implements ActionListener
         gPanel.getActionMap().put("Up", new AbstractAction() {public void actionPerformed(ActionEvent e) {Up();}});
     }
 
-    //Various helpers
+    //Various helpers, hell if I know
     private boolean has(Component x) {for (Component c : gPanel.getComponents()) {if (c == x) {return true;}} return false;}
     private void exit() {if(set.isVisible()) {pause();} else {character.resetHP();kronk.remove(gPanel);new LevelGUI(character, kronk).initialize();}}
     private void atk() {for(int i=0; i<3; i++) {gPanel.remove(bb[i]);}gPanel.add(bbExit);gPanel.add(bb[3]);gPanel.add(bb[4]);gPanel.add(bb[5]);gPanel.repaint();}
     private void skl() {for(int i=0; i<3; i++) {gPanel.remove(bb[i]);}gPanel.add(bbExit);gPanel.add(bb[9]);gPanel.add(bb[10]);gPanel.add(bb[11]);gPanel.repaint();}
     private void itm() {for(int i=0; i<3; i++) {gPanel.remove(bb[i]);}gPanel.add(bbExit);gPanel.add(bb[15]);gPanel.add(bb[16]);gPanel.add(bb[17]);gPanel.repaint();}
     private void actBattleButtons() {bb = bGUI.actBattleButtons();highlight(0);for(int i=0; i<3; i++) {bb[i].setVisible(true);gPanel.add(bb[i]);}pauButtons();atkBattleButtons();sklBattleButtons();itmBattleButtons();}
-    public void start() {gPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/Battle Level/BB" + ((int)(Math.random()*4 + 1)) +".png").getImage(), 0);kronk.setLocationRelativeTo(null);battleInit();}  
+    private void start() {gPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/Battle Level/BB" + ((int)(Math.random()*4 + 1)) +".png").getImage(), 0);kronk.setLocationRelativeTo(null);battleInit();}  
     private void highlight(int x)
     {
         for (Component c : gPanel.getComponents()) {if (c instanceof JLabel && !c.equals(charSprite) && !c.equals(tText))

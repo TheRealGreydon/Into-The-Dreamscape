@@ -98,8 +98,7 @@ public class RewGUI extends JFrame implements ActionListener
                             }
                             timer.cancel();kronk.remove(lPanel);
                             //Impl boss GUI
-                            //if(character.getStage()==2){new BossGUI(character,kronk).start();} else 
-                            {new GameGUI(character,kronk).start();}
+                            {new GameGUI(character,kronk);}
                         }
                     }count++;  
                 }
