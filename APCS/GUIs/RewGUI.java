@@ -1,16 +1,15 @@
 package APCS.GUIs;
 
-import APCS.Assets.AssetClasses.*;
-import APCS.Items.Itm;
-import APCS.Items.AttackItem.swordITM;
-import APCS.Items.SkillItem.grilledCheeseITM;
-import APCS.Player;
 import APCS.Actions.Attacks.Atk;
 import APCS.Actions.Attacks.punch;
 import APCS.Actions.Attacks.smack;
 import APCS.Actions.Attacks.widePunch;
 import APCS.Actions.Skills.Skl;
-
+import APCS.Assets.AssetClasses.*;
+import APCS.Items.AttackItem.swordITM;
+import APCS.Items.Itm;
+import APCS.Items.SkillItem.grilledCheeseITM;
+import APCS.Player;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
@@ -60,8 +59,7 @@ public class RewGUI extends JFrame implements ActionListener
         charInit();
         chestInit();
     }
-
-    private void charInit()
+     private void charInit()
     {
         charImg = bGUI.spriteImg(character);
         charImg.setLocation(210,150);
@@ -87,67 +85,77 @@ public class RewGUI extends JFrame implements ActionListener
     private void randRew()
     {
         int x = (int)(Math.random()*3);
-        if(x==0)
+        x=0;
+        switch (x) 
         {
-            //If the player has all Atks add an item
-            if(randAtk()!=null)
+            case 0 -> 
             {
-                //If player doesnt have 4 atks
-                if(!character.AtkF()) {character.AtkA(randAtk());}
-
+                //If the player has all Atks add an item
+                if(randAtk()!=null) 
+                {
+                    //If player doesnt have 4 atks
+                    if(!character.AtkF())
+                    {
+                        character.AtkA(randAtk());
+                    }
+                    
+                    else
+                    {
+                        System.out.println("E1");
+                    }
+                }
+                
                 else 
                 {
-
+                    System.out.println("Cunt");
+                    // randItm();
                 }
             }
 
-            else
+            case 1 -> 
             {
-                randItm();
+                System.out.println("Y");
+                // //If the player has all Skls add an item
+                // if(randSkl()!=null)
+                // {
+                //     //If player doesnt have 4 skls
+                //     if(!character.SklF()) {character.SklA(randSkl());
+                //         System.out.println("Sk");
+                //     }
+                    
+                //     else
+                //     {
+                //         System.out.println("E2");
+                //     }
+                // }
+                // else
+                // {
+                //     randItm();
+                // }
             }
-        }
-        else if(x==1)
-        {
-            //If the player has all Skls add an item
-            if(randSkl()!=null)
+            
+            default -> 
             {
-                //If player doesnt have 4 skls
-                if(!character.SklF()) {character.SklA(randSkl());}
-
-                else 
-                {
-
-                }
-            }
-            else
-            {
-                randItm();
-            }
-        }
-        else
-        {
-            //If player doesnt have 4 itms
-            if(!character.ItmF()) {character.ItmA(randItm());}
-
-            else 
-            {
-
+                System.out.println("Z");
+                // //If player doesnt have 4 itms
+                // if(!character.ItmF()) {character.ItmA(randItm());System.out.println("I");}
+                
+                // else
+                // {
+                //     System.out.println("3");
+                // }
             }
         }
     }
 
     private Atk randAtk()
     {
-        Atk rands[] = {};
+        Atk rands[] = {new smack(), new punch(), new widePunch()};
         int x = ((int)(Math.random()*rands.length));
 
         for(int i=0; i<rands.length; i++)
         {
-            boolean has = false;
-
-            for(int j=0; j<4; j++) {has = character.atks[i].equals(rands[x]);}
-
-            if(!has) {return rands[x];}
+            if(character.has(rands[x])) {return rands[x];}
 
             if(x+1>=rands.length) {x = 0;}
             

@@ -3,7 +3,7 @@ package APCS.Actions.Attacks;
 public class smack implements Atk
 {
 
-    public String getName() {return "Basic Attack";}
+    public String getName() {return "Smack";}
 
     public int getDmg() {return (int)(Math.random()*-3 - 1);}
 
