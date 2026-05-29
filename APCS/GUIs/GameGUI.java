@@ -18,7 +18,7 @@ public class GameGUI extends JFrame implements ActionListener
 {
     private Player character;
     private JPanel gPanel, cut;
-    private BattleAssets bGUI;
+    private BattleAssets bGUI = new BattleAssets();
     //KRONK IS IMPORTANT DONT MESS WITH KRONK
     private JFrame kronk;
 
@@ -52,20 +52,12 @@ public class GameGUI extends JFrame implements ActionListener
     //Initilizes the battle items
     private void battleInit()
     {
-        bGUI = new BattleAssets();
         bbExit = bGUI.bbEN(false);
-        bbE = bGUI.enmBattleButtons(character.getLevel());
+        bbE = bGUI.enmBattleButtons(1);
         charSprite = bGUI.battleImg(character);
 
-        kronk.pack();
-        kronk.add(gPanel);
-        gPanel.setLayout(null);
-        kronk.setSize(1500, 800);
-
-        actBattleButtons();
-
         hp.setBackground(new Color(179, 9, 9));
-        hp.setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
+        hp.setBorder(BorderFactory.createLineBorder(Color.black,5));
         hp.setForeground(Color.black);
         hp.setFont(new Font(hp.getFont().getName(), Font.BOLD, 40));
         hp.setText(String.valueOf("HP: " + character.getHealth()));
@@ -74,14 +66,21 @@ public class GameGUI extends JFrame implements ActionListener
         hp.setLocation(0,40);
         hp.setOpaque(true);
         
-        for(int i=0; i<3; i++) gPanel.add(bbE[i].enmImg);
-        gPanel.add(hp);
-        gPanel.add(charSprite);
-        gPanel.setComponentZOrder(hp,0);
-        gPanel.setComponentZOrder(charSprite,1);
+        actBattleButtons();
 
+        for(int i=0; i<3; i++) {gPanel.add(bbE[i].enmImg);}
+        gPanel.add(hp);gPanel.add(charSprite);
+        gPanel.setComponentZOrder(hp,0);gPanel.setComponentZOrder(charSprite,1);
+
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         gPanel.revalidate();
         gPanel.repaint();
+        kronk.pack();
+        gPanel.setLayout(null);
+        kronk.setSize(1500, 800);
+        kronk.add(gPanel);
+        kronk.setVisible(true);
+
         keyActions();
     }
 
@@ -596,7 +595,9 @@ public class GameGUI extends JFrame implements ActionListener
     private void start() {gPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/Battle Level/BB" + ((int)(Math.random()*4 + 1)) +".png").getImage(), 0);kronk.setLocationRelativeTo(null);battleInit();}  
     private void highlight(int x)
     {
-        for (Component c : gPanel.getComponents()) {if (c instanceof JLabel && !c.equals(charSprite) && !c.equals(tText))
+        for (Component c : gPanel.getComponents()) {if (c instanceof JLabel && !c.equals(charSprite) && !c.equals(tText)
+        && !c.equals(bbE[0].enmImg) && !c.equals(bbE[1].enmImg) && !c.equals(bbE[2].enmImg))
+            
             {((JLabel)c).setBorder(BorderFactory.createLineBorder(Color.black, 5));}}   
 
         if(x>=0) {bb[x].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 10));}

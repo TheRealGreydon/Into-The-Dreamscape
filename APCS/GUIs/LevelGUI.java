@@ -31,16 +31,13 @@ public class LevelGUI extends JFrame implements ActionListener
     public void initialize() 
     {
         lPanel = a;
-        lPanel.setBackground(Color.BLACK);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        paint(5);
         kronk.pack();
         lPanel.setLayout(null);
         kronk.setSize(1500, 800);
-        kronk.setTitle("Into the Dreamscape");
-        kronk.setVisible(true);
-        kronk.setResizable(true);
         kronk.add(lPanel);
-        pauButtons();keyActions();
+        pauButtons();
+        keyActions();
     }
 
     //Select
@@ -48,12 +45,13 @@ public class LevelGUI extends JFrame implements ActionListener
     {
         if(lPanel.equals(a) && !paused)
         {
-            lPanel.removeAll();
             kronk.remove(lPanel);
             lPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/Game Level Menu/Lvl Sel/MapScreens-" + character.getStage() + ".png").getImage(), 2);
+            paint(5);
+            kronk.pack();
+            lPanel.setLayout(null);
+            kronk.setSize(1500, 800);
             kronk.add(lPanel);
-            kronk.revalidate();
-            kronk.repaint();
             pauButtons();
             keyActions();
         }
@@ -65,10 +63,13 @@ public class LevelGUI extends JFrame implements ActionListener
     private void loadScreen()
     {
         kronk.remove(lPanel);
+        lPanel.removeAll();
         lPanel = new JPanel();
         lPanel.setBackground(Color.black);
+        kronk.pack();
         lPanel.setLayout(null);
-        kronk.add(lPanel);kronk.revalidate();kronk.repaint();
+        kronk.setSize(1500, 800);
+        kronk.add(lPanel);
         timedText("Level " + (character.getLevel()+1) + " - " + (character.getStage()+1));
     }
 
@@ -95,19 +96,8 @@ public class LevelGUI extends JFrame implements ActionListener
                         if(count>b.length+15) 
                         {
                             lPanel.remove(tText);lPanel.repaint();
-                            for (Component c : lPanel.getComponents()) 
-                            {
-                                if (c instanceof JButton) 
-                                {
-                                    c.setEnabled(true);
-                                }
-                            }
-                            timer.cancel();kronk.remove(lPanel);
-                            //Impl boss GUI
-                            //if(character.getStage()==2){new BossGUI(character,kronk).start();} else 
-                            {new GameGUI(character,kronk);}
-
-                            //{new RewGUI(character,kronk).initialize();}
+                            for (Component c : lPanel.getComponents()) {if (c instanceof JButton) {c.setEnabled(true);}}
+                            timer.cancel();kronk.remove(lPanel);new GameGUI(character,kronk);
                         }
                     }count++;  
                 }
@@ -185,5 +175,41 @@ public class LevelGUI extends JFrame implements ActionListener
         else if(j.equals(vole)) {if(character.getVol()+25>100) {character.setVol(0);} else {character.setVol(character.getVol() + 25);} vole.setText(String.valueOf(character.getVol()));}
     }
     
+    //Paints a JPanel with a percentage of stars randomly
+    private void paint(int percent)
+    {
+        for (Component c : lPanel.getComponents()) {lPanel.setComponentZOrder(c, 0);}
+        for(int i=0; i<40; i++)
+        {
+            for(int j=0; j<18; j++)
+            {
+                JLabel star = new JLabel();
+                star.setOpaque(true);
+                star.setSize(new Dimension(20, 20));
+                star.setLocation(j*20, i*20);
+                
+                if((int)(Math.random()*100) <= percent-1) {if((int)(Math.random()*2)==0) {star.setBackground(Color.YELLOW);}else {star.setBackground(new Color(189,185,38));}}
+
+                else {star.setBackground(Color.BLACK);}
+
+                lPanel.add(star);
+            }
+
+            for(int j=57; j<75; j++)
+            {
+                JLabel star = new JLabel();
+                star.setOpaque(true);
+                star.setSize(new Dimension(20, 20));
+                star.setLocation(j*20, i*20);
+                
+                if((int)(Math.random()*100) <= percent-1) {if((int)(Math.random()*2)==0) {star.setBackground(Color.YELLOW);}else {star.setBackground(new Color(189,185,38));}}
+
+                else {star.setBackground(Color.BLACK);}
+
+                lPanel.add(star);
+            }
+        }
+    }
+
     private void exit() {if(!settings.getText().equals("Volume")){kronk.dispose();} else{pause();}}
 }

@@ -263,7 +263,7 @@ public class StartGUI extends JFrame implements ActionListener
                 star.setSize(new Dimension(20, 20));
                 star.setLocation(j*20, i*20);
                 
-                if((int)(Math.random()*100) == percent-1) {if((int)(Math.random()*2)==0) {star.setBackground(Color.YELLOW);}else {star.setBackground(new Color(189,185,38));}}
+                if((int)(Math.random()*100) <= percent-1) {if((int)(Math.random()*2)==0) {star.setBackground(Color.YELLOW);}else {star.setBackground(new Color(189,185,38));}}
 
                 else {star.setBackground(Color.BLACK);}
 

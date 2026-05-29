@@ -107,16 +107,15 @@ public class MainGUI extends JFrame implements ActionListener
         title.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
         title.setText("Credits");
         title.setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
-        title.setLocation(650, 50);
+        title.setLocation(675, 50);
         title.setSize(title.getPreferredSize());
-        title.setSize(title.getWidth()+10, title.getHeight());
 
         JTextPane cred = new JTextPane();
         cred.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
        
         cred.setText("""
                                   Into the Dreamscape
-                        ----------------------------------------------
+                         ------------------------------------------------
                         Main Story: Kai
                         Main Code: Nicholas
                         Literaly all the Code: Nicholas

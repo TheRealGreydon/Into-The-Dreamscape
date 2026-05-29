@@ -6,9 +6,9 @@ public class Jar implements enm
 {
     private int lvl, hp;
     private boolean alive = true;
-    public Atk[] atks = {new smack(), new bloodDraw()};
+    public Atk[] atks = {new smack(), new jarCapt()};
 
-    public Jar(int lvl) {this.lvl = lvl;hp = 15 + (2*lvl); atks[1] = new jarCapt();}
+    public Jar(int lvl) {this.lvl = lvl;hp = 15 + (2*lvl);}
 
     public String getName() {return "Jar";}
 

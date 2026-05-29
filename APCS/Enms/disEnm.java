@@ -7,7 +7,7 @@ public class disEnm
 {
     public enm Enm;
     private ImageIcon sprite;
-    public JButton enmImg;
+    public JLabel enmImg;
     public boolean selected;
     
     public disEnm(enm Enm) {this.Enm = Enm;enmInit();}
@@ -16,15 +16,10 @@ public class disEnm
     private void enmInit()
     {
         spriteInit();
-        enmImg = new JButton(sprite);
+        enmImg = new JLabel(sprite);
         enmImg.setSize(new Dimension(250,250));
-        enmImg.setContentAreaFilled(false);
-        enmImg.setBorderPainted(false);
-        enmImg.setFocusPainted(false);
         enmImg.setOpaque(false);
         enmImg.setFocusable(false);
-        enmImg.setDisabledIcon(enmImg.getIcon());
-        enmImg.setEnabled(false);
     }
 
     //Handles selection
@@ -34,7 +29,7 @@ public class disEnm
 
         else {spriteInit();}
         
-        selected = x;enmImg.setDisabledIcon(sprite);
+        selected = x;enmImg.setIcon(sprite);
     }
 
     //Initalizes the sprite

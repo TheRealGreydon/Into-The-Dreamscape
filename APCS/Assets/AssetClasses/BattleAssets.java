@@ -8,9 +8,6 @@ import javax.swing.*;
 
 public class BattleAssets
 {    
-    //List of standard enms
-    private disEnm enmArray [] = {new disEnm(new Needle(1)),new disEnm(new Jar(1)),new disEnm(new Plane(1))};
-
     //Player sprites in label form
     public JLabel battleImg(Player character)
     {
@@ -29,11 +26,7 @@ public class BattleAssets
     public disEnm[] enmBattleButtons(int lvl)
     {
         disEnm[] temp = new disEnm[3];
-        for(int i=0; i<3; i++)
-        {
-            temp[i] = randEnm(lvl);
-            temp[i].enmImg.setLocation(1200, (i*250));   
-        }
+        for(int i=0; i<3; i++) {temp[i] = randEnm(lvl);temp[i].enmImg.setLocation(1200, (i*250));}
 
         return temp;
     }
@@ -41,6 +34,7 @@ public class BattleAssets
     //Randomly picks one enm from the list
     private disEnm randEnm(int lvl)
     {
+        disEnm enmArray [] = {new disEnm(new Needle(1)),new disEnm(new Jar(1)),new disEnm(new Plane(1))};   
         disEnm temp = enmArray[((int)(Math.random()*enmArray.length))];
         temp.Enm.setLvl(lvl);
         return temp;

@@ -306,3 +306,10 @@ Change Log
 -All hail Squonk
 -Animated characters
 -God I HATE Jlabels
+
+5/29/26
+-------
+-V.14-
+-Painting works on level select screen for stars
+-I AM A ABSOLUTE DOOR KNOB
+-APCS, aka the schitzophrenia simulator
