@@ -189,12 +189,15 @@ public class Player
     public boolean ItmF() {int x=0;for(int i=0;i<4;i++) {if(itms[i]!=null) {x++;}}return x==4;}
 
     //Adds to the Atk/Skl/Itms list
-    public void AtkA(Atk x) {if(!AtkF()) {for(int i=0; i<4; i++) {if(atks[i]==null) {atks[i] = x;i=100;}}}
-System.out.println(x.getName());}
+    public void AtkA(Atk x) {if(!AtkF()) {for(int i=0; i<4; i++) {if(atks[i]==null) {atks[i] = x;i=100;}}}}
     public void SklA(Skl x) {if(!SklF()) {for(int i=0; i<4; i++) {if(skls[i]==null) {skls[i] = x;i=100;}}}}
     public void ItmA(Itm x) {if(!ItmF()) {for(int i=0; i<4; i++) {if(itms[i]==null) {itms[i] = x;i=100;}}}}
 
-    public boolean has(Atk x) {for(int i=0;i<4;i++) {if(atks[i].equals(x)) {return true;}}return false;}
-    public boolean has(Skl x) {for(int i=0;i<4;i++) {if(skls[i].equals(x)) {return true;}}return false;}
-    public boolean has(Itm x) {for(int i=0;i<4;i++) {if(itms[i].equals(x)) {return true;}}return false;}
+    public boolean has(Atk x) {for(int i=0;i<4;i++) {if(atks[i]!=null && atks[i].equals(x)) {return true;}}return false;}
+    public boolean has(Skl x) {for(int i=0;i<4;i++) {if(skls[i]!=null && skls[i].equals(x)) {return true;}}return false;}
+    public boolean has(Itm x) {for(int i=0;i<4;i++) {if(itms[i]!=null && itms[i].equals(x)) {return true;}}return false;}
+
+    public void printA() {for(int i=0; i<4;i++) {if(atks[i]!=null){System.out.println(atks[i].getName());}}}
+    public void printS() {for(int i=0; i<4;i++) {if(skls[i]!=null){System.out.println(skls[i].getName());}}}
+    public void printI() {for(int i=0; i<4;i++) {if(itms[i]!=null){System.out.println(itms[i].getName());}}}
 }

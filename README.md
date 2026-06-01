@@ -313,3 +313,12 @@ Change Log
 -Painting works on level select screen for stars
 -I AM A ABSOLUTE DOOR KNOB
 -APCS, aka the schitzophrenia simulator
+
+6/1/26
+------
+-V.15-
+-Happy pride month
+-HOLY SWEET JEBUS HOW DOES THIS WORK????
+-When winning a lvl, you get a random item/skl/atk
+-Menu for selecting one to replace if more than 4
+-I is smrt
