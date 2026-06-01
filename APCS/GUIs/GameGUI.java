@@ -56,6 +56,7 @@ public class GameGUI extends JFrame implements ActionListener
         bbE = bGUI.enmBattleButtons(1);
         charSprite = bGUI.battleImg(character);
 
+        //Sets the hp counter
         hp.setBackground(new Color(179, 9, 9));
         hp.setBorder(BorderFactory.createLineBorder(Color.black,5));
         hp.setForeground(Color.black);
@@ -68,6 +69,7 @@ public class GameGUI extends JFrame implements ActionListener
         
         actBattleButtons();
 
+        //Does the enm and character imgs
         for(int i=0; i<3; i++) {gPanel.add(bbE[i].enmImg);}
         gPanel.add(hp);gPanel.add(charSprite);
         gPanel.setComponentZOrder(hp,0);gPanel.setComponentZOrder(charSprite,1);
@@ -90,7 +92,7 @@ public class GameGUI extends JFrame implements ActionListener
         hp.setText(String.valueOf("HP: " + character.getHealth()));
         hp.setSize(hp.getPreferredSize());
         hp.setSize((hp.getWidth()+10),(hp.getHeight()+10));
-        hp.setLocation(0,40);
+        hp.setLocation(175,100);
         gPanel.revalidate();
         gPanel.repaint();
     }
@@ -564,7 +566,7 @@ public class GameGUI extends JFrame implements ActionListener
         else if(j.equals(bbWL)) 
         {
             kronk.remove(gPanel);
-            if(j.getText().equals("You Win!")) {new RewGUI(character, kronk).initialize();}
+            if(j.getText().equals("Next")) {new RewGUI(character, kronk).initialize();}
 
             else {new LevelGUI(character, kronk).initialize();}
         }

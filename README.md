@@ -322,3 +322,5 @@ Change Log
 -When winning a lvl, you get a random item/skl/atk
 -Menu for selecting one to replace if more than 4
 -I is smrt
+-This shouldnt work, I dont understand about 40% of this, it scares me
+-Still need working pause durring reward scene

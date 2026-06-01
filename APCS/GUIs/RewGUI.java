@@ -52,6 +52,7 @@ public class RewGUI extends JFrame implements ActionListener
         keyActions();
     }
 
+    //Makes character and chest imgs
     private void imgInit()
     {
         charInit();
@@ -71,7 +72,8 @@ public class RewGUI extends JFrame implements ActionListener
         rPanel.add(chestImg);
         rPanel.setComponentZOrder(chestImg,0);
     }
-
+    
+    //Checks if character can open chest
     private void select() 
     {
         if(charImg.getX()>=350 && charImg.getX()<=660)
@@ -81,8 +83,10 @@ public class RewGUI extends JFrame implements ActionListener
         }
     }
 
+    //Randomly gives player a reward
     private void randRew(int x)
     {
+        System.out.println(x);
         switch (x) 
         {
             case 0 -> 
@@ -138,6 +142,7 @@ public class RewGUI extends JFrame implements ActionListener
         }
     }
 
+    //Gets a rand atk/skl/itm
     private Atk randAtk()
     {
         Atk rands[] = {new smack(), new punch(), new widePunch()};
@@ -168,11 +173,16 @@ public class RewGUI extends JFrame implements ActionListener
         }
         return null;
     }
-    private Itm randItm() {Itm rands[] = {new grilledCheeseITM(), new swordITM()};return rands[((int)(Math.random()*rands.length))];}
+    private Itm randItm() 
+    {
+        Itm rands[] = {new grilledCheeseITM(), new swordITM()};
+        return rands[((int)(Math.random()*rands.length))];
+    }
 
     //Loading screen
     private void loadScreen()
     {
+        character.saveGame();
         if(hasPanel(fPanel)) {kronk.remove(fPanel);}
         
         else {kronk.remove(rPanel);}
@@ -393,11 +403,6 @@ public class RewGUI extends JFrame implements ActionListener
         else if(j.equals(vole)) {if(character.getVol()+25>100) {character.setVol(0);} else {character.setVol(character.getVol() + 25);} vole.setText(String.valueOf(character.getVol()));}
     }
     
-    private void given(Atk x)
-    {
-
-    }
-
     //For when the selected reward is full
     private void fullKeyActions()
     {
@@ -414,6 +419,8 @@ public class RewGUI extends JFrame implements ActionListener
         fPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ENTER"), "Sel");
         fPanel.getActionMap().put("Sel", new AbstractAction() {public void actionPerformed(ActionEvent e) {fullSel();}});
     }
+    
+    //Handles up down left right for the select buttons
     private void keyPad(int z)
     {
         switch (z) 
@@ -439,6 +446,7 @@ public class RewGUI extends JFrame implements ActionListener
         buttons[KB[KBV][KBH]].setEnabled(false);
     }
 
+    //handles the selection of what to replace
     private void full(Atk x)
     {
         mode = 0;
@@ -602,6 +610,7 @@ public class RewGUI extends JFrame implements ActionListener
         paint(fPanel,5);
     }
 
+    //Extra helpers
     private void highlight(int x)
     {
         for (Component c : fPanel.getComponents()) {if (c instanceof JButton && !c.equals(pau) && !c.equals(set)
