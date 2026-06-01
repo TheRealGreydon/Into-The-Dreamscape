@@ -86,7 +86,6 @@ public class RewGUI extends JFrame implements ActionListener
     //Randomly gives player a reward
     private void randRew(int x)
     {
-        System.out.println(x);
         switch (x) 
         {
             case 0 -> 

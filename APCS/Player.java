@@ -45,7 +45,6 @@ public class Player
         this.fav = fav;
         hp = hpM;
         spriteInit();
-        System.out.println(hp);System.out.println(hpM);
     }
 
     public Player() {spriteInit();}
