@@ -337,3 +337,5 @@ Change Log
 -MilkITM and CookieITM added
 -BigHit added
 -Vamp blade added
+-V.15.3-
+-Rage skill added

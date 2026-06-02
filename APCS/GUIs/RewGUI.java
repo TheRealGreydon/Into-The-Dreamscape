@@ -208,7 +208,7 @@ public class RewGUI extends JFrame implements ActionListener
     }
     private Skl randSkl()
     {
-        Skl rands[] = {new juiceBox(), new rockThrowSKL(), new vampSwordSKL()};
+        Skl rands[] = {new juiceBox(), new rockThrowSKL(), new vampSwordSKL(), new rage()};
         int x = ((int)(Math.random()*rands.length));
 
         for(int i=0; i<rands.length; i++)

@@ -464,37 +464,100 @@ public class GameGUI extends JFrame implements ActionListener
     }
     private void turnPhaze(Skl y)
     {
-        if(!(y instanceof healSkl)) {if(((atkSkl)y).getAtk().swing()) {turnPhaze(((atkSkl)y).getAtk());} else{atkSel(((atkSkl)y).getAtk());}}
+        if(!y.getId().equals("RAGE"))
+        {
+            if(y instanceof atkSkl) 
+            {
+                if(((atkSkl)y).getAtk().swing())
+                {
+                    turnPhaze(((atkSkl)y).getAtk());
+                } 
 
+                else
+                {
+                    atkSel(((atkSkl)y).getAtk());
+                }
+            }
+
+            else
+            {
+                count = 0; looped = 0;
+
+                int tmp = ((healSkl)y).getHeal();
+                Timer timer = new Timer();
+                if(y instanceof healSkl) {b = ("Heal " + String.valueOf(tmp)).split("");character.doHp(tmp);}
+                tText.setText("");
+                tText.setLocation(500, 220);
+                tText.setOpaque(true);
+                tText.setBackground(Color.WHITE);
+                tText.setFont(new Font(tText.getFont().getName(), Font.BOLD, 40));
+                TimerTask task = new TimerTask()
+                {public void run() 
+                    {
+                        if(!paused)
+                        {
+                            if(count<b.length) {gPanel.remove(tText);tText.setText(tText.getText() + b[count]);
+                            tText.setSize(tText.getPreferredSize());tText.setSize(tText.getWidth()+10, tText.getHeight());
+                            gPanel.add(tText);gPanel.repaint();}
+                            else{if(count==b.length+10) {gPanel.remove(tText);gPanel.repaint();timer.cancel();enmBattlePhaze();}}count++;}}};
+
+                gPanel.add(tText);timer.scheduleAtFixedRate(task, 0, 100);
+            }
+        }
         else
         {
-            count = 0; looped = 0;
-
-            int tmp = ((healSkl)y).getHeal();
-            Timer timer = new Timer();
-            if(y instanceof healSkl) {b = ("Heal " + String.valueOf(tmp)).split("");character.doHp(tmp);}
-            tText.setText("");
-            tText.setLocation(500, 220);
-            tText.setOpaque(true);
-            tText.setBackground(Color.WHITE);
-            tText.setFont(new Font(tText.getFont().getName(), Font.BOLD, 40));
-            TimerTask task = new TimerTask()
-            {public void run() 
-                {
-                    if(!paused)
+            if(!character.actRage())
+            {
+                count = 0; looped = 0;
+                Timer timer = new Timer();
+                b = "Can't Rage".split("");
+                tText.setText("");
+                tText.setLocation(500, 220);
+                tText.setOpaque(true);
+                tText.setBackground(Color.WHITE);
+                tText.setFont(new Font(tText.getFont().getName(), Font.BOLD, 40));
+                TimerTask task = new TimerTask()
+                {public void run() 
                     {
-                        if(count<b.length) {gPanel.remove(tText);tText.setText(tText.getText() + b[count]);
-                        tText.setSize(tText.getPreferredSize());tText.setSize(tText.getWidth()+10, tText.getHeight());
-                        gPanel.add(tText);gPanel.repaint();}
-                        else{if(count==b.length+10) {gPanel.remove(tText);gPanel.repaint();timer.cancel();enmBattlePhaze();}}count++;}}};
+                        if(!paused)
+                        {
+                            if(count<b.length) {gPanel.remove(tText);tText.setText(tText.getText() + b[count]);
+                            tText.setSize(tText.getPreferredSize());tText.setSize(tText.getWidth()+10, tText.getHeight());
+                            gPanel.add(tText);gPanel.repaint();}
+                            else{if(count==b.length+10) {gPanel.remove(tText);gPanel.repaint();timer.cancel();}}count++;}}};
 
-            gPanel.add(tText);timer.scheduleAtFixedRate(task, 0, 100);
+                gPanel.add(tText);timer.scheduleAtFixedRate(task, 0, 100);
+            }
+
+            else
+            {
+                count = 0; looped = 0;
+                Timer timer = new Timer();
+                b = "Rageing".split("");
+                tText.setText("");
+                tText.setLocation(500, 220);
+                tText.setOpaque(true);
+                tText.setBackground(Color.WHITE);
+                tText.setFont(new Font(tText.getFont().getName(), Font.BOLD, 40));
+                TimerTask task = new TimerTask()
+                {public void run() 
+                    {
+                        if(!paused)
+                        {
+                            if(count<b.length) {gPanel.remove(tText);tText.setText(tText.getText() + b[count]);
+                            tText.setSize(tText.getPreferredSize());tText.setSize(tText.getWidth()+10, tText.getHeight());
+                            gPanel.add(tText);gPanel.repaint();}
+                            else{if(count==b.length+10) {gPanel.remove(tText);gPanel.repaint();timer.cancel();}}count++;}}};
+
+                gPanel.add(tText);timer.scheduleAtFixedRate(task, 0, 100);
+            
+            }
         }
     }
 
     private void turnPhaze(Actions z)
     {
-        if(character.regenT>0) {character.regenT--;character.doHp(character.regenAmt);}
+        if(character.regenT>0) {character.doHp(character.regenAmt);}
 
         if(character.normal())
         {
@@ -527,7 +590,7 @@ public class GameGUI extends JFrame implements ActionListener
             {
                 if(z instanceof Atk) {turnPhaze((Atk)z);}
 
-                else {turnPhaze((Skl)z);}
+                else if(z instanceof Skl) {turnPhaze((Skl)z);}
             }
         }
         
@@ -539,11 +602,10 @@ public class GameGUI extends JFrame implements ActionListener
                 {
                     if(z instanceof Atk) {turnPhaze((Atk)z);}
 
-                    else {turnPhaze((Skl)z);}
+                    else if(z instanceof Skl) {turnPhaze((Skl)z);}
                 }
 
                 else {chargePhaze();}
-                character.chargeT--;
             }
         }
     }
@@ -574,6 +636,7 @@ public class GameGUI extends JFrame implements ActionListener
     //Enm turn, also handles winning/losing
     private void enmBattlePhaze()
     {
+        character.nextTurn();
         count = 0;
         tText.setText("");
         tText.setLocation(500, 220);

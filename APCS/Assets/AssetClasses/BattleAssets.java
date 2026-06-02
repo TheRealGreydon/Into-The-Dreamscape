@@ -114,6 +114,8 @@ public class BattleAssets
     {
         int a = (int)(Math.random()*100+1);
         int w = y.getDmg();
+        if(z.rageing()) {w = (w*6)/5;}
+
         if(a<=y.acur()) {if(y.getId().equals("VAMPBLADE")) {z.doHp(5);}x.doHp(w);return " " + x.getName() + " took " + w;}
 
         else {return " Miss";}
@@ -122,10 +124,9 @@ public class BattleAssets
     {
         int z = (int)(Math.random()*100+1);
         int w = y.getDmg();
-        if(z<=y.acur()) 
-        {
-            x.doHp(w);return " " + x.getName() + " took " + w;
-        }
+        if(x.rageing()) {w = (w*4)/5;}
+        
+        if(z<=y.acur() && w!=0) {x.doHp(w);return " " + x.getName() + " took " + w;}
 
         else {return " Miss";}
     }

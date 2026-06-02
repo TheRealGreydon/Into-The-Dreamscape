@@ -14,11 +14,11 @@ public class Player
 {
     private String name = "DEFAULT";
     private int gend = 1, lvl = 1, outfit = 1, fav = 1;
-    private int hp, hpM = 100;
+    private int hp, hpM = 100, rageHP;
 
     private int lev = 0,curStage = 0,curTurn = 0,vol = 50;
     private Image sprite, bSprite;
-    private boolean alive = true;
+    private boolean alive = true, rage = false;
     private File save = new File("APCS/Save.txt");
 
     //Starting atk/skls
@@ -30,13 +30,13 @@ public class Player
     private String [] atkId = {"PUNCH", "WIDEPUNCH", "WINPUNCH", "BIGHIT",};
     private Atk [] atkIdS = {new punch(), new widePunch(), new winPunch(), new bigHit(),};
     
-    private String [] sklId = {"JUICEBOX", "ROCKTHROW", "VAMPBLADESKL"};
-    private Skl [] sklIdS = {new juiceBox(), new rockThrowSKL(), new vampSwordSKL()};
+    private String [] sklId = {"JUICEBOX", "ROCKTHROW", "VAMPBLADESKL", "RAGE"};
+    private Skl [] sklIdS = {new juiceBox(), new rockThrowSKL(), new vampSwordSKL(), new rage()};
     
     private String [] itmId = {"SWORDITM", "GRILLEDCHEESEITM", "MILKITM", "COOKIEITM"};
     private Itm [] itmIdS = {new swordITM(), new grilledCheeseITM(), new milkITM(), new cookieITM()};
 
-    public int chargeT = 0, regenT = 0, atkupT = 0,regenAmt,atkUpAmt;
+    public int chargeT = 0, regenT = 0, atkupT = 0,regenAmt,atkUpAmt, rageT = 0;
 
     public Player(String name, int gend, int outfit, int fav) 
     {
@@ -45,6 +45,7 @@ public class Player
         this.outfit = outfit;
         this.fav = fav;
         hp = hpM;
+        rageHP = hpM-5;
         spriteInit();
     }
 
@@ -52,9 +53,29 @@ public class Player
 
     public Player() {spriteInit();}
 
+    public boolean actRage() 
+    {
+        if(hp<=rageHP && !rage)
+        {
+            rage = true;
+            rageT = 3;
+            rageHP = hp-5;
+            return rage;
+        }
+        return false;
+    }
+
     public int turn() {return curTurn;}
 
-    public void nextTurn() {curTurn++;}
+    public void nextTurn() 
+    {
+        if(rageT-1>=0) {rageT--;rage = rageT>0;}
+        if(chargeT-1>=0) {chargeT--;}
+        if(regenT-1>=0) {regenT--;}
+        if(atkupT-1>=0) {atkupT--;}
+    }
+
+    public boolean rageing() {return rage;}
 
     public void resetTurn() {curTurn = 0;}
 
@@ -164,10 +185,9 @@ public class Player
 
             else if(temp.equals("VOL")) {vol = Integer.parseInt(sc.next());}
             
-            else if(temp.equals("HP")) {hpM = Integer.parseInt(sc.next());}}
+            else if(temp.equals("HP")) {hp = Integer.parseInt(sc.next());}}
             
-            hp = hpM;
-            hpM = 100;
+            rageHP = hpM - 5;
         }
         
         catch (FileNotFoundException e){}
