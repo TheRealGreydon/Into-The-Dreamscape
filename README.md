@@ -324,3 +324,10 @@ Change Log
 -I is smrt
 -This shouldnt work, I dont understand about 40% of this, it scares me
 -Still need working pause durring reward scene
+
+6/2/26
+------
+-V.15.1-
+-Reward scene now is automated
+-Reward now works if not full
+-Final chest img is now added, and opening works

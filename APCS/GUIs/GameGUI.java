@@ -389,7 +389,7 @@ public class GameGUI extends JFrame implements ActionListener
         Timer timer = new Timer();
         b = new BattleAssets().attack(x.Enm, y).split("");
         tText.setText("");
-        tText.setLocation(350, 120);
+        tText.setLocation(500, 220);
         tText.setOpaque(true);
         tText.setBackground(Color.WHITE);
         tText.setFont(new Font(tText.getFont().getName(), Font.BOLD, 40));
@@ -432,7 +432,7 @@ public class GameGUI extends JFrame implements ActionListener
         {
             count = 0;
             tText.setText("");
-            tText.setLocation(350, 120);
+            tText.setLocation(500, 220);
             tText.setOpaque(true);
             tText.setBackground(Color.WHITE);
             tText.setFont(new Font(tText.getFont().getName(), Font.BOLD, 40));
@@ -475,7 +475,7 @@ public class GameGUI extends JFrame implements ActionListener
             Timer timer = new Timer();
             if(y instanceof healSkl) {b = ("Heal " + String.valueOf(tmp)).split("");character.doHp(tmp);}
             tText.setText("");
-            tText.setLocation(350, 120);
+            tText.setLocation(500, 220);
             tText.setOpaque(true);
             tText.setBackground(Color.WHITE);
             tText.setFont(new Font(tText.getFont().getName(), Font.BOLD, 40));
@@ -499,7 +499,7 @@ public class GameGUI extends JFrame implements ActionListener
         Timer timer = new Timer();
         b = (" " + character.getName() + " is constricted").split("");
         tText.setText("");
-        tText.setLocation(350, 120);
+        tText.setLocation(500, 220);
         tText.setOpaque(true);
         tText.setBackground(Color.WHITE);
         tText.setFont(new Font(tText.getFont().getName(), Font.BOLD, 40));
@@ -519,7 +519,7 @@ public class GameGUI extends JFrame implements ActionListener
     {
         count = 0;
         tText.setText("");
-        tText.setLocation(350, 120);
+        tText.setLocation(500, 220);
         tText.setOpaque(true);
         tText.setBackground(Color.WHITE);
         tText.setFont(new Font(tText.getFont().getName(), Font.BOLD, 40));

@@ -58,7 +58,7 @@ public class RewGUI extends JFrame implements ActionListener
         charImg = bGUI.walkingImg(character);
         charImg.setLocation(210,150);
         rPanel.add(charImg);
-        chestImg = new JLabel(new ImageIcon(new ImageIcon(new ImageIcon("APCS/Assets/Img/Enemies/Jar.gif").getImage()).getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT)));
+        chestImg = new JLabel(new ImageIcon(new ImageIcon(new ImageIcon("APCS/Assets/Img/Sprites/chest.png").getImage()).getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT)));
         chestImg.setSize(300,300);
         chestImg.setLocation(600,300);
         rPanel.add(chestImg);
@@ -77,27 +77,39 @@ public class RewGUI extends JFrame implements ActionListener
                 for (Component c : rPanel.getComponents()) {if (c instanceof JButton && !c.equals(exit) && !c.equals(settings) && !c.equals(vole)) {c.setEnabled(false);}}
                 if(!paused)
                 {
-                    if(count >2 && count<22)
+                    if(count >2 && count<18)
                     {
                          charImg.setLocation(charImg.getX()+10, charImg.getY());
                     }
 
-                    else if(count==22)
+                    else if(count==18)
                     {
                         Point x = new Point(charImg.getLocation());
                         rPanel.remove(charImg);
                         charImg = bGUI.battleImg(character);
                         charImg.setLocation(x);
                         rPanel.add(charImg);
-                        rPanel.setComponentZOrder(charImg,0);
+
+                        rPanel.remove(chestImg);
+                        chestImg = new JLabel(new ImageIcon(new ImageIcon(new ImageIcon("APCS/Assets/Img/Sprites/chest.gif").getImage()).getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT)));
+                        chestImg.setSize(300,300);
+                        chestImg.setLocation(600,300);
+                        rPanel.add(chestImg);
+                        rPanel.setComponentZOrder(chestImg,0);
                         rPanel.repaint();
                     }
                     
-                    else if(count==24)
+                    else if(count==38)
                     {
                         randRew((int)(Math.random()*3)); 
                         timer.cancel();
                     }
+
+                    //else if(count==24)
+                    //{
+                    //    randRew((int)(Math.random()*3)); 
+                    //    timer.cancel();
+                    //}
                     count++;  
                 }
             }
