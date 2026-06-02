@@ -1,7 +1,8 @@
 package APCS.Assets.AssetClasses;
 
 import APCS.*;
-import APCS.Actions.Attacks.Atk;
+import APCS.Actions.Attacks.*;
+import APCS.Actions.*;
 import APCS.Enms.*;
 import java.awt.*;
 import javax.swing.*;
@@ -109,11 +110,11 @@ public class BattleAssets
     }
 
     //Attack method
-    public String attack(enm x, Atk y) 
+    public String attack(enm x, Atk y, Player z) 
     {
-        int z = (int)(Math.random()*100+1);
+        int a = (int)(Math.random()*100+1);
         int w = y.getDmg();
-        if(z<=y.acur()) {x.doHp(w);return " " + x.getName() + " took " + w;}
+        if(a<=y.acur()) {if(y.getId().equals("VAMPBLADE")) {z.doHp(5);}x.doHp(w);return " " + x.getName() + " took " + w;}
 
         else {return " Miss";}
     }

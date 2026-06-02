@@ -386,7 +386,7 @@ public class GameGUI extends JFrame implements ActionListener
         looped = 0;
 
         Timer timer = new Timer();
-        b = new BattleAssets().attack(x.Enm, y).split("");
+        b = new BattleAssets().attack(x.Enm, y, character).split("");
         tText.setText("");
         tText.setLocation(500, 220);
         tText.setOpaque(true);
@@ -438,7 +438,7 @@ public class GameGUI extends JFrame implements ActionListener
             Timer timer = new Timer();
             if(wideLoop <=2 && bbE[wideLoop].Enm.isAlive()) 
             {
-                b = new BattleAssets().attack(bbE[wideLoop].Enm, y).split("");
+                b = new BattleAssets().attack(bbE[wideLoop].Enm, y, character).split("");
                 TimerTask task = new TimerTask()
                 {public void run() 
                     {if(!paused)

@@ -336,3 +336,4 @@ Change Log
 -Regen system added
 -MilkITM and CookieITM added
 -BigHit added
+-Vamp blade added
