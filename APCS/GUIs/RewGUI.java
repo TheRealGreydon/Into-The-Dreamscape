@@ -193,7 +193,7 @@ public class RewGUI extends JFrame implements ActionListener
     //Gets a rand atk/skl/itm
     private Atk randAtk()
     {
-        Atk rands[] = {new smack(), new punch(), new widePunch(), new bigHit()};
+        Atk rands[] = {new smack(), new punch(), new widePunch(), new bigHit(), new twinStrike()};
         int x = ((int)(Math.random()*rands.length));
 
         for(int i=0; i<rands.length; i++)

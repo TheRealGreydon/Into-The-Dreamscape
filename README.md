@@ -339,3 +339,4 @@ Change Log
 -Vamp blade added
 -V.15.3-
 -Rage skill added
+-Twin strike added

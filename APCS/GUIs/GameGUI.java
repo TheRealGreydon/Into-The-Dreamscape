@@ -216,7 +216,21 @@ public class GameGUI extends JFrame implements ActionListener
         {
             if(!paused)
             {
-                if(selingEnmAtk) {int z = -1;for(int i=0; i<3;i++) {if(bbE[i].selected) {z = i;}}if(z != -1) {bbE[z].select(false); turnPhaze(bbE[z], selAtk);selingEnmAtk = false;}highlight(selBut);}
+                if(selingEnmAtk) 
+                {
+                    int z = -1;
+                    for(int i=0; i<3;i++) 
+                    {
+                        if(bbE[i].selected) {z = i;}
+                    }
+                    if(z != -1) 
+                    {
+                        if(!(selAtk.getId().equals("TWINSTRIKE"))) {bbE[z].select(false); turnPhaze(bbE[z], selAtk);selingEnmAtk = false;}
+
+                        else {bbE[z].select(false); turnPhaze(bbE[z], selAtk, "");selingEnmAtk = false;}
+                    }
+                    highlight(selBut);
+                }
 
                 else
                 {
@@ -425,8 +439,67 @@ public class GameGUI extends JFrame implements ActionListener
         gPanel.add(tText);
         timer.scheduleAtFixedRate(task, 0, 100);
     }
+    private void turnPhaze(disEnm x, Atk y, String z)
+    {
+        //Specificaly ONLY for twin strike atk
+        count = 0;
+        looped = 0;
+
+        Timer timer = new Timer();
+        b = new BattleAssets().attack(x.Enm, y, character).split("");
+        tText.setText("");
+        tText.setLocation(500, 220);
+        tText.setOpaque(true);
+        tText.setBackground(Color.WHITE);
+        tText.setFont(new Font(tText.getFont().getName(), Font.BOLD, 40));
+        TimerTask task = new TimerTask()
+        {public void run() 
+            {
+                if(!paused)
+                {
+                    if(count<b.length) 
+                    {
+                        gPanel.remove(tText);tText.setText(tText.getText() + b[count]);
+                        tText.setSize(tText.getPreferredSize());
+                        tText.setSize(tText.getWidth()+10, tText.getHeight());
+                        gPanel.add(tText);gPanel.repaint();
+                    }
+
+                    else
+                    {
+                        if(count==b.length+10) 
+                        {
+                            if(!x.Enm.isAlive()) {gPanel.remove(x.enmImg);}
+
+                            if(looped==0)
+                            {
+                                looped++;
+                                count = 0;
+                                tText.setText("");
+                                gPanel.remove(tText);
+                                gPanel.repaint();
+                            }
+
+                            else
+                            {
+                                gPanel.remove(tText);
+                                gPanel.repaint();
+                                timer.cancel();
+                                enmBattlePhaze();  
+                            }
+                        }
+                    }
+                    count++;
+                }
+            }
+        };
+
+        gPanel.add(tText);
+        timer.scheduleAtFixedRate(task, 0, 100);
+    }
     private void turnPhaze(Atk y)
     {
+        //Incase of a swing atk
         if(y.swing())
         {
             count = 0;
@@ -504,8 +577,11 @@ public class GameGUI extends JFrame implements ActionListener
                 gPanel.add(tText);timer.scheduleAtFixedRate(task, 0, 100);
             }
         }
+
+        //Runs the rage skl
         else
         {
+            //Checks if player can rage
             if(!character.actRage())
             {
                 count = 0; looped = 0;
@@ -550,17 +626,20 @@ public class GameGUI extends JFrame implements ActionListener
                             else{if(count==b.length+10) {gPanel.remove(tText);gPanel.repaint();timer.cancel();}}count++;}}};
 
                 gPanel.add(tText);timer.scheduleAtFixedRate(task, 0, 100);
-            
             }
         }
     }
-
     private void turnPhaze(Actions z)
     {
+        //Main turnPhaze to check for special atk/skls
+
+        //Regens player hp
         if(character.regenT>0) {character.doHp(character.regenAmt);}
 
-        if(character.normal())
+        //If not charging
+        if(character.chargeT==0)
         {
+            System.out.println("y");
             if(z.stat() != 0)
             {
                 if(z.stat() == 1)
@@ -594,10 +673,12 @@ public class GameGUI extends JFrame implements ActionListener
             }
         }
         
+        //Handles the charge atk
         else
         {
             if(character.chargeT>0)
             {
+                System.out.println("x");
                 if(character.chargeT==1)
                 {
                     if(z instanceof Atk) {turnPhaze((Atk)z);}
