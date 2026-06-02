@@ -55,6 +55,7 @@ public class GameGUI extends JFrame implements ActionListener
         bbExit = bGUI.bbEN(false);
         bbE = bGUI.enmBattleButtons(1);
         charSprite = bGUI.battleImg(character);
+        charSprite.setLocation(0, 125);
 
         //Sets the hp counter
         hp.setBackground(new Color(179, 9, 9));

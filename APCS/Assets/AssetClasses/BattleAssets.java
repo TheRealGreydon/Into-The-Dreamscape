@@ -12,12 +12,18 @@ public class BattleAssets
     public JLabel battleImg(Player character)
     {
         JLabel charSprite = new JLabel(new ImageIcon(new ImageIcon(new ImageIcon("APCS/Assets/Img/Character Img/HeroCombat-" + character.getOutfit() +".png").getImage()).getImage().getScaledInstance(500, 500, Image.SCALE_DEFAULT)));
-        charSprite.setBounds(0,125,500,500);
+        charSprite.setSize(500,500);
         return charSprite;
     }
     public JLabel spriteImg(Player character)
     {
         JLabel charSprite = new JLabel(new ImageIcon(new ImageIcon(new ImageIcon("APCS/Assets/Img/Character Img/Char" + character.getOutfit() +".png").getImage()).getImage().getScaledInstance(500, 500, Image.SCALE_DEFAULT)));
+        charSprite.setSize(500,500);
+        return charSprite;
+    }
+    public JLabel walkingImg(Player character)
+    {
+        JLabel charSprite = new JLabel(new ImageIcon(new ImageIcon(new ImageIcon("APCS/Assets/Img/Character Img/HeroWalking-" + character.getOutfit() +".gif").getImage()).getImage().getScaledInstance(500, 500, Image.SCALE_DEFAULT)));
         charSprite.setSize(500,500);
         return charSprite;
     }

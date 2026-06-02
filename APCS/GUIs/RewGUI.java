@@ -55,34 +55,56 @@ public class RewGUI extends JFrame implements ActionListener
     //Makes character and chest imgs
     private void imgInit()
     {
-        charInit();
-        chestInit();
-    }
-    private void charInit()
-    {
-        charImg = bGUI.spriteImg(character);
+        charImg = bGUI.walkingImg(character);
         charImg.setLocation(210,150);
         rPanel.add(charImg);
-    }
-    private void chestInit()
-    {
         chestImg = new JLabel(new ImageIcon(new ImageIcon(new ImageIcon("APCS/Assets/Img/Enemies/Jar.gif").getImage()).getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT)));
         chestImg.setSize(300,300);
         chestImg.setLocation(600,300);
         rPanel.add(chestImg);
         rPanel.setComponentZOrder(chestImg,0);
-    }
-    
-    //Checks if character can open chest
-    private void select() 
-    {
-        if(charImg.getX()>=350 && charImg.getX()<=660)
-        {
-            //Implement animation later
-            randRew((int)(Math.random()*3));   
-        }
+        openAnimation();
     }
 
+    //Opening the chest animation
+    private void openAnimation()
+    {
+        count = 0;
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask()
+        {public void run() 
+            {
+                for (Component c : rPanel.getComponents()) {if (c instanceof JButton && !c.equals(exit) && !c.equals(settings) && !c.equals(vole)) {c.setEnabled(false);}}
+                if(!paused)
+                {
+                    if(count >2 && count<22)
+                    {
+                         charImg.setLocation(charImg.getX()+10, charImg.getY());
+                    }
+
+                    else if(count==22)
+                    {
+                        Point x = new Point(charImg.getLocation());
+                        rPanel.remove(charImg);
+                        charImg = bGUI.battleImg(character);
+                        charImg.setLocation(x);
+                        rPanel.add(charImg);
+                        rPanel.setComponentZOrder(charImg,0);
+                        rPanel.repaint();
+                    }
+                    
+                    else if(count==24)
+                    {
+                        randRew((int)(Math.random()*3)); 
+                        timer.cancel();
+                    }
+                    count++;  
+                }
+            }
+        };
+        timer.scheduleAtFixedRate(task, 0, 75);     
+    }
+    
     //Randomly gives player a reward
     private void randRew(int x)
     {
@@ -93,12 +115,18 @@ public class RewGUI extends JFrame implements ActionListener
                 //If the player has all Atks add an item
                 if(randAtk()!=null) 
                 {
+                    mode = 0;
+                    selAtk = randAtk();
                     //If player doesnt have 4 atks
-                    if(!character.AtkF()) {character.AtkA(randAtk());}
+                    if(!character.AtkF()) 
+                    {
+                        character.AtkA(selAtk);
+                        loadScreen();
+                    }
                     
                     else
                     {
-                        full(randAtk());
+                        full(selAtk);
                     }
                 }
                 
@@ -113,12 +141,18 @@ public class RewGUI extends JFrame implements ActionListener
                 //If the player has all Atks add an item
                 if(randSkl()!=null) 
                 {
+                    mode = 1;
+                    selSkl = randSkl();
                     //If player doesnt have 4 atks
-                    if(!character.SklF()) {character.SklA(randSkl());}
+                    if(!character.SklF()) 
+                    {
+                        character.SklA(selSkl);
+                        loadScreen();
+                    }
                     
                     else
                     {
-                        full(randSkl());
+                        full(selSkl);
                     }
                 }
                 
@@ -130,12 +164,18 @@ public class RewGUI extends JFrame implements ActionListener
             
             default -> 
             {
+                mode = 2;
+                selItm = randItm();
                 //If player doesnt have 4 atks
-                if(!character.ItmF()) {character.ItmA(randItm());}
+                if(!character.ItmF()) 
+                {
+                    character.ItmA(selItm);
+                    loadScreen();
+                }
                 
                 else
                 {
-                    full(randItm());
+                    full(selItm);
                 }
             }
         }
@@ -204,9 +244,9 @@ public class RewGUI extends JFrame implements ActionListener
         {
             switch (mode) 
             {
-                case 0 -> {y = ("You got " + selAtk.getName()).split("");}
-                case 1 -> {y = ("You got " + selSkl.getName()).split("");}
-                default -> {y = ("You got " + selItm.getName()).split("");}
+                case 0 -> {y = (" You got " + selAtk.getName()).split("");}
+                case 1 -> {y = (" You got " + selSkl.getName()).split("");}
+                default -> {y = (" You got " + selItm.getName()).split("");}
             } 
             tText.setText("");
             tText.setOpaque(true);
@@ -332,18 +372,12 @@ public class RewGUI extends JFrame implements ActionListener
         rPanel.add(vole);set.setLocation(rPanel.getWidth()/2-2500, rPanel.getHeight()/2-2650);rPanel.add(set);
         vole.setFocusable(false);
     }
-    
+
     //Keybinds and buttons
     private void keyActions() 
     {
         rPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ESCAPE"), "Pause");
         rPanel.getActionMap().put("Pause", new AbstractAction() {public void actionPerformed(ActionEvent e) {pause();}});
-        rPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("LEFT"), "Left");
-        rPanel.getActionMap().put("Left", new AbstractAction() {public void actionPerformed(ActionEvent e) {{if(charImg.getX()>=220) {charImg.setLocation(charImg.getX()-10, charImg.getY());}};}});
-        rPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("RIGHT"), "Right");
-        rPanel.getActionMap().put("Right", new AbstractAction() {public void actionPerformed(ActionEvent e) {{if(charImg.getX()<=800){charImg.setLocation(charImg.getX()+10, charImg.getY());}};}});
-        rPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ENTER"), "Sel");
-        rPanel.getActionMap().put("Sel", new AbstractAction() {public void actionPerformed(ActionEvent e) {select();}});
     }
     public void actionPerformed(ActionEvent e)
     {
@@ -401,8 +435,6 @@ public class RewGUI extends JFrame implements ActionListener
         
         else if(j.equals(vole)) {if(character.getVol()+25>100) {character.setVol(0);} else {character.setVol(character.getVol() + 25);} vole.setText(String.valueOf(character.getVol()));}
     }
-    
-    //For when the selected reward is full
     private void fullKeyActions()
     {
         fPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ESCAPE"), "Pause");
@@ -448,7 +480,6 @@ public class RewGUI extends JFrame implements ActionListener
     //handles the selection of what to replace
     private void full(Atk x)
     {
-        mode = 0;
         selAtk = x;
         fullPan(x);
         highlight(KB[KBV][KBH]);
@@ -502,7 +533,6 @@ public class RewGUI extends JFrame implements ActionListener
     }
     private void full(Skl x)
     {
-        mode = 1;
         selSkl = x;
         fullPan(x);
         highlight(KB[KBV][KBH]);
@@ -556,7 +586,6 @@ public class RewGUI extends JFrame implements ActionListener
     }
     private void full(Itm x)
     {
-        mode = 2;
         selItm = x;
         fullPan(x);
         highlight(KB[KBV][KBH]);
