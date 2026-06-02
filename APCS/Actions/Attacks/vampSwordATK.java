@@ -1,6 +1,6 @@
 package APCS.Actions.Attacks;
 
-public class vampSword implements Atk
+public class vampSwordATK implements Atk
 {
 
     public String getName() {return "Vamp Blade";}
