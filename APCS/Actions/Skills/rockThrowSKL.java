@@ -10,4 +10,12 @@ public class rockThrowSKL implements atkSkl
     public String getId() {return "ROCKTHROW";}
 
     public Atk getAtk() {return new rockThrowATK();}
+
+    public int stat() {return 0;}
+
+    public int statT() {return 0;}
+
+    public int regenAmt() {return 0;}
+
+    public int atkUpAmt() {return 0;}
 }

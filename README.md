@@ -331,3 +331,8 @@ Change Log
 -Reward scene now is automated
 -Reward now works if not full
 -Final chest img is now added, and opening works
+-V.15.2-
+-Charging attack system added
+-Regen system added
+-MilkITM and CookieITM added
+-BigHit added

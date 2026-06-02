@@ -2,13 +2,13 @@ package APCS;
 
 import APCS.Actions.Attacks.*;
 import APCS.Actions.Skills.*;
-import APCS.Items.AttackItem.swordITM;
-import APCS.Items.Itm;
-import APCS.Items.SkillItem.grilledCheeseITM;
+import APCS.Items.AttackItem.*;
+import APCS.Items.*;
+import APCS.Items.SkillItem.*;
 import java.awt.*;
 import java.io.*;
-import java.util.Scanner;
-import javax.imageio.ImageIO;
+import java.util.*;
+import javax.imageio.*;
 
 public class Player
 {
@@ -16,10 +16,9 @@ public class Player
     private int gend = 1, lvl = 1, outfit = 1, fav = 1;
     private int hp, hpM = 100;
 
-    private int lev = 0,curStage = 0;
-    private int vol = 50;
+    private int lev = 0,curStage = 0,curTurn = 0,vol = 50;
     private Image sprite, bSprite;
-    private boolean frozen = false, alive = true;
+    private boolean alive = true;
     private File save = new File("APCS/Save.txt");
 
     //Starting atk/skls
@@ -28,14 +27,16 @@ public class Player
     public Atk[] atks = {new punch(), null, null, null};
     
     //To add an atk/skl/itm to the player, add discription in getId, and the matching obj to IDS
-    private String [] atkId = {"PUNCH", "WIDEPUNCH", "WINPUNCH"};
-    private Atk [] atkIdS = {new punch(), new widePunch(), new winPunch()};
+    private String [] atkId = {"PUNCH", "WIDEPUNCH", "WINPUNCH", "BIGHIT"};
+    private Atk [] atkIdS = {new punch(), new widePunch(), new winPunch(), new bigHit()};
     
     private String [] sklId = {"JUICEBOX", "ROCKTHROW"};
     private Skl [] sklIdS = {new juiceBox(), new rockThrowSKL()};
     
-    private String [] itmId = {"SWORD", "GRILLEDCHEESE"};
-    private Itm [] itmIdS = {new swordITM(), new grilledCheeseITM()};
+    private String [] itmId = {"SWORDITM", "GRILLEDCHEESEITM", "MILKITM", "COOKIEITM"};
+    private Itm [] itmIdS = {new swordITM(), new grilledCheeseITM(), new milkITM(), new cookieITM()};
+
+    public int chargeT = 0, regenT = 0, atkupT = 0,regenAmt,atkUpAmt;
 
     public Player(String name, int gend, int outfit, int fav) 
     {
@@ -47,11 +48,17 @@ public class Player
         spriteInit();
     }
 
-    public Player() {spriteInit();}
-    
-    public boolean froze() {return frozen;}
+    public boolean normal() {return chargeT==0;}
 
-    public void freeze(boolean x) {frozen = x;}
+    public Player() {spriteInit();}
+
+    public int turn() {return curTurn;}
+
+    public void nextTurn() {curTurn++;}
+
+    public void resetTurn() {curTurn = 0;}
+
+    public void nextLvl() {if(getStage()<2) {setStage(getStage()+1);} else {setStage(0);setLevel(getLevel()+1);}}
 
     public boolean isAlive() {return alive;}
 
@@ -155,7 +162,12 @@ public class Player
 
             else if(temp.equals("STAGE")) {curStage = Integer.parseInt(sc.next());}
 
-            else if(temp.equals("VOL")) {vol = Integer.parseInt(sc.next());}}hp = hpM;
+            else if(temp.equals("VOL")) {vol = Integer.parseInt(sc.next());}
+            
+            else if(temp.equals("HP")) {hpM = Integer.parseInt(sc.next());}}
+            
+            hp = hpM;
+            hpM = 100;
         }
         
         catch (FileNotFoundException e){}
@@ -177,7 +189,8 @@ public class Player
 
                 load += "LEVEL " + lev +"\n" + 
                 "STAGE " + curStage +"\n" + 
-                "VOL " + vol;
+                "VOL " + vol+"\n" + 
+                "HP " + hpM;
 
         try {FileWriter w = new FileWriter("APCS/Save.txt");w.write(load);w.close();} catch (IOException e) {}
     }

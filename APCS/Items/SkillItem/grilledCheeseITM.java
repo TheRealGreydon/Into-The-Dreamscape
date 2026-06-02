@@ -8,5 +8,5 @@ public class grilledCheeseITM implements sklItm
 
     public Skl getSkill() {return new grilledCheeseSKL();}
 
-    public String getId() {return "GRILLEDCHEESEITM";}
+    public String getId() {return "GRILLEDCHEESETM";}
 }

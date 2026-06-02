@@ -5,7 +5,9 @@ import APCS.Actions.Skills.*;
 import APCS.Assets.AssetClasses.*;
 import APCS.Items.AttackItem.swordITM;
 import APCS.Items.Itm;
+import APCS.Items.SkillItem.cookieITM;
 import APCS.Items.SkillItem.grilledCheeseITM;
+import APCS.Items.SkillItem.milkITM;
 import APCS.Player;
 import java.awt.*;
 import java.awt.event.*;
@@ -105,11 +107,6 @@ public class RewGUI extends JFrame implements ActionListener
                         timer.cancel();
                     }
 
-                    //else if(count==24)
-                    //{
-                    //    randRew((int)(Math.random()*3)); 
-                    //    timer.cancel();
-                    //}
                     count++;  
                 }
             }
@@ -196,7 +193,7 @@ public class RewGUI extends JFrame implements ActionListener
     //Gets a rand atk/skl/itm
     private Atk randAtk()
     {
-        Atk rands[] = {new smack(), new punch(), new widePunch()};
+        Atk rands[] = {new smack(), new punch(), new widePunch(), new bigHit()};
         int x = ((int)(Math.random()*rands.length));
 
         for(int i=0; i<rands.length; i++)
@@ -226,7 +223,7 @@ public class RewGUI extends JFrame implements ActionListener
     }
     private Itm randItm() 
     {
-        Itm rands[] = {new grilledCheeseITM(), new swordITM()};
+        Itm rands[] = {new grilledCheeseITM(), new swordITM(), new milkITM(), new cookieITM()};
         return rands[((int)(Math.random()*rands.length))];
     }
 

@@ -57,7 +57,7 @@ public class BattleAssets
             temp[i].setBackground(new Color(179, 9, 9));
             temp[i].setBorder(BorderFactory.createLineBorder(Color.black, 5));
             temp[i].setForeground(Color.black);
-            temp[i].setFont(new Font(temp[i].getFont().getName(), Font.BOLD, 40));
+            temp[i].setFont(new Font(temp[i].getFont().getName(), Font.BOLD, 39));
             temp[i].setSize(new Dimension(300,150));temp[i].setFocusable(false);
             temp[i].setOpaque(true);
             temp[i].setHorizontalAlignment(SwingConstants.CENTER);
@@ -123,13 +123,7 @@ public class BattleAssets
         int w = y.getDmg();
         if(z<=y.acur()) 
         {
-            if(y.getId().equals("JARCAPTURE"))
-            {
-                x.freeze(true); return " " + x.getName() + " was constricted";
-            }
-
-            else
-            {x.doHp(w);return " " + x.getName() + " took " + w;}
+            x.doHp(w);return " " + x.getName() + " took " + w;
         }
 
         else {return " Miss";}

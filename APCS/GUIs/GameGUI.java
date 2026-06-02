@@ -1,6 +1,7 @@
 package APCS.GUIs;
 
 import APCS.*;
+import APCS.Actions.*;
 import APCS.Actions.Attacks.*;
 import APCS.Actions.Skills.*;
 import APCS.Assets.AssetClasses.*;
@@ -8,6 +9,7 @@ import APCS.Enms.*;
 import APCS.Items.AttackItem.atkItm;
 import APCS.Items.Itm;
 import APCS.Items.SkillItem.sklItm;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
@@ -258,9 +260,7 @@ public class GameGUI extends JFrame implements ActionListener
                         //Atk buttons
                         else if(x>=3 && x<=8)
                         {
-                            if(!character.froze() && !bb[x].getText().equals("Next") &&!bb[x].getText().equals("X")) {turnPhaze(x);}
-
-                            else if(!bb[x].getText().equals("Next") && !bb[x].getText().equals("X")) {frozPhaze();}
+                            if(!bb[x].getText().equals("Next") &&!bb[x].getText().equals("X")) {turnPhaze(x);}
 
                             else if(bb[x].getText().equals("Next"))
                             {
@@ -283,9 +283,7 @@ public class GameGUI extends JFrame implements ActionListener
                         //Skl buttons
                         else if(x>=9 && x<=14)
                         {
-                            if(!character.froze() && !bb[x].getText().equals("Next") &&!bb[x].getText().equals("X")) {turnPhaze(x);}
-
-                            else if(!bb[x].getText().equals("Next") && !bb[x].getText().equals("X")) {frozPhaze();}
+                            if(!bb[x].getText().equals("Next") &&!bb[x].getText().equals("X")) {turnPhaze(x);}
 
                             else if(bb[x].getText().equals("Next"))
                             {
@@ -356,14 +354,14 @@ public class GameGUI extends JFrame implements ActionListener
     private void turnPhaze(int y)
     {
         switch (y) {
-            case 3 -> turnPhaze(character.atks[0]);
-            case 4 -> turnPhaze(character.atks[1]);
-            case 6 -> turnPhaze(character.atks[2]);
-            case 7 -> turnPhaze(character.atks[3]);
-            case 9 -> turnPhaze(character.skls[0]);
-            case 10 -> turnPhaze(character.skls[1]);
-            case 12 -> turnPhaze(character.skls[2]);
-            case 13 -> turnPhaze(character.skls[3]);
+            case 3 -> turnPhaze((Actions)character.atks[0]);
+            case 4 -> turnPhaze((Actions)character.atks[1]);
+            case 6 -> turnPhaze((Actions)character.atks[2]);
+            case 7 -> turnPhaze((Actions)character.atks[3]);
+            case 9 -> turnPhaze((Actions)character.skls[0]);
+            case 10 -> turnPhaze((Actions)character.skls[1]);
+            case 12 -> turnPhaze((Actions)character.skls[2]);
+            case 13 -> turnPhaze((Actions)character.skls[3]);
             case 15 -> turnPhaze(character.itms[0], 0);
             case 16 -> turnPhaze(character.itms[1], 1);
             case 18 -> turnPhaze(character.itms[2], 2);
@@ -375,9 +373,10 @@ public class GameGUI extends JFrame implements ActionListener
     {
         if(y != null)
         {
-            if(y instanceof atkItm) {if(!((atkItm)y).getAtk().swing()) {atkSel(((atkItm)y).getAtk());} else {turnPhaze(((atkItm)(y)).getAtk());}}
-            
-            else {turnPhaze((Skl)((sklItm)y).getSkill());}itmUsed(z);
+            if(y instanceof atkItm) {turnPhaze((Actions)(((atkItm)y).getAtk()));}
+
+            else {turnPhaze((Actions)(((sklItm)y).getSkill()));}
+            itmUsed(z);
         }
         
     }
@@ -492,12 +491,70 @@ public class GameGUI extends JFrame implements ActionListener
             gPanel.add(tText);timer.scheduleAtFixedRate(task, 0, 100);
         }
     }
-    private void frozPhaze()
+
+    private void turnPhaze(Actions z)
+    {
+        if(character.regenT>0) {character.regenT--;character.doHp(character.regenAmt);}
+
+        if(character.normal())
+        {
+            if(z.stat() != 0)
+            {
+                if(z.stat() == 1)
+                {
+                    character.chargeT = z.statT();
+                    chargePhaze();
+                }
+
+                else if(z.stat() == 2)
+                {
+                    character.regenT += z.statT();
+                    character.regenAmt = z.regenAmt();
+                }
+
+                else if(z.stat() == 3)
+                {
+                    character.regenT = z.statT();
+                }
+
+                else if(z.stat() == 4)
+                {
+                    character.atkupT = z.statT();
+                }
+            }
+
+            else
+            {
+                if(z instanceof Atk) {turnPhaze((Atk)z);}
+
+                else {turnPhaze((Skl)z);}
+            }
+        }
+        
+        else
+        {
+            if(character.chargeT>0)
+            {
+                if(character.chargeT==1)
+                {
+                    if(z instanceof Atk) {turnPhaze((Atk)z);}
+
+                    else {turnPhaze((Skl)z);}
+                }
+
+                else {chargePhaze();}
+                character.chargeT--;
+            }
+        }
+    }
+
+    //When player charges an atk/skl
+    private void chargePhaze()
     {
         count = 0; looped = 0;
 
         Timer timer = new Timer();
-        b = (" " + character.getName() + " is constricted").split("");
+        b = (" " + character.getName() + " is charging a move").split("");
         tText.setText("");
         tText.setLocation(500, 220);
         tText.setOpaque(true);
@@ -511,7 +568,7 @@ public class GameGUI extends JFrame implements ActionListener
             else {if(count==b.length+10) {gPanel.remove(tText);gPanel.repaint();gPanel.remove(tText);timer.cancel();enmBattlePhaze();}}count++;
         }}};
 
-        gPanel.add(tText);timer.scheduleAtFixedRate(task, 0, 100);character.freeze(false);
+        gPanel.add(tText);timer.scheduleAtFixedRate(task, 0, 100);
     }
     
     //Enm turn, also handles winning/losing
@@ -736,7 +793,7 @@ public class GameGUI extends JFrame implements ActionListener
                 character.resetHP();
                 bbWL.setText("Next");
 
-                if(character.getStage()<2) {character.setStage(character.getStage()+1);} else {character.setStage(0);character.setLevel(character.getLevel()+1);}
+                character.nextLvl();
             }
 
             else
@@ -751,7 +808,7 @@ public class GameGUI extends JFrame implements ActionListener
                 character.reset();
             }
 
-            gPanel.add(bbWL);gPanel.setComponentZOrder(bbWL, 0);character.saveGame();
+            character.resetTurn();gPanel.add(bbWL);gPanel.setComponentZOrder(bbWL, 0);character.saveGame();
         }
     }   
     private void itmUsed(int x) 
