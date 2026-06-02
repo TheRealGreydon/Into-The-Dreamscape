@@ -15,7 +15,7 @@ public class bigHit implements Atk
 
     public int stat() {return 1;}
 
-    public int statT() {return 2;}
+    public int statT() {return 1;}
 
     public int regenAmt() {return 0;}
 

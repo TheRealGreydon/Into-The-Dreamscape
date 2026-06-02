@@ -3,18 +3,15 @@ package APCS.GUIs;
 import APCS.Actions.Attacks.*;
 import APCS.Actions.Skills.*;
 import APCS.Assets.AssetClasses.*;
-import APCS.Items.AttackItem.swordITM;
+import APCS.Items.AttackItem.*;
 import APCS.Items.Itm;
-import APCS.Items.SkillItem.cookieITM;
-import APCS.Items.SkillItem.grilledCheeseITM;
-import APCS.Items.SkillItem.milkITM;
+import APCS.Items.SkillItem.*;
 import APCS.Player;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import java.util.Timer;
 import javax.swing.*;
-import javax.swing.border.Border;
 
 public class RewGUI extends JFrame implements ActionListener
 {
@@ -196,7 +193,7 @@ public class RewGUI extends JFrame implements ActionListener
         Atk rands[] = {new smack(), new punch(), new widePunch(), new bigHit(), new twinStrike()};
         int x = ((int)(Math.random()*rands.length));
 
-        for(int i=0; i<rands.length; i++)
+        for (Atk rand : rands) 
         {
             if(!character.has(rands[x])) {return rands[x];}
             
@@ -211,7 +208,7 @@ public class RewGUI extends JFrame implements ActionListener
         Skl rands[] = {new juiceBox(), new rockThrowSKL(), new vampSwordSKL(), new rage()};
         int x = ((int)(Math.random()*rands.length));
 
-        for(int i=0; i<rands.length; i++)
+        for (Skl rand : rands) 
         {
             if(!character.has(rands[x])) {return rands[x];}
             
@@ -704,7 +701,6 @@ public class RewGUI extends JFrame implements ActionListener
         }
     }
     private void panSet(JPanel x, JPanel y) {kronk.remove(x);kronk.add(y);y.revalidate();y.repaint();}
-    private boolean has(JPanel y, Component x) {for (Component c : y.getComponents()) {if (c == x) {return true;}} return false;}
     private void exit() {if(!settings.getText().equals("Volume")){kronk.dispose();} else{pause();}}
     private boolean hasPanel(JPanel targetPanel) 
     {

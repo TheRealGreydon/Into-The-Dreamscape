@@ -9,7 +9,6 @@ import APCS.Enms.*;
 import APCS.Items.AttackItem.atkItm;
 import APCS.Items.Itm;
 import APCS.Items.SkillItem.sklItm;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
@@ -69,7 +68,8 @@ public class GameGUI extends JFrame implements ActionListener
         hp.setSize((hp.getWidth()+10),(hp.getHeight()+10));
         hp.setLocation(175,100);
         hp.setOpaque(true);
-        
+        tText.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
+
         actBattleButtons();
 
         //Does the enm and character imgs
@@ -350,24 +350,17 @@ public class GameGUI extends JFrame implements ActionListener
     {
         selAtk = z;selingEnmAtk = true;
         highlight(-2);
-        if(bbE[0].Enm.isAlive()) 
-        {
-            bbE[0].select(true);selEnm = 0;
-        }
-        else if(bbE[1].Enm.isAlive()) 
-        {
-            bbE[1].select(true);selEnm = 1;
-        }
-        else if(bbE[2].Enm.isAlive()) 
-        {
-            bbE[2].select(true);selEnm = 2;
-        }
+        if(bbE[0].Enm.isAlive()) {bbE[0].select(true);selEnm = 0;}
+        else if(bbE[1].Enm.isAlive()) {bbE[1].select(true);selEnm = 1;}
+        else if(bbE[2].Enm.isAlive()) {bbE[2].select(true);selEnm = 2;}
     }
 
     //Player turn
     private void turnPhaze(int y)
     {
-        switch (y) {
+        tText.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
+        switch (y)
+        {
             case 3 -> turnPhaze((Actions)character.atks[0]);
             case 4 -> turnPhaze((Actions)character.atks[1]);
             case 6 -> turnPhaze((Actions)character.atks[2]);
@@ -387,7 +380,7 @@ public class GameGUI extends JFrame implements ActionListener
     {
         if(y != null)
         {
-            if(y instanceof atkItm) {turnPhaze((Actions)(((atkItm)y).getAtk()));}
+            if(y instanceof atkItm itm) {turnPhaze((Actions)(itm.getAtk()));}
 
             else {turnPhaze((Actions)(((sklItm)y).getSkill()));}
             itmUsed(z);
@@ -469,7 +462,7 @@ public class GameGUI extends JFrame implements ActionListener
                     {
                         if(count==b.length+10) 
                         {
-                            if(!x.Enm.isAlive()) {gPanel.remove(x.enmImg);}
+                            if(!x.Enm.isAlive()) {gPanel.remove(x.enmImg);looped++;}
 
                             if(looped==0)
                             {
@@ -539,17 +532,11 @@ public class GameGUI extends JFrame implements ActionListener
     {
         if(!y.getId().equals("RAGE"))
         {
-            if(y instanceof atkSkl) 
+            if(y instanceof atkSkl skl) 
             {
-                if(((atkSkl)y).getAtk().swing())
-                {
-                    turnPhaze(((atkSkl)y).getAtk());
-                } 
+                if(skl.getAtk().swing()) {turnPhaze(skl.getAtk());}
 
-                else
-                {
-                    atkSel(((atkSkl)y).getAtk());
-                }
+                else {atkSel(skl.getAtk());}
             }
 
             else
@@ -632,44 +619,35 @@ public class GameGUI extends JFrame implements ActionListener
     private void turnPhaze(Actions z)
     {
         //Main turnPhaze to check for special atk/skls
-
         //Regens player hp
         if(character.regenT>0) {character.doHp(character.regenAmt);}
 
         //If not charging
         if(character.chargeT==0)
         {
-            System.out.println("y");
             if(z.stat() != 0)
             {
-                if(z.stat() == 1)
-                {
-                    character.chargeT = z.statT();
-                    chargePhaze();
-                }
-
-                else if(z.stat() == 2)
-                {
-                    character.regenT += z.statT();
-                    character.regenAmt = z.regenAmt();
-                }
-
-                else if(z.stat() == 3)
-                {
-                    character.regenT = z.statT();
-                }
-
-                else if(z.stat() == 4)
-                {
-                    character.atkupT = z.statT();
+                switch (z.stat()) {
+                    case 1 -> 
+                    {
+                        character.chargeT = z.statT()+1;
+                        chargePhaze();
+                    }
+                    case 2 -> 
+                    {
+                        character.regenT += z.statT();
+                        character.regenAmt = z.regenAmt();
+                    }
+                    case 3 -> character.regenT = z.statT();
+                    case 4 -> character.atkupT = z.statT();
                 }
             }
 
             else
             {
-                if(z instanceof Atk) {turnPhaze((Atk)z);}
+                if(z instanceof Atk atk) {turnPhaze(atk);}
 
-                else if(z instanceof Skl) {turnPhaze((Skl)z);}
+                else {turnPhaze((Skl)z);}
             }
         }
         
@@ -678,12 +656,11 @@ public class GameGUI extends JFrame implements ActionListener
         {
             if(character.chargeT>0)
             {
-                System.out.println("x");
                 if(character.chargeT==1)
                 {
-                    if(z instanceof Atk) {turnPhaze((Atk)z);}
+                    if(z instanceof Atk atk) {turnPhaze(atk);}
 
-                    else if(z instanceof Skl) {turnPhaze((Skl)z);}
+                    else {turnPhaze((Skl)z);}
                 }
 
                 else {chargePhaze();}
@@ -717,8 +694,10 @@ public class GameGUI extends JFrame implements ActionListener
     //Enm turn, also handles winning/losing
     private void enmBattlePhaze()
     {
-        character.nextTurn();
+        System.out.println(character.regenT);
+        
         count = 0;
+        tText.setBorder(BorderFactory.createLineBorder(Color.red, 5));
         tText.setText("");
         tText.setLocation(500, 220);
         tText.setOpaque(true);
@@ -752,6 +731,11 @@ public class GameGUI extends JFrame implements ActionListener
         else if(looped<2) {looped++;enmBattlePhaze();hpReset();} 
         
         else if(!bbE[0].Enm.isAlive() && !bbE[1].Enm.isAlive() && !bbE[2].Enm.isAlive()) {gEnd(true);}
+
+        else if(looped>=2)
+        {
+            character.nextTurn();
+        }
     }    
 
     //Button actions and keybinds

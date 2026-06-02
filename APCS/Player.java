@@ -2,8 +2,8 @@ package APCS;
 
 import APCS.Actions.Attacks.*;
 import APCS.Actions.Skills.*;
-import APCS.Items.AttackItem.*;
 import APCS.Items.*;
+import APCS.Items.AttackItem.*;
 import APCS.Items.SkillItem.*;
 import java.awt.*;
 import java.io.*;
@@ -30,8 +30,8 @@ public class Player
     private String [] atkId = {"PUNCH", "WIDEPUNCH", "WINPUNCH", "BIGHIT", "TWINSTRIKE",};
     private Atk [] atkIdS = {new punch(), new widePunch(), new winPunch(), new bigHit(), new twinStrike(),};
     
-    private String [] sklId = {"JUICEBOX", "ROCKTHROW", "VAMPBLADESKL", "RAGE"};
-    private Skl [] sklIdS = {new juiceBox(), new rockThrowSKL(), new vampSwordSKL(), new rage()};
+    private String [] sklId = {"JUICEBOX", "ROCKTHROW", "VAMPBLADESKL", "RAGE", "SKIP"};
+    private Skl [] sklIdS = {new juiceBox(), new rockThrowSKL(), new vampSwordSKL(), new rage(), new skip()};
     
     private String [] itmId = {"SWORDITM", "GRILLEDCHEESEITM", "MILKITM", "COOKIEITM"};
     private Itm [] itmIdS = {new swordITM(), new grilledCheeseITM(), new milkITM(), new cookieITM()};
@@ -118,10 +118,10 @@ public class Player
     private void spriteInit() 
     {
         try {sprite = ImageIO.read(new File("APCS/Assets/Img/Character Img/Char" + outfit + ".png")).getScaledInstance(650, 650, Image.SCALE_SMOOTH);}
-        catch (IOException e) {e.printStackTrace();}
+        catch (IOException e) {}
         
         try {bSprite = ImageIO.read(new File("APCS/Assets/Img/Character Img/HeroCombat-" + outfit + ".png")).getScaledInstance(650, 650, Image.SCALE_SMOOTH);}
-        catch (IOException e) {e.printStackTrace();}
+        catch (IOException e) {}
     }
 
     public void loadSave()
@@ -131,59 +131,83 @@ public class Player
         {
             temp = sc.next();
 
-            if(temp.equals("NAME")) {name = sc.next();}
-
-            else if(temp.equals("GEND")) {gend = Integer.parseInt(sc.next());}
-
-            else if(temp.equals("OUT")) {outfit = Integer.parseInt(sc.next());}
-
-            else if(temp.equals("FAV")) {fav = Integer.parseInt(sc.next());}
-
-            else if(temp.equals("LVL")) {lvl = Integer.parseInt(sc.next());}
-
-            else if(temp.equals("ATK")) 
+            switch (temp) 
             {
-                for(int i=0; i<4; i++)
+                case "NAME" -> name = sc.next();
+                case "GEND" -> gend = Integer.parseInt(sc.next());
+                case "OUT" -> outfit = Integer.parseInt(sc.next());
+                case "FAV" -> fav = Integer.parseInt(sc.next());
+                case "LVL" -> lvl = Integer.parseInt(sc.next());
+
+                case "ATK" -> 
                 {
-                    temp = sc.next();
-
-                    if(!temp.equals("NULL")) {for(int j=0; j<atkId.length; j++) {if(temp.equals(atkId[j])) {atks[i] = atkIdS[j];}}}
-
-                    else {atks[i] = null;}
+                    for(int i=0; i<4; i++)
+                    {
+                        temp = sc.next();
+                        
+                        if(!temp.equals("NULL")) 
+                        {
+                            for(int j=0; j<atkId.length; j++) 
+                            {
+                                if(temp.equals(atkId[j])) 
+                                {
+                                    atks[i] = atkIdS[j];
+                                }
+                            }
+                        }
+                        
+                        else {atks[i] = null;}
+                    }
                 }
-            }
 
-            else if(temp.equals("SKL")) 
-            {
-                for(int i=0; i<4; i++)
+                case "SKL" -> 
                 {
-                    temp = sc.next();
-
-                    if(!temp.equals("NULL")) {for(int j=0; j<sklId.length; j++) {if(temp.equals(sklId[j])) {skls[i] = sklIdS[j];}}}
-
-                    else {skls[i] = null;}
+                    for(int i=0; i<4; i++)
+                    {
+                        temp = sc.next();
+                        
+                        if(!temp.equals("NULL")) 
+                        {
+                            for(int j=0; j<sklId.length; j++) 
+                            {
+                                if(temp.equals(sklId[j])) 
+                                {
+                                    skls[i] = sklIdS[j];
+                                }
+                            }
+                        }
+                        
+                        else {skls[i] = null;}
+                    }
                 }
-            }
 
-            else if(temp.equals("ITM")) 
-            {
-                for(int i=0; i<4; i++)
+                case "ITM" -> 
                 {
-                    temp = sc.next();
-
-                    if(!temp.equals("NULL")) {for(int j=0; j<itmId.length; j++) {if(temp.equals(itmId[j])) {itms[i] = itmIdS[j];}}}
-
-                    else {itms[i] = null;}
+                    for(int i=0; i<4; i++)
+                    {
+                        temp = sc.next();
+                        
+                        if(!temp.equals("NULL")) 
+                        {
+                            for(int j=0; j<itmId.length; j++) 
+                            {
+                                if(temp.equals(itmId[j])) 
+                                {
+                                    itms[i] = itmIdS[j];
+                                }
+                            }
+                        }
+                        
+                        else {itms[i] = null;}
+                    }
                 }
+
+                case "LEVEL" -> lev = Integer.parseInt(sc.next());
+                case "STAGE" -> curStage = Integer.parseInt(sc.next());
+                case "VOL" -> vol = Integer.parseInt(sc.next());
+                case "HP" -> hp = Integer.parseInt(sc.next());
             }
-
-            else if(temp.equals("LEVEL")) {lev = Integer.parseInt(sc.next());}
-
-            else if(temp.equals("STAGE")) {curStage = Integer.parseInt(sc.next());}
-
-            else if(temp.equals("VOL")) {vol = Integer.parseInt(sc.next());}
-            
-            else if(temp.equals("HP")) {hp = Integer.parseInt(sc.next());}}
+}
             
             rageHP = hpM - 5;
         }

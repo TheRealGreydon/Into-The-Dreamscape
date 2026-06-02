@@ -340,3 +340,5 @@ Change Log
 -V.15.3-
 -Rage skill added
 -Twin strike added
+-V.15.4-
+-Fixed issue with charged atk not working
