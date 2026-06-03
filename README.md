@@ -344,3 +344,12 @@ Change Log
 -Fixed issue with charged atk not working
 -V.15.5-
 -Fireball skl now working
+
+6/3/26
+------
+-V.15.6-
+-Wounding strike and bleeding added
+-Its 3am baby so you know what that means, my nightly halucinations
+-V.15.7-
+-Last log was kidding, NOW its added
+-Kai stop being so creative its making more work for me you bastard

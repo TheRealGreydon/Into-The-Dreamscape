@@ -42,11 +42,14 @@ public class GameGUI extends JFrame implements ActionListener
     //Control the scrolling text
     private JLabel tText = new JLabel();
     private int f,count = 0,looped = 0, wideLoop = 0;
-    private String [] b, y;
+    private String [] b, y,z;
 
     //Control the selected button/enm
     private boolean selingEnmAtk = false, down = true;
     private int selEnm = 0, selBut = 0, minSel = 0, maxSel = 2;
+
+    //Timertasks for enm atk
+    private TimerTask taskN, taskB, taskF;
 
     public GameGUI(Player character, JFrame kronk) {this.kronk = kronk;this.character = character;start();}
 
@@ -735,71 +738,141 @@ public class GameGUI extends JFrame implements ActionListener
             
             else {b = new BattleAssets().attack(character, bbE[looped].Enm.getAtk(0)).split("");}
 
-            if(!bbE[looped].Enm.burnt())
+            taskN = new TimerTask()
             {
-                TimerTask task = new TimerTask()
-                {public void run() 
+                public void run() 
+                {
+                    if(!paused)
                     {
-                        if(!paused)
+                        if(count<b.length) {gPanel.remove(tText);tText.setText(tText.getText() + b[count]);
+                        tText.setSize(tText.getPreferredSize());tText.setSize(tText.getWidth()+10, tText.getHeight());
+                        gPanel.add(tText);gPanel.repaint();}
+                        else
                         {
-                            if(count<b.length) {gPanel.remove(tText);tText.setText(tText.getText() + b[count]);
-                            tText.setSize(tText.getPreferredSize());tText.setSize(tText.getWidth()+10, tText.getHeight());
-                            gPanel.add(tText);gPanel.repaint();}
-                            else
+                            if(count==b.length+10) 
                             {
-                                if(count==b.length+10) 
-                                {
-                                    if(character.isAlive()) {gPanel.remove(tText);gPanel.repaint();timer.cancel();enmBattlePhaze();}
+                                if(character.isAlive()) {gPanel.remove(tText);gPanel.repaint();timer.cancel();looped++;enmBattlePhaze();}
 
-                                    else {gEnd(false);timer.cancel();}
-                                }
-                            }count++;
-                        }
+                                else {gEnd(false);timer.cancel();}
+                            }
+                        }count++;
                     }
-                };
-                hpReset();
-                gPanel.add(tText);timer.scheduleAtFixedRate(task, 0, 100);looped++;
+                }
+            };
+
+            z = (" " + bbE[looped].Enm.getName() + " is bleeding").split("");
+            taskB = new TimerTask()
+            {
+                public void run() 
+                {
+                    if(!paused)
+                    {
+                        if(count<z.length) {gPanel.remove(tText);tText.setText(tText.getText() + z[count]);
+                        tText.setSize(tText.getPreferredSize());tText.setSize(tText.getWidth()+10, tText.getHeight());
+                        gPanel.add(tText);gPanel.repaint();}
+                        else
+                        {
+                            if(count==z.length+10) 
+                            {
+                                if(character.isAlive()) 
+                                {
+                                    count = 0;tText.setText("");gPanel.remove(tText);gPanel.repaint();
+                                    hpReset();gPanel.add(tText);taskB.cancel();timer.scheduleAtFixedRate(taskN, 0, 100);
+                                }
+                                
+                                else {gEnd(false);timer.cancel();}
+                            }
+                        }count++;
+                    }
+                }
+            };
+            
+            y = (" " + bbE[looped].Enm.getName() + " was burnt").split("");
+            taskF = new TimerTask()
+            {
+                public void run() 
+                {
+                    if(!paused)
+                    {
+                        if(count<y.length) {gPanel.remove(tText);tText.setText(tText.getText() + y[count]);
+                        tText.setSize(tText.getPreferredSize());tText.setSize(tText.getWidth()+10, tText.getHeight());
+                        gPanel.add(tText);gPanel.repaint();}
+                        else
+                        {
+                            if(count==y.length+10) 
+                            {
+                                if(character.isAlive()) 
+                                {
+                                    gPanel.remove(tText);gPanel.repaint();
+                                    if(bbE[looped].Enm.bleed())
+                                    {
+                                        count = 0;tText.setText("");bbE[looped].Enm.bleedTurn();bbE[looped].Enm.doHp(-2);
+                                        hpReset();gPanel.add(tText);taskF.cancel();timer.scheduleAtFixedRate(taskB, 0, 100);   
+                                    }
+
+                                    else {count = 0;tText.setText("");hpReset();gPanel.add(tText);taskF.cancel();timer.scheduleAtFixedRate(taskN, 0, 100);}
+                                }
+
+                                else {gEnd(false);timer.cancel();}
+                            }
+                        }count++;
+                    }
+                }
+            };
+
+            if(!bbE[looped].Enm.burnt() && !bbE[looped].Enm.bleed()) {hpReset();gPanel.add(tText);timer.scheduleAtFixedRate(taskN, 0, 100);}
+
+            else if(bbE[looped].Enm.burnt())
+            {
+                bbE[looped].Enm.burnTurn();bbE[looped].Enm.doHp(-2);
+                hpReset();gPanel.add(tText);timer.scheduleAtFixedRate(taskF, 0, 100);
             }
 
             else
             {
-                bbE[looped].Enm.doHp(-2);
-                y = (" " + bbE[looped].Enm.getName() + " was burnt").split("");
-                if(bbE[looped].Enm.getBurn()-1>=0) {bbE[looped].Enm.burnTurn();}
-                TimerTask task = new TimerTask()
-                {public void run() 
-                    {
-                        if(!paused)
-                        {
-                            if(count<y.length)
-                            {
-                                gPanel.remove(tText);tText.setText(tText.getText() + y[count]);
-                                tText.setSize(tText.getPreferredSize());tText.setSize(tText.getWidth()+10, tText.getHeight());
-                                gPanel.add(tText);gPanel.repaint();
-                            }
-                            else if(count>=y.length+10)
-                            {
-                                if(count==y.length+10) {gPanel.remove(tText);tText.setText("");gPanel.repaint();gPanel.add(tText);}
-                                else if(count<b.length+y.length+11)
-                                {
-                                    gPanel.remove(tText);tText.setText(tText.getText() + b[count-y.length-11]);
-                                    tText.setSize(tText.getPreferredSize());tText.setSize(tText.getWidth()+10, tText.getHeight());
-                                    gPanel.add(tText);gPanel.repaint();
-                                }
-                                else 
-                                {
-                                    if(character.isAlive()) {gPanel.remove(tText);gPanel.repaint();timer.cancel();enmBattlePhaze();}
-
-                                    else {gEnd(false);timer.cancel();}
-                                }        
-                            }
-                            count++;
-                        }
-                    }
-                };
-                hpReset();
-                gPanel.add(tText);timer.scheduleAtFixedRate(task, 0, 100);looped++;
+                bbE[looped].Enm.bleedTurn();bbE[looped].Enm.doHp(-2);
+                hpReset();gPanel.add(tText);timer.scheduleAtFixedRate(taskB, 0, 100);
             }
+
+            //else
+            //{
+            //    bbE[looped].Enm.doHp(-2);
+            //    y = (" " + bbE[looped].Enm.getName() + " was burnt").split("");
+            //    if(bbE[looped].Enm.getBurn()-1>=0) {bbE[looped].Enm.burnTurn();}
+            //    TimerTask task = new TimerTask()
+            //    {public void run() 
+            //        {
+            //            if(!paused)
+            //            {
+            //                if(count<y.length)
+            //                {
+            //                    gPanel.remove(tText);tText.setText(tText.getText() + y[count]);
+            //                    tText.setSize(tText.getPreferredSize());tText.setSize(tText.getWidth()+10, tText.getHeight());
+            //                    gPanel.add(tText);gPanel.repaint();
+            //                }
+            //                else if(count>=y.length+10)
+            //                {
+            //                    if(count==y.length+10) {gPanel.remove(tText);tText.setText("");gPanel.repaint();gPanel.add(tText);}
+            //                    else if(count<b.length+y.length+11)
+            //                    {
+            //                        gPanel.remove(tText);tText.setText(tText.getText() + b[count-y.length-11]);
+            //                        tText.setSize(tText.getPreferredSize());tText.setSize(tText.getWidth()+10, tText.getHeight());
+            //                        gPanel.add(tText);gPanel.repaint();
+            //                    }
+            //                    else 
+            //                    {
+            //                        if(character.isAlive()) {gPanel.remove(tText);gPanel.repaint();timer.cancel();enmBattlePhaze();}
+//
+            //                        else {gEnd(false);timer.cancel();}
+            //                    }        
+            //                }
+            //                count++;
+            //            }
+            //        }
+            //    };
+            //    hpReset();
+            //    gPanel.add(tText);timer.scheduleAtFixedRate(task, 0, 100);looped++;
+            //}
         }
 
         else if(looped<2) {looped++;enmBattlePhaze();hpReset();} 

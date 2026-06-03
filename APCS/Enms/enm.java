@@ -25,4 +25,12 @@ public interface enm
     public void burnTurn();
 
     public int getBurn();
+
+    public boolean bleed();
+
+    public void blood();
+    
+    public void bleedTurn();
+
+    public int getBleed();
 }

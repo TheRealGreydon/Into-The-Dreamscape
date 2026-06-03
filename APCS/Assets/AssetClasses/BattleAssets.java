@@ -121,6 +121,7 @@ public class BattleAssets
         {
             if(y.getId().equals("VAMPBLADEATK")) {z.doHp(5);}
             else if(y.getId().equals("FIREBALLATK")) {if((int)(Math.random()*2)==0) {x.burn();}}
+            else if(y.getId().equals("WOUNDINGSTRIKE")) {if((int)(Math.random()*2)==0) {x.blood();}}
             x.doHp(w);
             return " " + x.getName() + " took " + w;
         }

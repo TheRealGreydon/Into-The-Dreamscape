@@ -119,7 +119,7 @@ public class MainGUI extends JFrame implements ActionListener
                         Main Story: Kai
                         Main Code: Nicholas
                         Literaly all the Code: Nicholas
-                        3 all nighters: Nicholas
+                        4 all nighters: Nicholas
                         Art: Kai
                         Please give us a 100% Mr. Klus :)""");
 

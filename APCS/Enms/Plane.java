@@ -4,8 +4,7 @@ import APCS.Actions.Attacks.*;
 
 public class Plane implements enm
 {
-    private int lvl,hp;
-    public int burn = 0;
+    private int lvl,hp, burn = 0, bleed = 0;
     private boolean alive = true;
     public Atk[] atks = {new smack(), new bloodDraw()};
 
@@ -32,4 +31,12 @@ public class Plane implements enm
     public void burnTurn() {if(burn-1>=0) {burn--;}}
 
     public int getBurn() {return burn;}
+
+    public void blood() {bleed = 3;}
+
+    public boolean bleed() {return !(bleed == 0);}
+
+    public void bleedTurn() {if(bleed-1>=0) {bleed--;}}
+
+    public int getBleed() {return bleed;}
 }
