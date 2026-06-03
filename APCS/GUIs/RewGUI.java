@@ -33,6 +33,11 @@ public class RewGUI extends JFrame implements ActionListener
     private Itm selItm;
     private String y [];
 
+    private Atk randsA[] = {new smack(), new punch(), new widePunch(), new bigHit(), new twinStrike()};
+    private Skl randsS[] = {new juiceBox(), new rockThrowSKL(), new vampSwordSKL(), new rage(), new fireballSKL()};
+    private Itm randsI[] = {new grilledCheeseITM(), new swordITM(), new milkITM(), new cookieITM(), new baguetteITM()};
+    
+
     public RewGUI(Player character, JFrame kronk) 
     {
         this.character = character;this.kronk = kronk;
@@ -47,8 +52,6 @@ public class RewGUI extends JFrame implements ActionListener
         imgInit();
         paint(rPanel,5);
         kronk.add(rPanel);
-        pauButtons();
-        keyActions();
     }
 
     //Makes character and chest imgs
@@ -190,14 +193,13 @@ public class RewGUI extends JFrame implements ActionListener
     //Gets a rand atk/skl/itm
     private Atk randAtk()
     {
-        Atk rands[] = {new smack(), new punch(), new widePunch(), new bigHit(), new twinStrike()};
-        int x = ((int)(Math.random()*rands.length));
+        int x = ((int)(Math.random()*randsA.length));
 
-        for (Atk rand : rands) 
+        for (Atk rand : randsA) 
         {
-            if(!character.has(rands[x])) {return rands[x];}
+            if(!character.has(randsA[x])) {return randsA[x];}
             
-            if(x+1>=rands.length) {x = 0;}
+            if(x+1>=randsA.length) {x = 0;}
             
             else{x++;}
         }
@@ -205,24 +207,19 @@ public class RewGUI extends JFrame implements ActionListener
     }
     private Skl randSkl()
     {
-        Skl rands[] = {new juiceBox(), new rockThrowSKL(), new vampSwordSKL(), new rage()};
-        int x = ((int)(Math.random()*rands.length));
+        int x = ((int)(Math.random()*randsS.length));
 
-        for (Skl rand : rands) 
+        for (Skl rand : randsS) 
         {
-            if(!character.has(rands[x])) {return rands[x];}
+            if(!character.has(randsS[x])) {return randsS[x];}
             
-            if(x+1>=rands.length) {x = 0;}
+            if(x+1>=randsS.length) {x = 0;}
             
             else{x++;}
         }
         return null;
     }
-    private Itm randItm() 
-    {
-        Itm rands[] = {new grilledCheeseITM(), new swordITM(), new milkITM(), new cookieITM()};
-        return rands[((int)(Math.random()*rands.length))];
-    }
+    private Itm randItm() {if((int)(Math.random()*25) == 24) {return new iocPowderITM();} return randsI[((int)(Math.random()*randsI.length))];}
 
     //Loading screen
     private void loadScreen()
@@ -329,69 +326,12 @@ public class RewGUI extends JFrame implements ActionListener
         }
     }
 
-    //Pause and settings
-    private void pauButtons()
-    {   
-        set.setVisible(false);
-        set.setSize(new Dimension(5000,5000));
-        pau.setSize(new Dimension(5000,5000));
-        pau.setEnabled(false);pau.setVisible(false);pau.setForeground(Color.white);pau.setFont(new Font(pau.getFont().getName(), Font.BOLD, 30));pau.setText("Paused"); 
-        exit.setBackground(new Color(0,0,0));settings.setBackground(new Color(0,0,0));pau.setBackground(new Color(0,0,0,200));
-        exit.setSize(new Dimension(200,100));settings.setSize(new Dimension(200,100));exit.setEnabled(false);exit.setVisible(false);exit.setForeground(Color.white);
-        exit.setFont(new Font(exit.getFont().getName(), Font.BOLD, 40));exit.setText("Exit");settings.setEnabled(false);settings.setVisible(false);settings.setForeground(Color.white);
-        settings.setFont(new Font(settings.getFont().getName(), Font.BOLD, 40));settings.setText("Settings");settings.addActionListener(this);exit.addActionListener(this);this.setLocationRelativeTo(null);
-        settings.setFocusable(false);
-        exit.setFocusable(false);
-    }
-    private void pause()
-    {  
-        if(paused) 
-        {
-            paused=false;
-            settings.setVisible(false);settings.setEnabled(false);
-            pau.setVisible(false);
-            exit.setEnabled(false);exit.setVisible(false);
-            set.setVisible(false);
-            vole.setVisible(false);vole.setEnabled(false);
-        }
-        else 
-        {
-            paused=true;
-            pau.setForeground(Color.white);
-            pau.setFont(new Font(pau.getFont().getName(), Font.BOLD, 40));pau.setText("Paused");pau.setBackground(new Color(0,0,0,200));
-            pau.setLocation(rPanel.getWidth()/2-2500, rPanel.getHeight()/2-2650);
-            settings.setText("Settings");
-            rPanel.add(settings);rPanel.add(exit);rPanel.add(pau);
-            exit.setLocation((rPanel.getWidth()/2)-100, (rPanel.getHeight()/2));
-            settings.setLocation((rPanel.getWidth()/2-100), (rPanel.getHeight()/2-100));settings.setVisible(true);settings.setEnabled(true);
-            exit.setVisible(true);exit.setEnabled(true);exit.setText("Exit");
-            pau.setVisible(true);
-        }
-    }    
-    private void settings()
-    {
-        pau.setVisible(false);set.setEnabled(false);set.setForeground(Color.white);set.setVisible(true);set.setBackground(Color.BLACK);
-        set.setFont(new Font(set.getFont().getName(), Font.BOLD, 40));set.setText("Settings"); 
-        exit.setText("Back");settings.setText("Volume");settings.setEnabled(false);
-        vole.setFont(new Font(vole.getFont().getName(), Font.BOLD, 40));vole.addActionListener(this);vole.setSize(new Dimension(125,100));vole.setBackground(Color.black);
-        vole.setForeground(Color.white);vole.setLocation((rPanel.getWidth()/2-50)+150, (rPanel.getHeight()/2-100));vole.setVisible(true);vole.setEnabled(true);vole.setText(String.valueOf(character.getVol()));
-        rPanel.add(vole);set.setLocation(rPanel.getWidth()/2-2500, rPanel.getHeight()/2-2650);rPanel.add(set);
-        vole.setFocusable(false);
-    }
-
     //Keybinds and buttons
-    private void keyActions() 
-    {
-        rPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ESCAPE"), "Pause");
-        rPanel.getActionMap().put("Pause", new AbstractAction() {public void actionPerformed(ActionEvent e) {pause();}});
-    }
     public void actionPerformed(ActionEvent e)
     {
         JButton j = (JButton)(e.getSource());
 
-        if(j.equals(exit)) {exit();}
-
-        else if(j.equals(buttons[0])) 
+        if(j.equals(buttons[0])) 
         {
             switch (mode) 
             {
@@ -436,15 +376,9 @@ public class RewGUI extends JFrame implements ActionListener
         }
 
         else if(j.equals(buttons[5])) {mode = -1;loadScreen();}
-
-        else if(j.equals(settings)) {settings();}
-        
-        else if(j.equals(vole)) {if(character.getVol()+25>100) {character.setVol(0);} else {character.setVol(character.getVol() + 25);} vole.setText(String.valueOf(character.getVol()));}
     }
     private void fullKeyActions()
     {
-        fPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ESCAPE"), "Pause");
-        fPanel.getActionMap().put("Pause", new AbstractAction() {public void actionPerformed(ActionEvent e) {pause();}});
         fPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("LEFT"), "Left");
         fPanel.getActionMap().put("Left", new AbstractAction() {public void actionPerformed(ActionEvent e) {keyPad(2);}});
         fPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("RIGHT"), "Right");
@@ -701,7 +635,6 @@ public class RewGUI extends JFrame implements ActionListener
         }
     }
     private void panSet(JPanel x, JPanel y) {kronk.remove(x);kronk.add(y);y.revalidate();y.repaint();}
-    private void exit() {if(!settings.getText().equals("Volume")){kronk.dispose();} else{pause();}}
     private boolean hasPanel(JPanel targetPanel) 
     {
         Component[] components = kronk.getContentPane().getComponents();

@@ -115,7 +115,15 @@ public class BattleAssets
         int w = y.getDmg();
         if(z.rageing()) {w = (w*6)/5;}
 
-        if(a<=y.acur()) {if(y.getId().equals("VAMPBLADE")) {z.doHp(5);}x.doHp(w);return " " + x.getName() + " took " + w;}
+        if(x instanceof Jar && ((Jar)x).hidey()) {return " Miss";}
+        
+        if(a<=y.acur()) 
+        {
+            if(y.getId().equals("VAMPBLADEATK")) {z.doHp(5);}
+            else if(y.getId().equals("FIREBALLATK")) {if((int)(Math.random()*2)==0) {x.burn();}}
+            x.doHp(w);
+            return " " + x.getName() + " took " + w;
+        }
 
         else {return " Miss";}
     }
@@ -128,5 +136,13 @@ public class BattleAssets
         if(z<=y.acur() && w!=0) {x.doHp(w);return " " + x.getName() + " took " + w;}
 
         else {return " Miss";}
+    }
+    public String attack(Player x) 
+    {
+        //Only used for the needle special atk to get 15% of player hp
+        int w = -1*((x.getHealth()*15)/100);
+        if(x.rageing()) {w = (w*4)/5;}
+        
+        x.doHp(w);return " " + x.getName() + " took " + w;
     }
 }

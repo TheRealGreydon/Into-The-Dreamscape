@@ -4,11 +4,15 @@ import APCS.Actions.Attacks.*;
 
 public class Jar implements enm
 {
-    private int lvl, hp;
-    private boolean alive = true;
-    public Atk[] atks = {new smack(), new jarCapt()};
+    private int lvl, hp,burn = 0;
+    private boolean alive = true, hidden = false;
+    public Atk[] atks = {new smack()};
 
-    public Jar(int lvl) {this.lvl = lvl;hp = 15 + (2*lvl);}
+    public boolean hidey() {if(hidden){hidden = false; return true;}return false;}
+
+    public void hide() {hidden = true;}
+
+    public Jar(int lvl) {this.lvl = lvl;hp = 100;}//15 + (2*lvl);}
 
     public String getName() {return "Jar";}
 
@@ -23,4 +27,12 @@ public class Jar implements enm
     public Atk getAtk(int x) {return atks[x];}
 
     public void setLvl(int x) {lvl = x;}
+
+    public void burn() {burn = 3;}
+
+    public boolean burnt() {return !(burn == 0);}
+
+    public void burnTurn() {if(burn-1>=0) {burn--;}}
+
+    public int getBurn() {return burn;}
 }

@@ -1,17 +1,17 @@
 package APCS.Actions.Attacks;
 
-public class vampSwordATK implements Atk
+public class fireballATK implements Atk
 {
 
-    public String getName() {return "Vamp Blade";}
+    public String getName() {return "Fireball";}
 
     public int getDmg() {return -10;}
 
-    public boolean swing() {return false;}
+    public boolean swing() {return true;}
 
-    public int acur() {return 90;}
+    public int acur() {return 100;}
 
-    public String getId() {return "VAMPBLADEATK";}
+    public String getId() {return "FIREBALLATK";}
 
     public int stat() {return 0;}
 

@@ -6,9 +6,9 @@ import APCS.Actions.Attacks.*;
 import APCS.Actions.Skills.*;
 import APCS.Assets.AssetClasses.*;
 import APCS.Enms.*;
-import APCS.Items.AttackItem.atkItm;
-import APCS.Items.Itm;
-import APCS.Items.SkillItem.sklItm;
+import APCS.Items.*;
+import APCS.Items.AttackItem.*;
+import APCS.Items.SkillItem.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
@@ -42,7 +42,7 @@ public class GameGUI extends JFrame implements ActionListener
     //Control the scrolling text
     private JLabel tText = new JLabel();
     private int f,count = 0,looped = 0, wideLoop = 0;
-    private String [] b;
+    private String [] b, y;
 
     //Control the selected button/enm
     private boolean selingEnmAtk = false, down = true;
@@ -506,24 +506,40 @@ public class GameGUI extends JFrame implements ActionListener
             {
                 b = new BattleAssets().attack(bbE[wideLoop].Enm, y, character).split("");
                 TimerTask task = new TimerTask()
-                {public void run() 
-                    {if(!paused)
+                {
+                    public void run() 
                     {
-                        if(count<b.length) {gPanel.remove(tText);tText.setText(tText.getText() + b[count]);
-                        tText.setSize(tText.getPreferredSize());tText.setSize(tText.getWidth()+10, tText.getHeight());
-                        gPanel.add(tText);gPanel.repaint();}
-                        else{if(count==b.length+10) 
+                        if(!paused)
                         {
-                            if(!bbE[wideLoop].Enm.isAlive()) {gPanel.remove(bbE[wideLoop].enmImg);}
-                            gPanel.remove(tText);gPanel.repaint();timer.cancel();if(wideLoop<2){turnPhaze(y);}
-                            else {looped = 0; enmBattlePhaze();}
-                        }}count++;
-                    }}};
+                            if(count<b.length) {gPanel.remove(tText);tText.setText(tText.getText() + b[count]);
+                            tText.setSize(tText.getPreferredSize());tText.setSize(tText.getWidth()+10, tText.getHeight());
+                            gPanel.add(tText);gPanel.repaint();}
+                            else
+                            {
+                                if(count==b.length+10) 
+                                {
+                                    if(!bbE[wideLoop].Enm.isAlive()) 
+                                    {
+                                        gPanel.remove(bbE[wideLoop].enmImg);
+                                    }
+                                    gPanel.remove(tText);
+                                    gPanel.repaint();
+                                    timer.cancel();
+                                    if(wideLoop<2)
+                                    {  
+                                        wideLoop++;
+                                        turnPhaze(y);
+                                    }
+                                    else {looped = 0; enmBattlePhaze();}
+                                }
+                            }
+                            count++;
+                        }
+                    }
+                };
 
                 gPanel.add(tText);timer.scheduleAtFixedRate(task, 0, 100);
             }
-
-            else if(wideLoop <2) {wideLoop++;turnPhaze(y);}
         }
         
         else {atkSel(y);}
@@ -693,9 +709,7 @@ public class GameGUI extends JFrame implements ActionListener
     
     //Enm turn, also handles winning/losing
     private void enmBattlePhaze()
-    {
-        System.out.println(character.regenT);
-        
+    {        
         count = 0;
         tText.setBorder(BorderFactory.createLineBorder(Color.red, 5));
         tText.setText("");
@@ -706,36 +720,93 @@ public class GameGUI extends JFrame implements ActionListener
         Timer timer = new Timer();
         if(looped <=2 && bbE[looped].Enm.isAlive()) 
         {
-            if((int)(Math.random()*10)==0) {b = new BattleAssets().attack(character, bbE[looped].Enm.getAtk(1)).split("");}
+            //Special atk
+            if((int)(Math.random()*10)==0) 
+            //if(true)
+            {
+                b = " Miss".split("");
+                switch (bbE[looped].Enm) 
+                {
+                    case Jar jar -> {if((int)(Math.random()*2)==0) {jar.hide();b = " Jar hid".split("");}}
+                    case Needle x -> b = bGUI.attack(character).split("");
+                    default -> b = new BattleAssets().attack(character, bbE[looped].Enm.getAtk(1)).split("");
+                }
+            }
             
             else {b = new BattleAssets().attack(character, bbE[looped].Enm.getAtk(0)).split("");}
-            TimerTask task = new TimerTask()
-            {public void run() 
-                {if(!paused)
-                {
-                    if(count<b.length) {gPanel.remove(tText);tText.setText(tText.getText() + b[count]);
-                    tText.setSize(tText.getPreferredSize());tText.setSize(tText.getWidth()+10, tText.getHeight());
-                    gPanel.add(tText);gPanel.repaint();}
-                    else{if(count==b.length+10) 
+
+            if(!bbE[looped].Enm.burnt())
+            {
+                TimerTask task = new TimerTask()
+                {public void run() 
                     {
-                        if(character.isAlive()) {gPanel.remove(tText);gPanel.repaint();timer.cancel();enmBattlePhaze();}
+                        if(!paused)
+                        {
+                            if(count<b.length) {gPanel.remove(tText);tText.setText(tText.getText() + b[count]);
+                            tText.setSize(tText.getPreferredSize());tText.setSize(tText.getWidth()+10, tText.getHeight());
+                            gPanel.add(tText);gPanel.repaint();}
+                            else
+                            {
+                                if(count==b.length+10) 
+                                {
+                                    if(character.isAlive()) {gPanel.remove(tText);gPanel.repaint();timer.cancel();enmBattlePhaze();}
 
-                        else {gEnd(false);timer.cancel();}
-                    }}count++;
-                }}};
+                                    else {gEnd(false);timer.cancel();}
+                                }
+                            }count++;
+                        }
+                    }
+                };
+                hpReset();
+                gPanel.add(tText);timer.scheduleAtFixedRate(task, 0, 100);looped++;
+            }
 
-            hpReset();
-            gPanel.add(tText);timer.scheduleAtFixedRate(task, 0, 100);looped++;
+            else
+            {
+                bbE[looped].Enm.doHp(-2);
+                y = (" " + bbE[looped].Enm.getName() + " was burnt").split("");
+                if(bbE[looped].Enm.getBurn()-1>=0) {bbE[looped].Enm.burnTurn();}
+                TimerTask task = new TimerTask()
+                {public void run() 
+                    {
+                        if(!paused)
+                        {
+                            if(count<y.length)
+                            {
+                                gPanel.remove(tText);tText.setText(tText.getText() + y[count]);
+                                tText.setSize(tText.getPreferredSize());tText.setSize(tText.getWidth()+10, tText.getHeight());
+                                gPanel.add(tText);gPanel.repaint();
+                            }
+                            else if(count>=y.length+10)
+                            {
+                                if(count==y.length+10) {gPanel.remove(tText);tText.setText("");gPanel.repaint();gPanel.add(tText);}
+                                else if(count<b.length+y.length+11)
+                                {
+                                    gPanel.remove(tText);tText.setText(tText.getText() + b[count-y.length-11]);
+                                    tText.setSize(tText.getPreferredSize());tText.setSize(tText.getWidth()+10, tText.getHeight());
+                                    gPanel.add(tText);gPanel.repaint();
+                                }
+                                else 
+                                {
+                                    if(character.isAlive()) {gPanel.remove(tText);gPanel.repaint();timer.cancel();enmBattlePhaze();}
+
+                                    else {gEnd(false);timer.cancel();}
+                                }        
+                            }
+                            count++;
+                        }
+                    }
+                };
+                hpReset();
+                gPanel.add(tText);timer.scheduleAtFixedRate(task, 0, 100);looped++;
+            }
         }
 
         else if(looped<2) {looped++;enmBattlePhaze();hpReset();} 
         
         else if(!bbE[0].Enm.isAlive() && !bbE[1].Enm.isAlive() && !bbE[2].Enm.isAlive()) {gEnd(true);}
 
-        else if(looped>=2)
-        {
-            character.nextTurn();
-        }
+        else if(looped>=2) {character.nextTurn();}
     }    
 
     //Button actions and keybinds

@@ -1,17 +1,16 @@
 package APCS.Actions.Attacks;
 
-public class vampSwordATK implements Atk
+public class iocPowderATK implements Atk
 {
+    public String getName() {return "Iocaine Powder";}
 
-    public String getName() {return "Vamp Blade";}
-
-    public int getDmg() {return -10;}
+    public int getDmg() {return -999;}
 
     public boolean swing() {return false;}
 
-    public int acur() {return 90;}
+    public int acur() {return 15;}
 
-    public String getId() {return "VAMPBLADEATK";}
+    public String getId() {return "IOCPOWDERATK";}
 
     public int stat() {return 0;}
 

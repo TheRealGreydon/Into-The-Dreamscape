@@ -2,7 +2,7 @@ package APCS.Enms;
 
 import APCS.Actions.Attacks.Atk;
 
-public interface  enm 
+public interface enm 
 {
     public String getName();
 
@@ -17,4 +17,12 @@ public interface  enm
     public boolean isAlive();
 
     public void setLvl(int x);
+
+    public boolean burnt();
+
+    public void burn();
+    
+    public void burnTurn();
+
+    public int getBurn();
 }

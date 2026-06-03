@@ -1,16 +1,16 @@
 package APCS.Actions.Attacks;
 
-public class jarCapt implements Atk
+public class baguetteATK implements Atk
 {
-    public String getName() {return "Jar Capture";}
+    public String getName() {return "Baguette";}
 
-    public int getDmg() {return -1;}
+    public int getDmg() {return -12;}
 
     public boolean swing() {return false;}
 
-    public int acur() {return 75;}
+    public int acur() {return 100;}
 
-    public String getId() {return "JARCAPTURE";}
+    public String getId() {return "BAGUETTEATK";}
 
     public int stat() {return 0;}
 

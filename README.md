@@ -342,3 +342,5 @@ Change Log
 -Twin strike added
 -V.15.4-
 -Fixed issue with charged atk not working
+-V.15.5-
+-Fireball skl now working
