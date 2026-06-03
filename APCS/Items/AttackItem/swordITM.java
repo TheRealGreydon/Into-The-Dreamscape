@@ -10,4 +10,6 @@ public class swordITM implements atkItm
 
     public String getId() {return "SWORDITM";}
 
+    public String getDis() {return "";}
+
 }

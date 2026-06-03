@@ -20,4 +20,14 @@ public class bigHit implements Atk
     public int regenAmt() {return 0;}
 
     public int atkUpAmt() {return 0;}
+
+    public String getDis() 
+    {
+        return 
+        """
+                                                       Big Hit
+                            -----------------------------------------------------
+                               Does 25 damage to all enemies,
+                                and takes a turn to charge up""";
+    }
 }

@@ -6,4 +6,5 @@ package APCS.Actions; public interface Actions
     public int statT();
     public int regenAmt();
     public int atkUpAmt();
+    public String getDis();
 }

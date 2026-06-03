@@ -354,3 +354,5 @@ Change Log
 -Last log was kidding, NOW its added
 -Kai stop being so creative its making more work for me you bastard
 -Added gamble slash
+-V.16-
+-Added info sheet accessable from game menu

@@ -9,4 +9,6 @@ public class milkITM implements sklItm
     public Skl getSkill() {return new milkSKL();}
 
     public String getId() {return "MILK";}
+
+    public String getDis() {return "";}
 }

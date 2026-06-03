@@ -20,4 +20,15 @@ public class woundingStrike implements Atk
     public int regenAmt() {return 0;}
 
     public int atkUpAmt() {return 0;}
+
+    public String getDis() 
+    {
+        return 
+        """
+                                            Wounding Strike
+                             -----------------------------------------------
+                               Does 5 damage to enemie,
+                               and makes the enemie bleed 
+                                        for 3 turns""";
+    }
 }

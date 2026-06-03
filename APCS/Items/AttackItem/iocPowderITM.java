@@ -10,4 +10,6 @@ public class iocPowderITM implements atkItm
 
     public String getId() {return "IOCPOWDERITM";}
 
+    public String getDis() {return "";}
+
 }

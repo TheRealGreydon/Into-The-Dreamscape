@@ -19,4 +19,6 @@ public class gamble implements Atk
     public int regenAmt() {return 0;}
 
     public int atkUpAmt() {return 0;}
+
+    public String getDis() {return "";}
 }

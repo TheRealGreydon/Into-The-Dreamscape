@@ -9,4 +9,6 @@ public class cookieITM implements sklItm
     public Skl getSkill() {return new cookieSKL();}
 
     public String getId() {return "COOKIEITM";}
+
+    public String getDis() {return "";}
 }

@@ -230,6 +230,7 @@ public class MainGUI extends JFrame implements ActionListener
         if(j.equals(buttons[0])) 
         {
             //this.remove(mPanel);new RewGUI(character,kronk).initialize();
+            //this.remove(mPanel);new infoGUI(character, mPanel,kronk).initialize();
             if(newSave) {this.remove(mPanel);new StartGUI(kronk).start();}
             
             else {this.remove(mPanel);new LevelGUI(character, kronk).initialize();}

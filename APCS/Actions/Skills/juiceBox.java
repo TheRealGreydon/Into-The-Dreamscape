@@ -15,4 +15,6 @@ public class juiceBox implements healSkl
     public int regenAmt() {return 0;}
 
     public int atkUpAmt() {return 0;}
+
+    public String getDis() {return "";}
 }

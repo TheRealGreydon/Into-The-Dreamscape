@@ -10,4 +10,6 @@ public class baguetteITM implements atkItm
 
     public String getId() {return "BAGUETTEITM";}
 
+    public String getDis() {return "";}
+
 }
