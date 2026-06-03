@@ -353,3 +353,4 @@ Change Log
 -V.15.7-
 -Last log was kidding, NOW its added
 -Kai stop being so creative its making more work for me you bastard
+-Added gamble slash
