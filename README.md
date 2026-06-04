@@ -286,6 +286,7 @@ Change Log
 -Oh my fucking god there are so many bugs
 -Added squonk
 -I am slowly going insane
+
 -V.13.2-
 -Now swaping between screens doesnt close and reopen
 -I am not going slowly insane
@@ -295,6 +296,7 @@ Change Log
 -Pause and settings now actualy work on the game page
 -For reasons neither me nor god can comprehend there seems to be a 50/50 for the hp bar to apear above the character
 -Im so confused
+
 -V.13.3-
 -Help
 -Fixed enmSel issue
@@ -321,8 +323,7 @@ Change Log
 -HOLY SWEET JEBUS HOW DOES THIS WORK????
 -When winning a lvl, you get a random item/skl/atk
 -Menu for selecting one to replace if more than 4
--I is smrt
--This shouldnt work, I dont understand about 40% of this, it scares me
+-I is smort
 -Still need working pause durring reward scene
 
 6/2/26
@@ -331,17 +332,21 @@ Change Log
 -Reward scene now is automated
 -Reward now works if not full
 -Final chest img is now added, and opening works
+
 -V.15.2-
 -Charging attack system added
 -Regen system added
 -MilkITM and CookieITM added
 -BigHit added
 -Vamp blade added
+
 -V.15.3-
 -Rage skill added
 -Twin strike added
+
 -V.15.4-
 -Fixed issue with charged atk not working
+
 -V.15.5-
 -Fireball skl now working
 
@@ -350,9 +355,11 @@ Change Log
 -V.15.6-
 -Wounding strike and bleeding added
 -Its 3am baby so you know what that means, my nightly halucinations
+
 -V.15.7-
 -Last log was kidding, NOW its added
 -Kai stop being so creative its making more work for me you bastard
 -Added gamble slash
+
 -V.16-
 -Added info sheet accessable from game menu
