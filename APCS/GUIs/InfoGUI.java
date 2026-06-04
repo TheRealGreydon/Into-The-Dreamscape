@@ -11,7 +11,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class infoGUI extends JFrame implements ActionListener
+public class InfoGUI extends JFrame implements ActionListener
 {
     private Player character;
     private BattleAssets bGUI = new BattleAssets();
@@ -29,7 +29,7 @@ public class infoGUI extends JFrame implements ActionListener
     private Itm itmL[] = {new grilledCheeseITM(), new swordITM(), new milkITM(), new cookieITM(), new baguetteITM()};
     
 
-    public infoGUI(Player character, JPanel lPanel, JFrame kronk) 
+    public InfoGUI(Player character, JPanel lPanel, JFrame kronk) 
     {
         this.character = character;this.kronk = kronk;this.lPanel = lPanel;
         iPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/RewardBack/Rew.png").getImage(), 2);

@@ -916,7 +916,7 @@ public class GameGUI extends JFrame implements ActionListener
         gPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("UP"), "Up");
         gPanel.getActionMap().put("Up", new AbstractAction() {public void actionPerformed(ActionEvent e) {Up();}});
         gPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('i'), "Info");
-        gPanel.getActionMap().put("Info", new AbstractAction() {public void actionPerformed(ActionEvent e) {kronk.remove(gPanel);new infoGUI(character, gPanel, kronk).initialize();}});
+        gPanel.getActionMap().put("Info", new AbstractAction() {public void actionPerformed(ActionEvent e) {kronk.remove(gPanel);new InfoGUI(character, gPanel, kronk).initialize();}});
     }
 
     //Various helpers, hell if I know
@@ -1096,8 +1096,7 @@ public class GameGUI extends JFrame implements ActionListener
     }
     private void SQUONKINIT()
     {
-        kronk.setSize(900,900);f = 0;
-        
+        f = 0;
         Timer timer = new Timer();
         count = 0;
         String [] b = " Squonk has saved you.".split("");
