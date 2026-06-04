@@ -5,7 +5,6 @@ import APCS.Actions.Skills.*;
 import APCS.Assets.AssetClasses.*;
 import APCS.Items.AttackItem.*;
 import APCS.Items.Itm;
-import APCS.Items.SkillItem.*;
 import APCS.Player;
 import java.awt.*;
 import java.awt.event.*;
@@ -44,16 +43,88 @@ public class IntroGUI extends JFrame
 
     private void instInit()
     {
-        title = new JLabel();
-        title.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
+        iPanel.setLayout(null);
+
+        JLabel title = new JLabel();
         title.setOpaque(true);
         title.setBackground(Color.WHITE);
         title.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
         title.setText("Welcome to Into the Dreamscape");
+        title.setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
         title.setSize(title.getPreferredSize());
         title.setSize(title.getWidth()+10, title.getHeight());
+        title.setLocation(750-title.getWidth()/2, 50);
+
+        JTextPane cred = new JTextPane();
+        cred.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
+       
+        cred.setText("""
+                                  Into the Dreamscape
+                        ------------------------------------------------
+                        Main Story: Kai
+                        Main Code: Nicholas
+                        Literaly all the Code: Nicholas
+                        4 all nighters: Nicholas
+                        Art: Kai
+                        Please give us a 100% Mr. Klus :)""");
+
+        cred.setBackground(Color.white);
+        cred.setFont(new Font(cred.getFont().getName(), Font.BOLD, 40));
+        cred.setForeground(Color.BLACK);      
+        cred.setSize(cred.getPreferredSize());
+        cred.setSize(cred.getWidth()+10, cred.getHeight());
+        cred.setLocation(750-cred.getWidth()/2, 150);
+        cred.setEditable(false);
+        
+        blinky = new JLabel();
+        blinky.setBorder(BorderFactory.createLineBorder(Color.black, 5));
+        blinky.setForeground(Color.black);
+        blinky.setOpaque(true);
+        blinky.setBackground(Color.red);
+        blinky.setFont(new Font(blinky.getFont().getName(), Font.BOLD, 30));
+        blinky.setText("Press Enter");
+        blinky.setSize(200,100);
+        blinky.setLocation(650,650);
+        blinky.setHorizontalAlignment(SwingConstants.CENTER);
+        blinky.setVerticalAlignment(SwingConstants.CENTER);
+        
+        iPanel.add(blinky);
         iPanel.add(title);
-        paint(iPanel,5);
+        iPanel.add(cred);
+
+        paint(iPanel, 5);
+
+        count = 0;
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask()
+        {
+            public void run() 
+            {
+                if(count >2 && count<18)
+                {
+                        charImg.setLocation(charImg.getX()+10, charImg.getY());
+                }
+
+                else if(count==18)
+                {
+                    Point x = new Point(charImg.getLocation());
+                    iPanel.remove(charImg);
+                    charImg = bGUI.battleImg(character);
+                    charImg.setLocation(x);
+                    iPanel.add(charImg);
+
+                    iPanel.remove(chestImg);
+                    chestImg = new JLabel(new ImageIcon(new ImageIcon(new ImageIcon("APCS/Assets/Img/Sprites/chest.gif").getImage()).getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT)));
+                    chestImg.setSize(300,300);
+                    chestImg.setLocation(600,300);
+                    iPanel.add(chestImg);
+                    iPanel.setComponentZOrder(chestImg,0);
+                    iPanel.repaint();
+                }
+                count++;  
+            }
+        };
+        timer.scheduleAtFixedRate(task, 0, 75);
     }
 
     //Opening the chest animation
@@ -95,48 +166,13 @@ public class IntroGUI extends JFrame
                     iPanel.repaint();
                 }
                 
-                else if(count==38)
-                {
-                    randRew((int)(Math.random()*3)); 
-                    timer.cancel();
-                }
+                else if(count==38) {timer.cancel();}
 
                 count++;  
             }
         };
         timer.scheduleAtFixedRate(task, 0, 75);     
     }
-
-    //Gets a rand atk/skl/itm
-    private Atk randAtk()
-    {
-        int x = ((int)(Math.random()*randsA.length));
-
-        for (Atk rand : randsA) 
-        {
-            if(!character.has(randsA[x])) {return randsA[x];}
-            
-            if(x+1>=randsA.length) {x = 0;}
-            
-            else{x++;}
-        }
-        return null;
-    }
-    private Skl randSkl()
-    {
-        int x = ((int)(Math.random()*randsS.length));
-
-        for (Skl rand : randsS) 
-        {
-            if(!character.has(randsS[x])) {return randsS[x];}
-            
-            if(x+1>=randsS.length) {x = 0;}
-            
-            else{x++;}
-        }
-        return null;
-    }
-    private Itm randItm() {if((int)(Math.random()*25) == 24) {return new iocPowderITM();} return randsI[((int)(Math.random()*randsI.length))];}
 
     //Loading screen
     private void loadScreen()

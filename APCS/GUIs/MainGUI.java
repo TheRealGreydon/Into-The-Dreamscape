@@ -109,6 +109,7 @@ public class MainGUI extends JFrame implements ActionListener
         title.setBorder(BorderFactory.createLineBorder(Color.BLUE, 5));
         title.setLocation(675, 50);
         title.setSize(title.getPreferredSize());
+        title.setSize(title.getWidth()+10, title.getHeight());
 
         JTextPane cred = new JTextPane();
         cred.setBorder(BorderFactory.createLineBorder(Color.blue, 5));

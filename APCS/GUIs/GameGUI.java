@@ -833,46 +833,6 @@ public class GameGUI extends JFrame implements ActionListener
                 bbE[looped].Enm.bleedTurn();bbE[looped].Enm.doHp(-2);
                 hpReset();gPanel.add(tText);timer.scheduleAtFixedRate(taskB, 0, 100);
             }
-
-            //else
-            //{
-            //    bbE[looped].Enm.doHp(-2);
-            //    y = (" " + bbE[looped].Enm.getName() + " was burnt").split("");
-            //    if(bbE[looped].Enm.getBurn()-1>=0) {bbE[looped].Enm.burnTurn();}
-            //    TimerTask task = new TimerTask()
-            //    {public void run() 
-            //        {
-            //            if(!paused)
-            //            {
-            //                if(count<y.length)
-            //                {
-            //                    gPanel.remove(tText);tText.setText(tText.getText() + y[count]);
-            //                    tText.setSize(tText.getPreferredSize());tText.setSize(tText.getWidth()+10, tText.getHeight());
-            //                    gPanel.add(tText);gPanel.repaint();
-            //                }
-            //                else if(count>=y.length+10)
-            //                {
-            //                    if(count==y.length+10) {gPanel.remove(tText);tText.setText("");gPanel.repaint();gPanel.add(tText);}
-            //                    else if(count<b.length+y.length+11)
-            //                    {
-            //                        gPanel.remove(tText);tText.setText(tText.getText() + b[count-y.length-11]);
-            //                        tText.setSize(tText.getPreferredSize());tText.setSize(tText.getWidth()+10, tText.getHeight());
-            //                        gPanel.add(tText);gPanel.repaint();
-            //                    }
-            //                    else 
-            //                    {
-            //                        if(character.isAlive()) {gPanel.remove(tText);gPanel.repaint();timer.cancel();enmBattlePhaze();}
-//
-            //                        else {gEnd(false);timer.cancel();}
-            //                    }        
-            //                }
-            //                count++;
-            //            }
-            //        }
-            //    };
-            //    hpReset();
-            //    gPanel.add(tText);timer.scheduleAtFixedRate(task, 0, 100);looped++;
-            //}
         }
 
         else if(looped<2) {looped++;enmBattlePhaze();hpReset();} 
@@ -916,7 +876,7 @@ public class GameGUI extends JFrame implements ActionListener
         gPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("UP"), "Up");
         gPanel.getActionMap().put("Up", new AbstractAction() {public void actionPerformed(ActionEvent e) {Up();}});
         gPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('i'), "Info");
-        gPanel.getActionMap().put("Info", new AbstractAction() {public void actionPerformed(ActionEvent e) {kronk.remove(gPanel);new InfoGUI(character, gPanel, kronk).initialize();}});
+        gPanel.getActionMap().put("Info", new AbstractAction() {public void actionPerformed(ActionEvent e) {kronk.remove(gPanel);new InfoGUI(gPanel, kronk).initialize();}});
     }
 
     //Various helpers, hell if I know
