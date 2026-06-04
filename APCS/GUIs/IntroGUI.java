@@ -3,7 +3,6 @@ package APCS.GUIs;
 import APCS.Actions.Attacks.*;
 import APCS.Actions.Skills.*;
 import APCS.Assets.AssetClasses.*;
-import APCS.Items.AttackItem.*;
 import APCS.Items.Itm;
 import APCS.Player;
 import java.awt.*;
@@ -209,38 +208,35 @@ public class IntroGUI extends JFrame
             tText.setBackground(Color.WHITE);
             tText.setFont(new Font(tText.getFont().getName(), Font.BOLD, 40));
             TimerTask task = new TimerTask()
-            {public void run() 
+            {
+                public void run() 
                 {
-                    for (Component c : iPanel.getComponents()) {if (c instanceof JButton && !c.equals(exit) && !c.equals(settings) && !c.equals(vole)) {c.setEnabled(false);}}
-                    if(!paused)
+                    if(count<y.length) 
                     {
-                        if(count<y.length) 
-                        {
-                            tText.setText(tText.getText() + y[count]);tText.setSize(tText.getPreferredSize());
-                            tText.setLocation(iPanel.getWidth()/2 - tText.getWidth()/2, iPanel.getHeight()/2-tText.getHeight()/2);
-                            iPanel.add(tText);
-                        }
-
-                        else if(count==y.length+5)
-                        {
-                            tText.setText("");
-                        }
-
-                        else if(count>y.length+5 && count<y.length+5+b.length)
-                        {
-                            tText.setText(tText.getText() + b[count-5-y.length]);tText.setSize(tText.getPreferredSize());
-                            tText.setLocation(iPanel.getWidth()/2 - tText.getWidth()/2, iPanel.getHeight()/2-tText.getHeight()/2);
-                            iPanel.add(tText);
-                        }
-
-                        else if(count>y.length + b.length + 20)
-                        {
-                            iPanel.remove(tText);iPanel.repaint();
-                            for (Component c : iPanel.getComponents()) {if (c instanceof JButton) {c.setEnabled(true);}}
-                            timer.cancel();kronk.remove(iPanel);new GameGUI(character,kronk);
-                        }
-                        count++;  
+                        tText.setText(tText.getText() + y[count]);tText.setSize(tText.getPreferredSize());
+                        tText.setLocation(iPanel.getWidth()/2 - tText.getWidth()/2, iPanel.getHeight()/2-tText.getHeight()/2);
+                        iPanel.add(tText);
                     }
+
+                    else if(count==y.length+5)
+                    {
+                        tText.setText("");
+                    }
+
+                    else if(count>y.length+5 && count<y.length+5+b.length)
+                    {
+                        tText.setText(tText.getText() + b[count-5-y.length]);tText.setSize(tText.getPreferredSize());
+                        tText.setLocation(iPanel.getWidth()/2 - tText.getWidth()/2, iPanel.getHeight()/2-tText.getHeight()/2);
+                        iPanel.add(tText);
+                    }
+
+                    else if(count>y.length + b.length + 20)
+                    {
+                        iPanel.remove(tText);iPanel.repaint();
+                        for (Component c : iPanel.getComponents()) {if (c instanceof JButton) {c.setEnabled(true);}}
+                        timer.cancel();kronk.remove(iPanel);new GameGUI(character,kronk);
+                    }
+                    count++;  
                 }
             };
             timer.scheduleAtFixedRate(task, 0, 50);     
@@ -253,26 +249,23 @@ public class IntroGUI extends JFrame
             tText.setBackground(Color.WHITE);
             tText.setFont(new Font(tText.getFont().getName(), Font.BOLD, 40));
             TimerTask task = new TimerTask()
-            {public void run() 
+            {
+                public void run() 
                 {
-                    for (Component c : iPanel.getComponents()) {if (c instanceof JButton && !c.equals(exit) && !c.equals(settings) && !c.equals(vole)) {c.setEnabled(false);}}
-                    if(!paused)
+                    if(count<b.length) 
                     {
-                        if(count<b.length) 
-                        {
-                            tText.setText(tText.getText() + b[count]);tText.setSize(tText.getPreferredSize());
-                            tText.setLocation(iPanel.getWidth()/2 - tText.getWidth()/2, iPanel.getHeight()/2-tText.getHeight()/2);
-                            iPanel.add(tText);
-                        }
-                    
-                        else if(count>b.length + 15)
-                        {
-                            iPanel.remove(tText);iPanel.repaint();
-                            for (Component c : iPanel.getComponents()) {if (c instanceof JButton) {c.setEnabled(true);}}
-                            timer.cancel();kronk.remove(iPanel);new GameGUI(character,kronk);
-                        }
-                        count++;  
+                        tText.setText(tText.getText() + b[count]);tText.setSize(tText.getPreferredSize());
+                        tText.setLocation(iPanel.getWidth()/2 - tText.getWidth()/2, iPanel.getHeight()/2-tText.getHeight()/2);
+                        iPanel.add(tText);
                     }
+                
+                    else if(count>b.length + 15)
+                    {
+                        iPanel.remove(tText);iPanel.repaint();
+                        for (Component c : iPanel.getComponents()) {if (c instanceof JButton) {c.setEnabled(true);}}
+                        timer.cancel();kronk.remove(iPanel);new GameGUI(character,kronk);
+                    }
+                    count++;  
                 }
             };
             timer.scheduleAtFixedRate(task, 0, 50);     
@@ -282,63 +275,14 @@ public class IntroGUI extends JFrame
     private void fullKeyActions()
     {
         fPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ENTER"), "Sel");
-        fPanel.getActionMap().put("Sel", new AbstractAction() {public void actionPerformed(ActionEvent e) {fullSel();}});
+        fPanel.getActionMap().put("Sel", new AbstractAction() {public void actionPerformed(ActionEvent e) {sel();}});
     }
 
-    //handles the selection of what to replace
-    private void full(Atk x)
+    private void sel()
     {
-        selAtk = x;
-        fullPan(x);
-        highlight(KB[KBV][KBH]);
-        fullKeyActions();
-        panSet(iPanel, fPanel);
+
     }
-    private void fullPan(Atk x)
-    {
-        fPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/RewardBack/Rew.png").getImage(), 2);
-        fPanel.setLayout(null);
 
-        buttons = new JButton[6];
-        for(int i=0;i<6; i++)
-        {
-            buttons[i] = new JButton();
-            buttons[i].setBorder(BorderFactory.createLineBorder(Color.black, 5));
-            buttons[i].setFocusable(false);
-            buttons[i].setBackground(Color.red);
-            buttons[i].setEnabled(false);
-            buttons[i].addActionListener(this);
-            buttons[i].setFont(new Font(buttons[i].getFont().getName(), Font.BOLD, 30));
-            fPanel.add(buttons[i]);
-        }
-
-        for(int i=0;i<4;i++) {buttons[i].setText(character.atks[i].getName());}
-
-        buttons[4].setText(x.getName());
-        buttons[5].setText("Skip");
-        buttons[4].setBounds(550,650,200,100);
-        buttons[5].setBounds(750,650,200,100);
-
-        buttons[1].setBounds(750,150,200,200);
-        buttons[0].setBounds(550,150,200,200);
-        buttons[2].setBounds(550,350,200,200);
-        buttons[3].setBounds(750,350,200,200);
-
-
-        title = new JLabel();
-        title.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
-        title.setOpaque(true);
-        title.setBackground(Color.WHITE);
-        title.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
-        title.setText("Pick an attack to replace");
-        title.setSize(title.getPreferredSize());
-        title.setSize(title.getWidth()+10, title.getHeight());
-        title.setLocation(750 - title.getWidth()/2, 5);
-      
-        fPanel.add(title);
-      
-        paint(fPanel,5);
-    }
     private void paint(JPanel x, int percent)
     {
         for (Component c : x.getComponents()) {x.setComponentZOrder(c, 0);}
