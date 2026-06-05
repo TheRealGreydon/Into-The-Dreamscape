@@ -1,11 +1,11 @@
 package APCS.GUIs;
 
-import APCS.Actions.Attacks.*;
-import APCS.Actions.Skills.*;
 import APCS.Assets.AssetClasses.*;
-import APCS.Items.AttackItem.*;
-import APCS.Items.Itm;
-import APCS.Items.SkillItem.*;
+import APCS.Uses.Actions.Attacks.*;
+import APCS.Uses.Actions.Skills.*;
+import APCS.Uses.Items.Itm;
+import APCS.Uses.Items.AttackItem.*;
+import APCS.Uses.Items.SkillItem.*;
 import APCS.Player;
 import java.awt.*;
 import java.awt.event.*;

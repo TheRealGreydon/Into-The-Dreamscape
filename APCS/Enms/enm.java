@@ -1,6 +1,6 @@
 package APCS.Enms;
 
-import APCS.Actions.Attacks.Atk;
+import APCS.Uses.Actions.Attacks.Atk;
 
 public interface enm 
 {

@@ -41,12 +41,10 @@ public class MainGUI extends JFrame implements ActionListener
         this.setVisible(true);
         mPanel.revalidate();
         mPanel.repaint();
+        java.awt.EventQueue.invokeLater(() -> {setVisible(true);});
     }
-    
-    //Runs the game
-    public void displayGame() {java.awt.EventQueue.invokeLater(() -> {setVisible(true);});}
 
-    //Adds to menu
+    //Adds to menu/credits
     private void menu()
     {
         mPanel.setLayout(null);
@@ -86,8 +84,6 @@ public class MainGUI extends JFrame implements ActionListener
         buttons[3].setBounds(200,325, 300, 150);
         paint(mPanel,5);
     }
-    
-    //Adds button to credits
     private void credits()
     {
         cPanel.setLayout(null);

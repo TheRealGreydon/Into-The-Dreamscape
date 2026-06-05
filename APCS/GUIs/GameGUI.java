@@ -1,14 +1,14 @@
 package APCS.GUIs;
 
 import APCS.*;
-import APCS.Actions.*;
-import APCS.Actions.Attacks.*;
-import APCS.Actions.Skills.*;
+import APCS.Uses.Actions.*;
+import APCS.Uses.Actions.Attacks.*;
+import APCS.Uses.Actions.Skills.*;
 import APCS.Assets.AssetClasses.*;
 import APCS.Enms.*;
-import APCS.Items.*;
-import APCS.Items.AttackItem.*;
-import APCS.Items.SkillItem.*;
+import APCS.Uses.Items.*;
+import APCS.Uses.Items.AttackItem.*;
+import APCS.Uses.Items.SkillItem.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
@@ -22,7 +22,6 @@ public class GameGUI extends JFrame implements ActionListener
     private BattleAssets bGUI = new BattleAssets();
     //KRONK IS IMPORTANT DONT MESS WITH KRONK
     private JFrame kronk;
-
     private JLabel charSprite, hp = new JLabel();
 
     //bb 0-2 (Atk, Skl, Itm), bb 3-8 (Atk 1-4), bb 9-14 (Skl 1-4), bb 15-20 (Itm 1-4)

@@ -368,3 +368,6 @@ Change Log
 ------
 -V.16.1-
 -Added intro screen with text that plays when making a new character
+
+-V.16.2-
+-Added type Uses which all itms/skls/atks are a part of
