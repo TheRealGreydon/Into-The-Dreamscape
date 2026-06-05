@@ -8,13 +8,9 @@ import javax.swing.*;
 //Character creation screen and starts the game
 public class StartGUI extends JFrame implements ActionListener
 {
-    JTextField nameBox;
-    
+    private JTextField nameBox;
     private String name = "";
-    private int gend = -1, out = -1, fav = -1;   
-    private int page = 0;
-
-    private LevelGUI lGUI;
+    private int gend = -1, out = -1, fav = -1, page = 0;
 
     private JPanel sPanel = new JPanel();
     //KRONK IS IMPORTANT DONT MESS WITH KRONK
@@ -236,8 +232,7 @@ public class StartGUI extends JFrame implements ActionListener
                 character = new Player(name, gend, out, fav);
                 character.saveGame();
                 kronk.remove(sPanel);
-                lGUI = new LevelGUI(character,kronk);
-                lGUI.initialize();
+                new IntroGUI(character,kronk).initialize();
             }
         }
     }

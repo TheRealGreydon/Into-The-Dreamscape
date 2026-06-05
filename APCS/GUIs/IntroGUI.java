@@ -16,11 +16,12 @@ public class IntroGUI extends JFrame
     private Player character;
     private BattleAssets bGUI = new BattleAssets();
     private JPanel iPanel,aPanel;
-    private JLabel tText = new JLabel(), charImg, chestImg, title, inst, blinky;
+    private JLabel tText = new JLabel(), charImg, chestImg, blinky;
     //KRONK IS IMPORTANT DONT MESS WITH KRONK
     private JFrame kronk;
-    private int mode,count = 0;
-    private String y [];
+    private int count = 0;
+    private String [] b;
+    private boolean loop = false;
 
     public IntroGUI(Player character, JFrame kronk) 
     {
@@ -28,7 +29,6 @@ public class IntroGUI extends JFrame
         iPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/RewardBack/Rew.png").getImage(), 2);
         aPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/RewardBack/Rew.png").getImage(), 2);
     }
-
     public void initialize() 
     {
         kronk.pack();
@@ -37,14 +37,12 @@ public class IntroGUI extends JFrame
         kronk.add(iPanel);
         keyActions();
     }
-
     private void anPanInit()
     {
         aPanel.setLayout(null);
         imgInit();
         paint(aPanel,5);
     }
-
     private void imgInit()
     {
         charImg = bGUI.walkingImg(character);
@@ -74,13 +72,12 @@ public class IntroGUI extends JFrame
         cred.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
        
         cred.setText("""
-                                  Into the Dreamscape
-                        ------------------------------------------------
-                        Main Story: Kai
-                        Main Code: Nicholas
-                        Literaly all the Code: Nicholas
-                        4 all nighters: Nicholas
-                        Art: Kai
+                        Arrow keys for Up, Down, Left, Right
+                        Enter to select, I to show info
+
+                        Enter the Dreamscape and defeat 
+                            your nighmares
+                            
                         Please give us a 100% Mr. Klus :)""");
 
         cred.setBackground(Color.white);
@@ -88,7 +85,7 @@ public class IntroGUI extends JFrame
         cred.setForeground(Color.BLACK);      
         cred.setSize(cred.getPreferredSize());
         cred.setSize(cred.getWidth()+10, cred.getHeight());
-        cred.setLocation(750-cred.getWidth()/2, 150);
+        cred.setLocation(750-cred.getWidth()/2, 200);
         cred.setEditable(false);
         
         blinky = new JLabel();
@@ -111,7 +108,8 @@ public class IntroGUI extends JFrame
 
         new Timer().scheduleAtFixedRate(new TimerTask() {public void run() {blinky.setVisible(!blinky.isVisible());}}, 500, 500);
     }
-
+    
+    //Runsafter intro animation
     private void animation()
     {
         count = 0;
@@ -142,111 +140,71 @@ public class IntroGUI extends JFrame
                     aPanel.repaint();
                 }
                 
-                else if(count==38) {timer.cancel();}
+                else if(count==39) {timer.cancel();loadScreen();}
 
                 count++;  
             }
         };
         timer.scheduleAtFixedRate(task, 0, 75);     
     }
-
-    //Loading screen
     private void loadScreen()
     {
-        character.saveGame();
-        if(hasPanel(fPanel)) {kronk.remove(fPanel);}
-        
-        else {kronk.remove(iPanel);}
+        kronk.remove(aPanel);
 
-        iPanel.removeAll();
-        iPanel = new JPanel();
-        iPanel.setBackground(Color.black);
+        aPanel.removeAll();
+        aPanel = new JPanel();
+        aPanel.setBackground(Color.black);
         kronk.pack();
-        iPanel.setLayout(null);
+        aPanel.setLayout(null);
         kronk.setSize(1500, 800);
-        kronk.add(iPanel);
-        timedText(" Level " + (character.getLevel()+1) + " - " + (character.getStage()+1));
+        kronk.add(aPanel);
+        timedText();
     }
-    private void timedText(String a)
+    private void timedText()
     {
         count = 0;
         Timer timer = new Timer();
-        String [] b = a.split("");
-        if(mode !=-1)
-        {
-            switch (mode) 
+        b = (" Welcome to the Dreamscape").split("");
+        tText.setText("");
+        tText.setLocation(0,0);
+        tText.setOpaque(true);
+        tText.setBackground(Color.WHITE);
+        tText.setFont(new Font(tText.getFont().getName(), Font.BOLD, 40));
+
+        TimerTask task = new TimerTask()
+        {   
+            public void run() 
             {
-                case 0 -> {y = (" You got " + selAtk.getName()).split("");}
-                case 1 -> {y = (" You got " + selSkl.getName()).split("");}
-                default -> {y = (" You got " + selItm.getName()).split("");}
-            } 
-            tText.setText("");
-            tText.setOpaque(true);
-            tText.setBackground(Color.WHITE);
-            tText.setFont(new Font(tText.getFont().getName(), Font.BOLD, 40));
-            TimerTask task = new TimerTask()
-            {
-                public void run() 
+                if(count<b.length) 
                 {
-                    if(count<y.length) 
-                    {
-                        tText.setText(tText.getText() + y[count]);tText.setSize(tText.getPreferredSize());
-                        tText.setLocation(iPanel.getWidth()/2 - tText.getWidth()/2, iPanel.getHeight()/2-tText.getHeight()/2);
-                        iPanel.add(tText);
-                    }
-
-                    else if(count==y.length+5)
-                    {
-                        tText.setText("");
-                    }
-
-                    else if(count>y.length+5 && count<y.length+5+b.length)
-                    {
-                        tText.setText(tText.getText() + b[count-5-y.length]);tText.setSize(tText.getPreferredSize());
-                        tText.setLocation(iPanel.getWidth()/2 - tText.getWidth()/2, iPanel.getHeight()/2-tText.getHeight()/2);
-                        iPanel.add(tText);
-                    }
-
-                    else if(count>y.length + b.length + 20)
-                    {
-                        iPanel.remove(tText);iPanel.repaint();
-                        for (Component c : iPanel.getComponents()) {if (c instanceof JButton) {c.setEnabled(true);}}
-                        timer.cancel();kronk.remove(iPanel);new GameGUI(character,kronk);
-                    }
-                    count++;  
+                    aPanel.remove(tText);tText.setText(tText.getText() + b[count]);
+                    tText.setSize(tText.getPreferredSize());
+                    tText.setSize(tText.getWidth()+10, tText.getHeight());
+                    tText.setLocation(750-tText.getWidth()/2, 400-tText.getHeight()/2);
+                    aPanel.add(tText);aPanel.repaint();count++;
                 }
-            };
-            timer.scheduleAtFixedRate(task, 0, 50);     
-        }   
-        
-        else
-        {
-            tText.setText("");
-            tText.setOpaque(true);
-            tText.setBackground(Color.WHITE);
-            tText.setFont(new Font(tText.getFont().getName(), Font.BOLD, 40));
-            TimerTask task = new TimerTask()
-            {
-                public void run() 
+
+                else if(count >= b.length+10)
                 {
-                    if(count<b.length) 
+                    if(!loop)
                     {
-                        tText.setText(tText.getText() + b[count]);tText.setSize(tText.getPreferredSize());
-                        tText.setLocation(iPanel.getWidth()/2 - tText.getWidth()/2, iPanel.getHeight()/2-tText.getHeight()/2);
-                        iPanel.add(tText);
+                        aPanel.remove(tText);tText.setText("");
+                        tText.setSize(tText.getPreferredSize());
+                        tText.setSize(tText.getWidth()+10, tText.getHeight());
+                        aPanel.add(tText);aPanel.repaint();
+                        count = 0;loop = true;
+                        b = (" Level " + (character.getLevel()+1) + " - " + (character.getStage()+1)).split("");
                     }
-                
-                    else if(count>b.length + 15)
-                    {
-                        iPanel.remove(tText);iPanel.repaint();
-                        for (Component c : iPanel.getComponents()) {if (c instanceof JButton) {c.setEnabled(true);}}
-                        timer.cancel();kronk.remove(iPanel);new GameGUI(character,kronk);
-                    }
-                    count++;  
+
+                    else {timer.cancel();kronk.remove(aPanel);new GameGUI(character, kronk);}
                 }
-            };
-            timer.scheduleAtFixedRate(task, 0, 50);     
-        }
+
+                else {count++;}
+            }
+        };
+
+        aPanel.add(tText);
+        timer.scheduleAtFixedRate(task, 0, 100);
     }
 
     private void keyActions()
@@ -308,11 +266,4 @@ public class IntroGUI extends JFrame
         }
     }
     private void panSet(JPanel x, JPanel y) {kronk.remove(x);kronk.add(y);y.revalidate();y.repaint();}
-    private boolean hasPanel(JPanel targetPanel) 
-    {
-        Component[] components = kronk.getContentPane().getComponents();
-        
-        for (Component comp : components) {if (comp == targetPanel) {return true;}}
-        return false;
-    }
 }
