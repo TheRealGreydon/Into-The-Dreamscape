@@ -363,3 +363,8 @@ Change Log
 
 -V.16-
 -Added info sheet accessable from game menu
+
+6/5/26
+------
+-V.16.1-
+-Added intro screen with text that plays when making a new character

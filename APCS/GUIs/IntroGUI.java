@@ -1,9 +1,6 @@
 package APCS.GUIs;
 
-import APCS.Actions.Attacks.*;
-import APCS.Actions.Skills.*;
 import APCS.Assets.AssetClasses.*;
-import APCS.Items.Itm;
 import APCS.Player;
 import java.awt.*;
 import java.awt.event.*;
@@ -19,9 +16,8 @@ public class IntroGUI extends JFrame
     private JLabel tText = new JLabel(), charImg, chestImg, blinky;
     //KRONK IS IMPORTANT DONT MESS WITH KRONK
     private JFrame kronk;
-    private int count = 0;
+    private int count = 0, loop = 0;
     private String [] b;
-    private boolean loop = false;
 
     public IntroGUI(Player character, JFrame kronk) 
     {
@@ -186,14 +182,16 @@ public class IntroGUI extends JFrame
 
                 else if(count >= b.length+10)
                 {
-                    if(!loop)
+                    if(loop!=2)
                     {
                         aPanel.remove(tText);tText.setText("");
                         tText.setSize(tText.getPreferredSize());
                         tText.setSize(tText.getWidth()+10, tText.getHeight());
                         aPanel.add(tText);aPanel.repaint();
-                        count = 0;loop = true;
-                        b = (" Level " + (character.getLevel()+1) + " - " + (character.getStage()+1)).split("");
+                        count = 0;loop++;
+                        if(loop==1) {b = (" Face your fears").split("");}
+
+                        else {b = (" Level " + (character.getLevel()+1) + " - " + (character.getStage()+1)).split("");}
                     }
 
                     else {timer.cancel();kronk.remove(aPanel);new GameGUI(character, kronk);}
