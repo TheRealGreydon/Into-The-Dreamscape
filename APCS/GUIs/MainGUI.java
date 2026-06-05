@@ -208,11 +208,11 @@ public class MainGUI extends JFrame implements ActionListener
         {
             this.remove(mPanel);
             //new RewGUI(character,kronk).initialize();
-            //new InfoGUI(mPanel,kronk).initialize();
+            new InfoGUI(mPanel,kronk).initialize();
             //new IntroGUI(character,kronk).initialize();
-            if(newSave) {new StartGUI(kronk).start();}
-            
-            else {new LevelGUI(character, kronk).initialize();}
+            //if(newSave) {new StartGUI(kronk).start();}
+            //
+            //else {new LevelGUI(character, kronk).initialize();}
         }
 
         else if(j.equals(buttons[1])) {panSet(mPanel, cPanel);}
