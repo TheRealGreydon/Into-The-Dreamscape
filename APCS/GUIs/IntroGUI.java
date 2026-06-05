@@ -99,31 +99,12 @@ public class IntroGUI extends JFrame
         {
             public void run() 
             {
-                if(count >2 && count<18)
-                {
-                        charImg.setLocation(charImg.getX()+10, charImg.getY());
-                }
-
-                else if(count==18)
-                {
-                    Point x = new Point(charImg.getLocation());
-                    iPanel.remove(charImg);
-                    charImg = bGUI.battleImg(character);
-                    charImg.setLocation(x);
-                    iPanel.add(charImg);
-
-                    iPanel.remove(chestImg);
-                    chestImg = new JLabel(new ImageIcon(new ImageIcon(new ImageIcon("APCS/Assets/Img/Sprites/chest.gif").getImage()).getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT)));
-                    chestImg.setSize(300,300);
-                    chestImg.setLocation(600,300);
-                    iPanel.add(chestImg);
-                    iPanel.setComponentZOrder(chestImg,0);
-                    iPanel.repaint();
-                }
+                if(count%2==0) {blinky.setVisible(true);}
+                else {blinky.setVisible(false);}
                 count++;  
             }
         };
-        timer.scheduleAtFixedRate(task, 0, 75);
+        timer.scheduleAtFixedRate(task, 0, 500);
     }
 
     //Opening the chest animation
@@ -274,13 +255,13 @@ public class IntroGUI extends JFrame
 
     private void fullKeyActions()
     {
-        fPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ENTER"), "Sel");
-        fPanel.getActionMap().put("Sel", new AbstractAction() {public void actionPerformed(ActionEvent e) {sel();}});
+        iPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ENTER"), "Sel");
+        iPanel.getActionMap().put("Sel", new AbstractAction() {public void actionPerformed(ActionEvent e) {sel();}});
     }
 
     private void sel()
     {
-
+        System.out.println("x");
     }
 
     private void paint(JPanel x, int percent)
