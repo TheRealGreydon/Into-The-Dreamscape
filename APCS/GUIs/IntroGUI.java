@@ -226,38 +226,19 @@ public class IntroGUI extends JFrame
             {
                 if(j<18 || j>56)
                 {
+                    JLabel star = new JLabel();
+                    star.setOpaque(true);
+                    star.setBackground(Color.BLACK);
+                    star.setSize(new Dimension(20, 20));
+                    star.setLocation(j*20, i*20);
+                    x.setComponentZOrder(star, 1);
+                    x.add(star);
+                    
                     if((int)(Math.random()*100)<=percent-1)
                     {
-                        if((int)(Math.random()*2)==0)
-                        {
-                            JLabel star = new JLabel();
-                            star.setOpaque(true);
-                            star.setBackground(Color.YELLOW);
-                            star.setSize(new Dimension(20, 20));
-                            star.setLocation(j*20, i*20);
-                            x.setComponentZOrder(star, 1);
-                            x.add(star);
-                        }
-                        else
-                        {
-                            JLabel star = new JLabel();
-                            star.setOpaque(true);
-                            star.setBackground(new Color(189,185,38));
-                            star.setSize(new Dimension(20, 20));
-                            star.setLocation(j*20, i*20);
-                            x.setComponentZOrder(star, 1);
-                            x.add(star);
-                        }                    
-                    }
-                    else
-                    {
-                        JLabel star = new JLabel();
-                        star.setOpaque(true);
-                        star.setBackground(Color.BLACK);
-                        star.setSize(new Dimension(20, 20));
-                        star.setLocation(j*20, i*20);
-                        x.setComponentZOrder(star, 1);
-                        x.add(star);
+                        if((int)(Math.random()*2)==0) {star.setBackground(Color.YELLOW);}
+
+                        else {star.setBackground(new Color(189,185,38));}                    
                     }
                 }
             }
