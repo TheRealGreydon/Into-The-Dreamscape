@@ -12,11 +12,10 @@ import javax.swing.*;
 
 public class InfoGUI extends JFrame implements ActionListener
 {
-    private BattleAssets bGUI = new BattleAssets();
     private JPanel iPanel, lPanel;
     private JPanel [] aPanels, sPanels,iPanels;
     private JButton buttons [];
-    private JLabel charImg, chestImg, title;
+    private JLabel title;
     //KRONK IS IMPORTANT DONT MESS WITH KRONK
     private JFrame kronk;
     private boolean down = false;

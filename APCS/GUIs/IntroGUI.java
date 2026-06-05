@@ -15,31 +15,47 @@ public class IntroGUI extends JFrame
 {
     private Player character;
     private BattleAssets bGUI = new BattleAssets();
-    private JPanel iPanel,fPanel;
+    private JPanel iPanel,aPanel;
     private JLabel tText = new JLabel(), charImg, chestImg, title, inst, blinky;
     //KRONK IS IMPORTANT DONT MESS WITH KRONK
     private JFrame kronk;
-    private int mode,count = 0, KBV = 0, KBH = 0;
-    private Atk selAtk;
-    private Skl selSkl;
-    private Itm selItm;
+    private int mode,count = 0;
     private String y [];
 
     public IntroGUI(Player character, JFrame kronk) 
     {
         this.character = character;this.kronk = kronk;
         iPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/RewardBack/Rew.png").getImage(), 2);
+        aPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/RewardBack/Rew.png").getImage(), 2);
     }
 
     public void initialize() 
     {
         kronk.pack();
-        iPanel.setLayout(null);
         kronk.setSize(1500, 800);
         instInit();
         kronk.add(iPanel);
+        keyActions();
     }
 
+    private void anPanInit()
+    {
+        aPanel.setLayout(null);
+        imgInit();
+        paint(aPanel,5);
+    }
+
+    private void imgInit()
+    {
+        charImg = bGUI.walkingImg(character);
+        charImg.setLocation(210,150);
+        aPanel.add(charImg);
+        chestImg = new JLabel(new ImageIcon(new ImageIcon(new ImageIcon("APCS/Assets/Img/Sprites/chest.png").getImage()).getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT)));
+        chestImg.setSize(300,300);
+        chestImg.setLocation(600,300);
+        aPanel.add(chestImg);
+        aPanel.setComponentZOrder(chestImg,0);
+    }
     private void instInit()
     {
         iPanel.setLayout(null);
@@ -93,31 +109,11 @@ public class IntroGUI extends JFrame
 
         paint(iPanel, 5);
 
-        count = 0;
-        Timer timer = new Timer();
-        TimerTask task = new TimerTask()
-        {
-            public void run() 
-            {
-                if(count%2==0) {blinky.setVisible(true);}
-                else {blinky.setVisible(false);}
-                count++;  
-            }
-        };
-        timer.scheduleAtFixedRate(task, 0, 500);
+        new Timer().scheduleAtFixedRate(new TimerTask() {public void run() {blinky.setVisible(!blinky.isVisible());}}, 500, 500);
     }
 
-    //Opening the chest animation
-    private void openAnimation()
+    private void animation()
     {
-        charImg = bGUI.walkingImg(character);
-        charImg.setLocation(210,150);
-        iPanel.add(charImg);
-        chestImg = new JLabel(new ImageIcon(new ImageIcon(new ImageIcon("APCS/Assets/Img/Sprites/chest.png").getImage()).getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT)));
-        chestImg.setSize(300,300);
-        chestImg.setLocation(600,300);
-        iPanel.add(chestImg);
-        iPanel.setComponentZOrder(chestImg,0);
         count = 0;
         Timer timer = new Timer();
         TimerTask task = new TimerTask()
@@ -132,18 +128,18 @@ public class IntroGUI extends JFrame
                 else if(count==18)
                 {
                     Point x = new Point(charImg.getLocation());
-                    iPanel.remove(charImg);
+                    aPanel.remove(charImg);
                     charImg = bGUI.battleImg(character);
                     charImg.setLocation(x);
-                    iPanel.add(charImg);
+                    aPanel.add(charImg);
 
-                    iPanel.remove(chestImg);
+                    aPanel.remove(chestImg);
                     chestImg = new JLabel(new ImageIcon(new ImageIcon(new ImageIcon("APCS/Assets/Img/Sprites/chest.gif").getImage()).getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT)));
                     chestImg.setSize(300,300);
                     chestImg.setLocation(600,300);
-                    iPanel.add(chestImg);
-                    iPanel.setComponentZOrder(chestImg,0);
-                    iPanel.repaint();
+                    aPanel.add(chestImg);
+                    aPanel.setComponentZOrder(chestImg,0);
+                    aPanel.repaint();
                 }
                 
                 else if(count==38) {timer.cancel();}
@@ -253,15 +249,16 @@ public class IntroGUI extends JFrame
         }
     }
 
-    private void fullKeyActions()
+    private void keyActions()
     {
         iPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ENTER"), "Sel");
         iPanel.getActionMap().put("Sel", new AbstractAction() {public void actionPerformed(ActionEvent e) {sel();}});
     }
-
-    private void sel()
+    private void sel() 
     {
-        System.out.println("x");
+        anPanInit();
+        panSet(iPanel, aPanel);
+        animation();
     }
 
     private void paint(JPanel x, int percent)
