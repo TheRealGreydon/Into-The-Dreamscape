@@ -1,6 +1,7 @@
 package APCS.GUIs;
 
 import APCS.*;
+import APCS.Assets.AssetClasses.Music;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
@@ -10,15 +11,13 @@ import javax.swing.*;
 public class MainGUI extends JFrame implements ActionListener
 {    
     private Player character = new Player();
-
     //Save file location
     private File save = new File("APCS/Save.txt");
     private boolean newSave;
-        
+    private Music music;
     private JPanel mPanel = new JPanel(), cPanel = new JPanel(), dPanel = new JPanel();
     //KRONK IS IMPORTANT DONT MESS WITH KRONK
     private JFrame kronk = this;
-  
     private JButton[]buttons = new JButton[7];
            
     public MainGUI() 
@@ -35,13 +34,20 @@ public class MainGUI extends JFrame implements ActionListener
         menu();
         credits();
         saveDel();
-
         this.add(mPanel);
         this.setSize(1500, 800);
         this.setVisible(true);
+        
+        music = new Music("APCS/Assets/Sounds/IntoTheDreamscapeTitle.wav");
+        //music = new Music("APCS/Assets/Sounds/HurtSFX.wav");
+        
         mPanel.revalidate();
         mPanel.repaint();
         java.awt.EventQueue.invokeLater(() -> {setVisible(true);});
+        
+        //music.mp3Player_Play();
+
+        while(true) {music.mp3Player_Play();}
     }
 
     //Adds to menu/credits
@@ -207,6 +213,8 @@ public class MainGUI extends JFrame implements ActionListener
         if(j.equals(buttons[0])) 
         {
             this.remove(mPanel);
+            music.stopPlayBack();
+            music = null;
             //new RewGUI(character,kronk).initialize();
             new InfoGUI(mPanel,kronk).initialize();
             //new IntroGUI(character,kronk).initialize();
