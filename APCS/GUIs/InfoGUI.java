@@ -1,16 +1,13 @@
 package APCS.GUIs;
 
 import APCS.Assets.AssetClasses.*;
-import APCS.Uses.Uses;
 import APCS.Uses.Actions.Attacks.*;
 import APCS.Uses.Actions.Skills.*;
-import APCS.Uses.Items.Itm;
 import APCS.Uses.Items.AttackItem.*;
 import APCS.Uses.Items.SkillItem.*;
+import APCS.Uses.Uses;
 import java.awt.*;
 import java.awt.event.*;
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import javax.swing.*;
 
 public class InfoGUI extends JFrame 
@@ -24,10 +21,10 @@ public class InfoGUI extends JFrame
     private boolean down = false;
     private int KBH = 0,mode, curPan = 0;
 
-    private Atk atkL[] = {new smack(), new punch(), new widePunch(), new bigHit(), new twinStrike(), new woundingStrike(), new gamble()};
-    private Skl sklL[] = {new juiceBox(), new vampSwordSKL(), new rage(), new fireballSKL()};
-    private Itm itmL[] = {new grilledCheeseITM(), new swordITM(), new milkITM(), new cookieITM(), new baguetteITM()};
-    private Uses [][] uses = {atkL, sklL, itmL};
+    private Uses [][] uses = 
+    {{new smack(), new punch(), new widePunch(), new bigHit(), new twinStrike(), new woundingStrike(), new gamble()},
+    {new juiceBox(), new vampSwordSKL(), new rage(), new fireballSKL()},
+    {new grilledCheeseITM(), new swordITM(), new milkITM(), new cookieITM(), new baguetteITM()}};
     
     public InfoGUI(JPanel lPanel, JFrame kronk) 
     {
@@ -149,24 +146,8 @@ public class InfoGUI extends JFrame
         title.setBackground(Color.WHITE);
         title.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
 
-        for(int j=0; j<3;j++)
-        {
-            if(Arrays.stream(actPanels[j]).anyMatch(x::equals)) 
-            {
-                for (int i = 0; i < actPanels[j].length; i++) 
-                {
-                    if (x.equals(actPanels[j][i])) 
-                    {
-                        title.setText(uses[j][i].getName());actPanels[j][i].add(title);
-                    }
-                }   
-            }
-        }
-        
-        //else if(Arrays.stream(actPanels[1]).anyMatch(x::equals)) {for (int i = 0; i < actPanels[1].length; i++) {if (x.equals(actPanels[1][i])) {title.setText(uses[1][i].getName());actPanels[1][i].add(title);}}}
-        //
-        //else {for (int i = 0; i < actPanels[2].length; i++) {if (x.equals(actPanels[2][i])) {title.setText(uses[2][i].getName());actPanels[2][i].add(title);}}}
-        
+        for(int j=0; j<3;j++) {if(actPanels[j]!=null) {for(int i=0;i<actPanels[j].length;i++) {if(actPanels[j][i]==x) {title.setText(uses[j][i].getName());actPanels[j][i].add(title);}}}}
+      
         title.setSize(title.getPreferredSize());
         title.setSize(title.getWidth()+10, title.getHeight());
         title.setLocation(750 - title.getWidth()/2, 90);
@@ -180,11 +161,7 @@ public class InfoGUI extends JFrame
         disc.setForeground(Color.BLACK);      
         disc.setEditable(false);
         
-        if(Arrays.stream(actPanels[0]).anyMatch(x::equals)) {for (int i = 0; i < actPanels[0].length; i++) {if (x.equals(actPanels[0][i])) {disc.setText(atkL[i].getDis());actPanels[0][i].add(disc);}}}
-        
-        else if(Arrays.stream(actPanels[1]).anyMatch(x::equals)) {for (int i = 0; i < actPanels[1].length; i++) {if (x.equals(actPanels[1][i])) {disc.setText(sklL[i].getDis());actPanels[1][i].add(disc);}}}
-        
-        else {for (int i = 0; i < actPanels[2].length; i++) {if (x.equals(actPanels[2][i])) {disc.setText(itmL[i].getDis());actPanels[2][i].add(disc);}}}
+        for(int j=0; j<3;j++) {if(actPanels[j]!=null) {for(int i=0;i<actPanels[j].length;i++) {if(actPanels[j][i]==x) {disc.setText(uses[j][i].getDis());actPanels[j][i].add(disc);}}}}
 
         disc.setSize(disc.getPreferredSize());
         disc.setSize(disc.getWidth()+10, disc.getHeight());
