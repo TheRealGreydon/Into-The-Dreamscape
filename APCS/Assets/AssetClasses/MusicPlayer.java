@@ -14,7 +14,6 @@ public class MusicPlayer extends Thread
     public MusicPlayer(String path) {file = new File(path);line = null;}
 
     public String getFile() {return file.getPath();}
-
     public void setFile(String path) {file = new File(path);}
 
     public void setVolume(int level)
@@ -23,20 +22,15 @@ public class MusicPlayer extends Thread
         if (line != null && line.isControlSupported(FloatControl.Type.MASTER_GAIN))
         {
             FloatControl gainControl = (FloatControl) line.getControl(FloatControl.Type.MASTER_GAIN);
-            // Map 0-100 to the decibel range supported by the line.
             float min = gainControl.getMinimum();
             float max = gainControl.getMaximum();
             float dB = min + (volume / 100.0f) * (max - min);
             gainControl.setValue(dB);
         }
     }
-
     public int getVolume() {return volume;}
-
     public void pausePlayback() {paused = true; if (line != null && line.isRunning()) {line.stop();}}
-
     public void resumePlayback() {synchronized (pauseLock) {paused = false;if (line != null && !line.isRunning()) {line.start();}pauseLock.notifyAll();}}
-
     public void stopPlayback()
     {
         stopped = true;
@@ -47,16 +41,11 @@ public class MusicPlayer extends Thread
     }
 
     public boolean isPlaying() {return playing;}
-
     public void setLooping(boolean x) {looping = x;}
-
     public boolean isLooping() {return looping;}
-
     public boolean isPaused() {return paused;}
-
     public boolean isStopped() {return stopped;}
 
-    @Override
     public void run()
     {
         do
@@ -69,7 +58,6 @@ public class MusicPlayer extends Thread
         }
         while (looping && !stopped);
     }
-
     private void playOnce()
     {
         try
