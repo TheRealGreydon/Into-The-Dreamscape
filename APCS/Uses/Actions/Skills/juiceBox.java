@@ -16,5 +16,12 @@ public class juiceBox implements healSkl
 
     public int atkUpAmt() {return 0;}
 
-    public String getDis() {return "";}
+    public String getDis() 
+    {
+        return 
+        """
+                                                Juice Box
+                             -----------------------------------------------
+                             Nutritious. Heals a little bit""";
+    }
 }

@@ -20,5 +20,14 @@ public class gamble implements Atk
 
     public int atkUpAmt() {return 0;}
 
-    public String getDis() {return "";}
+    public String getDis() 
+    {
+        return 
+        """
+                                                    Gambler's Slash
+                             -------------------------------------------------------
+                                Deals a random amount of damage
+                                 to selected enemy, but may 
+                                 also have a chance to heal them""";
+    }
 }

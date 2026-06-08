@@ -10,6 +10,14 @@ public class iocPowderITM implements atkItm
 
     public String getId() {return "IOCPOWDERITM";}
 
-    public String getDis() {return "";}
+    public String getDis() 
+    {
+        return 
+        """
+                                                    Iocaine Powder
+                             -------------------------------------------------------
+                                Inconcievable. When used, has a small
+                                chance to instantly kill the target""";
+    }
 
 }

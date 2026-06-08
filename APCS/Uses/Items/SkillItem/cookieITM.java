@@ -10,5 +10,13 @@ public class cookieITM implements sklItm
 
     public String getId() {return "COOKIEITM";}
 
-    public String getDis() {return "";}
+public String getDis() 
+    {
+        return 
+        """
+                                                    Cookie
+                                ------------------------------------------
+                                Mmm, sugar. Heals you
+                                over several rounds""";
+    }
 }

@@ -22,9 +22,9 @@ public class fireballSKL implements atkSkl
     {
         return 
         """
-                                                    Fireball
-                             --------------------------------------------------
-                               Does 10 damage to all enemies,
+                                                         Fireball
+                             -------------------------------------------------------
+                               Does medium damage to all enemies,
                                and makes the enemies burn 
                                             for 3 turns""";
     }

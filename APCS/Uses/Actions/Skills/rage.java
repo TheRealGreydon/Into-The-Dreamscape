@@ -14,5 +14,14 @@ public class rage implements Skl
 
     public int atkUpAmt() {return 0;}
 
-    public String getDis() {return "";}
+    public String getDis() 
+    {
+        return 
+        """
+                                                                Rage
+                                    -----------------------------------------------
+                                 Take less and deal more damage
+                                 Cannot activate again until enough 
+                                 damage has been taken """;
+    }
 }
