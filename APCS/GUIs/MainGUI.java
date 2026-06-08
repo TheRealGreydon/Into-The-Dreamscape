@@ -1,7 +1,7 @@
 package APCS.GUIs;
 
 import APCS.*;
-import APCS.Assets.AssetClasses.MusicPlayer;
+import APCS.Assets.AssetClasses.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
@@ -211,8 +211,9 @@ public class MainGUI extends JFrame implements ActionListener
         {
             this.remove(mPanel);musicPlayer.stopPlayback();
             //new RewGUI(character,kronk).initialize();
-            new InfoGUI(mPanel,kronk).initialize();
+            //new InfoGUI(mPanel,kronk).initialize();
             //new IntroGUI(character,kronk).initialize();
+            new KBossGUI(character, kronk);
             //if(newSave) {new StartGUI(kronk).start();}
             //
             //else {new LevelGUI(character, kronk).initialize();}

@@ -15,8 +15,6 @@ import javax.swing.*;
 
 public class RewGUI extends JFrame implements ActionListener
 {
-    
-
     private Player character;
     private BattleAssets bGUI = new BattleAssets();
     private JPanel rPanel,fPanel;
@@ -35,7 +33,7 @@ public class RewGUI extends JFrame implements ActionListener
 
     private Atk randsA[] = {new smack(), new punch(), new widePunch(), new bigHit(), new twinStrike(), new woundingStrike(), new gamble()};
     private Skl randsS[] = {new juiceBox(), new vampSwordSKL(), new rage(), new fireballSKL()};
-    private Itm randsI[] = {new grilledCheeseITM(), new swordITM(), new milkITM(), new cookieITM(), new baguetteITM()};
+    private Itm randsI[] = {new swordITM(), new milkITM(), new cookieITM(), new baguetteITM()};
     
 
     public RewGUI(Player character, JFrame kronk) 
@@ -127,22 +125,12 @@ public class RewGUI extends JFrame implements ActionListener
                     mode = 0;
                     selAtk = randAtk();
                     //If player doesnt have 4 atks
-                    if(!character.AtkF()) 
-                    {
-                        character.AtkA(selAtk);
-                        loadScreen();
-                    }
+                    if(!character.AtkF()) {character.AtkA(selAtk);loadScreen();}
                     
-                    else
-                    {
-                        full(selAtk);
-                    }
+                    else {full(selAtk);}
                 }
                 
-                else 
-                {
-                    randRew(2);
-                }
+                else {randRew(2);}
             }
 
             case 1 -> 
@@ -153,22 +141,12 @@ public class RewGUI extends JFrame implements ActionListener
                     mode = 1;
                     selSkl = randSkl();
                     //If player doesnt have 4 atks
-                    if(!character.SklF()) 
-                    {
-                        character.SklA(selSkl);
-                        loadScreen();
-                    }
+                    if(!character.SklF()) {character.SklA(selSkl);loadScreen();}
                     
-                    else
-                    {
-                        full(selSkl);
-                    }
+                    else {full(selSkl);}
                 }
                 
-                else 
-                {
-                    randRew(2);
-                }
+                else {randRew(2);}
             }
             
             default -> 
@@ -176,16 +154,9 @@ public class RewGUI extends JFrame implements ActionListener
                 mode = 2;
                 selItm = randItm();
                 //If player doesnt have 4 atks
-                if(!character.ItmF()) 
-                {
-                    character.ItmA(selItm);
-                    loadScreen();
-                }
+                if(!character.ItmF()) {character.ItmA(selItm);loadScreen();}
                 
-                else
-                {
-                    full(selItm);
-                }
+                else {full(selItm);}
             }
         }
     }

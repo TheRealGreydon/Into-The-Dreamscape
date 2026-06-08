@@ -1,6 +1,7 @@
 package APCS.GUIs;
 
 import APCS.Player;
+import APCS.Assets.AssetClasses.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -19,11 +20,12 @@ public class StartGUI extends JFrame implements ActionListener
     private JLabel title;
     private Player character;
     
-    public StartGUI(JFrame kronk) {this.kronk = kronk;sPanel.setLayout(null);}
+    public StartGUI(JFrame kronk) {this.kronk = kronk; sPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/RewardBack/Rew.png").getImage(), 2);}
 
     //Main initalize
     public void start()
     {
+        sPanel.setLayout(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         kronk.pack();
         name();
