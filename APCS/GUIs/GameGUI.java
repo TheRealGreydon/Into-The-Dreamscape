@@ -356,6 +356,26 @@ public class GameGUI extends JFrame implements ActionListener
         else if(bbE[1].Enm.isAlive()) {bbE[1].select(true);selEnm = 1;}
         else if(bbE[2].Enm.isAlive()) {bbE[2].select(true);selEnm = 2;}
     }
+    private void outMana()
+    {
+        count = 0; looped = 0;
+        Timer timer = new Timer();
+        b = (" Out of mana").split("");
+        tText.setText("");
+        tText.setLocation(500, 220);
+        tText.setOpaque(true);
+        tText.setBackground(Color.WHITE);
+        tText.setFont(new Font(tText.getFont().getName(), Font.BOLD, 40));
+        TimerTask task = new TimerTask()
+        {public void run() {if(!paused)
+        {
+            if(count<b.length) {gPanel.remove(tText);tText.setText(tText.getText() + b[count]);
+            tText.setSize(tText.getPreferredSize());tText.setSize(tText.getWidth()+10, tText.getHeight());gPanel.add(tText);gPanel.repaint();}
+            else {if(count==b.length+10) {gPanel.remove(tText);gPanel.repaint();gPanel.remove(tText);timer.cancel();}}count++;
+        }}};
+    
+        gPanel.add(tText);timer.scheduleAtFixedRate(task, 0, 100);   
+    }
 
     //Player turn
     private void turnPhaze(int y)
@@ -367,10 +387,10 @@ public class GameGUI extends JFrame implements ActionListener
             case 4 -> turnPhaze((Actions)character.atks[1]);
             case 6 -> turnPhaze((Actions)character.atks[2]);
             case 7 -> turnPhaze((Actions)character.atks[3]);
-            case 9 -> turnPhaze((Actions)character.skls[0]);
-            case 10 -> turnPhaze((Actions)character.skls[1]);
-            case 12 -> turnPhaze((Actions)character.skls[2]);
-            case 13 -> turnPhaze((Actions)character.skls[3]);
+            case 9 -> {if(character.useSkl()) {turnPhaze((Actions)character.skls[0]);}else {outMana();}}
+            case 10 -> {if(character.useSkl()) {turnPhaze((Actions)character.skls[1]);}else {outMana();}}
+            case 12 -> {if(character.useSkl()) {turnPhaze((Actions)character.skls[2]);}else {outMana();}}
+            case 13 -> {if(character.useSkl()) {turnPhaze((Actions)character.skls[3]);}else {outMana();}}
             case 15 -> turnPhaze(character.itms[0], 0);
             case 16 -> turnPhaze(character.itms[1], 1);
             case 18 -> turnPhaze(character.itms[2], 2);
@@ -548,7 +568,7 @@ public class GameGUI extends JFrame implements ActionListener
     }
     private void turnPhaze(Skl y)
     {
-        if(!y.getId().equals("RAGE"))
+        if(!(y.getId().equals("RAGE")) && !(y.getId().equals("BLOCK")))
         {
             if(y instanceof atkSkl skl) 
             {
@@ -560,7 +580,6 @@ public class GameGUI extends JFrame implements ActionListener
             else
             {
                 count = 0; looped = 0;
-
                 int tmp = ((healSkl)y).getHeal();
                 Timer timer = new Timer();
                 if(y instanceof healSkl) {b = ("Heal " + String.valueOf(tmp)).split("");character.doHp(tmp);}
@@ -583,55 +602,39 @@ public class GameGUI extends JFrame implements ActionListener
             }
         }
 
-        //Runs the rage skl
         else
         {
-            //Checks if player can rage
-            if(!character.actRage())
+            if(y.getId().equals("RAGE"))
             {
-                count = 0; looped = 0;
-                Timer timer = new Timer();
-                b = "Can't Rage".split("");
-                tText.setText("");
-                tText.setLocation(500, 220);
-                tText.setOpaque(true);
-                tText.setBackground(Color.WHITE);
-                tText.setFont(new Font(tText.getFont().getName(), Font.BOLD, 40));
-                TimerTask task = new TimerTask()
-                {public void run() 
-                    {
-                        if(!paused)
-                        {
-                            if(count<b.length) {gPanel.remove(tText);tText.setText(tText.getText() + b[count]);
-                            tText.setSize(tText.getPreferredSize());tText.setSize(tText.getWidth()+10, tText.getHeight());
-                            gPanel.add(tText);gPanel.repaint();}
-                            else{if(count==b.length+10) {gPanel.remove(tText);gPanel.repaint();timer.cancel();}}count++;}}};
+                //Checks if player can rage
+                if(!character.actRage()) {b = "Can't Rage".split("");}
 
-                gPanel.add(tText);timer.scheduleAtFixedRate(task, 0, 100);
+                else {b = "Rageing".split("");}
             }
 
-            else
-            {
-                count = 0; looped = 0;
-                Timer timer = new Timer();
-                b = "Rageing".split("");
-                tText.setText("");
-                tText.setLocation(500, 220);
-                tText.setOpaque(true);
-                tText.setBackground(Color.WHITE);
-                tText.setFont(new Font(tText.getFont().getName(), Font.BOLD, 40));
-                TimerTask task = new TimerTask()
-                {public void run() 
-                    {
-                        if(!paused)
-                        {
-                            if(count<b.length) {gPanel.remove(tText);tText.setText(tText.getText() + b[count]);
-                            tText.setSize(tText.getPreferredSize());tText.setSize(tText.getWidth()+10, tText.getHeight());
-                            gPanel.add(tText);gPanel.repaint();}
-                            else{if(count==b.length+10) {gPanel.remove(tText);gPanel.repaint();timer.cancel();}}count++;}}};
+            else {character.block();b = "Blocking".split("");}
 
-                gPanel.add(tText);timer.scheduleAtFixedRate(task, 0, 100);
-            }
+            count = 0; looped = 0;
+            Timer timer = new Timer();
+            tText.setText("");
+            tText.setLocation(500, 220);
+            tText.setOpaque(true);
+            tText.setBackground(Color.WHITE);
+            tText.setFont(new Font(tText.getFont().getName(), Font.BOLD, 40));
+            TimerTask task = new TimerTask()
+            {
+                public void run() 
+                {
+                    if(!paused)
+                    {
+                        if(count<b.length) {gPanel.remove(tText);tText.setText(tText.getText() + b[count]);
+                        tText.setSize(tText.getPreferredSize());tText.setSize(tText.getWidth()+10, tText.getHeight());
+                        gPanel.add(tText);gPanel.repaint();}
+                        else{if(count==b.length+10) {gPanel.remove(tText);gPanel.repaint();timer.cancel();}}count++;
+                    }
+                }
+            };
+            gPanel.add(tText);timer.scheduleAtFixedRate(task, 0, 100);
         }
     }
     private void turnPhaze(Actions z)
@@ -1024,18 +1027,16 @@ public class GameGUI extends JFrame implements ActionListener
                 gPanel.setComponentZOrder(pau, 0);
                 gPanel.repaint();
                 character.resetHP();
+                character.resetMANA();
                 bbWL.setText("Next");
-
                 character.nextLvl();
             }
 
             else
             {
-                character.reset();
                 pau.setText("You Lose");
                 gPanel.setComponentZOrder(pau, 0);
                 gPanel.repaint();
-                character.resetHP();
                 bbWL.setText("Retry?");
                 gPanel.repaint();
                 character.reset();
@@ -1046,10 +1047,7 @@ public class GameGUI extends JFrame implements ActionListener
     }   
     private void itmUsed(int x) 
     {
-        for(int i=x; i<3; i++)
-        {
-            character.itms[i] = character.itms[i+1];
-        }
+        for(int i=x; i<3; i++) {character.itms[i] = character.itms[i+1];}
 
         character.itms[3] = null;itmBattleButtons();
     }

@@ -435,14 +435,13 @@ public class BossGUI extends JFrame implements ActionListener
     }
     private void turnPhaze(Skl y)
     {
-        if(!y.getId().equals("RAGE"))
+        if(!(y.getId().equals("RAGE")) && !(y.getId().equals("BLOCK")))
         {
             if(y instanceof atkSkl skl) {turnPhaze(skl.getAtk());}
 
             else
             {
                 count = 0; looped = 0;
-
                 int tmp = ((healSkl)y).getHeal();
                 Timer timer = new Timer();
                 if(y instanceof healSkl) {b = ("Heal " + String.valueOf(tmp)).split("");character.doHp(tmp);}
@@ -452,74 +451,52 @@ public class BossGUI extends JFrame implements ActionListener
                 tText.setBackground(Color.WHITE);
                 tText.setFont(new Font(tText.getFont().getName(), Font.BOLD, 40));
                 TimerTask task = new TimerTask()
-                {
-                    public void run() 
+                {public void run() 
                     {
                         if(!paused)
                         {
                             if(count<b.length) {bPanel.remove(tText);tText.setText(tText.getText() + b[count]);
                             tText.setSize(tText.getPreferredSize());tText.setSize(tText.getWidth()+10, tText.getHeight());
                             bPanel.add(tText);bPanel.repaint();}
-                            else{if(count==b.length+10) {bPanel.remove(tText);bPanel.repaint();timer.cancel();enmBattlePhaze();}}count++;
-                        }}
-                };
+                            else{if(count==b.length+10) {bPanel.remove(tText);bPanel.repaint();timer.cancel();enmBattlePhaze();}}count++;}}};
+
                 bPanel.add(tText);timer.scheduleAtFixedRate(task, 0, 100);
             }
         }
 
-        //Runs the rage skl
         else
         {
-            //Checks if player can rage
-            if(!character.actRage())
+            if(y.getId().equals("RAGE"))
             {
-                count = 0; looped = 0;
-                Timer timer = new Timer();
-                b = "Can't Rage".split("");
-                tText.setText("");
-                tText.setLocation(500, 220);
-                tText.setOpaque(true);
-                tText.setBackground(Color.WHITE);
-                tText.setFont(new Font(tText.getFont().getName(), Font.BOLD, 40));
-                TimerTask task = new TimerTask()
-                {
-                    public void run() 
-                    {
-                        if(!paused)
-                        {
-                            if(count<b.length) {bPanel.remove(tText);tText.setText(tText.getText() + b[count]);
-                            tText.setSize(tText.getPreferredSize());tText.setSize(tText.getWidth()+10, tText.getHeight());
-                            bPanel.add(tText);bPanel.repaint();}
-                            else{if(count==b.length+10) {bPanel.remove(tText);bPanel.repaint();timer.cancel();}}count++;
-                        }
-                    }};
-                bPanel.add(tText);timer.scheduleAtFixedRate(task, 0, 100);
+                //Checks if player can rage
+                if(!character.actRage()) {b = "Can't Rage".split("");}
+
+                else {b = "Rageing".split("");}
             }
 
-            else
+            else {character.block();b = "Blocking".split("");}
+            
+            count = 0; looped = 0;
+            Timer timer = new Timer();
+            tText.setText("");
+            tText.setLocation(500, 220);
+            tText.setOpaque(true);
+            tText.setBackground(Color.WHITE);
+            tText.setFont(new Font(tText.getFont().getName(), Font.BOLD, 40));
+            TimerTask task = new TimerTask()
             {
-                count = 0; looped = 0;
-                Timer timer = new Timer();
-                b = "Rageing".split("");
-                tText.setText("");
-                tText.setLocation(500, 220);
-                tText.setOpaque(true);
-                tText.setBackground(Color.WHITE);
-                tText.setFont(new Font(tText.getFont().getName(), Font.BOLD, 40));
-                TimerTask task = new TimerTask()
+                public void run() 
                 {
-                    public void run() 
+                    if(!paused)
                     {
-                        if(!paused)
-                        {
-                            if(count<b.length) {bPanel.remove(tText);tText.setText(tText.getText() + b[count]);
-                            tText.setSize(tText.getPreferredSize());tText.setSize(tText.getWidth()+10, tText.getHeight());
-                            bPanel.add(tText);bPanel.repaint();}
-                            else{if(count==b.length+10) {bPanel.remove(tText);bPanel.repaint();timer.cancel();}}count++;
-                        }
-                    }};
-                bPanel.add(tText);timer.scheduleAtFixedRate(task, 0, 100);
-            }
+                        if(count<b.length) {bPanel.remove(tText);tText.setText(tText.getText() + b[count]);
+                        tText.setSize(tText.getPreferredSize());tText.setSize(tText.getWidth()+10, tText.getHeight());
+                        bPanel.add(tText);bPanel.repaint();}
+                        else{if(count==b.length+10) {bPanel.remove(tText);bPanel.repaint();timer.cancel();}}count++;
+                    }
+                }
+            };
+            bPanel.add(tText);timer.scheduleAtFixedRate(task, 0, 100);
         }
     }
     private void turnPhaze(Actions z)

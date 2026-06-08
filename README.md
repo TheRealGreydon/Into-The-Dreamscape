@@ -388,3 +388,5 @@ Change Log
 
 -V.17.1-
 -Added stun strike
+-Added block skl
+-Working on a skill mana system

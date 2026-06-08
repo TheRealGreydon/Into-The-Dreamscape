@@ -5,7 +5,6 @@ import APCS.Uses.Actions.Skills.*;
 import APCS.Uses.Items.*;
 import APCS.Uses.Items.AttackItem.*;
 import APCS.Uses.Items.SkillItem.*;
-
 import java.awt.*;
 import java.io.*;
 import java.util.*;
@@ -15,11 +14,11 @@ public class Player
 {
     private String name = "DEFAULT";
     private int gend = 1, lvl = 1, outfit = 1, fav = 1;
-    private int hp, hpM = 100, rageHP;
+    private int hp, hpM = 100, rageHP, sklMana, sklM = 1;
 
     private int lev = 0,curStage = 0,curTurn = 0,vol = 50;
     private Image sprite, bSprite;
-    private boolean alive = true, rage = false;
+    private boolean alive = true, rage = false, block = false;
     private File save = new File("APCS/Save.txt");
 
     //Starting atk/skls
@@ -31,8 +30,8 @@ public class Player
     private String [] atkId = {"PUNCH", "WIDEPUNCH", "WINPUNCH", "BIGHIT", "TWINSTRIKE","WOUNDINGSTRIKE", "GAMBLE", "STUNSTRIKE"};
     private Atk [] atkIdS = {new punch(), new widePunch(), new winPunch(), new bigHit(), new twinStrike(), new woundingStrike(), new gamble(), new stunStrike()};
     
-    private String [] sklId = {"JUICEBOX", "VAMPBLADESKL", "RAGE", "SKIP", "FIREBALLSKL"};
-    private Skl [] sklIdS = {new juiceBox(), new vampSwordSKL(), new rage(), new skip(), new fireballSKL()};
+    private String [] sklId = {"JUICEBOX", "VAMPBLADESKL", "RAGE", "SKIP", "FIREBALLSKL", "BLOCK"};
+    private Skl [] sklIdS = {new juiceBox(), new vampSwordSKL(), new rage(), new skip(), new fireballSKL(), new block()};
     
     private String [] itmId = {"SWORDITM", "MILKITM", "COOKIEITM", "BAGUETTEITM", "IOCPOWDERITM"};
     private Itm [] itmIdS = {new swordITM(), new milkITM(), new cookieITM(), new baguetteITM(), new iocPowderITM()};
@@ -46,6 +45,7 @@ public class Player
         this.outfit = outfit;
         this.fav = fav;
         hp = hpM;
+        sklMana = sklM;
         rageHP = hpM-5;
         spriteInit();
     }
@@ -76,6 +76,18 @@ public class Player
 
     public boolean rageing() {return rage;}
 
+    public void block() {block = true;}
+
+    public boolean blocking()
+    {
+        if(block)
+        {
+            block = false;
+            return true;
+        }
+        return block;
+    }
+
     public void resetTurn() {curTurn = 0;}
 
     public void nextLvl() {if(getStage()<2) {setStage(getStage()+1);} else {setStage(0);setLevel(getLevel()+1);}}
@@ -102,7 +114,9 @@ public class Player
 
     public void resetHP() {hp=hpM;}
 
-    public void reset() {resetHP();lev = 0; curStage = 0;}
+    public void resetMANA() {sklMana=sklM;}
+
+    public void reset() {resetHP();resetMANA();lev = 0; curStage = 0;}
 
     public int getLevel() {return lev;}
 
@@ -116,6 +130,10 @@ public class Player
 
     public Image getBSprite() {return bSprite;}
 
+    public boolean useSkl() {if(sklMana-1>=0) {sklMana--;return true;}return false;}
+
+    public int getMana() {return sklMana;}
+
     private void spriteInit() 
     {
         try {sprite = ImageIO.read(new File("APCS/Assets/Img/Character Img/Char" + outfit + ".png")).getScaledInstance(650, 650, Image.SCALE_SMOOTH);}
@@ -128,94 +146,95 @@ public class Player
     public void loadSave()
     {
         String temp;try (Scanner sc = new Scanner(save)) 
-        {while(sc.hasNext())
         {
-            temp = sc.next();
-
-            switch (temp) 
+            while(sc.hasNext())
             {
-                case "NAME" -> name = sc.next();
-                case "GEND" -> gend = Integer.parseInt(sc.next());
-                case "OUT" -> outfit = Integer.parseInt(sc.next());
-                case "FAV" -> fav = Integer.parseInt(sc.next());
-                case "LVL" -> lvl = Integer.parseInt(sc.next());
+                temp = sc.next();
 
-                case "ATK" -> 
+                switch (temp) 
                 {
-                    for(int i=0; i<4; i++)
+                    case "NAME" -> name = sc.next();
+                    case "GEND" -> gend = Integer.parseInt(sc.next());
+                    case "OUT" -> outfit = Integer.parseInt(sc.next());
+                    case "FAV" -> fav = Integer.parseInt(sc.next());
+                    case "LVL" -> lvl = Integer.parseInt(sc.next());
+
+                    case "ATK" -> 
                     {
-                        temp = sc.next();
-                        
-                        if(!temp.equals("NULL")) 
+                        for(int i=0; i<4; i++)
                         {
-                            for(int j=0; j<atkId.length; j++) 
+                            temp = sc.next();
+
+                            if(!temp.equals("NULL")) 
                             {
-                                if(temp.equals(atkId[j])) 
+                                for(int j=0; j<atkId.length; j++) 
                                 {
-                                    atks[i] = atkIdS[j];
+                                    if(temp.equals(atkId[j])) 
+                                    {
+                                        atks[i] = atkIdS[j];
+                                    }
                                 }
                             }
-                        }
-                        
-                        else {atks[i] = null;}
-                    }
-                }
 
-                case "SKL" -> 
-                {
-                    for(int i=0; i<4; i++)
+                            else {atks[i] = null;}
+                        }
+                    }
+
+                    case "SKL" -> 
                     {
-                        temp = sc.next();
-                        
-                        if(!temp.equals("NULL")) 
+                        for(int i=0; i<4; i++)
                         {
-                            for(int j=0; j<sklId.length; j++) 
+                            temp = sc.next();
+
+                            if(!temp.equals("NULL")) 
                             {
-                                if(temp.equals(sklId[j])) 
+                                for(int j=0; j<sklId.length; j++) 
                                 {
-                                    skls[i] = sklIdS[j];
+                                    if(temp.equals(sklId[j])) 
+                                    {
+                                        skls[i] = sklIdS[j];
+                                    }
                                 }
                             }
-                        }
-                        
-                        else {skls[i] = null;}
-                    }
-                }
 
-                case "ITM" -> 
-                {
-                    for(int i=0; i<4; i++)
+                            else {skls[i] = null;}
+                        }
+                    }
+
+                    case "ITM" -> 
                     {
-                        temp = sc.next();
-                        
-                        if(!temp.equals("NULL")) 
+                        for(int i=0; i<4; i++)
                         {
-                            for(int j=0; j<itmId.length; j++) 
+                            temp = sc.next();
+
+                            if(!temp.equals("NULL")) 
                             {
-                                if(temp.equals(itmId[j])) 
+                                for(int j=0; j<itmId.length; j++) 
                                 {
-                                    itms[i] = itmIdS[j];
+                                    if(temp.equals(itmId[j])) 
+                                    {
+                                        itms[i] = itmIdS[j];
+                                    }
                                 }
                             }
-                        }
-                        
-                        else {itms[i] = null;}
-                    }
-                }
 
-                case "LEVEL" -> lev = Integer.parseInt(sc.next());
-                case "STAGE" -> curStage = Integer.parseInt(sc.next());
-                case "VOL" -> vol = Integer.parseInt(sc.next());
-                case "HP" -> hp = Integer.parseInt(sc.next());
+                            else {itms[i] = null;}
+                        }
+                    }
+
+                    case "LEVEL" -> lev = Integer.parseInt(sc.next());
+                    case "STAGE" -> curStage = Integer.parseInt(sc.next());
+                    case "VOL" -> vol = Integer.parseInt(sc.next());
+                    case "HP" -> hp = Integer.parseInt(sc.next());
+                    case "MANA" -> sklMana = Integer.parseInt(sc.next());
+                }
             }
-}
-            
+
             rageHP = hpM - 5;
         }
         
         catch (FileNotFoundException e){}
     }
-
     public void saveGame()
     {
         String load = "NAME " + name +"\n" + 
@@ -233,7 +252,8 @@ public class Player
                 load += "LEVEL " + lev + "\n" + 
                 "STAGE " + curStage + "\n" + 
                 "VOL " + vol + "\n" + 
-                "HP " + hpM;
+                "HP " + hpM + "\n" + 
+                "MANA " + sklM;
         try {FileWriter w = new FileWriter("APCS/Save.txt");w.write(load);w.close();} catch (IOException e) {}
     }
 

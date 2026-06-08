@@ -141,7 +141,8 @@ public class BattleAssets
         int a = (int)(Math.random()*100+1);
         int w = z.getDmg();
         if(x.rageing()) {w = (w*4)/5;}
-        
+        if(x.blocking()) {w = w/2;}
+
         if(a<=z.acur() && w!=0) 
         {
             if(y.isStunned() && ((int)Math.random()*2)==0) {return " Miss";}
@@ -155,6 +156,7 @@ public class BattleAssets
         //Only used for the needle special atk to get 15% of player hp
         int w = -1*((x.getHealth()*15)/100);
         if(x.rageing()) {w = (w*4)/5;}
+        if(x.blocking()) {w = w/2;}
         
         if(y.isStunned() && ((int)Math.random()*2)==0) {return " Miss";}
         x.doHp(w);return " " + x.getName() + " took " + w;
