@@ -363,3 +363,20 @@ Change Log
 
 -V.16-
 -Added info sheet accessable from game menu
+
+6/5/26
+------
+-V.16.1-
+-Added intro screen with text that plays when making a new character
+
+-V.16.2-
+-Added type Uses which all itms/skls/atks are a part of
+
+-V.16.4-
+-Murdured V.16.3
+-Added a hemi semi demi functional music player
+
+6/8/26
+------
+-V.16.5-
+-Working on boss gui

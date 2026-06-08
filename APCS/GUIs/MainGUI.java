@@ -1,6 +1,7 @@
 package APCS.GUIs;
 
 import APCS.*;
+import APCS.Assets.AssetClasses.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
@@ -10,15 +11,13 @@ import javax.swing.*;
 public class MainGUI extends JFrame implements ActionListener
 {    
     private Player character = new Player();
-
     //Save file location
     private File save = new File("APCS/Save.txt");
     private boolean newSave;
-        
+    private MusicPlayer musicPlayer;
     private JPanel mPanel = new JPanel(), cPanel = new JPanel(), dPanel = new JPanel();
     //KRONK IS IMPORTANT DONT MESS WITH KRONK
     private JFrame kronk = this;
-  
     private JButton[]buttons = new JButton[7];
            
     public MainGUI() 
@@ -35,18 +34,20 @@ public class MainGUI extends JFrame implements ActionListener
         menu();
         credits();
         saveDel();
-
         this.add(mPanel);
         this.setSize(1500, 800);
         this.setVisible(true);
         mPanel.revalidate();
         mPanel.repaint();
+        java.awt.EventQueue.invokeLater(() -> {setVisible(true);});
+        
+        musicPlayer = new MusicPlayer("APCS/Assets/Sounds/IntoTheDreamscapeTitle.wav");
+        musicPlayer.setLooping(true);
+        musicPlayer.setVolume(200);
+        musicPlayer.start();
     }
-    
-    //Runs the game
-    public void displayGame() {java.awt.EventQueue.invokeLater(() -> {setVisible(true);});}
 
-    //Adds to menu
+    //Adds to menu/credits
     private void menu()
     {
         mPanel.setLayout(null);
@@ -86,8 +87,6 @@ public class MainGUI extends JFrame implements ActionListener
         buttons[3].setBounds(200,325, 300, 150);
         paint(mPanel,5);
     }
-    
-    //Adds button to credits
     private void credits()
     {
         cPanel.setLayout(null);
@@ -185,44 +184,24 @@ public class MainGUI extends JFrame implements ActionListener
         {
             for(int j=0; j<75; j++)
             {
+                JLabel star = new JLabel();
+                star.setOpaque(true);
+                star.setBackground(Color.BLACK);
+                star.setSize(new Dimension(20, 20));
+                star.setLocation(j*20, i*20);
+                x.setComponentZOrder(star, 1);
+                x.add(star);
+                
                 if((int)(Math.random()*100)<=percent-1)
                 {
-                    if((int)(Math.random()*2)==0)
-                    {
-                        JLabel star = new JLabel();
-                        star.setOpaque(true);
-                        star.setBackground(Color.YELLOW);
-                        star.setSize(new Dimension(20, 20));
-                        star.setLocation(j*20, i*20);
-                        x.setComponentZOrder(star, 1);
-                        x.add(star);
-                    }
-                    else
-                    {
-                        JLabel star = new JLabel();
-                        star.setOpaque(true);
-                        star.setBackground(new Color(189,185,38));
-                        star.setSize(new Dimension(20, 20));
-                        star.setLocation(j*20, i*20);
-                        x.setComponentZOrder(star, 1);
-                        x.add(star);
-                    }                    
-                }
-                else
-                {
-                    JLabel star = new JLabel();
-                    star.setOpaque(true);
-                    star.setBackground(Color.BLACK);
-                    star.setSize(new Dimension(20, 20));
-                    star.setLocation(j*20, i*20);
-                    x.setComponentZOrder(star, 1);
-                    x.add(star);
+                    if((int)(Math.random()*2)==0) {star.setBackground(Color.YELLOW);}
+
+                    else {star.setBackground(new Color(189,185,38));}                    
                 }
             }
         }
     }
     
-    @Override
     //Buttons
     public void actionPerformed(ActionEvent e)
     {
@@ -230,12 +209,14 @@ public class MainGUI extends JFrame implements ActionListener
         
         if(j.equals(buttons[0])) 
         {
-            //this.remove(mPanel);new RewGUI(character,kronk).initialize();
-            this.remove(mPanel);new InfoGUI(mPanel,kronk).initialize();
-            //this.remove(mPanel);new IntroGUI(character,kronk).initialize();
-            //if(newSave) {this.remove(mPanel);new StartGUI(kronk).start();}
+            this.remove(mPanel);musicPlayer.stopPlayback();
+            //new RewGUI(character,kronk).initialize();
+            //new InfoGUI(mPanel,kronk).initialize();
+            //new IntroGUI(character,kronk).initialize();
+            new KBossGUI(character, kronk);
+            //if(newSave) {new StartGUI(kronk).start();}
             //
-            //else {this.remove(mPanel);new LevelGUI(character, kronk).initialize();}
+            //else {new LevelGUI(character, kronk).initialize();}
         }
 
         else if(j.equals(buttons[1])) {panSet(mPanel, cPanel);}
@@ -248,8 +229,8 @@ public class MainGUI extends JFrame implements ActionListener
 
         else if(j.equals(buttons[5])) 
         {
-            try {FileWriter w = new FileWriter("APCS/Save.txt");w.write("NEW SAVE");w.close();}
-            catch (IOException e1) {} newSave = true;menu();panSet(dPanel, mPanel);
+            try {FileWriter w = new FileWriter("APCS/Save.txt");w.write("NEW SAVE");w.close();} catch (IOException e1) {} 
+            newSave = true;menu();panSet(dPanel, mPanel);
         }
         
         else if(j.equals(buttons[6])) {panSet(dPanel, mPanel);}

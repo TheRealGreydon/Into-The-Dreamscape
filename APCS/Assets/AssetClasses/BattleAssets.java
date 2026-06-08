@@ -1,8 +1,9 @@
 package APCS.Assets.AssetClasses;
 
 import APCS.*;
-import APCS.Actions.Attacks.*;
 import APCS.Enms.*;
+import APCS.Uses.Actions.Attacks.Atk;
+
 import java.awt.*;
 import javax.swing.*;
 

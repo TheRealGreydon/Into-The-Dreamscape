@@ -1,6 +1,7 @@
 package APCS.GUIs;
 
 import APCS.Player;
+import APCS.Assets.AssetClasses.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -8,13 +9,9 @@ import javax.swing.*;
 //Character creation screen and starts the game
 public class StartGUI extends JFrame implements ActionListener
 {
-    JTextField nameBox;
-    
+    private JTextField nameBox;
     private String name = "";
-    private int gend = -1, out = -1, fav = -1;   
-    private int page = 0;
-
-    private LevelGUI lGUI;
+    private int gend = -1, out = -1, fav = -1, page = 0;
 
     private JPanel sPanel = new JPanel();
     //KRONK IS IMPORTANT DONT MESS WITH KRONK
@@ -23,11 +20,12 @@ public class StartGUI extends JFrame implements ActionListener
     private JLabel title;
     private Player character;
     
-    public StartGUI(JFrame kronk) {this.kronk = kronk;sPanel.setLayout(null);}
+    public StartGUI(JFrame kronk) {this.kronk = kronk; sPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/RewardBack/Rew.png").getImage(), 2);}
 
     //Main initalize
     public void start()
     {
+        sPanel.setLayout(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         kronk.pack();
         name();
@@ -236,8 +234,7 @@ public class StartGUI extends JFrame implements ActionListener
                 character = new Player(name, gend, out, fav);
                 character.saveGame();
                 kronk.remove(sPanel);
-                lGUI = new LevelGUI(character,kronk);
-                lGUI.initialize();
+                new IntroGUI(character,kronk).initialize();
             }
         }
     }
@@ -258,16 +255,22 @@ public class StartGUI extends JFrame implements ActionListener
         {
             for(int j=0; j<75; j++)
             {
-                JLabel star = new JLabel();
-                star.setOpaque(true);
-                star.setSize(new Dimension(20, 20));
-                star.setLocation(j*20, i*20);
-                
-                if((int)(Math.random()*100) <= percent-1) {if((int)(Math.random()*2)==0) {star.setBackground(Color.YELLOW);}else {star.setBackground(new Color(189,185,38));}}
-
-                else {star.setBackground(Color.BLACK);}
-
-                sPanel.add(star);
+                if(j<18 || j>56)
+                {
+                    JLabel star = new JLabel();
+                    star.setOpaque(true);
+                    star.setSize(new Dimension(20, 20));
+                    star.setLocation(j*20, i*20);
+                    star.setBackground(Color.BLACK);
+                    sPanel.add(star);
+                    
+                    if((int)(Math.random()*100) <= percent-1) 
+                    {
+                        if((int)(Math.random()*2)==0) {star.setBackground(Color.YELLOW);}
+                    
+                        else {star.setBackground(new Color(189,185,38));}
+                    }
+                }
             }
         }
     }

@@ -1,6 +1,6 @@
 package APCS.Enms;
 
-import APCS.Actions.Attacks.*;
+import APCS.Uses.Actions.Attacks.*;
 
 public class Plane implements enm
 {

@@ -1,10 +1,11 @@
 package APCS;
 
-import APCS.Actions.Attacks.*;
-import APCS.Actions.Skills.*;
-import APCS.Items.*;
-import APCS.Items.AttackItem.*;
-import APCS.Items.SkillItem.*;
+import APCS.Uses.Actions.Attacks.*;
+import APCS.Uses.Actions.Skills.*;
+import APCS.Uses.Items.*;
+import APCS.Uses.Items.AttackItem.*;
+import APCS.Uses.Items.SkillItem.*;
+
 import java.awt.*;
 import java.io.*;
 import java.util.*;
@@ -33,8 +34,8 @@ public class Player
     private String [] sklId = {"JUICEBOX", "VAMPBLADESKL", "RAGE", "SKIP", "FIREBALLSKL"};
     private Skl [] sklIdS = {new juiceBox(), new vampSwordSKL(), new rage(), new skip(), new fireballSKL()};
     
-    private String [] itmId = {"SWORDITM", "GRILLEDCHEESEITM", "MILKITM", "COOKIEITM", "BAGUETTEITM", "IOCPOWDERITM"};
-    private Itm [] itmIdS = {new swordITM(), new grilledCheeseITM(), new milkITM(), new cookieITM(), new baguetteITM(), new iocPowderITM()};
+    private String [] itmId = {"SWORDITM", "MILKITM", "COOKIEITM", "BAGUETTEITM", "IOCPOWDERITM"};
+    private Itm [] itmIdS = {new swordITM(), new milkITM(), new cookieITM(), new baguetteITM(), new iocPowderITM()};
 
     public int chargeT = 0, regenT = 0, atkupT = 0,regenAmt,atkUpAmt, rageT = 0;
 
@@ -229,11 +230,10 @@ public class Player
 
                 load += "ITM "; for(int i=0; i<4; i++) {if(itms[i]!=null) {load += itms[i].getId();} else {load += "NULL";} load+= " ";} load += "\n";
 
-                load += "LEVEL " + lev +"\n" + 
-                "STAGE " + curStage +"\n" + 
-                "VOL " + vol+"\n" + 
+                load += "LEVEL " + lev + "\n" + 
+                "STAGE " + curStage + "\n" + 
+                "VOL " + vol + "\n" + 
                 "HP " + hpM;
-
         try {FileWriter w = new FileWriter("APCS/Save.txt");w.write(load);w.close();} catch (IOException e) {}
     }
 

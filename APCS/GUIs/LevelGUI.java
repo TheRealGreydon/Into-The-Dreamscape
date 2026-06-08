@@ -10,8 +10,6 @@ import javax.swing.*;
 
 public class LevelGUI extends JFrame implements ActionListener
 {
-    
-
     private Player character;
     private JPanel lPanel;
     private JButton pau = new JButton(), set = new JButton(), exit = new JButton(), settings = new JButton(), vole = new JButton();
@@ -70,7 +68,8 @@ public class LevelGUI extends JFrame implements ActionListener
         lPanel.setLayout(null);
         kronk.setSize(1500, 800);
         kronk.add(lPanel);
-        timedText("Level " + (character.getLevel()+1) + " - " + (character.getStage()+1));
+        if(character.getStage()==2) {timedText(character.getLevel());}
+        else {timedText("Level " + (character.getLevel()+1) + " - " + (character.getStage()+1)); }        
     }
 
     //Scrolling text
@@ -98,6 +97,50 @@ public class LevelGUI extends JFrame implements ActionListener
                             lPanel.remove(tText);lPanel.repaint();
                             for (Component c : lPanel.getComponents()) {if (c instanceof JButton) {c.setEnabled(true);}}
                             timer.cancel();kronk.remove(lPanel);new GameGUI(character,kronk);
+                        }
+                    }count++;  
+                }
+            }
+        };
+        timer.scheduleAtFixedRate(task, 0, 50);        
+    }
+
+    private void timedText(int a)
+    {
+        count = 0;
+        Timer timer = new Timer();
+        String [] b = (" Boss Battle").split("");
+        tText.setText("");
+        tText.setOpaque(true);
+        tText.setBackground(Color.WHITE);
+        tText.setFont(new Font(tText.getFont().getName(), Font.BOLD, 40));
+        TimerTask task = new TimerTask()
+        {public void run() 
+            {
+                for (Component c : lPanel.getComponents()) {if (c instanceof JButton && !c.equals(exit) && !c.equals(settings) && !c.equals(vole)) {c.setEnabled(false);}}
+                if(!paused)
+                {
+                    if(count<b.length) {tText.setText(tText.getText() + b[count]);tText.setSize(tText.getPreferredSize());
+                    tText.setLocation(lPanel.getWidth()/2 - tText.getWidth()/2, lPanel.getHeight()/2-tText.getHeight()/2);
+                    lPanel.add(tText);}
+                    else{
+                        if(count>b.length+15) 
+                        {
+                            lPanel.remove(tText);lPanel.repaint();
+                            for (Component c : lPanel.getComponents()) {if (c instanceof JButton) {c.setEnabled(true);}}
+                            timer.cancel();kronk.remove(lPanel);
+                            switch(a)
+                            {
+                                case 0 -> {new KBossGUI(character, kronk);}
+
+                                case 1 -> {new KBossGUI(character, kronk);}
+
+                                case 2 -> {new KBossGUI(character, kronk);}
+
+                                case 3 -> {new KBossGUI(character, kronk);}
+
+                                case 4 -> {new KBossGUI(character, kronk);}
+                            }
                         }
                     }count++;  
                 }
@@ -181,32 +224,24 @@ public class LevelGUI extends JFrame implements ActionListener
         for (Component c : lPanel.getComponents()) {lPanel.setComponentZOrder(c, 0);}
         for(int i=0; i<40; i++)
         {
-            for(int j=0; j<18; j++)
+            for(int j=0; j<75; j++)
             {
-                JLabel star = new JLabel();
-                star.setOpaque(true);
-                star.setSize(new Dimension(20, 20));
-                star.setLocation(j*20, i*20);
-                
-                if((int)(Math.random()*100) <= percent-1) {if((int)(Math.random()*2)==0) {star.setBackground(Color.YELLOW);}else {star.setBackground(new Color(189,185,38));}}
-
-                else {star.setBackground(Color.BLACK);}
-
-                lPanel.add(star);
-            }
-
-            for(int j=57; j<75; j++)
-            {
-                JLabel star = new JLabel();
-                star.setOpaque(true);
-                star.setSize(new Dimension(20, 20));
-                star.setLocation(j*20, i*20);
-                
-                if((int)(Math.random()*100) <= percent-1) {if((int)(Math.random()*2)==0) {star.setBackground(Color.YELLOW);}else {star.setBackground(new Color(189,185,38));}}
-
-                else {star.setBackground(Color.BLACK);}
-
-                lPanel.add(star);
+                if(j<18 || j>56)
+                {
+                    JLabel star = new JLabel();
+                    star.setOpaque(true);
+                    star.setSize(new Dimension(20, 20));
+                    star.setLocation(j*20, i*20);
+                    star.setBackground(Color.BLACK);
+                    lPanel.add(star);
+                    
+                    if((int)(Math.random()*100) <= percent-1) 
+                    {
+                        if((int)(Math.random()*2)==0) {star.setBackground(Color.YELLOW);}
+                    
+                        else {star.setBackground(new Color(189,185,38));}
+                    }
+                }
             }
         }
     }

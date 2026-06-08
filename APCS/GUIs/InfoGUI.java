@@ -1,87 +1,80 @@
 package APCS.GUIs;
 
-import APCS.Actions.Attacks.*;
-import APCS.Actions.Skills.*;
 import APCS.Assets.AssetClasses.*;
-import APCS.Items.AttackItem.*;
-import APCS.Items.Itm;
-import APCS.Items.SkillItem.*;
+import APCS.Uses.Actions.Attacks.*;
+import APCS.Uses.Actions.Skills.*;
+import APCS.Uses.Items.AttackItem.*;
+import APCS.Uses.Items.SkillItem.*;
+import APCS.Uses.Uses;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class InfoGUI extends JFrame implements ActionListener
+public class InfoGUI extends JFrame 
 {
     private JPanel iPanel, lPanel;
-    private JPanel [] aPanels, sPanels,iPanels;
-    private JButton buttons [];
-    private JLabel title;
+    private JPanel [][] actPanels = new JPanel[3][];
+
+    private JLabel [] buttons = new JLabel[4];
     //KRONK IS IMPORTANT DONT MESS WITH KRONK
     private JFrame kronk;
     private boolean down = false;
     private int KBH = 0,mode, curPan = 0;
 
-    private Atk atkL[] = {new smack(), new punch(), new widePunch(), new bigHit(), new twinStrike(), new woundingStrike(), new gamble()};
-    private Skl sklL[] = {new juiceBox(), new vampSwordSKL(), new rage(), new fireballSKL()};
-    private Itm itmL[] = {new grilledCheeseITM(), new swordITM(), new milkITM(), new cookieITM(), new baguetteITM()};
+    private Uses [][] uses = 
+    {{new smack(), new punch(), new widePunch(), new bigHit(), new twinStrike(), new woundingStrike(), new gamble()},
+    {new juiceBox(), new vampSwordSKL(), new rage(), new fireballSKL()},
+    {new swordITM(), new milkITM(), new cookieITM(), new baguetteITM(), new iocPowderITM()}};
     
-
     public InfoGUI(JPanel lPanel, JFrame kronk) 
     {
         this.kronk = kronk;this.lPanel = lPanel;
         iPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/RewardBack/Rew.png").getImage(), 2);
     }
-
+    
     public void initialize() 
     {
         kronk.pack();
         iPanel.setLayout(null);
         kronk.setSize(1500, 800);
-        pansInit();
+        allPansInit();
+        iPanInit();
+        kronk.add(iPanel);
         highlight(0);
         keyActions(iPanel);
     }
-
-    private void pansInit()
-    {
-        iPanInit();
-        kronk.add(iPanel);
-        atkPansInit();
-        sklPansInit();
-        itmPansInit();
-    }
-
     private void iPanInit()
     {
         iPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/RewardBack/Rew.png").getImage(), 2);
         iPanel.setLayout(null);
-
-        buttons = new JButton[7];
+        
+        //Makes the buttons
         for(int i=0;i<4; i++)
         {
-            buttons[i] = new JButton();
+            buttons[i] = new JLabel();
+            buttons[i].setOpaque(true);
             buttons[i].setBorder(BorderFactory.createLineBorder(Color.black, 5));
             buttons[i].setFocusable(false);
             buttons[i].setBackground(Color.red);
-            buttons[i].setEnabled(false);
-            buttons[i].addActionListener(this);
+            buttons[i].setHorizontalAlignment(SwingConstants.CENTER);
+            buttons[i].setVerticalAlignment(SwingConstants.CENTER);
             buttons[i].setFont(new Font(buttons[i].getFont().getName(), Font.BOLD, 45));
+
             iPanel.add(buttons[i]);
         }
-        buttons[3].setFont(new Font(buttons[3].getFont().getName(), Font.BOLD, 30));
 
+        buttons[3].setFont(new Font(buttons[3].getFont().getName(), Font.BOLD, 30));
         buttons[0].setText("Atks");
         buttons[1].setText("Skls");
         buttons[2].setText("Itms");
         buttons[3].setText("Back");
-        buttons[3].setBounds(650,650,200,100);
         
         buttons[0].setBounds(450,325,200,150);
         buttons[1].setBounds(650,325,200,150);
         buttons[2].setBounds(850,325,200,150);
+        buttons[3].setBounds(650,650,200,100);
 
-
-        title = new JLabel();
+        JLabel title = new JLabel();
         title.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
         title.setOpaque(true);
         title.setBackground(Color.WHITE);
@@ -90,185 +83,92 @@ public class InfoGUI extends JFrame implements ActionListener
         title.setSize(title.getPreferredSize());
         title.setSize(title.getWidth()+10, title.getHeight());
         title.setLocation(750 - title.getWidth()/2, 125);
-      
         iPanel.add(title);
+
+        for(int i=0; i<3;i++) {arrButtons(actPanels[i]);}
       
-        paint(iPanel,5);      
+        paint(iPanel,5);
     }
-
-    private void atkPansInit()
+    private void allPansInit()
     {
-        aPanels = new JPanel[atkL.length];
-        for(int i=0;i<atkL.length;i++)
+        for(int i=0;i<3;i++)
         {
-            aPanels[i] = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/RewardBack/Rew.png").getImage(), 2);
-            aPanels[i].setLayout(null);
-
-            title = new JLabel();
-            title.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
-            title.setOpaque(true);
-            title.setBackground(Color.WHITE);
-            title.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
-            title.setText(atkL[i].getName());
-            title.setSize(title.getPreferredSize());
-            title.setSize(title.getWidth()+10, title.getHeight());
-            title.setLocation(750 - title.getWidth()/2, 90);
-
-            for(int j=4;j<7; j++)
+            actPanels[i] = new JPanel[uses[i].length];
+            for(int j=0;j<uses[i].length;j++)
             {
-                buttons[j] = new JButton();
-                buttons[j].setBorder(BorderFactory.createLineBorder(Color.blue, 5));
-                buttons[j].setFocusable(false);
-                buttons[j].setBackground(Color.red);
-                buttons[j].setFont(new Font(buttons[j].getFont().getName(), Font.BOLD, 45));
-                aPanels[i].add(buttons[j]);
+                actPanels[i][j] = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/RewardBack/Rew.png").getImage(), 2);
+                actPanels[i][j].setLayout(null);
+
+                titles(actPanels[i][j]);
+                discs(actPanels[i][j]);
+                keyActions(actPanels[i][j]);
+            
+                paint(actPanels[i][j],5);      
             }
-
-            JTextPane disc = new JTextPane();
-            disc.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
-            disc.setText(atkL[i].getDis());
-            disc.setBackground(Color.white);
-            disc.setFont(new Font(disc.getFont().getName(), Font.BOLD, 40));
-            disc.setForeground(Color.BLACK);      
-            disc.setSize(disc.getPreferredSize());
-            disc.setSize(disc.getWidth()+10, disc.getHeight());
-            disc.setLocation(750-disc.getWidth()/2,380-disc.getHeight()/2);
-            disc.setEditable(false);
-            aPanels[i].add(disc);
-
-            buttons[4].setText("Back");
-            buttons[4].setBounds(650,650,200,100);
-            buttons[5].setText("<-");
-            buttons[5].setBounds(550,675,100,50);
-            buttons[6].setText("->");
-            buttons[6].setBounds(850,675,100,50);
-        
-            aPanels[i].add(title);
-            keyActions(aPanels[i]);
-        
-            paint(aPanels[i],5);      
-        }
-    }
-    private void sklPansInit()
-    {
-        sPanels = new JPanel[sklL.length];
-        for(int i=0;i<sklL.length;i++)
-        {
-            sPanels[i] = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/RewardBack/Rew.png").getImage(), 2);
-            sPanels[i].setLayout(null);
-
-            title = new JLabel();
-            title.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
-            title.setOpaque(true);
-            title.setBackground(Color.WHITE);
-            title.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
-            title.setText(sklL[i].getName());
-            title.setSize(title.getPreferredSize());
-            title.setSize(title.getWidth()+10, title.getHeight());
-            title.setLocation(750 - title.getWidth()/2, 90);
-
-            for(int j=4;j<7; j++)
-            {
-                buttons[j] = new JButton();
-                buttons[j].setBorder(BorderFactory.createLineBorder(Color.blue, 5));
-                buttons[j].setFocusable(false);
-                buttons[j].setBackground(Color.red);
-                buttons[j].setFont(new Font(buttons[j].getFont().getName(), Font.BOLD, 45));
-                sPanels[i].add(buttons[j]);
-            }
-
-            JTextPane disc = new JTextPane();
-            disc.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
-            disc.setText(sklL[i].getDis());
-            disc.setBackground(Color.white);
-            disc.setFont(new Font(disc.getFont().getName(), Font.BOLD, 40));
-            disc.setForeground(Color.BLACK);      
-            disc.setSize(disc.getPreferredSize());
-            disc.setSize(disc.getWidth()+10, disc.getHeight());
-            disc.setLocation(750-disc.getWidth()/2,380-disc.getHeight()/2);
-            disc.setEditable(false);
-            sPanels[i].add(disc);
-
-            buttons[4].setText("Back");
-            buttons[4].setBounds(650,650,200,100);
-            buttons[5].setText("<-");
-            buttons[5].setBounds(550,675,100,50);
-            buttons[6].setText("->");
-            buttons[6].setBounds(850,675,100,50);
-        
-            sPanels[i].add(title);
-            keyActions(sPanels[i]);
-        
-            paint(sPanels[i],5);      
-        }
-    }
-    private void itmPansInit()
-    {
-        iPanels = new JPanel[itmL.length];
-        for(int i=0;i<itmL.length;i++)
-        {
-            iPanels[i] = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/RewardBack/Rew.png").getImage(), 2);
-            iPanels[i].setLayout(null);
-
-            title = new JLabel();
-            title.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
-            title.setOpaque(true);
-            title.setBackground(Color.WHITE);
-            title.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
-            title.setText(itmL[i].getName());
-            title.setSize(title.getPreferredSize());
-            title.setSize(title.getWidth()+10, title.getHeight());
-            title.setLocation(750 - title.getWidth()/2, 90);
-
-            for(int j=4;j<7; j++)
-            {
-                buttons[j] = new JButton();
-                buttons[j].setBorder(BorderFactory.createLineBorder(Color.blue, 5));
-                buttons[j].setFocusable(false);
-                buttons[j].setBackground(Color.red);
-                buttons[j].setFont(new Font(buttons[j].getFont().getName(), Font.BOLD, 45));
-                iPanels[i].add(buttons[j]);
-            }
-
-            JTextPane disc = new JTextPane();
-            disc.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
-            disc.setText(itmL[i].getDis());
-            disc.setBackground(Color.white);
-            disc.setFont(new Font(disc.getFont().getName(), Font.BOLD, 40));
-            disc.setForeground(Color.BLACK);      
-            disc.setSize(disc.getPreferredSize());
-            disc.setSize(disc.getWidth()+10, disc.getHeight());
-            disc.setLocation(750-disc.getWidth()/2,380-disc.getHeight()/2);
-            disc.setEditable(false);
-            iPanels[i].add(disc);
-
-            buttons[4].setText("Back");
-            buttons[4].setBounds(650,650,200,100);
-            buttons[5].setText("<-");
-            buttons[5].setBounds(550,675,100,50);
-            buttons[6].setText("->");
-            buttons[6].setBounds(850,675,100,50);
-        
-            iPanels[i].add(title);
-            keyActions(iPanels[i]);
-        
-            paint(iPanels[i],5);      
         }
     }
 
-    //Keybinds and buttons
-    public void actionPerformed(ActionEvent e)
+    //Makes the arrow buttons/titles/discs for the individual panels
+    private void arrButtons(JPanel[] x)
     {
-        JButton j = (JButton)(e.getSource());
+        for(int i=0; i<x.length; i++)
+        {
+            JLabel arrowButtons [] = new JLabel[3];            
 
-        if(j.equals(buttons[0])) {panSet(iPanel, aPanels[0]);mode = 0;}
+            for(int j=0;j<3;j++)
+            {
+                arrowButtons[j] = new JLabel();
+                arrowButtons[j].setOpaque(true);
+                arrowButtons[j].setFocusable(false);
+                arrowButtons[j].setBackground(Color.red);
+                arrowButtons[j].setHorizontalAlignment(SwingConstants.CENTER);
+                arrowButtons[j].setVerticalAlignment(SwingConstants.CENTER);
+                arrowButtons[j].setFont(new Font(arrowButtons[j].getFont().getName(), Font.BOLD, 45));
+                arrowButtons[j].setBorder(BorderFactory.createLineBorder(Color.black, 5));
 
-        else if(j.equals(buttons[1])) {panSet(iPanel, sPanels[0]);mode = 1;}
+                x[i].add(arrowButtons[j]);
+            }
 
-        else if(j.equals(buttons[2])) {panSet(iPanel, iPanels[0]);mode = 2;}
-
-        else if(j.equals(buttons[3])) {panSet(iPanel,lPanel);}
+            arrowButtons[0].setText("Back");
+            arrowButtons[0].setBounds(650,650,200,100);
+            arrowButtons[0].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
+            arrowButtons[1].setText("<-");
+            arrowButtons[1].setBounds(550,675,100,50);
+            arrowButtons[2].setText("->");
+            arrowButtons[2].setBounds(850,675,100,50);
+        }
     }
+    private void titles(JPanel x)
+    {
+        JLabel title = new JLabel();
+        title.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
+        title.setOpaque(true);
+        title.setBackground(Color.WHITE);
+        title.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
+
+        for(int j=0; j<3;j++) {if(actPanels[j]!=null) {for(int i=0;i<actPanels[j].length;i++) {if(actPanels[j][i]==x) {title.setText(uses[j][i].getName());actPanels[j][i].add(title);}}}}
+      
+        title.setSize(title.getPreferredSize());
+        title.setSize(title.getWidth()+10, title.getHeight());
+        title.setLocation(750 - title.getWidth()/2, 90);
+    }
+    private void discs(JPanel x)
+    {
+        JTextPane disc = new JTextPane();
+        disc.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
+        disc.setBackground(Color.white);
+        disc.setFont(new Font(disc.getFont().getName(), Font.BOLD, 40));
+        disc.setForeground(Color.BLACK);      
+        disc.setEditable(false);
+        
+        for(int j=0; j<3;j++) {if(actPanels[j]!=null) {for(int i=0;i<actPanels[j].length;i++) {if(actPanels[j][i]==x) {disc.setText(uses[j][i].getDis());actPanels[j][i].add(disc);}}}}
+
+        disc.setSize(disc.getPreferredSize());
+        disc.setSize(disc.getWidth()+10, disc.getHeight());
+        disc.setLocation(750-disc.getWidth()/2,380-disc.getHeight()/2);
+    }
+
+    //Keybinds
     private void keyActions(JPanel panel)
     {
         panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("LEFT"), "Left");
@@ -283,22 +183,7 @@ public class InfoGUI extends JFrame implements ActionListener
     }
     private void select()
     {
-        if(hasPanel(iPanel))
-        {
-            if(!down)
-            {
-                buttons[KBH].setEnabled(true);
-                buttons[KBH].doClick();
-                buttons[KBH].setEnabled(false);
-            }
-
-            else 
-            {
-                buttons[3].setEnabled(true);
-                buttons[3].doClick();
-                buttons[3].setEnabled(false);
-            }
-        }
+        if(hasPanel(iPanel)) {if(!down) {panSet(iPanel, actPanels[KBH][0]);mode = KBH;} else {panSet(iPanel,lPanel);}}
 
         else {panSet(getPan(), iPanel);}
     }
@@ -306,36 +191,14 @@ public class InfoGUI extends JFrame implements ActionListener
     {
         if(hasPanel(iPanel) && !down) {if(KBH-1>=0) {KBH--;}else {KBH=2;}}
 
-        else 
-        {
-            switch (mode) 
-            {
-                case 0 -> {if(curPan-1>=0) {curPan--;}else {curPan = aPanels.length-1;}panSet(getPan(), aPanels[curPan]);}
-
-                case 1 -> {if(curPan-1>=0) {curPan--;}else {curPan = sPanels.length-1;}panSet(getPan(), sPanels[curPan]);}
-
-                case 2 -> {if(curPan-1>=0) {curPan--;} else {curPan = iPanels.length-1;}panSet(getPan(), iPanels[curPan]);}
-            }
-        }
+        else {if(curPan-1>=0) {curPan--;}else {curPan = actPanels[mode].length-1;}panSet(getPan(), actPanels[mode][curPan]);}
     }
     private void right() 
     {
         if(hasPanel(iPanel) && !down) {if(KBH+1<=2) {KBH++;}else {KBH=0;}}
 
-        else 
-        {
-            switch (mode) 
-            {
-                case 0 -> {if(curPan+1<=aPanels.length-1) {curPan++;}else {curPan = 0;}panSet(getPan(), aPanels[curPan]);}
-
-                case 1 -> {if(curPan+1<=sPanels.length-1) {curPan++;}else {curPan = 0;}panSet(getPan(), sPanels[curPan]);}
-
-                case 2 -> {if(curPan+1<=iPanels.length-1) {curPan++;}else {curPan = 0;}panSet(getPan(), iPanels[curPan]);}
-            }
-        }
+        else {if(curPan+1<=actPanels[mode].length-1) {curPan++;}else {curPan = 0;}panSet(getPan(), actPanels[mode][curPan]);}
     }
-    private void upDown() {down^=true;}
-
     private void keys(int x)
     {
         switch (x) 
@@ -344,7 +207,7 @@ public class InfoGUI extends JFrame implements ActionListener
 
             case 1 -> {right();}
 
-            case 2 -> {upDown();}
+            case 2 -> {down^=true;}
 
             case 3 -> {select();}
         }
@@ -352,13 +215,12 @@ public class InfoGUI extends JFrame implements ActionListener
         if(!down) {highlight(KBH);}
         else {highlight(3);}
     }
-
     private void highlight(int x)
     {
         for (Component c : iPanel.getComponents()) 
         {
-            if (c instanceof JButton)
-            {((JButton)c).setBorder(BorderFactory.createLineBorder(Color.black, 5));}}   
+            if (c instanceof JLabel)
+            {((JLabel)c).setBorder(BorderFactory.createLineBorder(Color.black, 5));}}   
 
         if(x>=0) {buttons[x].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 10));}
     }
@@ -371,38 +233,19 @@ public class InfoGUI extends JFrame implements ActionListener
             {
                 if(j<18 || j>56)
                 {
+                    JLabel star = new JLabel();
+                    star.setOpaque(true);
+                    star.setBackground(Color.BLACK);
+                    star.setSize(new Dimension(20, 20));
+                    star.setLocation(j*20, i*20);
+                    x.setComponentZOrder(star, 1);
+                    x.add(star);
+                    
                     if((int)(Math.random()*100)<=percent-1)
                     {
-                        if((int)(Math.random()*2)==0)
-                        {
-                            JLabel star = new JLabel();
-                            star.setOpaque(true);
-                            star.setBackground(Color.YELLOW);
-                            star.setSize(new Dimension(20, 20));
-                            star.setLocation(j*20, i*20);
-                            x.setComponentZOrder(star, 1);
-                            x.add(star);
-                        }
-                        else
-                        {
-                            JLabel star = new JLabel();
-                            star.setOpaque(true);
-                            star.setBackground(new Color(189,185,38));
-                            star.setSize(new Dimension(20, 20));
-                            star.setLocation(j*20, i*20);
-                            x.setComponentZOrder(star, 1);
-                            x.add(star);
-                        }                    
-                    }
-                    else
-                    {
-                        JLabel star = new JLabel();
-                        star.setOpaque(true);
-                        star.setBackground(Color.BLACK);
-                        star.setSize(new Dimension(20, 20));
-                        star.setLocation(j*20, i*20);
-                        x.setComponentZOrder(star, 1);
-                        x.add(star);
+                        if((int)(Math.random()*2)==0) {star.setBackground(Color.YELLOW);}
+                    
+                        else {star.setBackground(new Color(189,185,38));}                    
                     }
                 }
             }
