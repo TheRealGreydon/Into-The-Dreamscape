@@ -299,14 +299,6 @@ public class KBossGUI extends JFrame implements ActionListener
             }
         }
     }
-    private void atkSel(Atk z) 
-    {
-        selAtk = z;selingEnmAtk = true;
-        highlight(-2);
-        if(bbE[0].Enm.isAlive()) {bbE[0].select(true);selEnm = 0;}
-        else if(bbE[1].Enm.isAlive()) {bbE[1].select(true);selEnm = 1;}
-        else if(bbE[2].Enm.isAlive()) {bbE[2].select(true);selEnm = 2;}
-    }
 
     //Player turn
     private void turnPhaze(int y)
