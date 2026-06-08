@@ -20,5 +20,13 @@ public class twinStrike implements Atk
 
     public int atkUpAmt() {return 0;}
 
-    public String getDis() {return "";}
+    public String getDis() 
+    {
+        return 
+        """
+                                               Twin Strike
+                             --------------------------------------------
+                                Hits an enemy twice with a 
+                                 lower accuracy rate """;
+    }
 }

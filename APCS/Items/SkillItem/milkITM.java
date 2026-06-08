@@ -10,5 +10,13 @@ public class milkITM implements sklItm
 
     public String getId() {return "MILK";}
 
-    public String getDis() {return "";}
+    public String getDis() 
+    {
+        return 
+        """
+                                                    Milk
+                                ------------------------------------------
+                                Calcium. Heals you
+                                and reduces damage""";
+    }
 }

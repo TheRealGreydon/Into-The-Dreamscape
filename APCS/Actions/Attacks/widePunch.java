@@ -21,5 +21,11 @@ public class widePunch implements Atk
 
     public int atkUpAmt() {return 0;}
 
-    public String getDis() {return "";}
-}
+    public String getDis() 
+    {
+        return 
+        """
+                                            Wide Punch
+                             -----------------------------------------
+                                Hits all enemies. Don't ask how""";
+    }}

@@ -27,8 +27,8 @@ public class woundingStrike implements Atk
         """
                                             Wounding Strike
                              -----------------------------------------------
-                               Does 5 damage to enemie,
-                               and makes the enemie bleed 
+                               Does small damage to enemie,
+                               and makes the enemy bleed 
                                         for 3 turns""";
     }
 }

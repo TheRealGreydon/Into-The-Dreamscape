@@ -21,5 +21,12 @@ public class smack implements Atk
 
     public int atkUpAmt() {return 0;}
 
-    public String getDis() {return "";}
+    public String getDis() 
+    {
+        return 
+        """
+                                            Smack
+                             ---------------------------------------
+                                What do you think it does?""";
+    }
 }

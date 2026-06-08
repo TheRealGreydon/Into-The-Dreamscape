@@ -27,7 +27,7 @@ public class bigHit implements Atk
         """
                                                        Big Hit
                             -----------------------------------------------------
-                               Does 25 damage to all enemies,
+                               Does great damage to all enemies,
                                 and takes a turn to charge up""";
     }
 }

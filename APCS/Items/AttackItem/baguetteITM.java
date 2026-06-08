@@ -10,6 +10,14 @@ public class baguetteITM implements atkItm
 
     public String getId() {return "BAGUETTEITM";}
 
-    public String getDis() {return "";}
+    public String getDis() 
+    {
+        return 
+        """
+                                                            Baguette
+                                     ------------------------------------------------
+                                Deals some damage and then breaks. 
+                                I mean, it is just a big bread stick""";
+    }
 
 }

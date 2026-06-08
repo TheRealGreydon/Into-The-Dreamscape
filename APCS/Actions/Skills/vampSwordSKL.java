@@ -18,5 +18,13 @@ public class vampSwordSKL implements atkSkl
 
     public int atkUpAmt() {return 0;}
 
-    public String getDis() {return "";}
+    public String getDis() 
+    {
+        return 
+        """
+                                            Vampiric Blade
+                             -----------------------------------------------
+                                Deal damage to enemies 
+                                and heal yourself""";
+    }
 }

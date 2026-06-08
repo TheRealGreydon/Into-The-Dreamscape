@@ -20,5 +20,12 @@ public class punch implements Atk
 
     public int atkUpAmt() {return 0;}
 
-    public String getDis() {return "";}
+    public String getDis() 
+    {
+        return 
+        """
+                                            Punch
+                             -----------------------------------------
+                                What do you think it does?""";
+    }
 }
