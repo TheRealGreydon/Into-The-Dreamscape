@@ -22,7 +22,7 @@ public class InfoGUI extends JFrame
     private int KBH = 0,mode, curPan = 0;
 
     private Uses [][] uses = 
-    {{new smack(), new punch(), new widePunch(), new bigHit(), new twinStrike(), new woundingStrike(), new gamble()},
+    {{new smack(), new punch(), new widePunch(), new bigHit(), new twinStrike(), new woundingStrike(), new gamble(), new stunStrike()},
     {new juiceBox(), new vampSwordSKL(), new rage(), new fireballSKL()},
     {new swordITM(), new milkITM(), new cookieITM(), new baguetteITM(), new iocPowderITM()}};
     

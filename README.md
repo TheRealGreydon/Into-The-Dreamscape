@@ -385,3 +385,6 @@ Change Log
 -Boss gui now works on karel, waiting on other bosses
 -Added ani gui for animations
 -Added a exit animation for the end of game
+
+-V.17.1-
+-Added stun strike

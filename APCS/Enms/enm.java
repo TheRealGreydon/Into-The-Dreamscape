@@ -6,6 +6,10 @@ public interface enm
 {
     public String getName();
 
+    public boolean isStunned();
+
+    public void stun();
+
     public int getHp();
 
     public void doHp(int x);

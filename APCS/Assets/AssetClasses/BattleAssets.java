@@ -123,6 +123,12 @@ public class BattleAssets
             if(y.getId().equals("VAMPBLADEATK")) {z.doHp(5);}
             else if(y.getId().equals("FIREBALLATK")) {if((int)(Math.random()*2)==0) {x.burn();}}
             else if(y.getId().equals("WOUNDINGSTRIKE")) {if((int)(Math.random()*2)==0) {x.blood();}}
+            else if(y.getId().equals("STUNSTRIKE")) 
+            {
+                x.stun();
+                x.doHp(w);
+                return " " + x.getName() + " took " + w + " and was stunned";
+            }
             x.doHp(w);
             if(w<=0) {return " " + x.getName() + " took " + w;}
             return " " + x.getName() + " healed " + w;
@@ -130,22 +136,27 @@ public class BattleAssets
 
         else {return " Miss";}
     }
-    public String attack(Player x, Atk y) 
+    public String attack(Player x, enm y, Atk z) 
     {
-        int z = (int)(Math.random()*100+1);
-        int w = y.getDmg();
+        int a = (int)(Math.random()*100+1);
+        int w = z.getDmg();
         if(x.rageing()) {w = (w*4)/5;}
         
-        if(z<=y.acur() && w!=0) {x.doHp(w);return " " + x.getName() + " took " + w;}
+        if(a<=z.acur() && w!=0) 
+        {
+            if(y.isStunned() && ((int)Math.random()*2)==0) {return " Miss";}
+            x.doHp(w);return " " + x.getName() + " took " + w;
+        }
 
         else {return " Miss";}
     }
-    public String attack(Player x) 
+    public String attack(Player x, enm y) 
     {
         //Only used for the needle special atk to get 15% of player hp
         int w = -1*((x.getHealth()*15)/100);
         if(x.rageing()) {w = (w*4)/5;}
         
+        if(y.isStunned() && ((int)Math.random()*2)==0) {return " Miss";}
         x.doHp(w);return " " + x.getName() + " took " + w;
     }
 }

@@ -216,12 +216,11 @@ public class MainGUI extends JFrame implements ActionListener
         if(j.equals(buttons[0])) 
         {
             this.remove(mPanel);musicPlayer.stopPlayback();
-            new AniGUI(character, kronk).exitAnimation();
             //new IntroGUI(character, kronk);
             //new ExitGUI(character, kronk).initialize();
-            //if(newSave) {new StartGUI(kronk).start();}
-            //
-            //else {new LevelGUI(character, kronk).initialize();}
+            if(newSave) {new StartGUI(kronk).start();}
+            
+            else {new LevelGUI(character, kronk).initialize();}
         }
 
         else if(j.equals(buttons[1])) {panSet(mPanel, cPanel);}

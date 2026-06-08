@@ -5,7 +5,7 @@ import APCS.Uses.Actions.Attacks.*;
 public class Karel implements enm
 {
     private int lvl, hp, burn = 0, bleed = 0;
-    private boolean alive = true;
+    private boolean alive = true, stunned = false;
     public Atk[] atks = {new smack(), new bloodDraw()};
 
     public Karel(int lvl) {this.lvl = lvl;hp = 100;}//10 + (2*lvl);}
@@ -39,4 +39,8 @@ public class Karel implements enm
     public void bleedTurn() {if(bleed-1>=0) {bleed--;}}
 
     public int getBleed() {return bleed;}
+
+    public boolean isStunned() {if(stunned) {stunned=false;return true;}return stunned;}
+
+    public void stun() {stunned = true;}
 }

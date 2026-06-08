@@ -730,12 +730,12 @@ public class GameGUI extends JFrame implements ActionListener
                 switch (bbE[looped].Enm) 
                 {
                     case Jar jar -> {if((int)(Math.random()*2)==0) {jar.hide();b = " Jar hid".split("");}}
-                    case Needle x -> b = bGUI.attack(character).split("");
-                    default -> b = new BattleAssets().attack(character, bbE[looped].Enm.getAtk(1)).split("");
+                    case Needle x -> b = bGUI.attack(character, bbE[looped].Enm).split("");
+                    default -> b = new BattleAssets().attack(character, bbE[looped].Enm, bbE[looped].Enm.getAtk(1)).split("");
                 }
             }
             
-            else {b = new BattleAssets().attack(character, bbE[looped].Enm.getAtk(0)).split("");}
+            else {b = new BattleAssets().attack(character, bbE[looped].Enm, bbE[looped].Enm.getAtk(0)).split("");}
 
             taskN = new TimerTask()
             {
