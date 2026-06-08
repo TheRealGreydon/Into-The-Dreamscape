@@ -383,3 +383,5 @@ Change Log
 
 -V.17-
 -Boss gui now works on karel, waiting on other bosses
+-Added ani gui for animations
+-Added a exit animation for the end of game

@@ -47,6 +47,12 @@ public class MainGUI extends JFrame implements ActionListener
         musicPlayer.start();
     }
 
+    public void end()
+    {
+        try {FileWriter w = new FileWriter("APCS/Save.txt");w.write("NEW SAVE");w.close();} catch (IOException e1) {} 
+        newSave = true;panSet(mPanel, cPanel);
+    }
+
     //Adds to menu/credits
     private void menu()
     {
@@ -210,13 +216,12 @@ public class MainGUI extends JFrame implements ActionListener
         if(j.equals(buttons[0])) 
         {
             this.remove(mPanel);musicPlayer.stopPlayback();
-            //new RewGUI(character,kronk).initialize();
-            //new InfoGUI(mPanel,kronk).initialize();
-            //new IntroGUI(character,kronk).initialize();
-            //new KBossGUI(character, kronk);
-            if(newSave) {new StartGUI(kronk).start();}
-            
-            else {new LevelGUI(character, kronk).initialize();}
+            new AniGUI(character, kronk).exitAnimation();
+            //new IntroGUI(character, kronk);
+            //new ExitGUI(character, kronk).initialize();
+            //if(newSave) {new StartGUI(kronk).start();}
+            //
+            //else {new LevelGUI(character, kronk).initialize();}
         }
 
         else if(j.equals(buttons[1])) {panSet(mPanel, cPanel);}

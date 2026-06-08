@@ -234,7 +234,7 @@ public class StartGUI extends JFrame implements ActionListener
                 character = new Player(name, gend, out, fav);
                 character.saveGame();
                 kronk.remove(sPanel);
-                new IntroGUI(character,kronk).initialize();
+                new IntroGUI(character,kronk);
             }
         }
     }

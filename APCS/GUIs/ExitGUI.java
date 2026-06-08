@@ -8,7 +8,7 @@ import java.util.*;
 import java.util.Timer;
 import javax.swing.*;
 
-public class IntroGUI extends JFrame
+public class ExitGUI extends JFrame
 {
     private Player character;
     private JPanel iPanel;
@@ -16,7 +16,7 @@ public class IntroGUI extends JFrame
     //KRONK IS IMPORTANT DONT MESS WITH KRONK
     private JFrame kronk;
 
-    public IntroGUI(Player character, JFrame kronk) 
+    public ExitGUI(Player character, JFrame kronk) 
     {
         this.character = character;this.kronk = kronk;
         iPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/RewardBack/Rew.png").getImage(), 2);

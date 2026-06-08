@@ -52,6 +52,7 @@ public class BossGUI extends JFrame implements ActionListener
     {
         this.kronk = kronk;this.character = character;
         
+        //Gets what boss to have
         switch (character.getLevel()) 
         {
             case 0 -> {bossMan = new disEnm(new Karel(1));}
@@ -733,7 +734,7 @@ public class BossGUI extends JFrame implements ActionListener
         else if(j.equals(bbWL)) 
         {
             kronk.remove(bPanel);
-            if(j.getText().equals("Next")) {new RewGUI(character, kronk).initialize();}
+            if(j.getText().equals("Next")) {if(character.getLevel()==5) {new AniGUI(character, kronk).exitAnimation();}else {new RewGUI(character, kronk).initialize();}}
 
             else {new LevelGUI(character, kronk).initialize();}
         }
