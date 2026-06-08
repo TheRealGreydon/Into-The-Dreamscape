@@ -380,3 +380,6 @@ Change Log
 ------
 -V.16.5-
 -Working on boss gui
+
+-V.17-
+-Boss gui now works on karel, waiting on other bosses

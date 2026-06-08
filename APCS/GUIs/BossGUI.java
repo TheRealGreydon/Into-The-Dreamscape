@@ -15,7 +15,7 @@ import java.util.*;
 import java.util.Timer;
 import javax.swing.*;
 
-public class KBossGUI extends JFrame implements ActionListener
+public class BossGUI extends JFrame implements ActionListener
 {
     private Player character;
     private JPanel bPanel, cut;
@@ -28,7 +28,6 @@ public class KBossGUI extends JFrame implements ActionListener
     private JLabel [] bb;
     private JLabel bbExit;
     private disEnm bossMan;
-    private Atk selAtk;
 
     //Pause items
     private JButton pau = new JButton(), set = new JButton(), exit = new JButton(), settings = new JButton(), vole = new JButton();
@@ -39,8 +38,8 @@ public class KBossGUI extends JFrame implements ActionListener
 
     //Control the scrolling text
     private JLabel tText = new JLabel();
-    private int f,count = 0,looped = 0, wideLoop = 0;
-    private String [] b, y,z;
+    private int f,count = 0,looped = 0;
+    private String [] b,y,z;
 
     //Control the selected button/enm
     private boolean down = true;
@@ -49,13 +48,29 @@ public class KBossGUI extends JFrame implements ActionListener
     //Timertasks for enm atk
     private TimerTask taskN, taskB, taskF;
 
-    public KBossGUI(Player character, JFrame kronk) {this.kronk = kronk;this.character = character;start();}
+    public BossGUI(Player character, JFrame kronk) 
+    {
+        this.kronk = kronk;this.character = character;
+        
+        switch (character.getLevel()) 
+        {
+            case 0 -> {bossMan = new disEnm(new Karel(1));}
+
+            case 1 -> {}
+
+            case 2 -> {}
+
+            case 3 -> {}
+
+            case 4 -> {}
+        }
+        start();
+    }
 
     //Initilizes the battle items
     private void battleInit()
     {
         bbExit = bGUI.bbEN(false);
-        bossMan = new disEnm(new Karel(1));
         bossMan.enmImg.setLocation(1200, 250);
         charSprite = bGUI.battleImg(character);
         charSprite.setLocation(0, 125);
@@ -169,133 +184,114 @@ public class KBossGUI extends JFrame implements ActionListener
         {
             if(!paused)
             {
-                if(selingEnmAtk) 
+                //Atk, Skl, Itm
+                if(down)
                 {
-                    int z = -1;
-                    for(int i=0; i<3;i++) 
+                    if(x<=2)
                     {
-                        if(bbE[i].selected) {z = i;}
-                    }
-                    if(z != -1) 
-                    {
-                        if(!(selAtk.getId().equals("TWINSTRIKE"))) {bbE[z].select(false); turnPhaze(bbE[z], selAtk);selingEnmAtk = false;}
+                        switch (x) 
+                        {
+                            case 0 -> 
+                            {
+                                atk();
+                                minSel = 3;
+                                maxSel = 5;
+                                selBut = 3;
+                                highlight(3);
+                            }
 
-                        else {bbE[z].select(false); turnPhaze(bbE[z], selAtk, "");selingEnmAtk = false;}
+                            case 1 -> 
+                            {
+                                skl();
+                                minSel = 9;
+                                maxSel = 11;
+                                selBut = 9;
+                                highlight(9);
+                            }
+
+                            case 2 -> 
+                            {
+                                itm();
+                                minSel = 15;
+                                maxSel = 17;
+                                selBut = 15;
+                                highlight(15);
+                            }
+                        }
                     }
-                    highlight(selBut);
+                    
+
+                    //Atk buttons
+                    else if(x>=3 && x<=8)
+                    {
+                        if(!bb[x].getText().equals("Next") &&!bb[x].getText().equals("X")) {turnPhaze(x);}
+
+                        else if(bb[x].getText().equals("Next"))
+                        {
+                            if(x==5)
+                            {
+                                bPanel.remove(bb[3]);bPanel.remove(bb[4]);bPanel.remove(bb[5]);
+                                bPanel.add(bb[6]);bPanel.add(bb[7]);bPanel.add(bb[8]);
+                                minSel = 6; maxSel = 8;selBut = 8;highlight(8);
+                            }
+
+                            else
+                            {
+                                bPanel.remove(bb[6]);bPanel.remove(bb[7]);bPanel.remove(bb[8]);
+                                bPanel.add(bb[3]);bPanel.add(bb[4]);bPanel.add(bb[5]);
+                                minSel = 3; maxSel = 5;selBut = 5;highlight(5);
+                            }
+                        }
+                    }
+
+                    //Skl buttons
+                    else if(x>=9 && x<=14)
+                    {
+                        if(!bb[x].getText().equals("Next") &&!bb[x].getText().equals("X")) {turnPhaze(x);}
+
+                        else if(bb[x].getText().equals("Next"))
+                        {
+                            if(x==11)
+                            {
+                                bPanel.remove(bb[9]);bPanel.remove(bb[10]);bPanel.remove(bb[11]);
+                                bPanel.add(bb[12]);bPanel.add(bb[13]);bPanel.add(bb[14]);
+                                minSel = 12; maxSel = 14;selBut = 14;highlight(14);
+                            }
+
+                            else
+                            {
+                                bPanel.remove(bb[12]);bPanel.remove(bb[13]);bPanel.remove(bb[14]);
+                                bPanel.add(bb[9]);bPanel.add(bb[10]);bPanel.add(bb[11]);
+                                minSel = 9; maxSel = 11;selBut = 11;highlight(11);
+                            }
+                        }
+                    }
+
+                    //Itm buttons
+                    else if(x>=15 && x<=20)
+                    {
+                        if(!bb[x].getText().equals("Next") && !bb[x].getText().equals("X")) {turnPhaze(x);}
+
+                        else if(bb[x].getText().equals("Next"))
+                        {
+                            if(x==17)
+                            {
+                                bPanel.remove(bb[15]);bPanel.remove(bb[16]);bPanel.remove(bb[17]);
+                                bPanel.add(bb[18]);bPanel.add(bb[19]);bPanel.add(bb[20]);
+                                minSel = 18; maxSel = 20;selBut = 20;highlight(20);
+                            }
+
+                            else
+                            {
+                                bPanel.remove(bb[18]);bPanel.remove(bb[19]);bPanel.remove(bb[20]);
+                                bPanel.add(bb[15]);bPanel.add(bb[16]);bPanel.add(bb[17]);
+                                minSel = 15; maxSel = 17;selBut = 17;highlight(17);
+                            }
+                        }
+                    }
                 }
 
-                else
-                {
-                    //Atk, Skl, Itm
-                    if(down)
-                    {
-                        if(x<=2)
-                        {
-                            switch (x) 
-                            {
-                                case 0 -> 
-                                {
-                                    atk();
-                                    minSel = 3;
-                                    maxSel = 5;
-                                    selBut = 3;
-                                    highlight(3);
-                                }
-
-                                case 1 -> 
-                                {
-                                    skl();
-                                    minSel = 9;
-                                    maxSel = 11;
-                                    selBut = 9;
-                                    highlight(9);
-                                }
-
-                                case 2 -> 
-                                {
-                                    itm();
-                                    minSel = 15;
-                                    maxSel = 17;
-                                    selBut = 15;
-                                    highlight(15);
-                                }
-                            }
-                        }
-                        
-
-                        //Atk buttons
-                        else if(x>=3 && x<=8)
-                        {
-                            if(!bb[x].getText().equals("Next") &&!bb[x].getText().equals("X")) {turnPhaze(x);}
-
-                            else if(bb[x].getText().equals("Next"))
-                            {
-                                if(x==5)
-                                {
-                                    bPanel.remove(bb[3]);bPanel.remove(bb[4]);bPanel.remove(bb[5]);
-                                    bPanel.add(bb[6]);bPanel.add(bb[7]);bPanel.add(bb[8]);
-                                    minSel = 6; maxSel = 8;selBut = 8;highlight(8);
-                                }
-
-                                else
-                                {
-                                    bPanel.remove(bb[6]);bPanel.remove(bb[7]);bPanel.remove(bb[8]);
-                                    bPanel.add(bb[3]);bPanel.add(bb[4]);bPanel.add(bb[5]);
-                                    minSel = 3; maxSel = 5;selBut = 5;highlight(5);
-                                }
-                            }
-                        }
-
-                        //Skl buttons
-                        else if(x>=9 && x<=14)
-                        {
-                            if(!bb[x].getText().equals("Next") &&!bb[x].getText().equals("X")) {turnPhaze(x);}
-
-                            else if(bb[x].getText().equals("Next"))
-                            {
-                                if(x==11)
-                                {
-                                    bPanel.remove(bb[9]);bPanel.remove(bb[10]);bPanel.remove(bb[11]);
-                                    bPanel.add(bb[12]);bPanel.add(bb[13]);bPanel.add(bb[14]);
-                                    minSel = 12; maxSel = 14;selBut = 14;highlight(14);
-                                }
-
-                                else
-                                {
-                                    bPanel.remove(bb[12]);bPanel.remove(bb[13]);bPanel.remove(bb[14]);
-                                    bPanel.add(bb[9]);bPanel.add(bb[10]);bPanel.add(bb[11]);
-                                    minSel = 9; maxSel = 11;selBut = 11;highlight(11);
-                                }
-                            }
-                        }
-
-                        //Itm buttons
-                        else if(x>=15 && x<=20)
-                        {
-                            if(!bb[x].getText().equals("Next") && !bb[x].getText().equals("X")) {turnPhaze(x);}
-
-                            else if(bb[x].getText().equals("Next"))
-                            {
-                                if(x==17)
-                                {
-                                    bPanel.remove(bb[15]);bPanel.remove(bb[16]);bPanel.remove(bb[17]);
-                                    bPanel.add(bb[18]);bPanel.add(bb[19]);bPanel.add(bb[20]);
-                                    minSel = 18; maxSel = 20;selBut = 20;highlight(20);
-                                }
-
-                                else
-                                {
-                                    bPanel.remove(bb[18]);bPanel.remove(bb[19]);bPanel.remove(bb[20]);
-                                    bPanel.add(bb[15]);bPanel.add(bb[16]);bPanel.add(bb[17]);
-                                    minSel = 15; maxSel = 17;selBut = 17;highlight(17);
-                                }
-                            }
-                        }
-                    }
-
-                    else {for(int i = 3; i<21; i++) {if(has(bb[i])) {bPanel.remove(bb[i]);}} for(int i=0;i<3;i++) {bPanel.add(bb[i]);}minSel = 0;maxSel = 2;selBut = 0;highlight(0);down = true;bPanel.remove(bbExit);bPanel.repaint();}
-                }
+                else {for(int i = 3; i<21; i++) {if(has(bb[i])) {bPanel.remove(bb[i]);}} for(int i=0;i<3;i++) {bPanel.add(bb[i]);}minSel = 0;maxSel = 2;selBut = 0;highlight(0);down = true;bPanel.remove(bbExit);bPanel.repaint();}
             }
         }
     }
@@ -332,8 +328,9 @@ public class KBossGUI extends JFrame implements ActionListener
         }
         
     }
-    private void turnPhaze(disEnm x, Atk y)
+    private void turnPhaze(Atk y)
     {
+        disEnm x = bossMan;
         count = 0;
         looped = 0;
 
@@ -435,70 +432,11 @@ public class KBossGUI extends JFrame implements ActionListener
         bPanel.add(tText);
         timer.scheduleAtFixedRate(task, 0, 100);
     }
-    private void turnPhaze(Atk y)
-    {
-        //Incase of a swing atk
-        if(y.swing())
-        {
-            count = 0;
-            tText.setText("");
-            tText.setLocation(500, 220);
-            tText.setOpaque(true);
-            tText.setBackground(Color.WHITE);
-            tText.setFont(new Font(tText.getFont().getName(), Font.BOLD, 40));
-            Timer timer = new Timer();
-            if(wideLoop <=2 && bbE[wideLoop].Enm.isAlive()) 
-            {
-                b = new BattleAssets().attack(bbE[wideLoop].Enm, y, character).split("");
-                TimerTask task = new TimerTask()
-                {
-                    public void run() 
-                    {
-                        if(!paused)
-                        {
-                            if(count<b.length) {bPanel.remove(tText);tText.setText(tText.getText() + b[count]);
-                            tText.setSize(tText.getPreferredSize());tText.setSize(tText.getWidth()+10, tText.getHeight());
-                            bPanel.add(tText);bPanel.repaint();}
-                            else
-                            {
-                                if(count==b.length+10) 
-                                {
-                                    if(!bbE[wideLoop].Enm.isAlive()) 
-                                    {
-                                        bPanel.remove(bbE[wideLoop].enmImg);
-                                    }
-                                    bPanel.remove(tText);
-                                    bPanel.repaint();
-                                    timer.cancel();
-                                    if(wideLoop<2)
-                                    {  
-                                        wideLoop++;
-                                        turnPhaze(y);
-                                    }
-                                    else {looped = 0; enmBattlePhaze();}
-                                }
-                            }
-                            count++;
-                        }
-                    }
-                };
-
-                bPanel.add(tText);timer.scheduleAtFixedRate(task, 0, 100);
-            }
-        }
-        
-        else {atkSel(y);}
-    }
     private void turnPhaze(Skl y)
     {
         if(!y.getId().equals("RAGE"))
         {
-            if(y instanceof atkSkl skl) 
-            {
-                if(skl.getAtk().swing()) {turnPhaze(skl.getAtk());}
-
-                else {atkSel(skl.getAtk());}
-            }
+            if(y instanceof atkSkl skl) {turnPhaze(skl.getAtk());}
 
             else
             {
@@ -513,15 +451,17 @@ public class KBossGUI extends JFrame implements ActionListener
                 tText.setBackground(Color.WHITE);
                 tText.setFont(new Font(tText.getFont().getName(), Font.BOLD, 40));
                 TimerTask task = new TimerTask()
-                {public void run() 
+                {
+                    public void run() 
                     {
                         if(!paused)
                         {
                             if(count<b.length) {bPanel.remove(tText);tText.setText(tText.getText() + b[count]);
                             tText.setSize(tText.getPreferredSize());tText.setSize(tText.getWidth()+10, tText.getHeight());
                             bPanel.add(tText);bPanel.repaint();}
-                            else{if(count==b.length+10) {bPanel.remove(tText);bPanel.repaint();timer.cancel();enmBattlePhaze();}}count++;}}};
-
+                            else{if(count==b.length+10) {bPanel.remove(tText);bPanel.repaint();timer.cancel();enmBattlePhaze();}}count++;
+                        }}
+                };
                 bPanel.add(tText);timer.scheduleAtFixedRate(task, 0, 100);
             }
         }
@@ -541,15 +481,17 @@ public class KBossGUI extends JFrame implements ActionListener
                 tText.setBackground(Color.WHITE);
                 tText.setFont(new Font(tText.getFont().getName(), Font.BOLD, 40));
                 TimerTask task = new TimerTask()
-                {public void run() 
+                {
+                    public void run() 
                     {
                         if(!paused)
                         {
                             if(count<b.length) {bPanel.remove(tText);tText.setText(tText.getText() + b[count]);
                             tText.setSize(tText.getPreferredSize());tText.setSize(tText.getWidth()+10, tText.getHeight());
                             bPanel.add(tText);bPanel.repaint();}
-                            else{if(count==b.length+10) {bPanel.remove(tText);bPanel.repaint();timer.cancel();}}count++;}}};
-
+                            else{if(count==b.length+10) {bPanel.remove(tText);bPanel.repaint();timer.cancel();}}count++;
+                        }
+                    }};
                 bPanel.add(tText);timer.scheduleAtFixedRate(task, 0, 100);
             }
 
@@ -564,15 +506,17 @@ public class KBossGUI extends JFrame implements ActionListener
                 tText.setBackground(Color.WHITE);
                 tText.setFont(new Font(tText.getFont().getName(), Font.BOLD, 40));
                 TimerTask task = new TimerTask()
-                {public void run() 
+                {
+                    public void run() 
                     {
                         if(!paused)
                         {
                             if(count<b.length) {bPanel.remove(tText);tText.setText(tText.getText() + b[count]);
                             tText.setSize(tText.getPreferredSize());tText.setSize(tText.getWidth()+10, tText.getHeight());
                             bPanel.add(tText);bPanel.repaint();}
-                            else{if(count==b.length+10) {bPanel.remove(tText);bPanel.repaint();timer.cancel();}}count++;}}};
-
+                            else{if(count==b.length+10) {bPanel.remove(tText);bPanel.repaint();timer.cancel();}}count++;
+                        }
+                    }};
                 bPanel.add(tText);timer.scheduleAtFixedRate(task, 0, 100);
             }
         }
@@ -581,54 +525,59 @@ public class KBossGUI extends JFrame implements ActionListener
     {
         //Main turnPhaze to check for special atk/skls
         //Regens player hp
-        if(character.regenT>0) {character.doHp(character.regenAmt);}
-
-        //If not charging
-        if(character.chargeT==0)
+        if(!(z.getId().equals("TWINSTRIKE")))
         {
-            if(z.stat() != 0)
+            if(character.regenT>0) {character.doHp(character.regenAmt);}
+
+            //If not charging
+            if(character.chargeT==0)
             {
-                switch (z.stat()) {
-                    case 1 -> 
-                    {
-                        character.chargeT = z.statT()+1;
-                        chargePhaze();
+                if(z.stat() != 0)
+                {
+                    switch (z.stat()) {
+                        case 1 -> 
+                        {
+                            character.chargeT = z.statT()+1;
+                            chargePhaze();
+                        }
+                        case 2 -> 
+                        {
+                            character.regenT += z.statT();
+                            character.regenAmt = z.regenAmt();
+                        }
+                        case 3 -> character.regenT = z.statT();
+                        case 4 -> character.atkupT = z.statT();
                     }
-                    case 2 -> 
-                    {
-                        character.regenT += z.statT();
-                        character.regenAmt = z.regenAmt();
-                    }
-                    case 3 -> character.regenT = z.statT();
-                    case 4 -> character.atkupT = z.statT();
                 }
-            }
 
-            else
-            {
-                if(z instanceof Atk atk) {turnPhaze(atk);}
-
-                else {turnPhaze((Skl)z);}
-            }
-        }
-        
-        //Handles the charge atk
-        else
-        {
-            if(character.chargeT>0)
-            {
-                if(character.chargeT==1)
+                else
                 {
                     if(z instanceof Atk atk) {turnPhaze(atk);}
 
                     else {turnPhaze((Skl)z);}
                 }
+            }
 
-                else {chargePhaze();}
+            //Handles the charge atk
+            else
+            {
+                if(character.chargeT>0)
+                {
+                    if(character.chargeT==1)
+                    {
+                        if(z instanceof Atk atk) {turnPhaze(atk);}
+
+                        else {turnPhaze((Skl)z);}
+                    }
+
+                    else {chargePhaze();}
+                }
             }
         }
+        
+        else {turnPhaze(bossMan, new twinStrike(), "");}
     }
-
+    
     //When player charges an atk/skl
     private void chargePhaze()
     {
@@ -683,7 +632,7 @@ public class KBossGUI extends JFrame implements ActionListener
                         {
                             if(count==b.length+10) 
                             {
-                                if(character.isAlive()) {bPanel.remove(tText);bPanel.repaint();timer.cancel();looped++;enmBattlePhaze();}
+                                if(character.isAlive()) {bPanel.remove(tText);bPanel.repaint();timer.cancel();looped++;}
 
                                 else {gEnd(false);timer.cancel();}
                             }
@@ -889,7 +838,7 @@ public class KBossGUI extends JFrame implements ActionListener
         }
         
         bPanel.add(charSprite);bPanel.add(hp);
-        for(int i=0;i<3;i++) {if(has(bbE[i].enmImg)) {bPanel.add(bbE[i].enmImg);bbE[i].enmImg.setVisible(true);}}
+        if(has(bossMan.enmImg)) {bPanel.add(bossMan.enmImg);bossMan.enmImg.setVisible(true);}
         if(has(bbExit)) {bPanel.add(bbExit);bbExit.setVisible(true);}
         if(has(tText)) {tText.setVisible(true);bPanel.add(tText);tText.setVisible(true);}
         for(int i = 0; i<21; i++) {if(has(bb[i])) {bPanel.add(bb[i]);bb[i].setVisible(true);}}
@@ -899,7 +848,7 @@ public class KBossGUI extends JFrame implements ActionListener
     private void settings()
     {
         bPanel.remove(charSprite);
-        for(int i=0;i<3;i++) {if(has(bbE[i].enmImg)) {bbE[i].enmImg.setVisible(false);}}
+        for(int i=0;i<3;i++) {if(has(bossMan.enmImg)) {bossMan.enmImg.setVisible(false);}}
         if(has(bbExit)) {bbExit.setVisible(false);}if(has(tText)) {tText.setVisible(false);}bPanel.remove(hp);
         for(int i = 0; i<21; i++) {if(has(bb[i])) {bb[i].setVisible(false);}}
 
@@ -928,7 +877,7 @@ public class KBossGUI extends JFrame implements ActionListener
             pau.setLocation(bPanel.getWidth()/2-2500, bPanel.getHeight()/2-2650);
             bPanel.add(pau);
             bPanel.add(charSprite);
-            for(int i=0;i<3;i++) {if(has(bbE[i].enmImg)) {bPanel.add(bbE[i].enmImg);}}
+            if(has(bossMan.enmImg)) {bPanel.add(bossMan.enmImg);}
             if(has(bbExit)) {bPanel.add(bbExit);}
             if(has(tText)) {tText.setVisible(true);bPanel.add(tText);}
             for(int i = 0; i<21; i++) {if(has(bb[i])) {bPanel.add(bb[i]);}}
@@ -948,7 +897,18 @@ public class KBossGUI extends JFrame implements ActionListener
             if(x)
             {
                 character.resetHP();
-                pau.setText("You Win!");
+                switch (character.getLevel()) 
+                {
+                    case 0 -> {pau.setText("You Beat Karel!");}
+
+                    case 1 -> {pau.setText("You Beat Karel!");}
+
+                    case 2 -> {pau.setText("You Beat Karel!");}
+
+                    case 3 -> {pau.setText("You Beat Karel!");}
+
+                    case 4 -> {pau.setText("You Beat Karel!");}
+                }
                 bPanel.setComponentZOrder(pau, 0);
                 bPanel.repaint();
                 character.resetHP();
@@ -974,10 +934,7 @@ public class KBossGUI extends JFrame implements ActionListener
     }   
     private void itmUsed(int x) 
     {
-        for(int i=x; i<3; i++)
-        {
-            character.itms[i] = character.itms[i+1];
-        }
+        for(int i=x; i<3; i++) {character.itms[i] = character.itms[i+1];}
 
         character.itms[3] = null;itmBattleButtons();
     }

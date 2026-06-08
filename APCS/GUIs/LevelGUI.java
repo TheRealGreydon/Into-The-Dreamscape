@@ -68,7 +68,7 @@ public class LevelGUI extends JFrame implements ActionListener
         lPanel.setLayout(null);
         kronk.setSize(1500, 800);
         kronk.add(lPanel);
-        if(character.getStage()==2) {timedText(character.getLevel());}
+        if(character.getStage()==2) {timedText();}
         else {timedText("Level " + (character.getLevel()+1) + " - " + (character.getStage()+1)); }        
     }
 
@@ -105,7 +105,7 @@ public class LevelGUI extends JFrame implements ActionListener
         timer.scheduleAtFixedRate(task, 0, 50);        
     }
 
-    private void timedText(int a)
+    private void timedText()
     {
         count = 0;
         Timer timer = new Timer();
@@ -129,18 +129,7 @@ public class LevelGUI extends JFrame implements ActionListener
                             lPanel.remove(tText);lPanel.repaint();
                             for (Component c : lPanel.getComponents()) {if (c instanceof JButton) {c.setEnabled(true);}}
                             timer.cancel();kronk.remove(lPanel);
-                            switch(a)
-                            {
-                                case 0 -> {new KBossGUI(character, kronk);}
-
-                                case 1 -> {new KBossGUI(character, kronk);}
-
-                                case 2 -> {new KBossGUI(character, kronk);}
-
-                                case 3 -> {new KBossGUI(character, kronk);}
-
-                                case 4 -> {new KBossGUI(character, kronk);}
-                            }
+                            new BossGUI(character, kronk);
                         }
                     }count++;  
                 }
