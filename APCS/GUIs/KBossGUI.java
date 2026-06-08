@@ -774,12 +774,8 @@ public class KBossGUI extends JFrame implements ActionListener
                 hpReset();bPanel.add(tText);timer.scheduleAtFixedRate(taskB, 0, 100);
             }
         }
-
-        else if(looped<2) {looped++;enmBattlePhaze();hpReset();} 
         
         else if(!bossMan.Enm.isAlive()) {gEnd(true);}
-
-        else if(looped>=2) {character.nextTurn();}
     }    
 
     //Button actions and keybinds
