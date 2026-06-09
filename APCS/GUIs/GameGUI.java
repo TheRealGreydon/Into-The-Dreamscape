@@ -26,7 +26,6 @@ public class GameGUI extends JFrame implements ActionListener
     private JLabel [] mana;
 
     //bb 0-2 (Atk, Skl, Itm), bb 3-8 (Atk 1-4), bb 9-14 (Skl 1-4), bb 15-20 (Itm 1-4)
-    //Im sorry, this is the worst way to do it, and I fucking love it
     private JLabel [] bb;
     private JLabel bbExit;
     private disEnm [] bbE;

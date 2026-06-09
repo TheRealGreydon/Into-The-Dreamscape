@@ -132,6 +132,8 @@ public class Player
 
     public boolean useSkl() {if(sklMana-1>=0) {sklMana--;return true;}return false;}
 
+    public boolean incrMana() {if(sklMana+1<=sklM){sklMana++;return true;}return false;}
+
     public int getMana() {return sklMana;}
 
     private void spriteInit() 

@@ -58,13 +58,13 @@ public class BossGUI extends JFrame implements ActionListener
         {
             case 0 -> {bossMan = new disEnm(new Karel(1));}
 
-            case 1 -> {}
+            case 1 -> {bossMan = new disEnm(new Karel(1));}
 
-            case 2 -> {}
+            case 2 -> {bossMan = new disEnm(new Karel(1));}
 
-            case 3 -> {}
+            case 3 -> {bossMan = new disEnm(new Karel(1));}
 
-            case 4 -> {}
+            case 4 -> {bossMan = new disEnm(new Karel(1));}
         }
         start();
     }
