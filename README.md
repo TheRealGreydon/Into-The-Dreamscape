@@ -390,3 +390,8 @@ Change Log
 -Added stun strike
 -Added block skl
 -Working on a skill mana system
+
+6/9/26
+------
+-V.17.2-
+-Mana working

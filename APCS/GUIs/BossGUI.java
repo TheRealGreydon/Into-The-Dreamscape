@@ -28,6 +28,7 @@ public class BossGUI extends JFrame implements ActionListener
     private JLabel [] bb;
     private JLabel bbExit;
     private disEnm bossMan;
+    private JLabel [] mana;
 
     //Pause items
     private JButton pau = new JButton(), set = new JButton(), exit = new JButton(), settings = new JButton(), vole = new JButton();
@@ -87,6 +88,7 @@ public class BossGUI extends JFrame implements ActionListener
         hp.setLocation(175,100);
         hp.setOpaque(true);
         tText.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
+        manaReset();
 
         actBattleButtons();
 
@@ -115,6 +117,45 @@ public class BossGUI extends JFrame implements ActionListener
         hp.setLocation(175,100);
         bPanel.revalidate();
         bPanel.repaint();
+    }
+    private void outMana()
+    {
+        count = 0; looped = 0;
+        Timer timer = new Timer();
+        b = (" Out of mana").split("");
+        tText.setText("");
+        tText.setLocation(500, 220);
+        tText.setOpaque(true);
+        tText.setBackground(Color.WHITE);
+        tText.setFont(new Font(tText.getFont().getName(), Font.BOLD, 40));
+        TimerTask task = new TimerTask()
+        {public void run() {if(!paused)
+        {
+            if(count<b.length) {bPanel.remove(tText);tText.setText(tText.getText() + b[count]);
+            tText.setSize(tText.getPreferredSize());tText.setSize(tText.getWidth()+10, tText.getHeight());bPanel.add(tText);bPanel.repaint();}
+            else {if(count==b.length+10) {bPanel.remove(tText);bPanel.repaint();bPanel.remove(tText);timer.cancel();}}count++;
+        }}};
+    
+        bPanel.add(tText);timer.scheduleAtFixedRate(task, 0, 100);   
+    }
+    //Repaints the mana icon
+    private void manaReset()
+    {
+        if(mana!=null) {for(int i=0;i<mana.length;i++) {bPanel.remove(mana[i]);}}
+        mana = new JLabel[character.getMana()];
+        for(int i=0; i<character.getMana(); i++)
+        {
+            mana[i] = new JLabel();
+            mana[i].setBackground(Color.blue);
+            mana[i].setSize(25,25);
+            mana[i].setLocation(175 + (25*i),75);
+            mana[i].setBorder(BorderFactory.createLineBorder(Color.black,5));
+            mana[i].setOpaque(true);
+            mana[i].setVisible(true);
+            bPanel.add(mana[i]);
+            bPanel.revalidate();
+            bPanel.repaint();
+        }
     }
 
     //Attack, skill, and item buttons
@@ -317,6 +358,7 @@ public class BossGUI extends JFrame implements ActionListener
             case 19 -> turnPhaze(character.itms[3], 3);
         }
         hpReset();
+        manaReset();
     }
     private void turnPhaze(Itm y, int z)
     {
@@ -816,6 +858,7 @@ public class BossGUI extends JFrame implements ActionListener
         }
         
         bPanel.add(charSprite);bPanel.add(hp);
+        for(int i=0;i<mana.length;i++) {bPanel.add(mana[i]);}
         if(has(bossMan.enmImg)) {bPanel.add(bossMan.enmImg);bossMan.enmImg.setVisible(true);}
         if(has(bbExit)) {bPanel.add(bbExit);bbExit.setVisible(true);}
         if(has(tText)) {tText.setVisible(true);bPanel.add(tText);tText.setVisible(true);}
@@ -829,6 +872,7 @@ public class BossGUI extends JFrame implements ActionListener
         for(int i=0;i<3;i++) {if(has(bossMan.enmImg)) {bossMan.enmImg.setVisible(false);}}
         if(has(bbExit)) {bbExit.setVisible(false);}if(has(tText)) {tText.setVisible(false);}bPanel.remove(hp);
         for(int i = 0; i<21; i++) {if(has(bb[i])) {bb[i].setVisible(false);}}
+        for(int i=0;i<mana.length;i++) {bPanel.add(mana[i]);}
 
         pau.setVisible(false);set.setEnabled(false);set.setForeground(Color.white);set.setVisible(true);set.setBackground(Color.BLACK);
         set.setFont(new Font(set.getFont().getName(), Font.BOLD, 40));set.setText("Settings"); 
@@ -855,6 +899,7 @@ public class BossGUI extends JFrame implements ActionListener
             pau.setLocation(bPanel.getWidth()/2-2500, bPanel.getHeight()/2-2650);
             bPanel.add(pau);
             bPanel.add(charSprite);
+            for(int i=0;i<mana.length;i++) {bPanel.add(mana[i]);}
             if(has(bossMan.enmImg)) {bPanel.add(bossMan.enmImg);}
             if(has(bbExit)) {bPanel.add(bbExit);}
             if(has(tText)) {tText.setVisible(true);bPanel.add(tText);}
@@ -897,11 +942,9 @@ public class BossGUI extends JFrame implements ActionListener
 
             else
             {
-                character.reset();
                 pau.setText("You Lose");
                 bPanel.setComponentZOrder(pau, 0);
                 bPanel.repaint();
-                character.resetHP();
                 bbWL.setText("Retry?");
                 bPanel.repaint();
                 character.reset();

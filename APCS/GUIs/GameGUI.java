@@ -23,6 +23,7 @@ public class GameGUI extends JFrame implements ActionListener
     //KRONK IS IMPORTANT DONT MESS WITH KRONK
     private JFrame kronk;
     private JLabel charSprite, hp = new JLabel();
+    private JLabel [] mana;
 
     //bb 0-2 (Atk, Skl, Itm), bb 3-8 (Atk 1-4), bb 9-14 (Skl 1-4), bb 15-20 (Itm 1-4)
     //Im sorry, this is the worst way to do it, and I fucking love it
@@ -71,6 +72,7 @@ public class GameGUI extends JFrame implements ActionListener
         hp.setLocation(175,100);
         hp.setOpaque(true);
         tText.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
+        manaReset();
 
         actBattleButtons();
 
@@ -100,6 +102,26 @@ public class GameGUI extends JFrame implements ActionListener
         hp.setLocation(175,100);
         gPanel.revalidate();
         gPanel.repaint();
+    }
+
+    //Repaints the mana icon
+    private void manaReset()
+    {
+        if(mana!=null) {for(int i=0;i<mana.length;i++) {gPanel.remove(mana[i]);}}
+        mana = new JLabel[character.getMana()];
+        for(int i=0; i<character.getMana(); i++)
+        {
+            mana[i] = new JLabel();
+            mana[i].setBackground(Color.blue);
+            mana[i].setSize(25,25);
+            mana[i].setLocation(175 + (25*i),75);
+            mana[i].setBorder(BorderFactory.createLineBorder(Color.black,5));
+            mana[i].setOpaque(true);
+            mana[i].setVisible(true);
+            gPanel.add(mana[i]);
+            gPanel.revalidate();
+            gPanel.repaint();
+        }
     }
 
     //Attack, skill, and item buttons
@@ -397,6 +419,7 @@ public class GameGUI extends JFrame implements ActionListener
             case 19 -> turnPhaze(character.itms[3], 3);
         }
         hpReset();
+        manaReset();
     }
     private void turnPhaze(Itm y, int z)
     {
@@ -964,6 +987,7 @@ public class GameGUI extends JFrame implements ActionListener
         }
         
         gPanel.add(charSprite);gPanel.add(hp);
+        for(int i=0;i<mana.length;i++) {gPanel.add(mana[i]);}
         for(int i=0;i<3;i++) {if(has(bbE[i].enmImg)) {gPanel.add(bbE[i].enmImg);bbE[i].enmImg.setVisible(true);}}
         if(has(bbExit)) {gPanel.add(bbExit);bbExit.setVisible(true);}
         if(has(tText)) {tText.setVisible(true);gPanel.add(tText);tText.setVisible(true);}
@@ -977,6 +1001,7 @@ public class GameGUI extends JFrame implements ActionListener
         for(int i=0;i<3;i++) {if(has(bbE[i].enmImg)) {bbE[i].enmImg.setVisible(false);}}
         if(has(bbExit)) {bbExit.setVisible(false);}if(has(tText)) {tText.setVisible(false);}gPanel.remove(hp);
         for(int i = 0; i<21; i++) {if(has(bb[i])) {bb[i].setVisible(false);}}
+        for(int i=0;i<mana.length;i++) {gPanel.remove(mana[i]);}
 
         pau.setVisible(false);set.setEnabled(false);set.setForeground(Color.white);set.setVisible(true);set.setBackground(Color.BLACK);
         set.setFont(new Font(set.getFont().getName(), Font.BOLD, 40));set.setText("Settings"); 
@@ -1003,6 +1028,7 @@ public class GameGUI extends JFrame implements ActionListener
             pau.setLocation(gPanel.getWidth()/2-2500, gPanel.getHeight()/2-2650);
             gPanel.add(pau);
             gPanel.add(charSprite);
+            for(int i=0;i<mana.length;i++) {gPanel.add(mana[i]);}
             for(int i=0;i<3;i++) {if(has(bbE[i].enmImg)) {gPanel.add(bbE[i].enmImg);}}
             if(has(bbExit)) {gPanel.add(bbExit);}
             if(has(tText)) {tText.setVisible(true);gPanel.add(tText);}
