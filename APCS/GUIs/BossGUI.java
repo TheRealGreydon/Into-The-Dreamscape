@@ -338,7 +338,6 @@ public class BossGUI extends JFrame implements ActionListener
         }
     }
 
-    //Player turn
     private void turnPhaze(int y)
     {
         tText.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
@@ -348,10 +347,10 @@ public class BossGUI extends JFrame implements ActionListener
             case 4 -> turnPhaze((Actions)character.atks[1]);
             case 6 -> turnPhaze((Actions)character.atks[2]);
             case 7 -> turnPhaze((Actions)character.atks[3]);
-            case 9 -> turnPhaze((Actions)character.skls[0]);
-            case 10 -> turnPhaze((Actions)character.skls[1]);
-            case 12 -> turnPhaze((Actions)character.skls[2]);
-            case 13 -> turnPhaze((Actions)character.skls[3]);
+            case 9 -> {if(character.useSkl()) {turnPhaze((Actions)character.skls[0]);}else {outMana();}}
+            case 10 -> {if(character.useSkl()) {turnPhaze((Actions)character.skls[1]);}else {outMana();}}
+            case 12 -> {if(character.useSkl()) {turnPhaze((Actions)character.skls[2]);}else {outMana();}}
+            case 13 -> {if(character.useSkl()) {turnPhaze((Actions)character.skls[3]);}else {outMana();}}
             case 15 -> turnPhaze(character.itms[0], 0);
             case 16 -> turnPhaze(character.itms[1], 1);
             case 18 -> turnPhaze(character.itms[2], 2);
