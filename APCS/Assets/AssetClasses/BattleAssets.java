@@ -148,17 +148,17 @@ public class BattleAssets
             if(y.isStunned() && ((int)Math.random()*2)==0) {return " Miss";}
             if(z.getId().equals("JETATTACK"))
             {
-                x.doHp(w);
+                x.doHp(w + (y.getLvl()-1));
                 a = (int)(Math.random()*100+1);
                 if(a<=z.acur())
                 {
-                    if(y.isStunned() && ((int)Math.random()*2)==0) {return " " + x.getName() + " took " + w;}
-                    x.doHp(w);
-                    return " " + x.getName() + " was hit twice for " + (2*w);
+                    if(y.isStunned() && ((int)Math.random()*2)==0) {return " " + x.getName() + " took " + (w + (y.getLvl()-1));}
+                    x.doHp(w + (y.getLvl()-1));
+                    return " " + x.getName() + " was hit twice for " + (2*(w + (y.getLvl()-1)));
                 }
-                return " " + x.getName() + " took " + w;
+                return " " + x.getName() + " took " + (w+ (y.getLvl()-1));
             }
-            x.doHp(w);return " " + x.getName() + " took " + w;
+            x.doHp(w + (y.getLvl()-1));return " " + x.getName() + " took " + (w+ (y.getLvl()-1));
         }
         else {return " Miss";}
     }
