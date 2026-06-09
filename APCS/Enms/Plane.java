@@ -6,7 +6,7 @@ public class Plane implements enm
 {
     private int lvl,hp, burn = 0, bleed = 0;
     private boolean alive = true, stunned = false;
-    public Atk[] atks = {new smack(), new bloodDraw()};
+    public Atk[] atks = {new smack(), new jetAttack()};
 
     public Plane(int lvl) {this.lvl = lvl;hp = 100;}//1;}
 

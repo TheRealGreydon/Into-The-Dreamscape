@@ -395,3 +395,4 @@ Change Log
 ------
 -V.17.2-
 -Mana working
+-Added jet attack

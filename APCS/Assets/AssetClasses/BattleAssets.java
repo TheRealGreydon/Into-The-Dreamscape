@@ -146,9 +146,20 @@ public class BattleAssets
         if(a<=z.acur() && w!=0) 
         {
             if(y.isStunned() && ((int)Math.random()*2)==0) {return " Miss";}
+            if(z.getId().equals("JETATTACK"))
+            {
+                x.doHp(w);
+                a = (int)(Math.random()*100+1);
+                if(a<=z.acur())
+                {
+                    if(y.isStunned() && ((int)Math.random()*2)==0) {return " " + x.getName() + " took " + w;}
+                    x.doHp(w);
+                    return " " + x.getName() + " was hit twice for " + (2*w);
+                }
+                return " " + x.getName() + " took " + w;
+            }
             x.doHp(w);return " " + x.getName() + " took " + w;
         }
-
         else {return " Miss";}
     }
     public String attack(Player x, enm y) 
