@@ -121,7 +121,7 @@ public class MainGUI extends JFrame implements ActionListener
        
         cred.setText("""
                                   Into the Dreamscape
-                         ------------------------------------------------
+                        ------------------------------------------------
                         Main Story: Kai
                         Main Code: Nicholas
                         Literaly all the Code: Nicholas
@@ -226,7 +226,7 @@ public class MainGUI extends JFrame implements ActionListener
 
         else if(j.equals(buttons[1])) {panSet(mPanel, cPanel);}
 
-        else if(j.equals(buttons[2])) {this.dispose();}
+        else if(j.equals(buttons[2])) {this.dispose();musicPlayer.stopPlayback();}
 
         else if(j.equals(buttons[3])) {panSet(mPanel, dPanel);}
 
