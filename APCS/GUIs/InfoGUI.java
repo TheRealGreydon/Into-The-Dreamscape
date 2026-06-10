@@ -154,8 +154,7 @@ public class InfoGUI extends JFrame
         charInfo.setFont(new Font(charInfo.getFont().getName(), Font.BOLD, 45));
         charInfo.setForeground(Color.BLACK);      
         charInfo.setEditable(false);
-        String textCharInfo =
-        """
+        charInfo.setText("""
                 Level:\t""" + character.getLvl() + """
                 
                 Stage:\t""" + (character.getLevel()+1) + " - " + (character.getStage()+1) + """
@@ -165,8 +164,7 @@ public class InfoGUI extends JFrame
                 Skills Unlocked:\t""" + character.sklUnlocked() + "/" + character.sklId.length + """
 
                 Times Died:\t""" + character.died() + """
-                """;
-        charInfo.setText(textCharInfo);        
+                """);        
         charInfo.setSize(charInfo.getPreferredSize());
         charInfo.setSize(charInfo.getWidth()+10, charInfo.getHeight());
         charInfo.setLocation(650-charInfo.getWidth()/2,360-charInfo.getHeight()/2);
@@ -175,7 +173,7 @@ public class InfoGUI extends JFrame
         cPanel.add(charInfo);
         cPanel.add(title);
         cPanel.add(back);
-        cPanel.setComponentZOrder(charImg,1);
+        cPanel.setComponentZOrder(charInfo,0);
         paint(cPanel,5);
         keyActions(cPanel);
     }
