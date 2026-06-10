@@ -406,3 +406,7 @@ Change Log
 
 -V.18.1-
 -Removed gender
+
+-V.18.2-
+-Enms now 0-2 lvls higher than player
+-Player levels up

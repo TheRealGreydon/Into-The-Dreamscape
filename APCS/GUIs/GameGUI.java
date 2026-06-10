@@ -56,7 +56,7 @@ public class GameGUI extends JFrame implements ActionListener
     private void battleInit()
     {
         bbExit = bGUI.bbEN(false);
-        bbE = bGUI.enmBattleButtons(1);
+        bbE = bGUI.enmBattleButtons(character.getLvl() + ((int)Math.random()*3));
         charSprite = bGUI.battleImg(character);
         charSprite.setLocation(0, 125);
 

@@ -108,7 +108,7 @@ public class Player
 
     public void resetTurn() {curTurn = 0;}
 
-    public void nextLvl() {if(getStage()<2) {setStage(getStage()+1);} else {setStage(0);setLevel(getLevel()+1);}}
+    public void nextLvl() {if(getStage()<2) {setStage(getStage()+1);} else {setStage(0);setLevel(getLevel()+1);}lvl++;}
 
     public void setStage(int x) {curStage = x;}
 
