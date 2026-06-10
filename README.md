@@ -403,3 +403,6 @@ Change Log
 -Added atk/skl unlocked method
 -Added times died counter
 -Added Character info page
+
+-V.18.1-
+-Removed gender

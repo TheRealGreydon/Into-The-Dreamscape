@@ -11,7 +11,7 @@ import java.util.*;
 public class Player
 {
     private String name = "DEFAULT";
-    private int gend = 1, lvl = 1, outfit = 1, fav = 1;
+    private int lvl = 1, outfit = 1, fav = 1;
     private int hp, hpM = 100, rageHP, sklMana, sklM = 10;
 
     private int lev = 0,curStage = 0,curTurn = 0,vol = 50, died = 0;
@@ -38,12 +38,11 @@ public class Player
 
     public int chargeT = 0, regenT = 0, atkupT = 0,regenAmt,atkUpAmt, rageT = 0;
 
-    public Player(String name, int gend, int outfit, int fav) 
+    public Player(String name, int outfit, int fav) 
     {
         atkUn = new ArrayList<Atk>();
         sklUn = new ArrayList<Skl>();
         this.name = name;
-        this.gend = gend;
         this.outfit = outfit;
         this.fav = fav;
         hp = hpM;
@@ -134,8 +133,6 @@ public class Player
 
     public int getVol() {return vol;}
 
-    public int getGend() {return gend;}
-
     public int getOutfit() {return outfit;}
 
     public int getLvl() {return lvl;}
@@ -171,7 +168,6 @@ public class Player
                 switch (temp) 
                 {
                     case "NAME" -> name = sc.next();
-                    case "GEND" -> gend = Integer.parseInt(sc.next());
                     case "OUT" -> outfit = Integer.parseInt(sc.next());
                     case "FAV" -> fav = Integer.parseInt(sc.next());
                     case "LVL" -> lvl = Integer.parseInt(sc.next());
@@ -233,7 +229,6 @@ public class Player
     public void saveGame()
     {
         String load = "NAME " + name +"\n" + 
-                "GEND "+ gend +"\n" + 
                 "OUT "+ outfit +"\n" + 
                 "FAV "+ fav +"\n" +
                 "LVL "+ lvl +"\n";
