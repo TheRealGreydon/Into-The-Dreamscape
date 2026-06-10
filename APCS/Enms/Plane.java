@@ -8,7 +8,7 @@ public class Plane implements enm
     private boolean alive = true, stunned = false;
     public Atk[] atks = {new smack(), new jetAttack()};
 
-    public Plane(int lvl) {this.lvl = lvl;hp = 100;}//1;}
+    public Plane(int lvl) {this.lvl = lvl;hp = 8 + (lvl*2);}
 
     public String getName() {return "Plane";}
 

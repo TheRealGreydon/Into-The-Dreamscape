@@ -410,3 +410,6 @@ Change Log
 -V.18.2-
 -Enms now 0-2 lvls higher than player
 -Player levels up
+
+-V.18.3-
+-Enm and player hp based on lvl

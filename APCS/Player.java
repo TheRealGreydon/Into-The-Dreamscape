@@ -12,7 +12,7 @@ public class Player
 {
     private String name = "DEFAULT";
     private int lvl = 1, outfit = 1, fav = 1;
-    private int hp, hpM = 100, rageHP, sklMana, sklM = 10;
+    private int hp, hpM = 20, rageHP, sklMana, sklM = 10;
 
     private int lev = 0,curStage = 0,curTurn = 0,vol = 50, died = 0;
     private boolean alive = true, rage = false, block = false;
@@ -108,7 +108,7 @@ public class Player
 
     public void resetTurn() {curTurn = 0;}
 
-    public void nextLvl() {if(getStage()<2) {setStage(getStage()+1);} else {setStage(0);setLevel(getLevel()+1);}lvl++;}
+    public void nextLvl() {if(getStage()<2) {setStage(getStage()+1);} else {setStage(0);setLevel(getLevel()+1);}lvl++;hpM = 18 + (lvl*2);}
 
     public void setStage(int x) {curStage = x;}
 
