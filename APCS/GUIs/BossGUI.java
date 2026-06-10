@@ -772,7 +772,7 @@ public class BossGUI extends JFrame implements ActionListener
         bPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("UP"), "Up");
         bPanel.getActionMap().put("Up", new AbstractAction() {public void actionPerformed(ActionEvent e) {Up();}});
         bPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('i'), "Info");
-        bPanel.getActionMap().put("Info", new AbstractAction() {public void actionPerformed(ActionEvent e) {kronk.remove(bPanel);new InfoGUI(bPanel, kronk).initialize();}});
+        bPanel.getActionMap().put("Info", new AbstractAction() {public void actionPerformed(ActionEvent e) {kronk.remove(bPanel);new InfoGUI(character,bPanel, kronk);}});
     }
 
     //Various helpers, hell if I know

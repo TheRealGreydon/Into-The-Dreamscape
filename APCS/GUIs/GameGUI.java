@@ -629,12 +629,17 @@ public class GameGUI extends JFrame implements ActionListener
             if(y.getId().equals("RAGE"))
             {
                 //Checks if player can rage
-                if(!character.actRage()) {b = "Can't Rage".split("");}
+                if(!character.actRage()) {b = "Can't Rage".split("");character.incrMana();}
 
                 else {b = "Rageing".split("");}
             }
 
-            else {character.block();b = "Blocking".split("");}
+            else 
+            {
+                if(character.block()) {b = "Blocking".split("");}
+
+                else {character.incrMana();b = " Already Blocking".split("");}
+            }
 
             count = 0; looped = 0;
             Timer timer = new Timer();
@@ -900,7 +905,7 @@ public class GameGUI extends JFrame implements ActionListener
         gPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("UP"), "Up");
         gPanel.getActionMap().put("Up", new AbstractAction() {public void actionPerformed(ActionEvent e) {Up();}});
         gPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('i'), "Info");
-        gPanel.getActionMap().put("Info", new AbstractAction() {public void actionPerformed(ActionEvent e) {kronk.remove(gPanel);new InfoGUI(gPanel, kronk).initialize();}});
+        gPanel.getActionMap().put("Info", new AbstractAction() {public void actionPerformed(ActionEvent e) {kronk.remove(gPanel);new InfoGUI(character,gPanel, kronk);}});
     }
 
     //Various helpers, hell if I know

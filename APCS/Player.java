@@ -5,32 +5,32 @@ import APCS.Uses.Actions.Skills.*;
 import APCS.Uses.Items.*;
 import APCS.Uses.Items.AttackItem.*;
 import APCS.Uses.Items.SkillItem.*;
-import java.awt.*;
 import java.io.*;
 import java.util.*;
-import javax.imageio.*;
 
 public class Player
 {
     private String name = "DEFAULT";
     private int gend = 1, lvl = 1, outfit = 1, fav = 1;
-    private int hp, hpM = 100, rageHP, sklMana, sklM = 1;
+    private int hp, hpM = 100, rageHP, sklMana, sklM = 10;
 
-    private int lev = 0,curStage = 0,curTurn = 0,vol = 50;
-    private Image sprite, bSprite;
+    private int lev = 0,curStage = 0,curTurn = 0,vol = 50, died = 0;
     private boolean alive = true, rage = false, block = false;
     private File save = new File("APCS/Save.txt");
 
     //Starting atk/skls
+    public Atk[] atks = {new punch(), null, null, null};
     public Skl[] skls = {new juiceBox(), null, null, null};
     public Itm[] itms = {null, null, null, null};
-    public Atk[] atks = {new punch(), null, null, null};
+
+    private ArrayList <Atk> atkUn;
+    private ArrayList <Skl> sklUn;
     
     //To add an atk/skl/itm to the player, add discription in getId, and the matching obj to IDS
-    private String [] atkId = {"PUNCH", "WIDEPUNCH", "WINPUNCH", "BIGHIT", "TWINSTRIKE","WOUNDINGSTRIKE", "GAMBLE", "STUNSTRIKE"};
+    public String [] atkId = {"PUNCH", "WIDEPUNCH", "WINPUNCH", "BIGHIT", "TWINSTRIKE","WOUNDINGSTRIKE", "GAMBLE", "STUNSTRIKE"};
     private Atk [] atkIdS = {new punch(), new widePunch(), new winPunch(), new bigHit(), new twinStrike(), new woundingStrike(), new gamble(), new stunStrike()};
     
-    private String [] sklId = {"JUICEBOX", "VAMPBLADESKL", "RAGE", "SKIP", "FIREBALLSKL", "BLOCK"};
+    public String [] sklId = {"JUICEBOX", "VAMPBLADESKL", "RAGE", "SKIP", "FIREBALLSKL", "BLOCK"};
     private Skl [] sklIdS = {new juiceBox(), new vampSwordSKL(), new rage(), new skip(), new fireballSKL(), new block()};
     
     private String [] itmId = {"SWORDITM", "MILKITM", "COOKIEITM", "BAGUETTEITM", "IOCPOWDERITM"};
@@ -40,6 +40,8 @@ public class Player
 
     public Player(String name, int gend, int outfit, int fav) 
     {
+        atkUn = new ArrayList<Atk>();
+        sklUn = new ArrayList<Skl>();
         this.name = name;
         this.gend = gend;
         this.outfit = outfit;
@@ -47,11 +49,17 @@ public class Player
         hp = hpM;
         sklMana = sklM;
         rageHP = hpM-5;
-        spriteInit();
+
+        for(int i=0;i<4;i++)
+        {
+            if(atks[i]!=null){atkUn.add(atks[i]);}
+            if(skls[i]!=null){sklUn.add(skls[i]);}
+        }
     }
 
-    public Player() {spriteInit();}
+    public Player() {atkUn = new ArrayList<Atk>();sklUn = new ArrayList<Skl>();}
 
+    //Skills
     public boolean actRage() 
     {
         if(hp<=rageHP && !rage)
@@ -64,6 +72,31 @@ public class Player
         return false;
     }
 
+    public boolean rageing() {return rage;}
+
+    public boolean block() {if(block==true){return false;}block = true;return true;}
+
+    public boolean blocking() {if(block) {block = false;return true;}return block;}
+
+    public boolean useSkl() {if(sklMana-1>=0) {sklMana--;return true;}return false;}
+
+    //Mana
+    public void resetMANA() {sklMana=sklM;}
+    
+    public boolean incrMana() {if(sklMana+1<=sklM){sklMana++;return true;}return false;}
+
+    public int getMana() {return sklMana;}
+
+    //Hp
+    public void doHp(int x) {if(hp+x>0 && alive){if(hp+x<=hpM) {hp+=x;} else{hp = hpM;}} else{hp = 0; alive = false;}}
+
+    public void resetHP() {hp=hpM;}
+
+    public int getHealth() {return hp;}
+
+    public boolean isAlive() {return alive;}
+
+    //Turn
     public int turn() {return curTurn;}
 
     public void nextTurn() 
@@ -74,29 +107,26 @@ public class Player
         if(atkupT-1>=0) {atkupT--;}
     }
 
-    public boolean rageing() {return rage;}
-
-    public void block() {block = true;}
-
-    public boolean blocking()
-    {
-        if(block)
-        {
-            block = false;
-            return true;
-        }
-        return block;
-    }
-
     public void resetTurn() {curTurn = 0;}
 
     public void nextLvl() {if(getStage()<2) {setStage(getStage()+1);} else {setStage(0);setLevel(getLevel()+1);}}
 
-    public boolean isAlive() {return alive;}
-
     public void setStage(int x) {curStage = x;}
 
     public int getStage() {return curStage;}
+
+    public void reset() {resetHP();resetMANA();lev = 0; curStage = 0;died++;}
+
+    public int getLevel() {return lev;}
+
+    public void setLevel(int x) {lev = x;}
+
+    //Misc
+    public int atkUnlocked() {return atkUn.size();}
+
+    public int sklUnlocked() {return sklUn.size();}
+
+    public int died() {return died;}
 
     public String getName() {return name;}    
 
@@ -108,41 +138,26 @@ public class Player
 
     public int getOutfit() {return outfit;}
 
-    public void doHp(int x) {if(hp+x>0 && alive){if(hp+x<=hpM) {hp+=x;} else{hp = hpM;}} else{hp = 0; alive = false;}}
+    public int getLvl() {return lvl;}
 
-    public int getHealth() {return hp;}
+    public int curAtk() {int counter = 0;for(int i=0;i<4;i++) {if(atks[i]!=null){counter++;}}return counter;}
 
-    public void resetHP() {hp=hpM;}
+    public int curSkl() {int counter = 0;for(int i=0;i<4;i++) {if(skls[i]!=null){counter++;}}return counter;}
 
-    public void resetMANA() {sklMana=sklM;}
+    public int curItm() {int counter = 0;for(int i=0;i<4;i++) {if(itms[i]!=null){counter++;}}return counter;}
 
-    public void reset() {resetHP();resetMANA();lev = 0; curStage = 0;}
-
-    public int getLevel() {return lev;}
-
-    public void setLevel(int x) {lev = x;}
-
-    public void setSprite(Image x) {sprite = x;}
-
-    public Image getSprite() {return sprite;}
-    
-    public void setBSprite(Image x) {bSprite = x;}
-
-    public Image getBSprite() {return bSprite;}
-
-    public boolean useSkl() {if(sklMana-1>=0) {sklMana--;return true;}return false;}
-
-    public boolean incrMana() {if(sklMana+1<=sklM){sklMana++;return true;}return false;}
-
-    public int getMana() {return sklMana;}
-
-    private void spriteInit() 
+    private boolean unAtkHas(Atk x)
     {
-        try {sprite = ImageIO.read(new File("APCS/Assets/Img/Character Img/Char" + outfit + ".png")).getScaledInstance(650, 650, Image.SCALE_SMOOTH);}
-        catch (IOException e) {}
-        
-        try {bSprite = ImageIO.read(new File("APCS/Assets/Img/Character Img/HeroCombat-" + outfit + ".png")).getScaledInstance(650, 650, Image.SCALE_SMOOTH);}
-        catch (IOException e) {}
+        boolean temp = true;
+        for(int i=0;i<atkUn.size();i++) {if(atkUn.get(i).equals(x)) {temp = false;}}
+        return temp;
+    }
+
+    private boolean unSklHas(Skl x)
+    {
+        boolean temp = true;
+        for(int i=0;i<sklUn.size();i++) {if(sklUn.get(i).equals(x)) {temp = false;}}
+        return temp;
     }
 
     public void loadSave()
@@ -167,16 +182,7 @@ public class Player
                         {
                             temp = sc.next();
 
-                            if(!temp.equals("NULL")) 
-                            {
-                                for(int j=0; j<atkId.length; j++) 
-                                {
-                                    if(temp.equals(atkId[j])) 
-                                    {
-                                        atks[i] = atkIdS[j];
-                                    }
-                                }
-                            }
+                            if(!temp.equals("NULL")) {for(int j=0; j<atkId.length; j++) {if(temp.equals(atkId[j])) {atks[i] = atkIdS[j];}}}
 
                             else {atks[i] = null;}
                         }
@@ -188,16 +194,7 @@ public class Player
                         {
                             temp = sc.next();
 
-                            if(!temp.equals("NULL")) 
-                            {
-                                for(int j=0; j<sklId.length; j++) 
-                                {
-                                    if(temp.equals(sklId[j])) 
-                                    {
-                                        skls[i] = sklIdS[j];
-                                    }
-                                }
-                            }
+                            if(!temp.equals("NULL")) {for(int j=0; j<sklId.length; j++) {if(temp.equals(sklId[j])) {skls[i] = sklIdS[j];}}}
 
                             else {skls[i] = null;}
                         }
@@ -209,16 +206,7 @@ public class Player
                         {
                             temp = sc.next();
 
-                            if(!temp.equals("NULL")) 
-                            {
-                                for(int j=0; j<itmId.length; j++) 
-                                {
-                                    if(temp.equals(itmId[j])) 
-                                    {
-                                        itms[i] = itmIdS[j];
-                                    }
-                                }
-                            }
+                            if(!temp.equals("NULL")) {for(int j=0; j<itmId.length; j++) {if(temp.equals(itmId[j])) {itms[i] = itmIdS[j];}}}
 
                             else {itms[i] = null;}
                         }
@@ -229,10 +217,15 @@ public class Player
                     case "VOL" -> vol = Integer.parseInt(sc.next());
                     case "HP" -> hp = Integer.parseInt(sc.next());
                     case "MANA" -> sklMana = Integer.parseInt(sc.next());
+                    case "UNATK" -> {while(!(temp.equals("END"))){temp = sc.next();for(int j=0; j<atkId.length; j++) {if(temp.equals(atkId[j])) {atkUn.add(atkIdS[j]);}}}}
+                    case "UNSKL" -> {while(!(temp.equals("END"))) {temp = sc.next();for(int j=0; j<sklId.length; j++) {if(temp.equals(sklId[j])) {sklUn.add(sklIdS[j]);}}}}
+                    case "DIED" -> died = Integer.parseInt(sc.next());
                 }
             }
 
             rageHP = hpM - 5;
+            hpM = hp;
+            sklM = sklMana;
         }
         
         catch (FileNotFoundException e){}
@@ -255,7 +248,16 @@ public class Player
                 "STAGE " + curStage + "\n" + 
                 "VOL " + vol + "\n" + 
                 "HP " + hpM + "\n" + 
-                "MANA " + sklM;
+                "MANA " + sklM + "\n" + 
+                
+                "UNATK ";
+                for(int i=0;i<atkUn.size();i++) {load += (atkUn.get(i).getId() + " ");}load += "END\n" +
+                
+                "UNSKL ";
+                for(int i=0;i<sklUn.size();i++) {load += (sklUn.get(i).getId() + " ");}load += "END\n" +
+                
+                "DIED " + died;
+
         try {FileWriter w = new FileWriter("APCS/Save.txt");w.write(load);w.close();} catch (IOException e) {}
     }
 
@@ -265,8 +267,8 @@ public class Player
     public boolean ItmF() {int x=0;for(int i=0;i<4;i++) {if(itms[i]!=null) {x++;}}return x==4;}
 
     //Adds to the Atk/Skl/Itms list
-    public void AtkA(Atk x) {if(!AtkF()) {for(int i=0; i<4; i++) {if(atks[i]==null) {atks[i] = x;i=100;}}}}
-    public void SklA(Skl x) {if(!SklF()) {for(int i=0; i<4; i++) {if(skls[i]==null) {skls[i] = x;i=100;}}}}
+    public void AtkA(Atk x) {if(!AtkF()) {for(int i=0; i<4; i++) {if(atks[i]==null) {atks[i] = x;i=100;}}}if(unAtkHas(x)){atkUn.add(x);}}
+    public void SklA(Skl x) {if(!SklF()) {for(int i=0; i<4; i++) {if(skls[i]==null) {skls[i] = x;i=100;}}}if(unSklHas(x)){sklUn.add(x);}}
     public void ItmA(Itm x) {if(!ItmF()) {for(int i=0; i<4; i++) {if(itms[i]==null) {itms[i] = x;i=100;}}}}
 
     public boolean has(Atk x) {for(int i=0;i<4;i++) {if(atks[i]!=null && atks[i].equals(x)) {return true;}}return false;}

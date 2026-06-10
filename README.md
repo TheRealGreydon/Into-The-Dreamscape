@@ -396,3 +396,10 @@ Change Log
 -V.17.2-
 -Mana working
 -Added jet attack
+
+6/10/26
+-------
+-V.18-
+-Added atk/skl unlocked method
+-Added times died counter
+-Added Character info page

@@ -1,5 +1,6 @@
 package APCS.GUIs;
 
+import APCS.*;
 import APCS.Assets.AssetClasses.*;
 import APCS.Uses.Actions.Attacks.*;
 import APCS.Uses.Actions.Skills.*;
@@ -12,13 +13,13 @@ import javax.swing.*;
 
 public class InfoGUI extends JFrame 
 {
-    private JPanel iPanel, lPanel;
+    private JPanel iPanel, cPanel, lPanel;
     private JPanel [][] actPanels = new JPanel[3][];
-
-    private JLabel [] buttons = new JLabel[4];
+    private Player character;
+    private JLabel [] backs = new JLabel[5];
     //KRONK IS IMPORTANT DONT MESS WITH KRONK
     private JFrame kronk;
-    private boolean down = false;
+    private int level = 1;
     private int KBH = 0,mode, curPan = 0;
 
     private Uses [][] uses = 
@@ -26,19 +27,21 @@ public class InfoGUI extends JFrame
     {new juiceBox(), new vampSwordSKL(), new rage(), new fireballSKL(), new block()},
     {new swordITM(), new milkITM(), new cookieITM(), new baguetteITM(), new iocPowderITM()}};
     
-    public InfoGUI(JPanel lPanel, JFrame kronk) 
+    public InfoGUI(Player character, JPanel lPanel, JFrame kronk) 
     {
-        this.kronk = kronk;this.lPanel = lPanel;
+        this.kronk = kronk;this.lPanel = lPanel;this.character = character;
         iPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/RewardBack/Rew.png").getImage(), 2);
+        initialize();
     }
     
-    public void initialize() 
+    private void initialize() 
     {
         kronk.pack();
         iPanel.setLayout(null);
         kronk.setSize(1500, 800);
         allPansInit();
         iPanInit();
+        charPanel();
         kronk.add(iPanel);
         highlight(0);
         keyActions(iPanel);
@@ -48,31 +51,36 @@ public class InfoGUI extends JFrame
         iPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/RewardBack/Rew.png").getImage(), 2);
         iPanel.setLayout(null);
         
-        //Makes the buttons
-        for(int i=0;i<4; i++)
+        //Makes the backs
+        for(int i=0;i<5; i++)
         {
-            buttons[i] = new JLabel();
-            buttons[i].setOpaque(true);
-            buttons[i].setBorder(BorderFactory.createLineBorder(Color.black, 5));
-            buttons[i].setFocusable(false);
-            buttons[i].setBackground(Color.red);
-            buttons[i].setHorizontalAlignment(SwingConstants.CENTER);
-            buttons[i].setVerticalAlignment(SwingConstants.CENTER);
-            buttons[i].setFont(new Font(buttons[i].getFont().getName(), Font.BOLD, 45));
+            backs[i] = new JLabel();
+            backs[i].setOpaque(true);
+            backs[i].setBorder(BorderFactory.createLineBorder(Color.black, 5));
+            backs[i].setFocusable(false);
+            backs[i].setBackground(Color.red);
+            backs[i].setHorizontalAlignment(SwingConstants.CENTER);
+            backs[i].setVerticalAlignment(SwingConstants.CENTER);
+            backs[i].setFont(new Font(backs[i].getFont().getName(), Font.BOLD, 45));
 
-            iPanel.add(buttons[i]);
+            iPanel.add(backs[i]);
         }
 
-        buttons[3].setFont(new Font(buttons[3].getFont().getName(), Font.BOLD, 30));
-        buttons[0].setText("Atks");
-        buttons[1].setText("Skls");
-        buttons[2].setText("Itms");
-        buttons[3].setText("Back");
+        backs[3].setFont(new Font(backs[3].getFont().getName(), Font.BOLD, 30));
+        backs[0].setText("Atks");
+        backs[1].setText("Skls");
+        backs[2].setText("Itms");
+        backs[3].setText("Back");
+        backs[4].setText(character.getName());
         
-        buttons[0].setBounds(450,325,200,150);
-        buttons[1].setBounds(650,325,200,150);
-        buttons[2].setBounds(850,325,200,150);
-        buttons[3].setBounds(650,650,200,100);
+        backs[0].setBounds(450,375,200,150);
+        backs[1].setBounds(650,375,200,150);
+        backs[2].setBounds(850,375,200,150);
+        backs[3].setBounds(650,650,200,100);
+        backs[4].setSize(backs[4].getPreferredSize());
+        if(backs[4].getWidth()<200) {backs[4].setSize(200, 100);}
+        backs[4].setSize(backs[4].getWidth(), 100);
+        backs[4].setLocation(750-backs[4].getWidth()/2,225);
 
         JLabel title = new JLabel();
         title.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
@@ -85,7 +93,7 @@ public class InfoGUI extends JFrame
         title.setLocation(750 - title.getWidth()/2, 125);
         iPanel.add(title);
 
-        for(int i=0; i<3;i++) {arrButtons(actPanels[i]);}
+        for(int i=0; i<3;i++) {arrbacks(actPanels[i]);}
       
         paint(iPanel,5);
     }
@@ -100,42 +108,106 @@ public class InfoGUI extends JFrame
                 actPanels[i][j].setLayout(null);
 
                 titles(actPanels[i][j]);
-                discs(actPanels[i][j]);
+                charInfos(actPanels[i][j]);
                 keyActions(actPanels[i][j]);
             
                 paint(actPanels[i][j],5);      
             }
         }
     }
+    private void charPanel()
+    {
+        cPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/RewardBack/Rew.png").getImage(), 2);
+        cPanel.setLayout(null);
 
-    //Makes the arrow buttons/titles/discs for the individual panels
-    private void arrButtons(JPanel[] x)
+        JLabel charImg = new BattleAssets().spriteImg(character,650,650);
+        charImg.setLocation(1000-charImg.getWidth()/2,500-charImg.getHeight()/2);
+
+        JLabel title = new JLabel();
+        title.setText(character.getName());
+        title.setSize(title.getPreferredSize());
+        if(title.getWidth()<200) {title.setSize(200,80);}
+        title.setSize(title.getWidth(),80);
+        title.setBackground(Color.white);
+        title.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
+        title.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
+        title.setForeground(Color.BLACK);      
+        title.setLocation(650-title.getWidth()/2,title.getHeight()/2);
+        title.setOpaque(true);
+        title.setHorizontalAlignment(SwingConstants.CENTER);
+        title.setVerticalAlignment(SwingConstants.CENTER);
+
+        JLabel back = new JLabel();
+        back.setOpaque(true);
+        back.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
+        back.setFocusable(false);
+        back.setBackground(Color.red);
+        back.setHorizontalAlignment(SwingConstants.CENTER);
+        back.setVerticalAlignment(SwingConstants.CENTER);
+        back.setFont(new Font(back.getFont().getName(), Font.BOLD, 30));
+        back.setBounds(650,650,200,100);
+        back.setText("Back");
+
+        JTextPane charInfo = new JTextPane();
+        charInfo.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
+        charInfo.setBackground(Color.white);
+        charInfo.setFont(new Font(charInfo.getFont().getName(), Font.BOLD, 45));
+        charInfo.setForeground(Color.BLACK);      
+        charInfo.setEditable(false);
+        String textCharInfo =
+        """
+                Level:\t""" + character.getLvl() + """
+                
+                Stage:\t""" + (character.getLevel()+1) + " - " + (character.getStage()+1) + """
+
+                Attacks Unlocked:\t""" + character.atkUnlocked() + "/" + character.atkId.length + """
+
+                Skills Unlocked:\t""" + character.sklUnlocked() + "/" + character.sklId.length + """
+
+                Times Died:\t""" + character.died() + """
+                """;
+        charInfo.setText(textCharInfo);        
+        charInfo.setSize(charInfo.getPreferredSize());
+        charInfo.setSize(charInfo.getWidth()+10, charInfo.getHeight());
+        charInfo.setLocation(650-charInfo.getWidth()/2,360-charInfo.getHeight()/2);
+
+        cPanel.add(charImg);
+        cPanel.add(charInfo);
+        cPanel.add(title);
+        cPanel.add(back);
+        cPanel.setComponentZOrder(charImg,1);
+        paint(cPanel,5);
+        keyActions(cPanel);
+    }
+
+    //Makes the arrow backs/titles/charInfos for the individual panels
+    private void arrbacks(JPanel[] x)
     {
         for(int i=0; i<x.length; i++)
         {
-            JLabel arrowButtons [] = new JLabel[3];            
+            JLabel arrowbacks [] = new JLabel[3];            
 
             for(int j=0;j<3;j++)
             {
-                arrowButtons[j] = new JLabel();
-                arrowButtons[j].setOpaque(true);
-                arrowButtons[j].setFocusable(false);
-                arrowButtons[j].setBackground(Color.red);
-                arrowButtons[j].setHorizontalAlignment(SwingConstants.CENTER);
-                arrowButtons[j].setVerticalAlignment(SwingConstants.CENTER);
-                arrowButtons[j].setFont(new Font(arrowButtons[j].getFont().getName(), Font.BOLD, 45));
-                arrowButtons[j].setBorder(BorderFactory.createLineBorder(Color.black, 5));
+                arrowbacks[j] = new JLabel();
+                arrowbacks[j].setOpaque(true);
+                arrowbacks[j].setFocusable(false);
+                arrowbacks[j].setBackground(Color.red);
+                arrowbacks[j].setHorizontalAlignment(SwingConstants.CENTER);
+                arrowbacks[j].setVerticalAlignment(SwingConstants.CENTER);
+                arrowbacks[j].setFont(new Font(arrowbacks[j].getFont().getName(), Font.BOLD, 45));
+                arrowbacks[j].setBorder(BorderFactory.createLineBorder(Color.black, 5));
 
-                x[i].add(arrowButtons[j]);
+                x[i].add(arrowbacks[j]);
             }
 
-            arrowButtons[0].setText("Back");
-            arrowButtons[0].setBounds(650,650,200,100);
-            arrowButtons[0].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
-            arrowButtons[1].setText("<-");
-            arrowButtons[1].setBounds(550,675,100,50);
-            arrowButtons[2].setText("->");
-            arrowButtons[2].setBounds(850,675,100,50);
+            arrowbacks[0].setText("Back");
+            arrowbacks[0].setBounds(650,650,200,100);
+            arrowbacks[0].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
+            arrowbacks[1].setText("<-");
+            arrowbacks[1].setBounds(550,675,100,50);
+            arrowbacks[2].setText("->");
+            arrowbacks[2].setBounds(850,675,100,50);
         }
     }
     private void titles(JPanel x)
@@ -152,20 +224,20 @@ public class InfoGUI extends JFrame
         title.setSize(title.getWidth()+10, title.getHeight());
         title.setLocation(750 - title.getWidth()/2, 90);
     }
-    private void discs(JPanel x)
+    private void charInfos(JPanel x)
     {
-        JTextPane disc = new JTextPane();
-        disc.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
-        disc.setBackground(Color.white);
-        disc.setFont(new Font(disc.getFont().getName(), Font.BOLD, 40));
-        disc.setForeground(Color.BLACK);      
-        disc.setEditable(false);
+        JTextPane charInfo = new JTextPane();
+        charInfo.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
+        charInfo.setBackground(Color.white);
+        charInfo.setFont(new Font(charInfo.getFont().getName(), Font.BOLD, 40));
+        charInfo.setForeground(Color.BLACK);      
+        charInfo.setEditable(false);
         
-        for(int j=0; j<3;j++) {if(actPanels[j]!=null) {for(int i=0;i<actPanels[j].length;i++) {if(actPanels[j][i]==x) {disc.setText(uses[j][i].getDis());actPanels[j][i].add(disc);}}}}
+        for(int j=0; j<3;j++) {if(actPanels[j]!=null) {for(int i=0;i<actPanels[j].length;i++) {if(actPanels[j][i]==x) {charInfo.setText(uses[j][i].getDis());actPanels[j][i].add(charInfo);}}}}
 
-        disc.setSize(disc.getPreferredSize());
-        disc.setSize(disc.getWidth()+10, disc.getHeight());
-        disc.setLocation(750-disc.getWidth()/2,380-disc.getHeight()/2);
+        charInfo.setSize(charInfo.getPreferredSize());
+        charInfo.setSize(charInfo.getWidth()+10, charInfo.getHeight());
+        charInfo.setLocation(750-charInfo.getWidth()/2,380-charInfo.getHeight()/2);
     }
 
     //Keybinds
@@ -175,30 +247,40 @@ public class InfoGUI extends JFrame
         panel.getActionMap().put("Left", new AbstractAction() {public void actionPerformed(ActionEvent e) {keys(0);}});
         panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("RIGHT"), "Right");
         panel.getActionMap().put("Right", new AbstractAction() {public void actionPerformed(ActionEvent e) {keys(1);}});
-        panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("UP"), "upDown");
-        panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("DOWN"), "upDown");
-        panel.getActionMap().put("upDown", new AbstractAction() {public void actionPerformed(ActionEvent e) {keys(2);}});
+        panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("UP"), "Up");
+        panel.getActionMap().put("Up", new AbstractAction() {public void actionPerformed(ActionEvent e) {keys(2);}});
+        panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("DOWN"), "Down");
+        panel.getActionMap().put("Down", new AbstractAction() {public void actionPerformed(ActionEvent e) {keys(3);}});
         panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ENTER"), "Sel");
-        panel.getActionMap().put("Sel", new AbstractAction() {public void actionPerformed(ActionEvent e) {keys(3);}});
+        panel.getActionMap().put("Sel", new AbstractAction() {public void actionPerformed(ActionEvent e) {keys(4);}});
     }
     private void select()
     {
-        if(hasPanel(iPanel)) {if(!down) {panSet(iPanel, actPanels[KBH][0]);mode = KBH;} else {panSet(iPanel,lPanel);}}
+        if(hasPanel(iPanel)) 
+        {
+            if(level==1) {panSet(iPanel, actPanels[KBH][0]);mode = KBH;} 
+            
+            else if(level==0) {panSet(iPanel,lPanel);} 
+
+            else {panSet(iPanel, cPanel);}
+        }
 
         else {panSet(getPan(), iPanel);}
     }
     private void left() 
     {
-        if(hasPanel(iPanel) && !down) {if(KBH-1>=0) {KBH--;}else {KBH=2;}}
+        if(hasPanel(iPanel) && level==1) {if(KBH-1>=0) {KBH--;}else {KBH=2;}}
 
-        else {if(curPan-1>=0) {curPan--;}else {curPan = actPanels[mode].length-1;}panSet(getPan(), actPanels[mode][curPan]);}
+        else if(!hasPanel(iPanel)) {if(curPan-1>=0) {curPan--;}else {curPan = actPanels[mode].length-1;}panSet(getPan(), actPanels[mode][curPan]);}
     }
     private void right() 
     {
-        if(hasPanel(iPanel) && !down) {if(KBH+1<=2) {KBH++;}else {KBH=0;}}
+        if(hasPanel(iPanel) && level==1) {if(KBH+1<=2) {KBH++;}else {KBH=0;}}
 
-        else {if(curPan+1<=actPanels[mode].length-1) {curPan++;}else {curPan = 0;}panSet(getPan(), actPanels[mode][curPan]);}
+        else if(!hasPanel(iPanel)) {if(curPan+1<=actPanels[mode].length-1) {curPan++;}else {curPan = 0;}panSet(getPan(), actPanels[mode][curPan]);}
     }
+    private void up() {if(level+1<=2) {level++;}}
+    private void down() {if(level-1>=0) {level--;}}
     private void keys(int x)
     {
         switch (x) 
@@ -207,13 +289,16 @@ public class InfoGUI extends JFrame
 
             case 1 -> {right();}
 
-            case 2 -> {down^=true;}
+            case 2 -> {up();}
 
-            case 3 -> {select();}
+            case 3 -> {down();}
+
+            case 4 -> {select();}
         }
 
-        if(!down) {highlight(KBH);}
-        else {highlight(3);}
+        if(level==1) {highlight(KBH);}
+        else if(level==0){highlight(3);}
+        else {highlight(4);}
     }
     private void highlight(int x)
     {
@@ -222,7 +307,7 @@ public class InfoGUI extends JFrame
             if (c instanceof JLabel)
             {((JLabel)c).setBorder(BorderFactory.createLineBorder(Color.black, 5));}}   
 
-        if(x>=0) {buttons[x].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 10));}
+        if(x>=0) {backs[x].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 10));}
     }
     private void paint(JPanel x, int percent)
     {

@@ -12,7 +12,7 @@ public class BattleAssets
     //Player sprites in label form
     public JLabel battleImg(Player character)
     {
-        JLabel charSprite = new JLabel(new ImageIcon(new ImageIcon(new ImageIcon("APCS/Assets/Img/Character Img/HeroCombat-" + character.getOutfit() +".png").getImage()).getImage().getScaledInstance(500, 500, Image.SCALE_DEFAULT)));
+        JLabel charSprite = new JLabel(new ImageIcon(new ImageIcon(new ImageIcon("APCS/Assets/Img/Character Img/HeroCombat-" + character.getOutfit() +".gif").getImage()).getImage().getScaledInstance(500, 500, Image.SCALE_DEFAULT)));
         charSprite.setSize(500,500);
         return charSprite;
     }
@@ -26,6 +26,24 @@ public class BattleAssets
     {
         JLabel charSprite = new JLabel(new ImageIcon(new ImageIcon(new ImageIcon("APCS/Assets/Img/Character Img/HeroWalking-" + character.getOutfit() +".gif").getImage()).getImage().getScaledInstance(500, 500, Image.SCALE_DEFAULT)));
         charSprite.setSize(500,500);
+        return charSprite;
+    }
+    public JLabel battleImg(Player character, int x, int y)
+    {
+        JLabel charSprite = new JLabel(new ImageIcon(new ImageIcon(new ImageIcon("APCS/Assets/Img/Character Img/HeroCombat-" + character.getOutfit() +".gif").getImage()).getImage().getScaledInstance(x, y, Image.SCALE_DEFAULT)));
+        charSprite.setSize(x,y);
+        return charSprite;
+    }
+    public JLabel spriteImg(Player character, int x, int y)
+    {
+        JLabel charSprite = new JLabel(new ImageIcon(new ImageIcon(new ImageIcon("APCS/Assets/Img/Character Img/Char" + character.getOutfit() +".png").getImage()).getImage().getScaledInstance(x, y, Image.SCALE_DEFAULT)));
+        charSprite.setSize(x,y);
+        return charSprite;
+    }
+    public JLabel walkingImg(Player character, int x, int y)
+    {
+        JLabel charSprite = new JLabel(new ImageIcon(new ImageIcon(new ImageIcon("APCS/Assets/Img/Character Img/HeroWalking-" + character.getOutfit() +".gif").getImage()).getImage().getScaledInstance(x, y, Image.SCALE_DEFAULT)));
+        charSprite.setSize(x,y);
         return charSprite;
     }
 
