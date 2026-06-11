@@ -1,5 +1,7 @@
 package APCS;
 
+// import APCS.Achievements.IntoTheDreamscape;
+// import APCS.Achievements.achievement;
 import APCS.Uses.Actions.Attacks.*;
 import APCS.Uses.Actions.Skills.*;
 import APCS.Uses.Items.*;
@@ -12,11 +14,13 @@ public class Player
 {
     private String name = "DEFAULT";
     private int lvl = 1, outfit = 1, fav = 1;
-    private int hp, hpM = 20, rageHP, sklMana, sklM = 10;
+    private int hp, hpM = 20, rageHP, sklMana, sklM = 5;
 
     private int lev = 0,curStage = 0,curTurn = 0,vol = 50, died = 0;
     private boolean alive = true, rage = false, block = false;
     private File save = new File("APCS/Save.txt");
+
+    //private achievement [] ach = {new IntoTheDreamscape()};
 
     //Starting atk/skls
     public Atk[] atks = {new punch(), null, null, null};
@@ -108,7 +112,14 @@ public class Player
 
     public void resetTurn() {curTurn = 0;}
 
-    public void nextLvl() {if(getStage()<2) {setStage(getStage()+1);} else {setStage(0);setLevel(getLevel()+1);}lvl++;hpM = 18 + (lvl*2);sklM = 8 + (lvl*2);}
+    public void nextLvl() 
+    {
+        if(getStage()<2) {setStage(getStage()+1);} else {setStage(0);setLevel(getLevel()+1);}
+        
+        lvl++;hpM = 18 + (lvl*2);hp = hpM; sklM = 4 + lvl;
+
+        if(sklM<13) {sklM = 12;} sklMana = sklM;
+    }
 
     public void setStage(int x) {curStage = x;}
 

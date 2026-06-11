@@ -420,3 +420,8 @@ Change Log
 -Added hot coco itm
 -Enm spc atk chance increased to 1/5 from 1/10
 -Minor fixes
+
+-V.18.5-
+-Minor fixes
+-Started advacnecment system
+-Rebalencing

@@ -8,7 +8,7 @@ public class Needle implements enm
     private boolean alive = true, stunned = false;
     public Atk[] atks = {new smack(), new bloodDraw()};
 
-    public Needle(int lvl) {this.lvl = lvl;hp = 8 + (2*lvl);}
+    public Needle(int lvl) {this.lvl = lvl;hp = 3 + (2*lvl);}
 
     public String getName() {return "Needle";}
 

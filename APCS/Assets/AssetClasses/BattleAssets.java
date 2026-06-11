@@ -130,6 +130,7 @@ public class BattleAssets
     //Attack method
     public String attack(enm x, Atk y, Player z) 
     {
+        //Player attack
         int a = (int)(Math.random()*100+1);
         int w = y.getDmg();
         if(z.rageing()) {w = (w*6)/5;}

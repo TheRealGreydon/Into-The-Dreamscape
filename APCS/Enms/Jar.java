@@ -12,7 +12,7 @@ public class Jar implements enm
 
     public void hide() {hidden = true;}
 
-    public Jar(int lvl) {this.lvl = lvl;hp = 13 + (2*lvl);}
+    public Jar(int lvl) {this.lvl = lvl;hp = 8 + (2*lvl);}
 
     public String getName() {return "Jar";}
 
