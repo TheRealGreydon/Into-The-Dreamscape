@@ -20,15 +20,15 @@ public class Player
 
     //Starting atk/skls
     public Atk[] atks = {new punch(), null, null, null};
-    public Skl[] skls = {new juiceBox(), null, null, null};
+    public Skl[] skls = {new block(), null, null, null};
     public Itm[] itms = {null, null, null, null};
 
     private ArrayList <Atk> atkUn;
     private ArrayList <Skl> sklUn;
     
     //To add an atk/skl/itm to the player, add discription in getId, and the matching obj to IDS
-    public String [] atkId = {"PUNCH", "WIDEPUNCH", "WINPUNCH", "BIGHIT", "TWINSTRIKE","WOUNDINGSTRIKE", "GAMBLE", "STUNSTRIKE"};
-    private Atk [] atkIdS = {new punch(), new widePunch(), new winPunch(), new bigHit(), new twinStrike(), new woundingStrike(), new gamble(), new stunStrike()};
+    public String [] atkId = {"PUNCH", "WINPUNCH", "BIGHIT", "TWINSTRIKE","WOUNDINGSTRIKE", "GAMBLE", "STUNSTRIKE"};
+    private Atk [] atkIdS = {new punch(), new winPunch(), new bigHit(), new twinStrike(), new woundingStrike(), new gamble(), new stunStrike()};
     
     public String [] sklId = {"JUICEBOX", "VAMPBLADESKL", "RAGE", "SKIP", "FIREBALLSKL", "BLOCK"};
     private Skl [] sklIdS = {new juiceBox(), new vampSwordSKL(), new rage(), new skip(), new fireballSKL(), new block()};
@@ -83,6 +83,8 @@ public class Player
     public void resetMANA() {sklMana=sklM;}
     
     public boolean incrMana() {if(sklMana+1<=sklM){sklMana++;return true;}return false;}
+
+    public void incrMana(int x) {for(int i=0;i<x;i++){incrMana();}}
 
     public int getMana() {return sklMana;}
 

@@ -4,7 +4,7 @@ public class punch implements Atk
 {
     public String getName() {return "Punch";}
 
-    public int getDmg() {return -100;}
+    public int getDmg() {return -4;}
 
     public boolean swing() {return false;}
 

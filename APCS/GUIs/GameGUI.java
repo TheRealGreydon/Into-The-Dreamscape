@@ -753,7 +753,7 @@ public class GameGUI extends JFrame implements ActionListener
         if(looped <=2 && bbE[looped].Enm.isAlive()) 
         {
             //Special atk
-            if((int)(Math.random()*10)==0) 
+            if((int)(Math.random()*5)==0) 
             //if(true)
             {
                 b = " Miss".split("");
