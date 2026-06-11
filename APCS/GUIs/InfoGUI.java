@@ -13,14 +13,16 @@ import javax.swing.*;
 
 public class InfoGUI extends JFrame 
 {
-    private JPanel iPanel, cPanel, lPanel;
+    private JPanel iPanel, cPanel, lPanel, aPanel;
     private JPanel [][] actPanels = new JPanel[3][];
+    private JPanel [] aPanels;
     private Player character;
-    private JLabel [] backs = new JLabel[5];
+    private JLabel [] backs = new JLabel[6], advName;
+    private JLabel charImg; 
     //KRONK IS IMPORTANT DONT MESS WITH KRONK
     private JFrame kronk;
     private int level = 1;
-    private int KBH = 0,mode, curPan = 0;
+    private int KBH = 0,mode, curPan = 0, KBV = 0,aSel = 0;
 
     private Uses [][] uses = 
     {{new smack(), new punch(), new bigHit(), new twinStrike(), new woundingStrike(), new gamble(), new stunStrike()},
@@ -42,6 +44,8 @@ public class InfoGUI extends JFrame
         allPansInit();
         iPanInit();
         charPanel();
+        advPanel();
+        advDisPanel();
         kronk.add(iPanel);
         highlight(0);
         keyActions(iPanel);
@@ -52,7 +56,7 @@ public class InfoGUI extends JFrame
         iPanel.setLayout(null);
         
         //Makes the backs
-        for(int i=0;i<5; i++)
+        for(int i=0;i<6; i++)
         {
             backs[i] = new JLabel();
             backs[i].setOpaque(true);
@@ -71,16 +75,15 @@ public class InfoGUI extends JFrame
         backs[1].setText("Skls");
         backs[2].setText("Itms");
         backs[3].setText("Back");
-        backs[4].setText(character.getName());
+        backs[4].setText("Stats");
+        backs[5].setText("Advancements");
         
         backs[0].setBounds(450,375,200,150);
         backs[1].setBounds(650,375,200,150);
         backs[2].setBounds(850,375,200,150);
         backs[3].setBounds(650,650,200,100);
-        backs[4].setSize(backs[4].getPreferredSize());
-        if(backs[4].getWidth()<200) {backs[4].setSize(200, 100);}
-        backs[4].setSize(backs[4].getWidth(), 100);
-        backs[4].setLocation(750-backs[4].getWidth()/2,225);
+        backs[4].setBounds(450,225, 200,100);
+        backs[5].setBounds(650,225,400,100);
 
         JLabel title = new JLabel();
         title.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
@@ -177,6 +180,83 @@ public class InfoGUI extends JFrame
         paint(cPanel,5);
         keyActions(cPanel);
     }
+    private void advPanel()
+    {
+        aPanel = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/RewardBack/Rew.png").getImage(), 2);
+        aPanel.setLayout(null);
+
+        charImg = new BattleAssets().spriteImg(character,650,650);
+        charImg.setLocation(1000-charImg.getWidth()/2,400-charImg.getHeight()/2);
+
+        JLabel title = new JLabel();
+        title.setText("Advancements");
+        title.setSize(400,80);
+        title.setBackground(Color.white);
+        title.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
+        title.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
+        title.setForeground(Color.BLACK);      
+        title.setLocation(625-title.getWidth()/2,title.getHeight()/2);
+        title.setOpaque(true);
+        title.setHorizontalAlignment(SwingConstants.CENTER);
+        title.setVerticalAlignment(SwingConstants.CENTER);
+
+        advName = new JLabel[character.ach.length];
+        for(int i=0;i<advName.length;i++)
+        {
+            advName[i] = new JLabel();
+            advName[i].setText(character.ach[i].getName());
+            advName[i].setSize(450,80);
+            advName[i].setBackground(Color.white);
+            advName[i].setBorder(BorderFactory.createLineBorder(Color.black, 5));
+            advName[i].setFont(new Font(advName[i].getFont().getName(), Font.BOLD, 40));
+            advName[i].setForeground(Color.BLACK);      
+            advName[i].setOpaque(true);
+            advName[i].setHorizontalAlignment(SwingConstants.CENTER);
+            advName[i].setVerticalAlignment(SwingConstants.CENTER);  
+            advName[i].setVisible(false);
+            if(i<6)
+            {
+                advName[i].setLocation(400,150+(i*100));
+                aPanel.add(advName[i]);
+                advName[i].setVisible(true);
+            }
+        }
+        advName[0].setBorder(BorderFactory.createLineBorder(Color.blue, 10));
+
+        aPanel.add(charImg);
+        aPanel.add(title);
+        paint(aPanel,5);
+        keyActions(aPanel);
+    }
+    private void advDisPanel()
+    {
+        aPanels = new JPanel[character.ach.length];
+        for(int i=0;i<aPanels.length; i++)
+        {
+            aPanels[i] = new BackgroundPanel(new ImageIcon("APCS/Assets/Img/Background Img/RewardBack/Rew.png").getImage(), 2);
+            aPanels[i].setLayout(null);
+
+            charImg = new BattleAssets().spriteImg(character,650,650);
+            charImg.setLocation(1000-charImg.getWidth()/2,400-charImg.getHeight()/2);
+
+            JLabel title = new JLabel();
+            title.setText(character.ach[i].getName());
+            title.setSize(400,80);
+            title.setBackground(Color.white);
+            title.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
+            title.setFont(new Font(title.getFont().getName(), Font.BOLD, 40));
+            title.setForeground(Color.BLACK);      
+            title.setLocation(625-title.getWidth()/2,title.getHeight()/2);
+            title.setOpaque(true);
+            title.setHorizontalAlignment(SwingConstants.CENTER);
+            title.setVerticalAlignment(SwingConstants.CENTER);
+
+            aPanels[i].add(charImg);
+            aPanels[i].add(title);
+            paint(aPanels[i],5);
+            keyActions(aPanels[i]);
+        }
+    }
 
     //Makes the arrow backs/titles/charInfos for the individual panels
     private void arrbacks(JPanel[] x)
@@ -260,25 +340,79 @@ public class InfoGUI extends JFrame
             
             else if(level==0) {panSet(iPanel,lPanel);} 
 
-            else {panSet(iPanel, cPanel);}
+            else {if(KBV==0) {panSet(iPanel, cPanel);}else {panSet(iPanel, aPanel);}}
         }
+
+        else if(hasPanel(aPanel)) {if(character.ach[aSel].getComplete()) {panSet(aPanel, aPanels[aSel]);}}
+
+        else if(pan(getPan())) {panSet(getPan(), aPanel);}
 
         else {panSet(getPan(), iPanel);}
     }
     private void left() 
     {
-        if(hasPanel(iPanel) && level==1) {if(KBH-1>=0) {KBH--;}else {KBH=2;}}
+        if(hasPanel(iPanel)) 
+        {
+            if(level==1) {if(KBH-1>=0) {KBH--;}else {KBH=2;}}
+
+            else if(level==2) {if(KBV-1>=0) {KBV--;}else {KBV=1;}}
+        }
 
         else if(!hasPanel(iPanel)) {if(curPan-1>=0) {curPan--;}else {curPan = actPanels[mode].length-1;}panSet(getPan(), actPanels[mode][curPan]);}
     }
     private void right() 
     {
-        if(hasPanel(iPanel) && level==1) {if(KBH+1<=2) {KBH++;}else {KBH=0;}}
+        if(hasPanel(iPanel)) 
+        {
+            if(level==1) {if(KBH+1<=2) {KBH++;}else {KBH=0;}}
+
+            else if(level==2) {if(KBV+1<=1) {KBV++;}else {KBV=0;}}
+        }
 
         else if(!hasPanel(iPanel)) {if(curPan+1<=actPanels[mode].length-1) {curPan++;}else {curPan = 0;}panSet(getPan(), actPanels[mode][curPan]);}
     }
-    private void up() {if(level+1<=2) {level++;}}
-    private void down() {if(level-1>=0) {level--;}}
+    private void up() 
+    {
+        if(hasPanel(iPanel)) {if(level+1<=2) {level++;} else {level = 0;}}
+        else if(hasPanel(aPanel)) 
+        {
+            if(aSel-1>=0) {aSel--;}
+
+            if(!(advName[aSel].isVisible()))
+            {
+                for(int i=advName.length-1; i>aSel; i--)
+                {
+                    if(advName[i].getLocation().equals(new Point(400,650))) {advName[i].setVisible(false);if(hasA(advName[i])) {aPanel.remove(advName[i]);}}
+
+                    else {advName[i].setLocation(400, advName[i].getY()+100);}
+                }
+                advName[aSel].setVisible(true);
+                advName[aSel].setLocation(400,150);
+                aPanel.add(advName[aSel]);
+            }
+        }
+    }
+    private void down() 
+    {
+        if(hasPanel(iPanel)) {if(level-1>=0) {level--;} else{level = 2;}}
+        else if(hasPanel(aPanel)) 
+        {
+            if(aSel + 1 <= character.ach.length-1) {aSel++;}
+
+            if(!(advName[aSel].isVisible()))
+            {
+                for(int i=0; i<aSel; i++)
+                {
+                    if(advName[i].getLocation().equals(new Point(400,150))) {advName[i].setVisible(false);if(hasA(advName[i])) {aPanel.remove(advName[i]);}}
+
+                    else {advName[i].setLocation(400, advName[i].getY()-100);}
+                }
+                advName[aSel].setVisible(true);
+                advName[aSel].setLocation(400,650);
+                aPanel.add(advName[aSel]);
+            }
+        }        
+    }
     private void keys(int x)
     {
         switch (x) 
@@ -294,10 +428,17 @@ public class InfoGUI extends JFrame
             case 4 -> {select();}
         }
 
-        if(level==1) {highlight(KBH);}
-        else if(level==0){highlight(3);}
-        else {highlight(4);}
+        if(hasPanel(iPanel))
+        {
+            if(level==1) {highlight(KBH);}
+            else if(level==0) {highlight(3);}
+            else {if(KBV==0) {highlight(4);}else {highlight(5);}}
+        }
+        else if(hasPanel(aPanel)) {highlightAch(aSel);}
+        
     }
+    
+    private boolean pan(JPanel x) {for(int i=0; i<aPanels.length; i++) {if(x.equals(aPanels[i])){return true;}}return false;}
     private void highlight(int x)
     {
         for (Component c : iPanel.getComponents()) 
@@ -306,6 +447,22 @@ public class InfoGUI extends JFrame
             {((JLabel)c).setBorder(BorderFactory.createLineBorder(Color.black, 5));}}   
 
         if(x>=0) {backs[x].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 10));}
+    }
+    private void highlightAch(int x)
+    {
+        for (JLabel c : advName) {{((JLabel)c).setBorder(BorderFactory.createLineBorder(Color.black, 5));}}   
+
+        if(x>=0) 
+        {
+            if(character.ach[x].getComplete())
+            {
+                advName[x].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 10));
+            }
+            else
+            {
+                advName[x].setBorder(BorderFactory.createLineBorder(Color.red, 10));   
+            }
+        }
     }
     private void paint(JPanel x, int percent)
     {
@@ -349,4 +506,5 @@ public class InfoGUI extends JFrame
         for (Component comp : components) {if (comp instanceof JPanel) {return (JPanel)comp;}}
         return null;
     }
+    private boolean hasA(Component x) {for (Component c : aPanel.getComponents()) {if (c == x) {return true;}} return false;}
 }

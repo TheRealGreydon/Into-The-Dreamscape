@@ -19,7 +19,7 @@ public class Player
     private boolean alive = true, rage = false, block = false;
     private File save = new File("APCS/Save.txt");
 
-    private achievement [] ach = {new intoTheDreamscape(), new firstSteps(this)};
+    public achievement [] ach = {new intoTheDreamscape(), new firstSteps(this), new firstSteps(this), new firstSteps(this), new firstSteps(this), new firstSteps(this), new firstSteps(this), new firstSteps(this), new firstSteps(this), new firstSteps(this)};
 
     //Starting atk/skls
     public Atk[] atks = {new punch(), null, null, null};
@@ -228,7 +228,15 @@ public class Player
                     case "UNATK" -> {while(!(temp.equals("END"))){temp = sc.next();for(int j=0; j<atkId.length; j++) {if(temp.equals(atkId[j])) {atkUn.add(atkIdS[j]);}}}}
                     case "UNSKL" -> {while(!(temp.equals("END"))) {temp = sc.next();for(int j=0; j<sklId.length; j++) {if(temp.equals(sklId[j])) {sklUn.add(sklIdS[j]);}}}}
                     case "DIED" -> died = Integer.parseInt(sc.next());
-                    case "ACH" -> {temp = sc.next();for(int i=0; i<ach.length;i++) {if(temp.equals("TRUE")) {ach[i].setComp();}}}
+                    case "ACH" -> 
+                    {
+                        temp = sc.next();
+                        for(int i=0; i<ach.length;i++) 
+                        {
+                            if(temp.equals("TRUE")) {ach[i].setComp();}
+                            if(sc.hasNext()) {temp = sc.next();}
+                        }
+                    }
                 }
             }
 
