@@ -1,7 +1,6 @@
 package APCS;
 
-// import APCS.Achievements.IntoTheDreamscape;
-// import APCS.Achievements.achievement;
+import APCS.Achievements.*;
 import APCS.Uses.Actions.Attacks.*;
 import APCS.Uses.Actions.Skills.*;
 import APCS.Uses.Items.*;
@@ -14,13 +13,13 @@ public class Player
 {
     private String name = "DEFAULT";
     private int lvl = 1, outfit = 1, fav = 1;
-    private int hp, hpM = 20, rageHP, sklMana, sklM = 5;
+    private int hp, hpM = 20, rageHP, sklMana, sklM = 6;
 
     private int lev = 0,curStage = 0,curTurn = 0,vol = 50, died = 0;
     private boolean alive = true, rage = false, block = false;
     private File save = new File("APCS/Save.txt");
 
-    //private achievement [] ach = {new IntoTheDreamscape()};
+    private achievement [] ach = {new intoTheDreamscape(), new firstSteps(this)};
 
     //Starting atk/skls
     public Atk[] atks = {new punch(), null, null, null};
@@ -116,9 +115,9 @@ public class Player
     {
         if(getStage()<2) {setStage(getStage()+1);} else {setStage(0);setLevel(getLevel()+1);}
         
-        lvl++;hpM = 18 + (lvl*2);hp = hpM; sklM = 4 + lvl;
+        lvl++;hpM = 18 + (lvl*2);hp = hpM; sklM = 5 + lvl;
 
-        if(sklM<13) {sklM = 12;} sklMana = sklM;
+        if(sklM>12) {sklM = 12;} sklMana = sklM;
     }
 
     public void setStage(int x) {curStage = x;}
@@ -167,6 +166,8 @@ public class Player
         for(int i=0;i<sklUn.size();i++) {if(sklUn.get(i).equals(x)) {temp = false;}}
         return temp;
     }
+
+    public void achCheck() {for(int i=0;i<ach.length;i++) {ach[i].getComplete();}}
 
     public void loadSave()
     {
@@ -227,6 +228,7 @@ public class Player
                     case "UNATK" -> {while(!(temp.equals("END"))){temp = sc.next();for(int j=0; j<atkId.length; j++) {if(temp.equals(atkId[j])) {atkUn.add(atkIdS[j]);}}}}
                     case "UNSKL" -> {while(!(temp.equals("END"))) {temp = sc.next();for(int j=0; j<sklId.length; j++) {if(temp.equals(sklId[j])) {sklUn.add(sklIdS[j]);}}}}
                     case "DIED" -> died = Integer.parseInt(sc.next());
+                    case "ACH" -> {temp = sc.next();for(int i=0; i<ach.length;i++) {if(temp.equals("TRUE")) {ach[i].setComp();}}}
                 }
             }
 
@@ -262,9 +264,30 @@ public class Player
                 "UNSKL ";
                 for(int i=0;i<sklUn.size();i++) {load += (sklUn.get(i).getId() + " ");}load += "END\n" +
                 
-                "DIED " + died;
+                "DIED " + died + "\n" +
+                "ACH "; for(int i=0;i<ach.length;i++) {if(ach[i].getComplete()) {load += "TRUE ";}else {load += "X ";}}
 
         try {FileWriter w = new FileWriter("APCS/Save.txt");w.write(load);w.close();} catch (IOException e) {}
+    }
+
+    public String getAch()
+    {
+        String ret = "ACH ";
+
+        for(int i=0; i<ach.length; i++)
+        {
+            if(ach[i].getComplete()) {ret += "TRUE ";}
+            else {ret += "X ";}
+        }
+
+        return ret;
+    }
+
+    public void loadAch(String achs)
+    {
+        String [] temp = achs.split(" ");
+
+        for(int i=1;i<temp.length;i++) {if(temp[i].equals("TRUE")) {ach[i-1].setComp();}}
     }
 
     //Check if the Atk/Skl/Itms are full

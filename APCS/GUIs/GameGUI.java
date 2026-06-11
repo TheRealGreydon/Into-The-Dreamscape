@@ -68,7 +68,8 @@ public class GameGUI extends JFrame implements ActionListener
         hp.setText(String.valueOf("HP: " + character.getHealth()));
         hp.setSize(hp.getPreferredSize());
         hp.setSize((hp.getWidth()+10),(hp.getHeight()+10));
-        hp.setLocation(175,100);
+        if(hp.getWidth()<150) {hp.setSize(150, hp.getHeight());}
+        hp.setLocation(175,80);
         hp.setOpaque(true);
         tText.setBorder(BorderFactory.createLineBorder(Color.blue, 5));
         manaReset();
@@ -98,7 +99,8 @@ public class GameGUI extends JFrame implements ActionListener
         hp.setText(String.valueOf("HP: " + character.getHealth()));
         hp.setSize(hp.getPreferredSize());
         hp.setSize((hp.getWidth()+10),(hp.getHeight()+10));
-        hp.setLocation(175,100);
+        if(hp.getWidth()<150) {hp.setSize(150, hp.getHeight());}
+        hp.setLocation(175,80);
         gPanel.revalidate();
         gPanel.repaint();
     }
@@ -113,13 +115,20 @@ public class GameGUI extends JFrame implements ActionListener
             mana[i] = new JLabel();
             mana[i].setBackground(Color.blue);
             mana[i].setSize(25,25);
-            mana[i].setLocation(175 + (25*i),75);
             mana[i].setBorder(BorderFactory.createLineBorder(Color.black,5));
             mana[i].setOpaque(true);
             mana[i].setVisible(true);
             gPanel.add(mana[i]);
             gPanel.revalidate();
             gPanel.repaint();
+        }
+
+        int j = 0;
+        for(int i=0; i<mana.length; i++)
+        {
+            if(i<6) {mana[i].setLocation(175 + (25*i),55);}
+
+            else {mana[i].setLocation(175 + (25*j), hp.getY() + hp.getHeight());j++;}
         }
     }
 

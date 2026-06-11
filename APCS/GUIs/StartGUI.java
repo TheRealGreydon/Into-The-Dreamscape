@@ -4,6 +4,10 @@ import APCS.Player;
 import APCS.Assets.AssetClasses.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 import javax.swing.*;
 
 //Character creation screen and starts the game
@@ -12,6 +16,7 @@ public class StartGUI extends JFrame implements ActionListener
     private JTextField nameBox;
     private String name = "";
     private int out = -1, fav = -1, page = 0;
+    private File save = new File("APCS/Save.txt");
 
     private JPanel sPanel = new JPanel();
     //KRONK IS IMPORTANT DONT MESS WITH KRONK
@@ -192,7 +197,12 @@ public class StartGUI extends JFrame implements ActionListener
 
             case 3 -> 
             {
+                String temp = "";
+                try (Scanner sc = new Scanner(save)) {sc.nextLine();temp = sc.nextLine();}
+                catch (FileNotFoundException e){}
+
                 character = new Player(name, out, fav);
+                character.loadAch(temp);
                 character.saveGame();
                 kronk.remove(sPanel);
                 new IntroGUI(character,kronk);

@@ -425,3 +425,6 @@ Change Log
 -Minor fixes
 -Started advacnecment system
 -Rebalencing
+
+-V.18.6-
+-Advancements stay between saves

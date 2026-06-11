@@ -9,4 +9,6 @@ public interface achievement
     public String getId();
 
     public boolean getComplete();
+
+    public void setComp();
 }

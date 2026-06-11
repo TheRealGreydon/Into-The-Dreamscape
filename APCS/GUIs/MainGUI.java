@@ -235,7 +235,8 @@ public class MainGUI extends JFrame implements ActionListener
 
         else if(j.equals(buttons[5])) 
         {
-            try {FileWriter w = new FileWriter("APCS/Save.txt");w.write("NEW SAVE");w.close();} catch (IOException e1) {} 
+            String achs = character.getAch();
+            try {FileWriter w = new FileWriter("APCS/Save.txt");w.write("NEW SAVE\n" + achs);w.close();} catch (IOException e1) {} 
             newSave = true;menu();panSet(dPanel, mPanel);
         }
         
