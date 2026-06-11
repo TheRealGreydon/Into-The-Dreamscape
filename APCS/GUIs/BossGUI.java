@@ -884,9 +884,9 @@ public class BossGUI extends JFrame implements ActionListener
     }
     private void gEnd(boolean x)
     {
-        if(((int)(Math.random())*20) == 19 && !x) {SQUONKINIT();}
+        //if(((int)(Math.random())*20) == 19 && !x) {SQUONKINIT();}
 
-        else
+        //else
         {
             bPanel.remove(tText);bPanel.repaint();
             bPanel.getActionMap().clear();highlight(-2);

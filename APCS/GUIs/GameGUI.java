@@ -1018,9 +1018,9 @@ public class GameGUI extends JFrame implements ActionListener
     }
     private void gEnd(boolean x)
     {
-        if(((int)(Math.random())*20) == 19 && !x) {SQUONKINIT();}
+        //if(((int)(Math.random())*20) == 19 && !x) {SQUONKINIT();}
 
-        else
+        //else
         {
             gPanel.remove(tText);gPanel.repaint();
             gPanel.getActionMap().clear();highlight(-2);
