@@ -37,6 +37,7 @@ public class MainGUI extends JFrame implements ActionListener
         this.add(mPanel);
         this.setSize(1500, 800);
         this.setVisible(true);
+        this.setResizable(false);
         mPanel.revalidate();
         mPanel.repaint();
         java.awt.EventQueue.invokeLater(() -> {setVisible(true);});
