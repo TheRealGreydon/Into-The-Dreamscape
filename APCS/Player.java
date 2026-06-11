@@ -23,8 +23,8 @@ public class Player
     public Skl[] skls = {new block(), null, null, null};
     public Itm[] itms = {null, null, null, null};
 
-    private ArrayList <Atk> atkUn;
-    private ArrayList <Skl> sklUn;
+    private ArrayList <Atk> atkUn = new ArrayList<Atk>();
+    private ArrayList <Skl> sklUn = new ArrayList<Skl>();
     
     //To add an atk/skl/itm to the player, add discription in getId, and the matching obj to IDS
     public String [] atkId = {"PUNCH", "WINPUNCH", "BIGHIT", "TWINSTRIKE","WOUNDINGSTRIKE", "GAMBLE", "STUNSTRIKE"};
@@ -33,15 +33,13 @@ public class Player
     public String [] sklId = {"JUICEBOX", "VAMPBLADESKL", "RAGE", "SKIP", "FIREBALLSKL", "BLOCK"};
     private Skl [] sklIdS = {new juiceBox(), new vampSwordSKL(), new rage(), new skip(), new fireballSKL(), new block()};
     
-    private String [] itmId = {"SWORDITM", "MILKITM", "COOKIEITM", "BAGUETTEITM", "IOCPOWDERITM"};
-    private Itm [] itmIdS = {new swordITM(), new milkITM(), new cookieITM(), new baguetteITM(), new iocPowderITM()};
+    private String [] itmId = {"SWORDITM", "MILKITM", "COOKIEITM", "BAGUETTEITM", "IOCPOWDERITM", "HOTCOCOITM"};
+    private Itm [] itmIdS = {new swordITM(), new milkITM(), new cookieITM(), new baguetteITM(), new iocPowderITM(), new hotCocoITM()};
 
     public int chargeT = 0, regenT = 0, atkupT = 0,regenAmt,atkUpAmt, rageT = 0;
 
     public Player(String name, int outfit, int fav) 
     {
-        atkUn = new ArrayList<Atk>();
-        sklUn = new ArrayList<Skl>();
         this.name = name;
         this.outfit = outfit;
         this.fav = fav;
@@ -56,7 +54,7 @@ public class Player
         }
     }
 
-    public Player() {atkUn = new ArrayList<Atk>();sklUn = new ArrayList<Skl>();}
+    public Player() {}
 
     //Skills
     public boolean actRage() 
@@ -84,7 +82,7 @@ public class Player
     
     public boolean incrMana() {if(sklMana+1<=sklM){sklMana++;return true;}return false;}
 
-    public void incrMana(int x) {for(int i=0;i<x;i++){incrMana();}}
+    public int incrMana(int x) {int count = 0;for(int i=0;i<x;i++) {if(incrMana()){count++;}}return count;}
 
     public int getMana() {return sklMana;}
 
@@ -110,7 +108,7 @@ public class Player
 
     public void resetTurn() {curTurn = 0;}
 
-    public void nextLvl() {if(getStage()<2) {setStage(getStage()+1);} else {setStage(0);setLevel(getLevel()+1);}lvl++;hpM = 18 + (lvl*2);}
+    public void nextLvl() {if(getStage()<2) {setStage(getStage()+1);} else {setStage(0);setLevel(getLevel()+1);}lvl++;hpM = 18 + (lvl*2);sklM = 8 + (lvl*2);}
 
     public void setStage(int x) {curStage = x;}
 

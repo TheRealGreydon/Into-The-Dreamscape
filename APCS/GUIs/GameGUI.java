@@ -590,7 +590,7 @@ public class GameGUI extends JFrame implements ActionListener
     }
     private void turnPhaze(Skl y)
     {
-        if(!(y.getId().equals("RAGE")) && !(y.getId().equals("BLOCK")))
+        if(!(y.getId().equals("RAGE")) && !(y.getId().equals("BLOCK")) && !(y.getId().equals("HOTCOCOSKL")))
         {
             if(y instanceof atkSkl skl) 
             {
@@ -634,11 +634,20 @@ public class GameGUI extends JFrame implements ActionListener
                 else {b = "Rageing".split("");}
             }
 
-            else 
+            else if(y.getId().equals("BLOCK"))
             {
                 if(character.block()) {b = "Blocking".split("");}
 
                 else {character.incrMana();b = " Already Blocking".split("");}
+            }
+
+            else
+            {
+                int temp = character.incrMana(4);
+                
+                if(temp!=0) {b = ("Increased mana by " + temp).split("");}
+                
+                else {b = "Mana already full".split("");}
             }
 
             count = 0; looped = 0;

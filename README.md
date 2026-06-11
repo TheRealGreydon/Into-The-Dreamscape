@@ -413,3 +413,10 @@ Change Log
 
 -V.18.3-
 -Enm and player hp based on lvl
+
+6/11/26
+-------
+-V.18.4-
+-Added hot coco itm
+-Enm spc atk chance increased to 1/5 from 1/10
+-Minor fixes

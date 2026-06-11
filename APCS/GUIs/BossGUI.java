@@ -515,7 +515,21 @@ public class BossGUI extends JFrame implements ActionListener
                 else {b = "Rageing".split("");}
             }
 
-            else {character.block();b = "Blocking".split("");}
+            else if(y.getId().equals("BLOCK"))
+            {
+                if(character.block()) {b = "Blocking".split("");}
+
+                else {character.incrMana();b = " Already Blocking".split("");}
+            }
+
+            else
+            {
+                int temp = character.incrMana(4);
+                
+                if(temp!=0) {b = ("Increased mana by " + temp).split("");}
+                
+                else {b = "Mana already full".split("");}
+            }
             
             count = 0; looped = 0;
             Timer timer = new Timer();

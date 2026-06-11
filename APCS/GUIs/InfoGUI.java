@@ -25,7 +25,7 @@ public class InfoGUI extends JFrame
     private Uses [][] uses = 
     {{new smack(), new punch(), new bigHit(), new twinStrike(), new woundingStrike(), new gamble(), new stunStrike()},
     {new juiceBox(), new vampSwordSKL(), new rage(), new fireballSKL(), new block()},
-    {new swordITM(), new milkITM(), new cookieITM(), new baguetteITM(), new iocPowderITM()}};
+    {new swordITM(), new milkITM(), new cookieITM(), new baguetteITM(), new iocPowderITM(), new hotCocoITM()}};
     
     public InfoGUI(Player character, JPanel lPanel, JFrame kronk) 
     {

@@ -33,7 +33,7 @@ public class RewGUI extends JFrame implements ActionListener
 
     private Atk randsA[] = {new smack(), new punch(), new bigHit(), new twinStrike(), new woundingStrike(), new gamble(), new stunStrike()};
     private Skl randsS[] = {new juiceBox(), new vampSwordSKL(), new rage(), new fireballSKL(), new block()};
-    private Itm randsI[] = {new swordITM(), new milkITM(), new cookieITM(), new baguetteITM()};
+    private Itm randsI[] = {new swordITM(), new milkITM(), new cookieITM(), new baguetteITM(), new hotCocoITM()};
     
 
     public RewGUI(Player character, JFrame kronk) 
