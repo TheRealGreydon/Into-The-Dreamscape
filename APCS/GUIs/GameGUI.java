@@ -65,7 +65,7 @@ public class GameGUI extends JFrame implements ActionListener
     private void battleInit()
     {
         bbExit = bGUI.bbEN(false);
-        bbE = bGUI.enmBattleButtons(character.getLvl() + ((int)Math.random()*3));
+        bbE = bGUI.enmBattleButtons(character.getLvl() + ((int)(Math.random()*3)));
         charSprite = bGUI.battleImg(character);
         charSprite.setLocation(0, 125);
 
@@ -117,7 +117,7 @@ public class GameGUI extends JFrame implements ActionListener
     //Repaints the mana icon
     private void manaReset()
     {
-        if(mana!=null) {for(int i=0;i<mana.length;i++) {gPanel.remove(mana[i]);}}
+        if(mana!=null) {for (JLabel mana1 : mana) {gPanel.remove(mana1);}}
         mana = new JLabel[character.getMana()];
         for(int i=0; i<character.getMana(); i++)
         {
@@ -644,28 +644,28 @@ public class GameGUI extends JFrame implements ActionListener
 
         else
         {
-            if(y.getId().equals("RAGE"))
+            switch (y.getId()) 
             {
-                //Checks if player can rage
-                if(!character.actRage()) {b = "Can't Rage".split("");character.incrMana();}
-
-                else {b = "Rageing".split("");}
-            }
-
-            else if(y.getId().equals("BLOCK"))
-            {
-                if(character.block()) {b = "Blocking".split("");}
-
-                else {character.incrMana();b = " Already Blocking".split("");}
-            }
-
-            else
-            {
-                int temp = character.incrMana(4);
-                
-                if(temp!=0) {b = ("Increased mana by " + temp).split("");}
-                
-                else {b = "Mana already full".split("");}
+                case "RAGE" -> 
+                {
+                    //Checks if player can rage
+                    if(!character.actRage()) {b = "Can't Rage".split("");character.incrMana();}
+                    
+                    else {b = "Rageing".split("");}
+                }
+                case "BLOCK" -> 
+                {
+                    if(character.block()) {b = "Blocking".split("");}
+                    
+                    else {character.incrMana();b = " Already Blocking".split("");}
+                }
+                default -> 
+                {
+                    int temp = character.incrMana(4);
+                    if(temp!=0) {b = ("Increased mana by " + temp).split("");}
+                    
+                    else {b = "Mana already full".split("");}
+                }
             }
 
             count = 0; looped = 0;
@@ -1027,7 +1027,7 @@ public class GameGUI extends JFrame implements ActionListener
         }
         
         gPanel.add(charSprite);gPanel.add(hp);
-        for(int i=0;i<mana.length;i++) {gPanel.add(mana[i]);}
+        for (JLabel mana1 : mana) {gPanel.add(mana1);}
         for(int i=0;i<3;i++) {if(has(bbE[i].enmImg)) {gPanel.add(bbE[i].enmImg);bbE[i].enmImg.setVisible(true);}}
         if(has(bbExit)) {gPanel.add(bbExit);bbExit.setVisible(true);}
         if(has(tText)) {tText.setVisible(true);gPanel.add(tText);tText.setVisible(true);}
@@ -1041,7 +1041,7 @@ public class GameGUI extends JFrame implements ActionListener
         for(int i=0;i<3;i++) {if(has(bbE[i].enmImg)) {bbE[i].enmImg.setVisible(false);}}
         if(has(bbExit)) {bbExit.setVisible(false);}if(has(tText)) {tText.setVisible(false);}gPanel.remove(hp);
         for(int i = 0; i<21; i++) {if(has(bb[i])) {bb[i].setVisible(false);}}
-        for(int i=0;i<mana.length;i++) {gPanel.remove(mana[i]);}
+        for (JLabel mana1 : mana) {gPanel.remove(mana1);}
 
         pau.setVisible(false);set.setEnabled(false);set.setForeground(Color.white);set.setVisible(true);set.setBackground(Color.BLACK);
         set.setFont(new Font(set.getFont().getName(), Font.BOLD, 40));set.setText("Settings"); 
@@ -1068,7 +1068,7 @@ public class GameGUI extends JFrame implements ActionListener
             pau.setLocation(gPanel.getWidth()/2-2500, gPanel.getHeight()/2-2650);
             gPanel.add(pau);
             gPanel.add(charSprite);
-            for(int i=0;i<mana.length;i++) {gPanel.add(mana[i]);}
+            for (JLabel mana1 : mana) {gPanel.add(mana1);}
             for(int i=0;i<3;i++) {if(has(bbE[i].enmImg)) {gPanel.add(bbE[i].enmImg);}}
             if(has(bbExit)) {gPanel.add(bbExit);}
             if(has(tText)) {tText.setVisible(true);gPanel.add(tText);}

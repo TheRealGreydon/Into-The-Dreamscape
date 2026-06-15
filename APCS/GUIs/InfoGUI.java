@@ -300,11 +300,10 @@ public class InfoGUI extends JFrame
     //Makes the arrow backs/titles/discs for the individual panels
     private void arrbacks(JPanel[] x)
     {
-        for(int i=0; i<x.length; i++)
+        for (JPanel x1 : x) 
         {
-            JLabel arrowbacks [] = new JLabel[3];            
-
-            for(int j=0;j<3;j++)
+            JLabel arrowbacks [] = new JLabel[3];
+            for (int j = 0; j<3; j++) 
             {
                 arrowbacks[j] = new JLabel();
                 arrowbacks[j].setOpaque(true);
@@ -314,10 +313,8 @@ public class InfoGUI extends JFrame
                 arrowbacks[j].setVerticalAlignment(SwingConstants.CENTER);
                 arrowbacks[j].setFont(new Font(arrowbacks[j].getFont().getName(), Font.BOLD, 45));
                 arrowbacks[j].setBorder(BorderFactory.createLineBorder(Color.black, 5));
-
-                x[i].add(arrowbacks[j]);
+                x1.add(arrowbacks[j]);
             }
-
             arrowbacks[0].setText("Back");
             arrowbacks[0].setBounds(650,650,200,100);
             arrowbacks[0].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 5));
@@ -375,11 +372,16 @@ public class InfoGUI extends JFrame
     {
         if(hasPanel(iPanel)) 
         {
-            if(level==1) {panSet(iPanel, actPanels[KBH][0]);mode = KBH;} 
-            
-            else if(level==0) {panSet(iPanel,lPanel);} 
-
-            else {if(KBV==0) {panSet(iPanel, cPanel);}else {panSet(iPanel, aPanel);}}
+            switch (level) {
+                case 1 -> {
+                    panSet(iPanel, actPanels[KBH][0]);
+                    mode = KBH;
+                }
+                case 0 -> panSet(iPanel,lPanel);
+                default -> {
+                    if(KBV==0) {panSet(iPanel, cPanel);}else {panSet(iPanel, aPanel);}
+                }
+            }
         }
 
         else if(hasPanel(aPanel)) 
@@ -485,9 +487,12 @@ public class InfoGUI extends JFrame
 
         if(hasPanel(iPanel))
         {
-            if(level==1) {highlight(KBH);}
-            else if(level==0) {highlight(3);}
-            else {if(KBV==0) {highlight(4);}else {highlight(5);}}
+            switch (level) 
+            {
+                case 1 -> highlight(KBH);
+                case 0 -> highlight(3);
+                default -> {if(KBV==0) {highlight(4);}else {highlight(5);}}
+            }
         }
         else if(hasPanel(aPanel)) 
         {   
@@ -498,14 +503,13 @@ public class InfoGUI extends JFrame
         
     }
     
-    private boolean isAchPan(JPanel x) {for(int i=0;i<aPanels.length;i++) {if(x.equals(aPanels[i])) {return true;}}return false;}
-    private boolean pan(JPanel x) {for(int i=0; i<aPanels.length; i++) {if(x.equals(aPanels[i])){return true;}}return false;}
+    private boolean isAchPan(JPanel x) {for (JPanel aPanel1 : aPanels) {if (x.equals(aPanel1)) {return true;}}return false;}
+    private boolean pan(JPanel x) {for (JPanel aPanel1 : aPanels) {if (x.equals(aPanel1)) {return true;}}return false;}
     private void highlight(int x)
     {
         for (Component c : iPanel.getComponents()) 
         {
-            if (c instanceof JLabel)
-            {((JLabel)c).setBorder(BorderFactory.createLineBorder(Color.black, 5));}}   
+            if (c instanceof JLabel jLabel){jLabel.setBorder(BorderFactory.createLineBorder(Color.black, 5));}}   
 
         if(x>=0) {backs[x].setBorder(BorderFactory.createLineBorder(new Color(43,18,204), 10));}
     }
@@ -562,7 +566,7 @@ public class InfoGUI extends JFrame
     {
         Component[] components = kronk.getContentPane().getComponents();
         
-        for (Component comp : components) {if (comp instanceof JPanel) {return (JPanel)comp;}}
+        for (Component comp : components) {if (comp instanceof JPanel jPanel) {return jPanel;}}
         return null;
     }
     private boolean hasA(Component x) {for (Component c : aPanel.getComponents()) {if (c == x) {return true;}} return false;}

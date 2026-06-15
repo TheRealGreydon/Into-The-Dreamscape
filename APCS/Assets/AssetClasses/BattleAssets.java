@@ -3,7 +3,6 @@ package APCS.Assets.AssetClasses;
 import APCS.*;
 import APCS.Enms.*;
 import APCS.Uses.Actions.Attacks.Atk;
-
 import java.awt.*;
 import javax.swing.*;
 
@@ -139,14 +138,12 @@ public class BattleAssets
         
         if(a<=y.acur()) 
         {
-            if(y.getId().equals("VAMPBLADEATK")) {z.doHp(5);}
-            else if(y.getId().equals("FIREBALLATK")) {if((int)(Math.random()*2)==0) {x.burn();}}
-            else if(y.getId().equals("WOUNDINGSTRIKE")) {if((int)(Math.random()*2)==0) {x.blood();}}
-            else if(y.getId().equals("STUNSTRIKE")) 
+            switch (y.getId()) 
             {
-                x.stun();
-                x.doHp(w);
-                return " " + x.getName() + " took " + w + " and was stunned";
+                case "VAMPBLADEATK" -> z.doHp(5);
+                case "FIREBALLATK" -> {if((int)(Math.random()*2)==0) {x.burn();}}
+                case "WOUNDINGSTRIKE" -> {if((int)(Math.random()*2)==0) {x.blood();}}
+                case "STUNSTRIKE" -> {x.stun();x.doHp(w);return " " + x.getName() + " took " + w + " and was stunned";}
             }
             x.doHp(w);
             if(w<=0) {return " " + x.getName() + " took " + w;}
@@ -164,14 +161,14 @@ public class BattleAssets
 
         if(a<=z.acur() && w!=0) 
         {
-            if(y.isStunned() && ((int)Math.random()*2)==0) {return " Miss";}
+            if(y.isStunned() && ((int)(Math.random()*2))==0) {return " Miss";}
             if(z.getId().equals("JETATTACK"))
             {
                 x.doHp(w + (-1*(y.getLvl()-1)));
                 a = (int)(Math.random()*100+1);
                 if(a<=z.acur())
                 {
-                    if(y.isStunned() && ((int)Math.random()*2)==0) {return " " + x.getName() + " took " + (w + (-1*(y.getLvl()-1)));}
+                    if(y.isStunned() && ((int)(Math.random()*2))==0) {return " " + x.getName() + " took " + (w + (-1*(y.getLvl()-1)));}
                     x.doHp(w + (-1*(y.getLvl()-1)));
                     return " " + x.getName() + " was hit twice for " + (2*(w + (-1*(y.getLvl()-1))));
                 }
@@ -188,7 +185,7 @@ public class BattleAssets
         if(x.rageing()) {w = (w*4)/5;}
         if(x.blocking()) {w = w/2;}
         
-        if(y.isStunned() && ((int)Math.random()*2)==0) {return " Miss";}
+        if(y.isStunned() && ((int)(Math.random()*2))==0) {return " Miss";}
         x.doHp(w);return " " + x.getName() + " took " + w;
     }
 }

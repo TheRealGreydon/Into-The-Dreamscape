@@ -147,7 +147,7 @@ public class BossGUI extends JFrame implements ActionListener
     //Repaints the mana icon
     private void manaReset()
     {
-        if(mana!=null) {for(int i=0;i<mana.length;i++) {bPanel.remove(mana[i]);}}
+        if(mana!=null) {for (JLabel mana1 : mana) {bPanel.remove(mana1);}}
         mana = new JLabel[character.getMana()];
         for(int i=0; i<character.getMana(); i++)
         {
@@ -513,28 +513,28 @@ public class BossGUI extends JFrame implements ActionListener
 
         else
         {
-            if(y.getId().equals("RAGE"))
+            switch (y.getId()) 
             {
-                //Checks if player can rage
-                if(!character.actRage()) {b = "Can't Rage".split("");}
-
-                else {b = "Rageing".split("");}
-            }
-
-            else if(y.getId().equals("BLOCK"))
-            {
-                if(character.block()) {b = "Blocking".split("");}
-
-                else {character.incrMana();b = " Already Blocking".split("");}
-            }
-
-            else
-            {
-                int temp = character.incrMana(4);
-                
-                if(temp!=0) {b = ("Increased mana by " + temp).split("");}
-                
-                else {b = "Mana already full".split("");}
+                case "RAGE" -> 
+                {
+                    //Checks if player can rage
+                    if(!character.actRage()) {b = "Can't Rage".split("");}
+                    
+                    else {b = "Rageing".split("");}
+                }
+                case "BLOCK" -> 
+                {
+                    if(character.block()) {b = "Blocking".split("");}
+                    
+                    else {character.incrMana();b = " Already Blocking".split("");}
+                }
+                default -> 
+                {
+                    int temp = character.incrMana(4);
+                    if(temp!=0) {b = ("Increased mana by " + temp).split("");}
+                    
+                    else {b = "Mana already full".split("");}
+                }
             }
             
             count = 0; looped = 0;
@@ -886,7 +886,7 @@ public class BossGUI extends JFrame implements ActionListener
         }
         
         bPanel.add(charSprite);bPanel.add(hp);
-        for(int i=0;i<mana.length;i++) {bPanel.add(mana[i]);}
+        for (JLabel mana1 : mana) {bPanel.add(mana1);}
         if(has(bossMan.enmImg)) {bPanel.add(bossMan.enmImg);bossMan.enmImg.setVisible(true);}
         if(has(bbExit)) {bPanel.add(bbExit);bbExit.setVisible(true);}
         if(has(tText)) {tText.setVisible(true);bPanel.add(tText);tText.setVisible(true);}
@@ -900,7 +900,7 @@ public class BossGUI extends JFrame implements ActionListener
         for(int i=0;i<3;i++) {if(has(bossMan.enmImg)) {bossMan.enmImg.setVisible(false);}}
         if(has(bbExit)) {bbExit.setVisible(false);}if(has(tText)) {tText.setVisible(false);}bPanel.remove(hp);
         for(int i = 0; i<21; i++) {if(has(bb[i])) {bb[i].setVisible(false);}}
-        for(int i=0;i<mana.length;i++) {bPanel.add(mana[i]);}
+        for (JLabel mana1 : mana) {bPanel.add(mana1);}
 
         pau.setVisible(false);set.setEnabled(false);set.setForeground(Color.white);set.setVisible(true);set.setBackground(Color.BLACK);
         set.setFont(new Font(set.getFont().getName(), Font.BOLD, 40));set.setText("Settings"); 
@@ -927,7 +927,7 @@ public class BossGUI extends JFrame implements ActionListener
             pau.setLocation(bPanel.getWidth()/2-2500, bPanel.getHeight()/2-2650);
             bPanel.add(pau);
             bPanel.add(charSprite);
-            for(int i=0;i<mana.length;i++) {bPanel.add(mana[i]);}
+            for (JLabel mana1 : mana) {bPanel.add(mana1);}
             if(has(bossMan.enmImg)) {bPanel.add(bossMan.enmImg);}
             if(has(bbExit)) {bPanel.add(bbExit);}
             if(has(tText)) {tText.setVisible(true);bPanel.add(tText);}
