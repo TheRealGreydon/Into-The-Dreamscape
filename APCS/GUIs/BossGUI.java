@@ -25,7 +25,7 @@ public class BossGUI extends JFrame implements ActionListener
     private JLabel charSprite, hp = new JLabel();
 
     //bb 0-2 (Atk, Skl, Itm), bb 3-8 (Atk 1-4), bb 9-14 (Skl 1-4), bb 15-20 (Itm 1-4)
-    private JLabel [] bb;
+    private JLabel [] bb, beeper;
     private JLabel bbExit;
     private disEnm bossMan;
     private JLabel [] mana;
@@ -39,7 +39,7 @@ public class BossGUI extends JFrame implements ActionListener
 
     //Control the scrolling text
     private JLabel tText = new JLabel();
-    private int f,count = 0,looped = 0;
+    private int f,count = 0,looped = 0, karel;
     private String [] b,y,z;
     private MusicPlayer musicPlayer;
 
@@ -643,6 +643,7 @@ public class BossGUI extends JFrame implements ActionListener
     //Enm turn, also handles winning/losing
     private void enmBattlePhaze()
     {        
+        karel = 0;
         count = 0;
         tText.setBorder(BorderFactory.createLineBorder(Color.red, 5));
         tText.setText("");
@@ -654,31 +655,40 @@ public class BossGUI extends JFrame implements ActionListener
         if(bossMan.Enm.isAlive()) 
         {
             //Special atk
-            if((int)(Math.random()*5)==0) {b = new BattleAssets().attack(character, bossMan.Enm, bossMan.Enm.getAtk(1)).split("");}
+            //if((int)(Math.random()*5)==0) 
+            if(true) 
+            {
+                if(bossMan.Enm.getName().equals("Karel")) {karel = ((int)(Math.random()*5));}
+                else {b = new BattleAssets().attack(character, bossMan.Enm, bossMan.Enm.getAtk(1)).split("");}
+            }
             
             else {b = new BattleAssets().attack(character, bossMan.Enm, bossMan.Enm.getAtk(0)).split("");}
 
-            taskN = new TimerTask()
+            if(karel==0)
             {
-                public void run() 
+                taskN = new TimerTask()
                 {
-                    if(!paused)
+                    public void run() 
                     {
-                        if(count<b.length) {bPanel.remove(tText);tText.setText(tText.getText() + b[count]);
-                        tText.setSize(tText.getPreferredSize());tText.setSize(tText.getWidth()+10, tText.getHeight());
-                        bPanel.add(tText);bPanel.repaint();}
-                        else
+                        if(!paused)
                         {
-                            if(count==b.length+10) 
+                            if(count<b.length) {bPanel.remove(tText);tText.setText(tText.getText() + b[count]);
+                            tText.setSize(tText.getPreferredSize());tText.setSize(tText.getWidth()+10, tText.getHeight());
+                            bPanel.add(tText);bPanel.repaint();}
+                            else
                             {
-                                if(character.isAlive()) {bPanel.remove(tText);bPanel.repaint();timer.cancel();looped++;}
+                                if(count==b.length+10) 
+                                {
+                                    if(character.isAlive()) {bPanel.remove(tText);bPanel.repaint();timer.cancel();looped++;}
 
-                                else {gEnd(false);timer.cancel();}
-                            }
-                        }count++;
+                                    else {gEnd(false);timer.cancel();}
+                                }
+                            }count++;
+                        }
                     }
-                }
-            };
+                };
+            }
+            else {taskN = new TimerTask() {public void run() {beep(karel);bPanel.remove(tText);timer.cancel();}};}
 
             z = (" " + bossMan.Enm.getName() + " is bleeding").split("");
             taskB = new TimerTask()
@@ -757,6 +767,44 @@ public class BossGUI extends JFrame implements ActionListener
         
         else if(!bossMan.Enm.isAlive()) {gEnd(true);}
     }    
+
+    private void beep(int x)
+    {
+        count = 0;
+        int karel = 1;
+
+        beeper = new JLabel[karel];
+        for(int i=0; i<karel;i++)
+        {
+            beeper[i] = new JLabel(new ImageIcon(new ImageIcon(new ImageIcon("APCS/Assets/Img/Character Img/HeroCombat-" + character.getOutfit() +".gif").getImage()).getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT)));
+            beeper[i].setSize(100,100);
+        }
+
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask()
+        {
+            public void run() 
+            {
+                if(!paused)
+                {
+                    if(karel!=0)
+                    {
+                        if(count==0)
+                        {
+                            bPanel.add(beeper[karel-1]);
+                            beeper[karel-1].setLocation(1150, 300);
+                            System.out.println("x");
+                        }
+                        else if(count<=80) {System.out.println("y");beeper[karel-1].setLocation(beeper[karel-1].getX()-10, beeper[karel-1].getY());}
+                        else {bPanel.remove(beeper[karel-1]);}
+                        System.out.println("z");
+                        count++;
+                    }
+                }
+            }
+        };
+        timer.scheduleAtFixedRate(task, 0, 10);
+    }
 
     //Button actions and keybinds
     public void actionPerformed(ActionEvent e)
