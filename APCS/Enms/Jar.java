@@ -47,4 +47,6 @@ public class Jar implements enm
     public boolean isStunned() {if(stunned) {stunned=false;return true;}return stunned;}
 
     public void stun() {stunned = true;}
+
+    public boolean isBoss() {return false;}
 }

@@ -156,6 +156,7 @@ public class BattleAssets
     {
         int a = (int)(Math.random()*100+1);
         int w = z.getDmg();
+        if(y.isBoss()) {w *= 2;}
         if(x.rageing()) {w = (w*4)/5;}
         if(x.blocking()) {w = w/2;}
 

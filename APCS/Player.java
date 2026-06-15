@@ -26,15 +26,15 @@ public class Player
     public Skl[] skls = {new block(), null, null, null};
     public Itm[] itms = {null, null, null, null};
 
-    private ArrayList <Atk> atkUn = new ArrayList<Atk>();
-    private ArrayList <Skl> sklUn = new ArrayList<Skl>();
+    private ArrayList <Atk> atkUn = new ArrayList<>();
+    private ArrayList <Skl> sklUn = new ArrayList<>();
     
     //To add an atk/skl/itm to the player, add discription in getId, and the matching obj to IDS
-    public String [] atkId = {"PUNCH", "WINPUNCH", "BIGHIT", "TWINSTRIKE","WOUNDINGSTRIKE", "GAMBLE", "STUNSTRIKE"};
-    private Atk [] atkIdS = {new punch(), new winPunch(), new bigHit(), new twinStrike(), new woundingStrike(), new gamble(), new stunStrike()};
+    public String [] atkId = {"PUNCH", "BIGHIT", "TWINSTRIKE","WOUNDINGSTRIKE", "GAMBLE", "STUNSTRIKE"};
+    private Atk [] atkIdS = {new punch(), new bigHit(), new twinStrike(), new woundingStrike(), new gamble(), new stunStrike()};
     
-    public String [] sklId = {"JUICEBOX", "VAMPBLADESKL", "RAGE", "SKIP", "FIREBALLSKL", "BLOCK"};
-    private Skl [] sklIdS = {new juiceBox(), new vampSwordSKL(), new rage(), new skip(), new fireballSKL(), new block()};
+    public String [] sklId = {"JUICEBOX", "VAMPBLADESKL", "RAGE", "FIREBALLSKL", "BLOCK"};
+    private Skl [] sklIdS = {new juiceBox(), new vampSwordSKL(), new rage(), new fireballSKL(), new block()};
     
     private String [] itmId = {"SWORDITM", "MILKITM", "COOKIEITM", "BAGUETTEITM", "IOCPOWDERITM", "HOTCOCOITM"};
     private Itm [] itmIdS = {new swordITM(), new milkITM(), new cookieITM(), new baguetteITM(), new iocPowderITM(), new hotCocoITM()};
@@ -167,7 +167,7 @@ public class Player
         return temp;
     }
 
-    public void achCheck() {for(int i=0;i<ach.length;i++) {ach[i].getComplete();}}
+    public void achCheck() {for (achievement ach1 : ach) {ach1.getComplete();}}
 
     public void loadSave()
     {
@@ -231,9 +231,9 @@ public class Player
                     case "ACH" -> 
                     {
                         temp = sc.next();
-                        for(int i=0; i<ach.length;i++) 
+                        for (achievement ach1 : ach) 
                         {
-                            if(temp.equals("TRUE")) {ach[i].setComp();}
+                            if (temp.equals("TRUE")) {ach1.setComp();}
                             if(sc.hasNext()) {temp = sc.next();}
                         }
                     }
@@ -273,7 +273,8 @@ public class Player
                 for(int i=0;i<sklUn.size();i++) {load += (sklUn.get(i).getId() + " ");}load += "END\n" +
                 
                 "DIED " + died + "\n" +
-                "ACH "; for(int i=0;i<ach.length;i++) {if(ach[i].getComplete()) {load += "TRUE ";}else {load += "X ";}}
+                "ACH "; for (achievement ach1 : ach) {if (ach1.getComplete()) {load += "TRUE ";} else {load += "X ";}
+        }
 
         try {FileWriter w = new FileWriter("APCS/Save.txt");w.write(load);w.close();} catch (IOException e) {}
     }
@@ -282,11 +283,7 @@ public class Player
     {
         String ret = "ACH ";
 
-        for(int i=0; i<ach.length; i++)
-        {
-            if(ach[i].getComplete()) {ret += "TRUE ";}
-            else {ret += "X ";}
-        }
+        for (achievement ach1 : ach) {if (ach1.getComplete()){ret += "TRUE ";}else {ret += "X ";}}
 
         return ret;
     }

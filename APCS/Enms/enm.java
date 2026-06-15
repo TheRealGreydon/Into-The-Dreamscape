@@ -37,4 +37,6 @@ public interface enm
     public void bleedTurn();
 
     public int getBleed();
+
+    public boolean isBoss();
 }
