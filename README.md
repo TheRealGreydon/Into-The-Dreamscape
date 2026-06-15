@@ -441,3 +441,4 @@ Change Log
 -------
 -V.19-
 -Added 4 bosses
+-Bosses now do 2x damage
