@@ -1,11 +1,11 @@
 package APCS.GUIs;
 
 import APCS.*;
+import APCS.Assets.AssetClasses.*;
+import APCS.Enms.*;
 import APCS.Uses.Actions.*;
 import APCS.Uses.Actions.Attacks.*;
 import APCS.Uses.Actions.Skills.*;
-import APCS.Assets.AssetClasses.*;
-import APCS.Enms.*;
 import APCS.Uses.Items.*;
 import APCS.Uses.Items.AttackItem.*;
 import APCS.Uses.Items.SkillItem.*;
@@ -41,6 +41,7 @@ public class BossGUI extends JFrame implements ActionListener
     private JLabel tText = new JLabel();
     private int f,count = 0,looped = 0;
     private String [] b,y,z;
+    private MusicPlayer musicPlayer;
 
     //Control the selected button/enm
     private boolean down = true;
@@ -52,6 +53,10 @@ public class BossGUI extends JFrame implements ActionListener
     public BossGUI(Player character, JFrame kronk) 
     {
         this.kronk = kronk;this.character = character;
+        musicPlayer = new MusicPlayer("APCS/Assets/Sounds/bossMusic.wav");
+        musicPlayer.setVolume(character.getVol());
+        musicPlayer.setLooping(true);
+        musicPlayer.start();
         
         //Gets what boss to have
         switch (character.getLevel()) 

@@ -15,7 +15,7 @@ public class Player
     private int lvl = 1, outfit = 1, fav = 1;
     private int hp, hpM = 20, rageHP, sklMana, sklM = 6;
 
-    private int lev = 0,curStage = 0,curTurn = 0,vol = 50, died = 0;
+    private int lev = 0,curStage = 0,curTurn = 0,vol = 100, died = 0;
     private boolean alive = true, rage = false, block = false;
     private File save = new File("APCS/Save.txt");
 

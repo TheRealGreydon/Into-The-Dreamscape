@@ -11,7 +11,7 @@ public class firstSteps implements achievement
 
     public String getName() {return "First Steps";}
 
-    public String getDis() {return "Beat the first level";}
+    public String getDis() {return "Beat the first level\nand take your first steps.";}
 
     public String getId() {return "FS";}
 

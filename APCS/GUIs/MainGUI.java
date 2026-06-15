@@ -124,7 +124,6 @@ public class MainGUI extends JFrame implements ActionListener
                                   Into the Dreamscape
                         ------------------------------------------------
                         Main Story: Kai
-                        Main Code: Nicholas
                         Literaly all the Code: Nicholas
                         4 all nighters: Nicholas
                         Art: Kai
@@ -219,10 +218,10 @@ public class MainGUI extends JFrame implements ActionListener
             this.remove(mPanel);musicPlayer.stopPlayback();
             //new IntroGUI(character, kronk);
             //new ExitGUI(character, kronk).initialize();
-            new InfoGUI(character,mPanel,kronk);
-            //if(newSave) {new StartGUI(kronk).start();}
-            //
-            //else {new LevelGUI(character, kronk).initialize();}
+            //new InfoGUI(character,mPanel,kronk);
+            if(newSave) {new StartGUI(kronk).start();}
+            
+            else {new LevelGUI(character, kronk).initialize();}
         }
 
         else if(j.equals(buttons[1])) {panSet(mPanel, cPanel);}

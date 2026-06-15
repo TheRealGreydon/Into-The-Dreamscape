@@ -1,11 +1,11 @@
 package APCS.GUIs;
 
 import APCS.*;
+import APCS.Assets.AssetClasses.*;
+import APCS.Enms.*;
 import APCS.Uses.Actions.*;
 import APCS.Uses.Actions.Attacks.*;
 import APCS.Uses.Actions.Skills.*;
-import APCS.Assets.AssetClasses.*;
-import APCS.Enms.*;
 import APCS.Uses.Items.*;
 import APCS.Uses.Items.AttackItem.*;
 import APCS.Uses.Items.SkillItem.*;
@@ -30,6 +30,7 @@ public class GameGUI extends JFrame implements ActionListener
     private JLabel bbExit;
     private disEnm [] bbE;
     private Atk selAtk;
+    private MusicPlayer musicPlayer;
 
     //Pause items
     private JButton pau = new JButton(), set = new JButton(), exit = new JButton(), settings = new JButton(), vole = new JButton();
@@ -50,7 +51,14 @@ public class GameGUI extends JFrame implements ActionListener
     //Timertasks for enm atk
     private TimerTask taskN, taskB, taskF;
 
-    public GameGUI(Player character, JFrame kronk) {this.kronk = kronk;this.character = character;start();}
+    public GameGUI(Player character, JFrame kronk) 
+    {
+        this.kronk = kronk;this.character = character;start();
+        musicPlayer = new MusicPlayer("APCS/Assets/Sounds/battleMusic.wav");
+        musicPlayer.setVolume(character.getVol());
+        musicPlayer.setLooping(true);
+        musicPlayer.start();
+    }
 
     //Initilizes the battle items
     private void battleInit()

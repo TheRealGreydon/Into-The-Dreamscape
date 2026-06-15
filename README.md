@@ -428,3 +428,11 @@ Change Log
 
 -V.18.6-
 -Advancements stay between saves
+
+6/14/26
+-------
+-V.18.7-
+-Advancement fixes
+
+-V.18.8-
+-Someone, cough cough KAI cough cough, finaly sent me the music so thats in now

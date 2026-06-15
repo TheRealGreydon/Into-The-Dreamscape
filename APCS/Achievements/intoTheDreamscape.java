@@ -6,7 +6,7 @@ public class intoTheDreamscape implements achievement
     
     public String getName() {return "Into the Dreamscape";}
 
-    public String getDis() {return "Venture into the Dreamscape for the first time";}
+    public String getDis() {return "Venture into the \nDreamscape for the\nfirst time";}
 
     public String getId() {return "ITD";}
 

@@ -1,7 +1,7 @@
 package APCS.Assets.AssetClasses;
 
-import APCS.Player;
 import APCS.GUIs.*;
+import APCS.Player;
 import java.awt.*;
 import java.util.*;
 import java.util.Timer;
@@ -12,7 +12,7 @@ public class AniGUI extends JFrame
     private Player character;
     private BattleAssets bGUI = new BattleAssets();
     private JPanel aPanel;
-    private JLabel tText = new JLabel(), charImg, chestImg;
+    private JLabel tText = new JLabel(), charImg, portImg;
     //KRONK IS IMPORTANT DONT MESS WITH KRONK
     private JFrame kronk;
     private int count = 0, loop = 0;
@@ -30,57 +30,11 @@ public class AniGUI extends JFrame
         charImg = bGUI.walkingImg(character);
         charImg.setLocation(210,150);
         aPanel.add(charImg);
-        chestImg = new JLabel(new ImageIcon(new ImageIcon(new ImageIcon("APCS/Assets/Img/Sprites/chest.png").getImage()).getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT)));
-        chestImg.setSize(300,300);
-        chestImg.setLocation(600,300);
-        aPanel.add(chestImg);
-        aPanel.setComponentZOrder(chestImg,0);
-        count = 0;
-        Timer timer = new Timer();
-        TimerTask task = new TimerTask()
-        {
-            public void run() 
-            {
-                if(count >2 && count<18)
-                {
-                        charImg.setLocation(charImg.getX()+10, charImg.getY());
-                }
-
-                else if(count==18)
-                {
-                    Point x = new Point(charImg.getLocation());
-                    aPanel.remove(charImg);
-                    charImg = bGUI.battleImg(character);
-                    charImg.setLocation(x);
-                    aPanel.add(charImg);
-
-                    aPanel.remove(chestImg);
-                    chestImg = new JLabel(new ImageIcon(new ImageIcon(new ImageIcon("APCS/Assets/Img/Sprites/chest.gif").getImage()).getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT)));
-                    chestImg.setSize(300,300);
-                    chestImg.setLocation(600,300);
-                    aPanel.add(chestImg);
-                    aPanel.setComponentZOrder(chestImg,0);
-                    aPanel.repaint();
-                }
-                
-                else if(count==39) {timer.cancel();loadScreen(1);}
-
-                count++;  
-            }
-        };
-        timer.scheduleAtFixedRate(task, 0, 75);
-    }
-
-    public void introAnimation()
-    {
-        charImg = bGUI.walkingImg(character);
-        charImg.setLocation(210,150);
-        aPanel.add(charImg);
-        chestImg = new JLabel(new ImageIcon(new ImageIcon(new ImageIcon("APCS/Assets/Img/Sprites/chest.png").getImage()).getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT)));
-        chestImg.setSize(300,300);
-        chestImg.setLocation(600,300);
-        aPanel.add(chestImg);
-        aPanel.setComponentZOrder(chestImg,0);
+        portImg = new JLabel(new ImageIcon(new ImageIcon(new ImageIcon("APCS/Assets/Img/Sprites/chest.png").getImage()).getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT)));
+        portImg.setSize(300,300);
+        portImg.setLocation(600,300);
+        aPanel.add(portImg);
+        aPanel.setComponentZOrder(portImg,0);
         count = 0;
         Timer timer = new Timer();
         TimerTask task = new TimerTask()
@@ -97,15 +51,52 @@ public class AniGUI extends JFrame
                     charImg.setLocation(x);
                     aPanel.add(charImg);
 
-                    aPanel.remove(chestImg);
-                    chestImg = new JLabel(new ImageIcon(new ImageIcon(new ImageIcon("APCS/Assets/Img/Sprites/chest.gif").getImage()).getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT)));
-                    chestImg.setSize(300,300);
-                    chestImg.setLocation(600,300);
-                    aPanel.add(chestImg);
-                    aPanel.setComponentZOrder(chestImg,0);
+                    aPanel.remove(portImg);
+                    portImg = new JLabel(new ImageIcon(new ImageIcon(new ImageIcon("APCS/Assets/Img/Sprites/chest.gif").getImage()).getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT)));
+                    portImg.setSize(300,300);
+                    portImg.setLocation(600,300);
+                    aPanel.add(portImg);
+                    aPanel.setComponentZOrder(portImg,0);
                     aPanel.repaint();
                 }
                 
+                else if(count==39) {timer.cancel();loadScreen(1);}
+
+                count++;  
+            }
+        };
+        timer.scheduleAtFixedRate(task, 0, 75);
+    }
+
+    public void introAnimation()
+    {
+        charImg = bGUI.walkingImg(character);
+        charImg.setLocation(210,150);
+        aPanel.add(charImg);
+        portImg = new JLabel(new ImageIcon(new ImageIcon(new ImageIcon("APCS/Assets/Img/Sprites/portal.png").getImage()).getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT)));
+        portImg.setSize(300,300);
+        portImg.setLocation(600,300);
+        aPanel.add(portImg);
+        aPanel.setComponentZOrder(portImg,0);
+        count = 0;
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask()
+        {
+            public void run() 
+            {
+                if(count >2 && count<25) {charImg.setLocation(charImg.getX()+10, charImg.getY());}
+
+                else if(count==25)
+                {
+                    Point x = new Point(charImg.getLocation());
+                    aPanel.remove(charImg);
+                    charImg = bGUI.battleImg(character);
+                    charImg.setLocation(x);
+                    aPanel.add(charImg);
+                    aPanel.setComponentZOrder(portImg,0);
+                    aPanel.repaint();
+                }
+                    
                 else if(count==39) {timer.cancel();loadScreen(0);}
 
                 count++;  
