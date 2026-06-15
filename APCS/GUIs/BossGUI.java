@@ -57,6 +57,7 @@ public class BossGUI extends JFrame implements ActionListener
         musicPlayer.setVolume(character.getVol());
         musicPlayer.setLooping(true);
         musicPlayer.start();
+        vole.addActionListener(this);
         
         //Gets what boss to have
         switch (character.getLevel()) 
@@ -766,7 +767,15 @@ public class BossGUI extends JFrame implements ActionListener
 
         else if(j.equals(settings)) {settings();}
         
-        else if(j.equals(vole)) {if(character.getVol()+25>100) {character.setVol(0);}else{character.setVol(character.getVol()+25);}vole.setText(String.valueOf(character.getVol()));}
+        else if(j.equals(vole)) 
+        {
+            if(character.getVol()+20>100) {character.setVol(0);}
+
+            else{character.setVol(character.getVol()+20);}
+            
+            vole.setText(String.valueOf(character.getVol()));
+            musicPlayer.setVolume(character.getVol());
+        }
 
         else if(j.equals(bbWL)) 
         {
@@ -853,8 +862,8 @@ public class BossGUI extends JFrame implements ActionListener
             exit.setEnabled(false);
             exit.setVisible(false);
             set.setVisible(false);
-            vole.setVisible(false);
-            vole.setEnabled(false);
+            bPanel.remove(vole);
+            musicPlayer.resumePlayback();
         }
 
         else 
@@ -873,6 +882,7 @@ public class BossGUI extends JFrame implements ActionListener
             exit.setEnabled(true);
             exit.setText("Exit");
             pau.setVisible(true);
+            musicPlayer.pausePlayback();
         }
         
         bPanel.add(charSprite);bPanel.add(hp);
@@ -895,7 +905,7 @@ public class BossGUI extends JFrame implements ActionListener
         pau.setVisible(false);set.setEnabled(false);set.setForeground(Color.white);set.setVisible(true);set.setBackground(Color.BLACK);
         set.setFont(new Font(set.getFont().getName(), Font.BOLD, 40));set.setText("Settings"); 
         exit.setText("Back");settings.setText("Volume");settings.setEnabled(false);
-        vole.setFont(new Font(vole.getFont().getName(), Font.BOLD, 40));vole.addActionListener(this);vole.setSize(new Dimension(125,100));vole.setBackground(Color.black);
+        vole.setFont(new Font(vole.getFont().getName(), Font.BOLD, 40));vole.setSize(new Dimension(125,100));vole.setBackground(Color.black);
         vole.setForeground(Color.white);vole.setLocation((bPanel.getWidth()/2-50)+150, (bPanel.getHeight()/2-100));
         vole.setVisible(true);vole.setEnabled(true);vole.setText(String.valueOf(character.getVol()));
         bPanel.add(vole);set.setLocation(bPanel.getWidth()/2-2500, bPanel.getHeight()/2-2650);bPanel.add(set);

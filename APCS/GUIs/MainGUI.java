@@ -44,7 +44,7 @@ public class MainGUI extends JFrame implements ActionListener
         
         musicPlayer = new MusicPlayer("APCS/Assets/Sounds/IntoTheDreamscapeTitle.wav");
         musicPlayer.setLooping(true);
-        musicPlayer.setVolume(200);
+        musicPlayer.setVolume(80);
         musicPlayer.start();
     }
 
