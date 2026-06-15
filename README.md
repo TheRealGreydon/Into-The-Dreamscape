@@ -436,3 +436,8 @@ Change Log
 
 -V.18.8-
 -Someone, cough cough KAI cough cough, finaly sent me the music so thats in now
+
+6/15/26
+-------
+-V.19-
+-Added 4 bosses
