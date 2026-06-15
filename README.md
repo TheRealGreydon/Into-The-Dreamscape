@@ -442,3 +442,6 @@ Change Log
 -V.19-
 -Added 4 bosses
 -Bosses now do 2x damage
+
+-V.19.1-
+-Dragon/Flame wisp cant be burnt

@@ -141,7 +141,7 @@ public class BattleAssets
             switch (y.getId()) 
             {
                 case "VAMPBLADEATK" -> z.doHp(5);
-                case "FIREBALLATK" -> {if((int)(Math.random()*2)==0) {x.burn();}}
+                case "FIREBALLATK" -> {if(((int)(Math.random()*2)==0) && (!(x.getName().equals("Dragon"))) && (!(x.getName().equals("Flame-Wisp")))) {x.burn();}}
                 case "WOUNDINGSTRIKE" -> {if((int)(Math.random()*2)==0) {x.blood();}}
                 case "STUNSTRIKE" -> {x.stun();x.doHp(w);return " " + x.getName() + " took " + w + " and was stunned";}
             }
