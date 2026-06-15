@@ -64,13 +64,13 @@ public class BossGUI extends JFrame implements ActionListener
         {
             case 0 -> {bossMan = new disEnm(new Karel(1));}
 
-            case 1 -> {bossMan = new disEnm(new Karel(1));}
+            case 1 -> {bossMan = new disEnm(new Mic(1));}
 
-            case 2 -> {bossMan = new disEnm(new Karel(1));}
+            case 2 -> {bossMan = new disEnm(new Dragon(1));}
 
-            case 3 -> {bossMan = new disEnm(new Karel(1));}
+            case 3 -> {bossMan = new disEnm(new FlameWisp(1));}
 
-            case 4 -> {bossMan = new disEnm(new Karel(1));}
+            case 4 -> {bossMan = new disEnm(new Klusinator(1));}
         }
         start();
     }
@@ -952,13 +952,13 @@ public class BossGUI extends JFrame implements ActionListener
                 {
                     case 0 -> {pau.setText("You Beat Karel!");}
 
-                    case 1 -> {pau.setText("You Beat Karel!");}
+                    case 1 -> {pau.setText("You Beat The Mic!");}
 
-                    case 2 -> {pau.setText("You Beat Karel!");}
+                    case 2 -> {pau.setText("You Beat The Dragon!");}
 
-                    case 3 -> {pau.setText("You Beat Karel!");}
+                    case 3 -> {pau.setText("You Beat Flame-Wisp!");}
 
-                    case 4 -> {pau.setText("You Beat Karel!");}
+                    case 4 -> {pau.setText("You Beat The Klusinator!");}
                 }
                 bPanel.setComponentZOrder(pau, 0);
                 bPanel.repaint();

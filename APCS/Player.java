@@ -124,7 +124,7 @@ public class Player
 
     public int getStage() {return curStage;}
 
-    public void reset() {resetHP();resetMANA();lev = 0; curStage = 0;died++;}
+    public void reset() {resetHP();resetMANA();lev = 0; curStage = 0;died++;for(int i=0; i<itms.length; i++) {itms[i] = null;}}
 
     public int getLevel() {return lev;}
 
