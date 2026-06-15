@@ -73,7 +73,7 @@ public class AniGUI extends JFrame
         charImg = bGUI.walkingImg(character);
         charImg.setLocation(210,150);
         aPanel.add(charImg);
-        portImg = new JLabel(new ImageIcon(new ImageIcon(new ImageIcon("APCS/Assets/Img/Sprites/portal.png").getImage()).getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT)));
+        portImg = new JLabel(new ImageIcon(new ImageIcon(new ImageIcon("APCS/Assets/Img/Sprites/Portal.png").getImage()).getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT)));
         portImg.setSize(300,300);
         portImg.setLocation(600,300);
         aPanel.add(portImg);
