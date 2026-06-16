@@ -655,16 +655,11 @@ public class BossGUI extends JFrame implements ActionListener
         if(bossMan.Enm.isAlive()) 
         {
             //Special atk
-            //if((int)(Math.random()*5)==0) 
-            if(true) 
-            {
-                if(bossMan.Enm.getName().equals("Karel")) {karel = ((int)(Math.random()*5));}
-                else {b = new BattleAssets().attack(character, bossMan.Enm, bossMan.Enm.getAtk(1)).split("");}
-            }
+            if((int)(Math.random()*5)==0) {{b = new BattleAssets().attack(character, bossMan.Enm, bossMan.Enm.getAtk(1)).split("");}}
             
             else {b = new BattleAssets().attack(character, bossMan.Enm, bossMan.Enm.getAtk(0)).split("");}
 
-            if(karel==0)
+            //if(karel==0)
             {
                 taskN = new TimerTask()
                 {
@@ -688,7 +683,7 @@ public class BossGUI extends JFrame implements ActionListener
                     }
                 };
             }
-            else {taskN = new TimerTask() {public void run() {beep(karel);bPanel.remove(tText);timer.cancel();}};}
+            //else {taskN = new TimerTask() {public void run() {beep(karel);bPanel.remove(tText);timer.cancel();}};}
 
             z = (" " + bossMan.Enm.getName() + " is bleeding").split("");
             taskB = new TimerTask()
@@ -768,6 +763,7 @@ public class BossGUI extends JFrame implements ActionListener
         else if(!bossMan.Enm.isAlive()) {gEnd(true);}
     }    
 
+    //UnImplemented
     private void beep(int x)
     {
         count = 0;
